@@ -73,6 +73,7 @@ function figureImageLink(block) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    figureImageLink(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

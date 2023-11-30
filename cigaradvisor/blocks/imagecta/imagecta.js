@@ -15,13 +15,10 @@ export default function decorate(block) {
   });
   block.append(anchor);
   const children = block.children;
-
   // Loop through the children and remove those that are not anchor tags
   Array.from(children).forEach((child) => {
     if (child.tagName !== 'A') {
-      console.log(child.tagName);
       block.removeChild(child);
     }
   });
-
 }

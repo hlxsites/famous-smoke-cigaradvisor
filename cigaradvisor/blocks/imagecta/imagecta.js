@@ -1,6 +1,7 @@
 import {
   createOptimizedPicture, readBlockConfig,
 } from '../../scripts/aem.js';
+
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
   block.textContent = '';
@@ -9,4 +10,3 @@ export default async function decorate(block) {
   anchor.setAttribute('href', configs.link);
   block.append(anchor);
 }
-

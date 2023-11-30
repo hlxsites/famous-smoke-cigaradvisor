@@ -14,7 +14,7 @@ export default function decorate(block) {
     anchor.setAttribute('href', link);
   });
   block.append(anchor);
-  const children = block.children;
+  const { children } = block;
   // Loop through the children and remove those that are not anchor tags
   Array.from(children).forEach((child) => {
     if (child.tagName !== 'A') {

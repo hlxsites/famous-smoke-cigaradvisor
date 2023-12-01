@@ -1,9 +1,10 @@
-# Your Project's Title...
-Your project's description...
+# Famous Smoke Cigar Advisor
+
+Edge Delivery Services implementing https://www.famous-smoke.com/cigaradvisor
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/
+- Live: https://main--famous-smoke-cigaradvisor--hlxsites.hlx.live/cigaradvisor/
 
 ## Installation
 

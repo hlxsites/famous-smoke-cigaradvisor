@@ -13,7 +13,9 @@ export default async function decorate(block) {
   <article onclick="" class="article article--thumbnail">
 <a class="article__category tag" href="https://www.famous-smoke.com/cigaradvisor/category/buying-guides" data-category="Cigar Buying Guides" title="Cigar Buying Guides">
 Cigar Buying Guides </a>
+<div class="article__image">
 ${createOptimizedPicture(articleInfo.image).outerHTML}
+</div>
 <div class="article__content">
    <header class="article__header">
       <h2 class="article__title">

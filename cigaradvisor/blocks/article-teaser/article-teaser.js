@@ -10,7 +10,7 @@ export default async function decorate(block) {
   const article = await fetchTeaserContent(filters);
   const articleInfo = article[0];
   block.innerHTML = `
-  <article onclick="" class="article article__thumbnail">
+  <article onclick="" class="article article--thumbnail">
 <a class="article__category tag" href="https://www.famous-smoke.com/cigaradvisor/category/buying-guides" data-category="Cigar Buying Guides" title="Cigar Buying Guides">
 Cigar Buying Guides </a>
 ${createOptimizedPicture(articleInfo.image).outerHTML}

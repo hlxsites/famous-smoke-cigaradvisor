@@ -1,3 +1,62 @@
+body{
+  color: #333;
+}
+
+
+*, ::before, ::after{
+  box-sizing: border-box;
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  border-style: none;
+}
+
+h2 {
+  font-family: montserrat,sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #141414;
+  margin: 0 auto;
+  font-size: 12px;
+}
+
+a{
+  font-family: montserrat,sans-serif;
+  font-weight: 600;
+  color: #141414;
+  font-size: 12px;
+  background-color: transparent;
+}
+
+a:hover {
+  transition: .8s;
+  text-decoration: none;
+  outline-width: 0;
+}
+
+a:active, a:hover {
+  outline-width: 0;
+}
+
+
+.article--thumbnail:hover::before {
+  visibility: hidden;
+}
+
+.article.article--thumbnail::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  transition: visibility .2s linear;
+}
+
 .article{
     position: relative;
     top: 0;
@@ -14,223 +73,199 @@
     min-height: 20rem;
     padding-bottom: 20px;
 }
-.article.article__thumbnail::before {
-  content: '';
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  transition: visibility .2s linear;
-}
 
-.article__thumbnail:hover::before {
-  visibility: hidden;
-}
+
+
 
 @media screen and (min-width: 60em) {
-  .article.article__thumbnail {
+  .article.article--thumbnail {
     min-height: 26.25rem;
   }
 }
 
-.article__thumbnail .tag{
+.article.article--thumbnail .tag {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
   position: absolute;
+  top: 20px;
+  left: 0;
+}
+
+.tag[data-category="Cigar Buying Guides"] {
   background-color: #7e4a3a;
+}
+
+.tag {
+  position: absolute;
   top: 20px;
   left: 0;
   padding: 7px 24px;
   margin: 0 auto;
   text-transform: capitalize;
-  justify-content: center;
+  font-weight: 700;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex: none;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
   align-items: center;
-  z-index: 9999;
   color: #fff;
-  text-decoration: none;
   font-family: montserrat,sans-serif;
   font-weight: 600;
-}
-
-a:hover {
-  transition: .8s;
+  background-color: #3c3a3b;
+  font-size: 12px;
+  z-index: 9999;
   text-decoration: none;
-  outline-width: 0;
 }
 
-*, ::before, ::after{
-  box-sizing: border-box;
-}
-
-@media screen and (min-width: 60em) {
-  .article.article__thumbnail .article__image {
-    -webkit-flex-basis: 19.25rem;
-    -ms-flex-preferred-size: 19.25rem;
-    flex-basis: 19.25rem;
-    max-height: 321px;
-  }
-}
-
-.article__thumbnail picture{
+.article.article--thumbnail .article__image {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
   align-items: flex-start;
+  -webkit-flex: 1 0 13rem;
+  -ms-flex: 1 0 13rem;
   flex: 1 0 13rem;
-  max-height: 321px;
   width: 100%;
+  max-height: 321px;
 }
 
-.article__thumbnail picture>img{
+.article.article--thumbnail:hover .article__content::before {
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+.article.article--thumbnail .article__content::before {
+  content: '';
   display: block;
-  width: 100%;
-  max-height: 321px;
-  height: auto;
-  max-width: 100%;
-  border-style: none;
+  -webkit-flex: 1 0 72px;
+  -ms-flex: 1 0 72px;
+  flex: 1 0 72px;
+    flex-grow: 1;
+  min-height: 72px;
+  transition: flex-grow .55s ease-in-out,-webkit-flex-grow .55s ease-in-out;
+  transition: flex-grow .55s ease-in-out;
+  transition: flex-grow .55s ease-in-out,-webkit-flex-grow .55s ease-in-out,-ms-flex-positive .55s ease-in-out;
 }
 
-.article__thumbnail .article__content{
+.article.article--thumbnail .article__content {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
   align-items: stretch;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
   text-align: center;
   overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-@media screen and (min-width: 60em) {
-  .article.article__thumbnail .article__header {
-    min-height: 140px;
-  }
-}
-
-.article__thumbnail .article__header{
+.article.article--thumbnail .article__header {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   width: 100%;
   min-height: 7rem;
   padding: 20px 30px;
+    padding-top: 20px;
   padding-top: 40px;
   background-color: #eaeaea;
   display: block;
 }
 
-.article__thumbnail .article__title{
+.article.article--thumbnail .article__title {
   margin: 0 14px 16px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 800;
 }
 
-.h2{
-  font-family: montserrat,sans-serif;
-  text-transform: uppercase;
-  color: #141414;
-}
-
-@media screen and (min-width: 60em) {
-  .article.article__thumbnail .article__titleLink::before {
-    content: '';
-    display: block;
-    position: absolute;
-  }
-}
-
-.article__thumbnail .article__titleLink{
+.article.article--thumbnail .article__titleLink {
   display: block;
   font-size: 1em;
   font-weight: inherit;
   color: inherit;
-  text-decoration: none;
-  font-family: montserrat,sans-serif;
-  background-color: transparent;
 }
 
-.article__thumbnail .article__meta{
+.article--thumbnail .article__meta{
   font-size: 0;
   color: #141414;
 }
 
-.article__thumbnail .article__meta a{
+.article--thumbnail .article__meta a{
   position: relative;
   z-index: 2;
   text-decoration: none;
   color: #141414;
 }
 
-.article__thumbnail .article__meta > * {
+.article--thumbnail .article__meta > * {
   display: inline-block;
   font-family: montserrat,sans-serif;
   font-weight: 600;
   font-size: 16px;
 }
 
-.article.article__thumbnail .article__pubdate:not(:only-child)::before {
+.article.article--thumbnail .article__pubdate:not(:only-child)::before {
   content: '|';
   display: inline-block;
   margin: 0 .5em;
 }
 
-.article.article__thumbnail:hover .article__preview {
+.article.article--thumbnail:hover .article__preview {
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
 }
 
-.article__thumbnail .article__preview{
+.article.article--thumbnail .article__preview {
+  -webkit-flex: 0 0 0;
+  -ms-flex: 0 0 0;
   flex: 0 0 0;
+  flex-grow: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
   align-items: stretch;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
   overflow: hidden;
   padding: 0 30px;
   font-family: open sans,sans-serif;
   background-color: #eaeaea;
+  transition: flex-grow .55s ease-in-out,-webkit-flex-grow .55s ease-in-out;
+  transition: flex-grow .55s ease-in-out;
   transition: flex-grow .55s ease-in-out,-webkit-flex-grow .55s ease-in-out,-ms-flex-positive .55s ease-in-out;
 }
 
-/* .article__preview{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transition: transform 0.5s ease;
-}
-
-.article__preview {
-  transform: translateY(100%);
-}
-
-.article:hover .article__preview {
-  transform: translateY(0);
-} */
-body{
-  color: #333;
-}
-
-.article__thumbnail .article__excerpt{
-  position: relative;
-  flex: 0 0 auto;
-  overflow: hidden;
-  padding-bottom: 20px;
-  font-weight: 600;
-  opacity: 1;
-  transition: flex-shrink .55s ease-in-out,opacity .55s ease-in-out,-webkit-flex-shrink .55s ease-in-out,-ms-flex-negative .55s ease-in-out;
-}
-
-.article.article__thumbnail:hover .article__excerpt {
-  -webkit-flex-shrink: 1;
-  -ms-flex-negative: 1;
-  flex-shrink: 1;
-  opacity: 1;
-}
-
-.article__thumbnail .article__excerpt::after {
+.article.article--thumbnail .article__excerpt::after {
   content: '';
   display: block;
   position: absolute;
@@ -240,15 +275,38 @@ body{
   height: 20px;
   background: linear-gradient(to top,#eaeaea,rgba(234,234,234,.8) 6px,rgba(234,234,234,0));
 }
-.article.article__thumbnail .article__excerpt p:last-child, .article.article__thumbnail .article__excerpt ul:last-child, .article.article__thumbnail .article__excerpt ol:last-child {
+
+.article.article--thumbnail .article__excerpt {
+  position: relative;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+    flex-shrink: 0;
+  overflow: hidden;
+  padding-bottom: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity .55s ease-in-out,-webkit-flex-shrink .55s ease-in-out;
+  transition: flex-shrink .55s ease-in-out,opacity .55s ease-in-out;
+  transition: flex-shrink .55s ease-in-out,opacity .55s ease-in-out,-webkit-flex-shrink .55s ease-in-out,-ms-flex-negative .55s ease-in-out;
+}
+
+.article.article--thumbnail:hover .article__excerpt {
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  opacity: 1;
+}
+
+.article.article--thumbnail .article__excerpt p:last-child, .article.article--thumbnail .article__excerpt ul:last-child, .article.article--thumbnail .article__excerpt ol:last-child {
   margin-bottom: 0;
 }
 
-.article.article__thumbnail .article__excerpt p:first-child, .article.article__thumbnail .article__excerpt ul:first-child, .article.article__thumbnail .article__excerpt ol:first-child {
+.article.article--thumbnail .article__excerpt p:first-child, .article.article--thumbnail .article__excerpt ul:first-child, .article.article--thumbnail .article__excerpt ol:first-child {
   margin-top: 0;
 }
 
-.article__thumbnail .article__excerpt p{
+.article--thumbnail .article__excerpt p{
   font-size: 1em;
   font-family: inherit;
   font-weight: inherit;
@@ -256,7 +314,7 @@ body{
   cursor: default;
 }
 
-.article.article__thumbnail .article__readMore::after {
+.article.article--thumbnail .article__readMore::after {
   content: '';
   font-family: FontAwesome;
 }
@@ -270,7 +328,11 @@ body{
   font-size: 18px;
 }
 
-.article__thumbnail .article__readMore {
+.article.article--thumbnail:hover .article__readMore {
+  opacity: 1;
+}
+
+.article--thumbnail .article__readMore {
   display: block;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;

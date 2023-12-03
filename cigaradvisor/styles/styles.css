@@ -88,6 +88,36 @@ a:active, a:hover {
   display: flex;
 }
 /* 2 column layout */
+
+main{
+  display: flex;
+  flex-direction: row;
+  max-width: 1080px;
+  height: auto;
+  width: auto;
+}
+
+
+@media screen and (max-width: 900px){
+  main{
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+
+main .section[data-layout="50/50"] {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  padding: 10px;
+}
+.article-teaser-wrapper{
+  padding: 10px;
+}
+.imagecta-wrapper{
+  padding: 10px;
+}
 main .section[data-layout="50/50"] .layout-content-wrapper > div.separator-wrapper {
   flex-basis: 100%;
   padding: 2em 0;

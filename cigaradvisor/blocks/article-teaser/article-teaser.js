@@ -52,15 +52,12 @@ async function fetchTeaserContent(filters) {
 }
 
 function formatDate(originalDateString) {
-  const MS_PER_DAY = 24 * 60 * 60 * 1000;
-  const excelStartDate = new Date(Date.UTC(1899, 11, 30));
-  const millisecondsSinceExcelStart = originalDateString * MS_PER_DAY;
-
-  const targetDate = new Date(excelStartDate.getTime() + millisecondsSinceExcelStart);
-
-  const day = targetDate.getUTCDate();
-  const month = targetDate.toLocaleString('default', { month: 'short' });
-  const year = targetDate.getUTCFullYear().toString().slice(-2);
-
-  return `${day} ${month} ${year}`;
+  const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
+  const utcDate = new Date(utcDateString);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const day = utcDate.getUTCDate();
+  const month = months[utcDate.getUTCMonth()];
+  const year = utcDate.getUTCFullYear().toString().slice(-2); // Get last two digits of the year
+  const formattedDate = `${day} ${month} ${year}`;
+  return formattedDate;
 }

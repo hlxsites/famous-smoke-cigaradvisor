@@ -83,3 +83,18 @@ a:active, a:hover {
   outline-width: 0;
 }
 
+
+.article-teaser-container{
+  display: flex;
+}
+/* 2 column layout */
+main .section[data-layout="50/50"] .layout-content-wrapper > div.separator-wrapper {
+  flex-basis: 100%;
+  padding: 2em 0;
+}
+
+main .section[data-layout="50/50"] .layout-content-wrapper > div.separator-wrapper hr {
+  border: none;
+  border-top: 1px solid var(--gray);
+  margin: 0;
+}

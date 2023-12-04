@@ -1,0 +1,22 @@
+.imagecta.block > a {
+  display: block;
+  margin: 0 auto;
+}
+
+.imagecta.block > a picture {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.imagecta.block > a picture > img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

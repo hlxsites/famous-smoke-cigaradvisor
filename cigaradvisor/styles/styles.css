@@ -110,12 +110,14 @@ main .section[data-layout="50/50"] {
   display: flex;
   flex-basis: 100%;
   flex-direction: column;
-  padding: 10px;
 }
 .article-teaser-wrapper{
   padding: 10px;
 }
+
 .imagecta-wrapper{
+  display: flex;
+  flex-basis: 100%;
   padding: 10px;
 }
 main .section[data-layout="50/50"] .layout-content-wrapper > div.separator-wrapper {

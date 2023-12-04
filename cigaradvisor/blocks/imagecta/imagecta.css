@@ -1,7 +1,18 @@
-.home-tall-banner > a img{
+.home-tall-banner>a picture {
+  display: block;
+  height: 100%;
+}
+
+.home-tall-banner>a img {
   display: block;
   position: relative;
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  border: 1px solid #000;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 1200px) {
+  .home-tall-banner>a img {
+    border: 1px solid #000;
+  }
 }

@@ -1,7 +1,6 @@
 import { createOptimizedPicture, readBlockConfig, buildBlock, decorateBlock, loadBlock } from '../../scripts/aem.js';
 import ffetch from '../../scripts/ffetch.js';
 
-
 export default async function decorate(block) {
   const filters = readBlockConfig(block);
   block.textContent = '';

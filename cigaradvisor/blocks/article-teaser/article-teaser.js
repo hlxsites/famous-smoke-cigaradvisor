@@ -1,5 +1,4 @@
 import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import ffetch from '../../scripts/ffetch.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
@@ -13,22 +12,18 @@ function formatDate(originalDateString) {
 }
 
 async function fetchTeaserContent(filters) {
-  return ffetch(`${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`)
-    .filter((article) => Object.keys(filters).every(
-      (path) => article[path].toLowerCase() === filters.path.toLowerCase(),
-    ))
-    .map(async (article) => {
-      return article;
-    })
-    .all();
+  const resp = await fetch(`${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`);
+  if (resp.ok) {
+    const teaserContent = await resp.json();
+    return teaserContent.data.find(obj => obj.path === filters.path);
+  }
 }
 
 export default async function decorate(block) {
   const filters = readBlockConfig(block);
   block.textContent = '';
   block.classList.add('article-teaser');
-  const article = await fetchTeaserContent(filters);
-  const articleInfo = article[0];
+  const articleInfo = await fetchTeaserContent(filters);
   const formattedDate = formatDate(articleInfo.publishedDate);
   block.innerHTML = `
   <article onclick="" class="article article--thumbnail">

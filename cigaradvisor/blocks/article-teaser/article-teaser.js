@@ -1,5 +1,27 @@
-import { createOptimizedPicture, readBlockConfig, buildBlock, decorateBlock, loadBlock } from '../../scripts/aem.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
 import ffetch from '../../scripts/ffetch.js';
+
+function formatDate(originalDateString) {
+  const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
+  const utcDate = new Date(utcDateString);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const day = utcDate.getUTCDate();
+  const month = months[utcDate.getUTCMonth()];
+  const year = utcDate.getUTCFullYear().toString().slice(-2); // Get last two digits of the year
+  const formattedDate = `${day} ${month} ${year}`;
+  return formattedDate;
+}
+
+async function fetchTeaserContent(filters) {
+  return ffetch(`${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`)
+    .filter((article) => Object.keys(filters).every(
+      (path) => article[path].toLowerCase() === filters.path.toLowerCase(),
+    ))
+    .map(async (article) => {
+      return article;
+    })
+    .all();
+}
 
 export default async function decorate(block) {
   const filters = readBlockConfig(block);
@@ -34,26 +56,4 @@ export default async function decorate(block) {
     </div>
   </article>
   `;
-}
-
-async function fetchTeaserContent(filters) {
-  return ffetch(`${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`)
-    .filter((article) => Object.keys(filters).every(
-      (path) => article[path].toLowerCase() === filters.path.toLowerCase(),
-    ))
-    .map(async (article) => {
-      return article;
-    })
-    .all();
-}
-
-function formatDate(originalDateString) {
-  const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
-  const utcDate = new Date(utcDateString);
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const day = utcDate.getUTCDate();
-  const month = months[utcDate.getUTCMonth()];
-  const year = utcDate.getUTCFullYear().toString().slice(-2); // Get last two digits of the year
-  const formattedDate = `${day} ${month} ${year}`;
-  return formattedDate;
 }

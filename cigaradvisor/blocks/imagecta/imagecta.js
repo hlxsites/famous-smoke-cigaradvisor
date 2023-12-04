@@ -6,9 +6,6 @@ export default async function decorate(block) {
   const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
   picture.style.paddingBottom = `${ratio}%`;
   anchor.style.maxWidth = `${img.width}px`;
-
-
-
   anchor.append(picture);
   anchor.setAttribute('href', block.querySelector('a').getAttribute('href'));
   children.push(anchor);

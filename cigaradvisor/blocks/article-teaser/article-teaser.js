@@ -22,15 +22,12 @@ async function fetchData(url) {
 }
 
 export default async function decorate(block) {
-  const filters = readBlockConfig(block);
-  let doc;
+  const filterPath = block.querySelector('a').getAttribute('href');
   block.textContent = '';
   block.classList.add('article-teaser');
-  const url = new URL(filters.path);
-  const trimmedURL = url.pathname;
   const fetchUrl = `${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`;
   const teaserContent = await fetchData(fetchUrl);
-  const articleInfo = teaserContent.find((obj) => obj.path === trimmedURL);
+  const articleInfo = teaserContent.find((obj) => obj.path === filterPath);
   const categoryListUrl = `${window.hlx.codeBasePath}/drafts/Kailas/category/category-list.json`;
   const categoryListData = await fetchData(categoryListUrl);
   const articlePath = articleInfo.path;
@@ -46,7 +43,7 @@ export default async function decorate(block) {
     .then((html) => {
       // Create a new HTML document using DOMParser
       const parser = new DOMParser();
-      doc = parser.parseFromString(html, 'text/html');
+      const doc = parser.parseFromString(html, 'text/html');
       const articleCategory = getMetadata('category', doc);
       const articleCategoryInfo = categoryListData.find((obj) => obj.category === articleCategory);
       const articleCategoryLink = articleCategoryInfo.categoryLink;

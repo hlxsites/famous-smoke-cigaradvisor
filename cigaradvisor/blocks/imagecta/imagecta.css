@@ -1,18 +1,22 @@
-.home-tall-banner>a picture {
+.imagecta.block > a {
   display: block;
-  height: 100%;
+  margin: 0 auto;
 }
 
-.home-tall-banner>a img {
+.imagecta.block > a picture {
   display: block;
   position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  margin: 0 auto;
 }
 
-@media screen and (min-width: 1200px) {
-  .home-tall-banner>a img {
-    border: 1px solid #000;
-  }
+.imagecta.block > a picture > img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }

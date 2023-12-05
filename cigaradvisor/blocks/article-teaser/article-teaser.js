@@ -1,4 +1,4 @@
-import { createOptimizedPicture, getMetadata } from '../../scripts/aem.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
@@ -30,28 +30,14 @@ export default async function decorate(block) {
   const articleInfo = teaserContent.find((obj) => obj.path === filterPath);
   const categoryListUrl = `${window.hlx.codeBasePath}/drafts/Kailas/category/category-list.json`;
   const categoryListData = await fetchData(categoryListUrl);
-  const articlePath = articleInfo.path;
-  fetch(articlePath)
-    .then((response) => {
-      // Check if the request was successful (status code 200)
-      if (response.ok) {
-        // Convert the response to text
-        return response.text();
-      }
-      throw new Error('Network response was not ok.');
-    })
-    .then((html) => {
-      // Create a new HTML document using DOMParser
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const articleCategory = getMetadata('category', doc);
-      const articleCategoryInfo = categoryListData.find((obj) => obj.category === articleCategory);
-      const articleCategoryLink = articleCategoryInfo.categoryLink;
-      const formattedDate = formatDate(articleInfo.publishedDate).split('|')[0];
-      const datetimeAttr = formatDate(articleInfo.publishedDate).split('|')[1];
-      const authorNameHyphenSeparated = articleInfo.author.split(' ').join('-');
-      const authorLink = `${window.hlx.codeBasePath}/author/drafts/${authorNameHyphenSeparated.toLowerCase()}`;
-      block.innerHTML = `
+  const articleCategory = articleInfo.category;
+  const articleCategoryInfo = categoryListData.find((obj) => obj.category === articleCategory);
+  const articleCategoryLink = articleCategoryInfo.categoryLink;
+  const formattedDate = formatDate(articleInfo.publishedDate).split('|')[0];
+  const datetimeAttr = formatDate(articleInfo.publishedDate).split('|')[1];
+  const authorNameHyphenSeparated = articleInfo.author.split(' ').join('-');
+  const authorLink = `${window.hlx.codeBasePath}/author/drafts/${authorNameHyphenSeparated.toLowerCase()}`;
+  block.innerHTML = `
         <article onclick="" class="article article-thumbnail">
           <a class="article-category" href="${articleCategoryLink}" data-category="${articleCategory}" title="${articleCategory}">
           Cigar Buying Guides </a>
@@ -77,9 +63,4 @@ export default async function decorate(block) {
           </div>
         </article>
         `;
-    })
-    .catch((error) => {
-      // Handle any errors that occurred during the fetch
-      console.error('There was a problem with the fetch operation:', error);
-    });
 }

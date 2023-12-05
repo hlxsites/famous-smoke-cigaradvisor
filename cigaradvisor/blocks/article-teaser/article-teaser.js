@@ -1,4 +1,4 @@
-import { createOptimizedPicture, readBlockConfig, getMetadata } from '../../scripts/aem.js';
+import { createOptimizedPicture, getMetadata } from '../../scripts/aem.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);

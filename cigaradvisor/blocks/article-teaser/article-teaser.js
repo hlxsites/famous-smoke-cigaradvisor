@@ -40,7 +40,7 @@ export default async function decorate(block) {
   block.innerHTML = `
         <article onclick="" class="article article-thumbnail">
           <a class="article-category" href="${articleCategoryLink}" data-category="${articleCategory}" title="${articleCategory}">
-          Cigar Buying Guides </a>
+          ${articleCategory} </a>
           <div class="article-image">
           ${createOptimizedPicture(articleInfo.image).outerHTML}
           </div>

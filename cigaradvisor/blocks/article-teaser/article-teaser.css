@@ -78,6 +78,42 @@
   text-decoration: none;
 }
 
+.tag.featured {
+  background-color: #1f1e1e
+}
+
+.tag[data-category="Cigars 101"] {
+  background-color: #5f5d59
+}
+
+.tag[data-category="Cigar Makers"] {
+  background-color: #8e7b5c
+}
+
+.tag[data-category="Cigar News"] {
+  background-color: #916e35
+}
+
+.tag[data-category="Cigar Buying Guides"] {
+  background-color: #7e4a3a
+}
+
+.tag[data-category="Cigar Lifestyle"] .tag {
+  background-color: #673841
+}
+
+.tag[data-category="Food & Drink"] .tag {
+  background-color: #3c5351
+}
+
+.tag[data-category="Cigar Ratings & Reviews"] {
+  background-color: #24445d
+}
+
+.tag[data-category="Cigar Humidification"] {
+  background-color: #5d8371
+}
+
 .article.article--thumbnail .article__image {
   display: -webkit-flex;
   display: -ms-flexbox;

@@ -7,10 +7,12 @@ import {
   decorateIcons,
   decorateSections,
   decorateBlocks,
+  decorateBlock,
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
   loadCSS,
+  loadBlock,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -51,23 +53,26 @@ function buildTwoColumnGrid(main) {
       const right = [];
       let flag = true;
       [...section.children].forEach((child) => {
-        console.log(child);
-        const blockName = child.classList.item(0);
-        const childBlock = buildBlock(blockName, '');
-        child.append(childBlock);
+        // console.log(child);
+        //  const blockName = child.classList.item(0);
+        //  const childBlock = buildBlock(blockName, child);
+        //  console.log(childBlock.parentElement);
+        //  decorateBlock(childBlock);
+        //  loadBlock(childBlock);
+        // child.append(childBlock);
         if (child.classList.contains('separator')) {
           flag = false;
         }
         if (!child.classList.contains('section-metadata') && !child.classList.contains('separator')) {
           if (flag) {
-            left.push(childBlock);
+            left.push(child);
           } else {
-            right.push(childBlock);
+            right.push(child);
           }
         }
-        console.log('left', left);
-        console.log('right', right);
       });
+      console.log('left', left);
+      console.log('right', right);
       const block = buildBlock('two-col-grid', [[{ elems: left }, { elems: right }]]);
       block.classList.add(style);
       section.prepend(block);

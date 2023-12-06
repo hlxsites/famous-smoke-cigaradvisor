@@ -32,8 +32,7 @@ export default async function decorate(block) {
   const articleCategory = articleInfo.category;
   const articleCategoryInfo = categoryListData.find((obj) => obj.category === articleCategory);
   const articleCategoryLink = articleCategoryInfo.categoryLink;
-  const formattedDate = formatDate(articleInfo.publishedDate).split('|')[0];
-  const datetimeAttr = formatDate(articleInfo.publishedDate).split('|')[1];
+  const [formattedDate, datetimeAttr] = formatDate(articleInfo.publishedDate).split('|');
   const authorNameHyphenSeparated = articleInfo.author.split(' ').join('-');
   const authorLink = `${window.hlx.codeBasePath}/author/drafts/${authorNameHyphenSeparated.toLowerCase()}`;
   block.innerHTML = `

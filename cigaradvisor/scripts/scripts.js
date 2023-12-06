@@ -31,6 +31,43 @@ function buildHeroBlock(main) {
 }
 
 /**
+ * Builds two column grid.
+ * @param {Element} main The container element
+ */
+function buildTwoColumnGrid(main) {
+  main.querySelectorAll(':scope > div div.section-metadata').forEach((metadata) => {
+    let style;
+    [...metadata.querySelectorAll(':scope > div')].every((div) => {
+      const match = div.children[1]?.textContent.toLowerCase().trim().match(/50\/50/i);
+      if (div.children[0]?.textContent.toLowerCase().trim() === 'layout' && match) {
+        style = match[0].replaceAll(/\s/g, '-');
+        return false;
+      }
+      return true;
+    });
+    if (style) {
+      const section = metadata.parentElement;
+      const left = [];
+      const right = [];
+      let flag = true;
+      [...section.children].forEach((child) => {
+        console.log(child);
+        const picture = child.querySelector(':scope > picture');
+        if (picture) {
+          right.push(picture);
+          child.remove();
+        } else if (!child.classList.contains('section-metadata')) {
+          left.push(child);
+        }
+      });
+      const block = buildBlock('floating-images', [[{ elems: left }, { elems: right }]]);
+      block.classList.add(style);
+      section.prepend(block);
+    }
+  });
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -49,6 +86,7 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildTwoColumnGrid(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

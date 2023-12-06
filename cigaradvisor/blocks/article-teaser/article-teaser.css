@@ -1,0 +1,287 @@
+.article-teaser.block .article-thumbnail:hover::before {
+  visibility: hidden;
+}
+
+.article-teaser.block .article.article-thumbnail::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  transition: visibility .2s linear;
+}
+
+.article-teaser.block .article {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  text-align: center;
+  overflow: hidden;
+  flex: 1 1 100%;
+  min-height: 20rem;
+  padding-bottom: 20px;
+}
+
+@media screen and (min-width: 60em) {
+  .article-teaser.block .article.article-thumbnail {
+    min-height: 26.25rem;
+  }
+}
+
+.article-teaser.block .article-category {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  padding: 7px 24px;
+  margin: 0 auto;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: montserrat, sans-serif;
+  font-weight: 600;
+  background-color: #3c3a3b;
+  font-size: 12px;
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.article-teaser.block .article-category.featured {
+  background-color: #1f1e1e
+}
+
+.article-teaser.block .article-category[data-category="Cigars 101"] {
+  background-color: #5f5d59
+}
+
+.article-teaser.block .article-category[data-category="Cigar Makers"] {
+  background-color: #8e7b5c
+}
+
+.article-teaser.block .article-category[data-category="Cigar News"] {
+  background-color: #916e35
+}
+
+.article-teaser.block .article-category[data-category="Cigar Buying Guides"] {
+  background-color: #7e4a3a
+}
+
+.article-teaser.block .article-category[data-category="Cigar Lifestyle"] .article-category {
+  background-color: #673841
+}
+
+.article-teaser.block .article-category[data-category="Food & Drink"] .article-category {
+  background-color: #3c5351
+}
+
+.article-teaser.block .article-category[data-category="Cigar Ratings & Reviews"] {
+  background-color: #24445d
+}
+
+.article-teaser.block .article-category[data-category="Cigar Humidification"] {
+  background-color: #5d8371
+}
+
+.article-teaser.block .article.article-thumbnail .article-image {
+  display: flex;
+  align-items: flex-start;
+  flex: 1 0 13rem;
+  width: 100%;
+}
+
+.article-teaser.block .article.article-thumbnail .article-image>img {
+  display: block;
+  width: 100%;
+  max-height: 321px;
+}
+
+.article-teaser.block .article.article-thumbnail .article-content::before {
+  content: '';
+  display: block;
+  flex: 1 0 72px;
+  min-height: 72px;
+  transition: flex-grow .55s ease-in-out;
+}
+
+.article-teaser.block .article.article-thumbnail:hover .article-content::before {
+  flex-grow: 0;
+}
+
+.article-teaser.block .article.article-thumbnail .article-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  text-align: center;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.article-teaser.block .article.article-thumbnail .article-header {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 7rem;
+  padding: 40px 30px 20px;
+  background-color: #eaeaea;
+  display: block;
+}
+
+@media screen and (min-width: 60em) {
+  .article-teaser.block .article.article-thumbnail .article-header {
+    min-height: 140px
+  }
+}
+
+.article-teaser.block .article.article-thumbnail .article-title {
+  margin: 0 14px 16px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.article-teaser.block .article.article-thumbnail .article-title-link {
+  display: block;
+  font-size: 1em;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.article-teaser.block .article-thumbnail .article-meta {
+  font-size: 0;
+  color: #141414;
+}
+
+.article-teaser.block .article-thumbnail .article-meta a {
+  position: relative;
+  z-index: 2;
+  text-decoration: none;
+  color: #141414;
+}
+
+.article-teaser.block .article-thumbnail .article-meta>* {
+  display: inline-block;
+  font-family: montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.article-teaser.block .article.article-thumbnail .article-pubdate:not(:only-child)::before {
+  content: '|';
+  display: inline-block;
+  margin: 0 .5em;
+}
+
+.article-teaser.block .article.article-thumbnail .article-preview {
+  flex: 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0 30px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #eaeaea;
+  transition: flex-grow .55s ease-in-out;
+}
+
+.article-teaser.block .article.article-thumbnail:hover .article-preview {
+  flex-grow: 1;
+}
+
+.article-teaser.block .article.article-thumbnail .article-excerpt::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to top, #eaeaea, rgba(234 234 234 80%) 6px, rgba(234 234 234 0%));
+}
+
+.article-teaser.block .article.article-thumbnail .article-excerpt {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  padding-bottom: 20px;
+  font-weight: 600;
+  opacity: 0;
+  transition: flex-shrink .55s ease-in-out, opacity .55s ease-in-out;
+}
+
+.article-teaser.block .article.article-thumbnail:hover .article-excerpt {
+  flex-shrink: 1;
+  opacity: 1;
+}
+
+.article-teaser.block .article-thumbnail .article-excerpt p {
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  cursor: default;
+}
+
+.article-teaser.block .article.article-thumbnail .article-excerpt p:last-child,
+.article-teaser.block .article.article-thumbnail .article-excerpt ul:last-child,
+.article-teaser.block .article.article-thumbnail .article-excerpt ol:last-child {
+  margin-bottom: 0;
+}
+
+.article-teaser.block .article.article-thumbnail .article-excerpt p:first-child,
+.article-teaser.block .article.article-thumbnail .article-excerpt ul:first-child,
+.article-teaser.block .article.article-thumbnail .article-excerpt ol:first-child {
+  margin-top: 0;
+}
+
+.article-teaser.block .read-more::after {
+  content: '\f054';
+  font-family: FontAwesome, sans-serif;
+  margin-left: 8px;
+  line-height: 1.5;
+  color: #b19b5e;
+  font-size: 18px;
+}
+
+.article-teaser.block .article-thumbnail .article-read-more {
+  display: block;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  opacity: 1;
+  transition: opacity .55s ease-in-out;
+}
+
+
+.article-teaser.block .article.article-thumbnail:hover .article-read-more {
+  opacity: 1;
+}
+
+.article-teaser.block .read-more {
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: #b19b5e;
+  font-size: 18px;
+}

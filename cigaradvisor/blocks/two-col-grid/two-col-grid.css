@@ -1,8 +1,15 @@
-/* styles for the floating images auto block */
-
-
 .section.two-col-grid-container {
-    display: block;
+    display: block !important;
+}
+
+.section.two-col-grid-container > .two-col-grid-wrapper{
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1080px;
+    box-sizing: border-box;
 }
 
 .two-col-grid.block{

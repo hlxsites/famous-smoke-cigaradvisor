@@ -23,20 +23,17 @@
   --nav-height: 64px;
  }
 
-/* body {
+body {
   display: none;
+  color: #333;
 }
 
 body.appear {
   display: block;
-} */
+}
 
 header {
   height: var(--nav-height);
-}
-
-body{
-  color: #333;
 }
 
 html {

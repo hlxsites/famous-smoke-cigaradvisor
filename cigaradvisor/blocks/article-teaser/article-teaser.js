@@ -23,7 +23,6 @@ async function fetchData(url) {
 
 export default async function decorate(block) {
   const filterPath = block.querySelector('a').getAttribute('href');
-  block.textContent = '';
   block.classList.add('article-teaser');
   const fetchUrl = `${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`;
   const teaserContent = await fetchData(fetchUrl);
@@ -38,9 +37,8 @@ export default async function decorate(block) {
   const authorNameHyphenSeparated = articleInfo.author.split(' ').join('-');
   const authorLink = `${window.hlx.codeBasePath}/author/drafts/${authorNameHyphenSeparated.toLowerCase()}`;
   block.innerHTML = `
-        <article onclick="" class="article article-thumbnail">
-          <a class="article-category" href="${articleCategoryLink}" data-category="${articleCategory}" title="${articleCategory}">
-          ${articleCategory} </a>
+        <article class="article article-thumbnail">
+          <a class="article-category" href="${articleCategoryLink}" data-category="${articleCategory}" title="${articleCategory}">${articleCategory}</a>
           <div class="article-image">
           ${createOptimizedPicture(articleInfo.image).outerHTML}
           </div>

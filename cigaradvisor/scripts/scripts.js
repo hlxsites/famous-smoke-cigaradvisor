@@ -35,37 +35,21 @@ function buildHeroBlock(main) {
  * @param {Element} main The container element
  */
 function buildTwoColumnGrid(main) {
-  main.querySelectorAll(':scope > div div.section-metadata').forEach((metadata) => {
-    let style;
-    [...metadata.querySelectorAll(':scope > div')].every((div) => {
-      const match = div.children[1]?.textContent.toLowerCase().trim().match(/50\/50/i);
-      if (div.children[0]?.textContent.toLowerCase().trim() === 'layout' && match) {
-        style = match[0].replaceAll(/\s/g, '-');
-        return false;
+  main.querySelectorAll(':scope > .section[data-layout="50/50"]').forEach((section) => {
+    const leftDiv = document.createElement('div');
+    leftDiv.classList.add('left-grid');
+    const rightDiv = document.createElement('div');
+    rightDiv.classList.add('right-grid');
+    let current = leftDiv;
+    [...section.children].forEach((child) => {
+      if (child.classList.contains('separator-wrapper')) {
+        current = rightDiv;
+        child.remove();
+        return;
       }
-      return true;
+      current.append(child);
     });
-    if (style) {
-      const section = metadata.parentElement;
-      const left = [];
-      const right = [];
-      let flag = true;
-      [...section.children].forEach((child) => {
-        if (child.classList.contains('separator')) {
-          flag = false;
-        }
-        if (!child.classList.contains('section-metadata') && !child.classList.contains('separator')) {
-          if (flag) {
-            left.push(child);
-          } else {
-            right.push(child);
-          }
-        }
-      });
-      const block = buildBlock('two-col-grid', [[{ elems: left }, { elems: right }]]);
-      block.classList.add(style);
-      section.prepend(block);
-    }
+    section.append(leftDiv, rightDiv);
   });
 }
 
@@ -88,7 +72,6 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
-    buildTwoColumnGrid(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -107,6 +90,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  buildTwoColumnGrid(main);
 }
 
 /**

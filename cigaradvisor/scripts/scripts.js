@@ -52,15 +52,23 @@ function buildTwoColumnGrid(main) {
       let flag = true;
       [...section.children].forEach((child) => {
         console.log(child);
-        const picture = child.querySelector(':scope > picture');
-        if (picture) {
-          right.push(picture);
-          child.remove();
-        } else if (!child.classList.contains('section-metadata')) {
-          left.push(child);
+        const blockName = child.classList.item(0);
+        const childBlock = buildBlock(blockName, '');
+        child.append(childBlock);
+        if (child.classList.contains('separator')) {
+          flag = false;
         }
+        if (!child.classList.contains('section-metadata') && !child.classList.contains('separator')) {
+          if (flag) {
+            left.push(childBlock);
+          } else {
+            right.push(childBlock);
+          }
+        }
+        console.log('left', left);
+        console.log('right', right);
       });
-      const block = buildBlock('floating-images', [[{ elems: left }, { elems: right }]]);
+      const block = buildBlock('two-col-grid', [[{ elems: left }, { elems: right }]]);
       block.classList.add(style);
       section.prepend(block);
     }

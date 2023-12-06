@@ -80,3 +80,55 @@ a:active, a:hover {
   outline-width: 0;
 }
 
+/* Two-column grid */
+main .section[data-layout="50/50"]{
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
+  box-sizing: border-box;
+  display: flex;
+}
+
+@media screen and (max-width: 600px){
+  main .section[data-layout="50/50"]{
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+main .section[data-layout="50/50"] > div {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+  
+main .section[data-layout="50/50"] .left-grid > div{
+  padding: 10px;
+}
+
+main .section[data-layout="50/50"] .right-grid > div{
+  padding: 10px;
+}
+
+main .section[data-layout="50/50"] .imagecta-wrapper{
+  display: flex;
+  flex-basis: 100%;
+}
+
+main .section[data-layout="50/50"] .imagecta.block{
+  display: flex;
+  flex-basis: 100%;
+}
+
+main .section[data-layout="50/50"]  .imagecta.block > a{
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: 1200px) {
+  main .section[data-layout="50/50"] .imagecta.block>a img {
+    border: 1px solid #000;
+  }
+}

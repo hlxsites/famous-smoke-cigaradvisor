@@ -31,6 +31,29 @@ function buildHeroBlock(main) {
 }
 
 /**
+ * Builds two column grid.
+ * @param {Element} main The container element
+ */
+function buildTwoColumnGrid(main) {
+  main.querySelectorAll(':scope > .section[data-layout="50/50"]').forEach((section) => {
+    const leftDiv = document.createElement('div');
+    leftDiv.classList.add('left-grid');
+    const rightDiv = document.createElement('div');
+    rightDiv.classList.add('right-grid');
+    let current = leftDiv;
+    [...section.children].forEach((child) => {
+      if (child.classList.contains('separator-wrapper')) {
+        current = rightDiv;
+        child.remove();
+        return;
+      }
+      current.append(child);
+    });
+    section.append(leftDiv, rightDiv);
+  });
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -67,6 +90,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  buildTwoColumnGrid(main);
 }
 
 /**

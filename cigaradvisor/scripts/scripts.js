@@ -93,10 +93,13 @@ export function decorateMain(main) {
   buildTwoColumnGrid(main);
 }
 
-export function isExternal(url) {
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  return (anchor.hostname !== window.location.hostname) ? '_blank' : '_self';
+export function isExternal(path) {
+  try {
+    const url = new URL(path);
+    return window.location.hostname !== url.hostname;
+  } catch (error) {
+    return false;
+  }
 }
 
 /**

@@ -11,7 +11,8 @@ export default async function decorate(block) {
   anchor.append(picture);
   const link = block.querySelector('a').getAttribute('href');
   anchor.setAttribute('href', link);
-  anchor.setAttribute('target', isExternal(link));
+  anchor.setAttribute('target', isExternal(link) ? '_blank' : '_self');
+  anchor.setAttribute('title', img.alt);
   children.push(anchor);
   block.replaceChildren(...children);
 }

@@ -30,7 +30,7 @@
   padding-bottom: 20px;
 }
 
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 1200px) {
   .article-teaser.block .article.article-thumbnail {
     min-height: 26.25rem;
   }
@@ -142,9 +142,15 @@
   display: block;
 }
 
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 1200px) {
   .article-teaser.block .article.article-thumbnail .article-header {
-    min-height: 140px
+    min-height: 140px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .article-teaser.block .article.article-thumbnail .article-header {
+    flex-grow: 0.2;
   }
 }
 

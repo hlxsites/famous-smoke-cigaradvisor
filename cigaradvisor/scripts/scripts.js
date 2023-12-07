@@ -93,6 +93,12 @@ export function decorateMain(main) {
   buildTwoColumnGrid(main);
 }
 
+export function isExternal(url) {
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  return (anchor.hostname !== window.location.hostname) ? '_blank' : '_self';
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element

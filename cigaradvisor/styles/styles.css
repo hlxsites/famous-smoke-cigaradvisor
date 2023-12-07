@@ -131,4 +131,9 @@ main .section[data-layout="50/50"]  .imagecta.block > a{
   main .section[data-layout="50/50"] .imagecta.block>a img {
     border: 1px solid #000;
   }
+
+  /* removing border for 2 column videos section */
+  main .two-column-section[data-layout="50/50"] .imagecta.block>a img {
+    border: none;
+  }
 }

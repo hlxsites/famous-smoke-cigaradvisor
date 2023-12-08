@@ -20,3 +20,28 @@
   object-fit: cover;
   object-position: center;
 }
+
+.section[data-layout="50/50"] .imagecta-wrapper{
+  display: flex;
+  flex-basis: 100%;
+}
+
+.section[data-layout="50/50"] .imagecta.block{
+  display: flex;
+  flex-basis: 100%;
+}
+
+.section[data-layout="50/50"]  .imagecta.block > a{
+  flex-basis: 100%;
+}
+
+@media screen and (min-width: 1200px) {
+  .section[data-layout="50/50"] .imagecta.block>a img {
+    border: 1px solid #000;
+  }
+
+  /* removing border for 2 column videos section */
+  .two-column-section[data-layout="50/50"] .imagecta.block>a img {
+    border: none;
+  }
+}

@@ -6,6 +6,7 @@ import { decorateIcons } from '../../scripts/aem.js';
  * @param block
  */
 export default async function decorate(block) {
+  console.log(block);
   [...block.children].forEach((child, index) => {
     child.classList.add('slide');
     child.dataset.slideId = index;
@@ -18,10 +19,12 @@ export default async function decorate(block) {
 
   function moveSlides(prevOrNext, smooth = 'smooth') {
     let newOffset;
+    console.log(window.screen.width);
+    const scrollWidth = (window.screen.width > 600) ? (block.clientWidth / 2) : (block.clientWidth);
     if (prevOrNext === 'next') {
-      newOffset = block.scrollLeft + block.clientWidth;
+      newOffset = block.scrollLeft + scrollWidth;
     } else {
-      newOffset = Math.max(block.scrollLeft - block.clientWidth, 0);
+      newOffset = Math.max(block.scrollLeft - scrollWidth, 0);
     }
     block.scrollTo({ top: 0, left: newOffset, behavior: smooth });
   }
@@ -73,11 +76,12 @@ function getOriginalSlide(slide, block) {
 function createButtons(moveSlides) {
   return ['prev', 'next'].map((direction) => {
     const button = document.createElement('button');
-    button.classList.add(direction);
     button.ariaLabel = `show ${direction} slide`;
-    const icon = document.createElement('span');
-    icon.classList.add('icon', `icon-angle-${direction === 'prev' ? 'left' : 'right'}`);
-    button.append(icon);
+    button.classList.add(direction);
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add(`arrow-${direction}`);
+    iconDiv.classList.add('carousel-arrow');
+    button.appendChild(iconDiv);
     button.addEventListener('click', () => moveSlides(direction));
     return button;
   });

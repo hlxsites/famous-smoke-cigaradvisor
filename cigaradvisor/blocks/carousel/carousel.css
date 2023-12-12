@@ -8,29 +8,28 @@
   max-width: 1080px
 }
 
-.carousel {
+.carousel.block {
   scroll-margin: 0;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   overflow-x: scroll;
   display: flex;
   scrollbar-width: none;
-  margin-left: 2em;
-  margin-right: 2em;
 }
 
-.carousel::-webkit-scrollbar {
+.carousel.block::-webkit-scrollbar {
   display: none;
 }
 
-.carousel .slide {
+.carousel.block .slide {
   scroll-snap-align: start;
   display: block;
-  flex: 0 0 50%;
-  transition: all 0.25s ease-in-out;
+  flex: 1 0 100%;
+ /* transition: all 3000ms ease-in-out; */
   scroll-margin: unset;
   padding: 0 2px;
 }
+
 
 .carousel>button {
   position: absolute;
@@ -38,6 +37,7 @@
   background: unset;
   padding: 0;
   margin: 0;
+  border: none;
 }
 
 .carousel>button.prev {
@@ -46,4 +46,63 @@
 
 .carousel button.next {
   right: 0;
+  padding: 0 30px 0 0;
+}
+
+
+.carousel-arrow {
+  background-color: #000; /* Arrow color */
+  position: relative;
+  cursor: pointer;
+   position: absolute;
+    z-index: 9;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    background-color: rgba(0,0,0,.7);
+    text-align: center;
+    width: 30px;
+    height: 50px;
+}
+
+.arrow-next::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -50%); /* Adjust for arrow positioning */
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  display: inline-block;
+  padding: 4px;
+  width: 10px; /* Arrowhead width */
+  height: 10px; /* Arrowhead height */
+  transform: rotate(45deg); /* Rotate arrowhead for next direction */
+  border-color: #fff; /* Arrowhead color */
+}
+
+.next { 
+  padding-right: 30px;
+}
+
+.arrow-prev::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right : 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  display: inline-block;
+  padding: 4px;
+  width: 10px; /* Arrowhead width */
+  height: 10px; /* Arrowhead height */
+  transform: rotate(-135deg);
+  border-color: #fff; /* Arrowhead color */
+}
+
+@media screen and (min-width: 600px){
+  .carousel.block .slide {
+    flex: 1 0 50%;
+  }
 }

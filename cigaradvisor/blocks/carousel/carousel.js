@@ -1,6 +1,41 @@
 import { decorateIcons } from '../../scripts/aem.js';
 import { isExternal } from '../../scripts/scripts.js';
 
+function setAutoScroll(moveSlides, slidesWrapper) {
+  // Set interval for auto-scrolling (change slide every 3 seconds)
+  let interval;
+  setTimeout(() => {
+    interval = setInterval(() => {
+      moveSlides('next');
+    }, 3000);
+
+    // Stop auto-scroll on user interaction
+    slidesWrapper.addEventListener('mouseenter', () => {
+      clearInterval(interval);
+    });
+    slidesWrapper.addEventListener('mouseleave', () => {
+      console.log('mouseleave');
+      interval = setInterval(() => {
+        moveSlides('next');
+      }, 6000);
+    });
+  }, 3000);
+}
+
+function createButtons(moveSlides) {
+  return ['prev', 'next'].map((direction) => {
+    const button = document.createElement('button');
+    button.ariaLabel = `show ${direction} slide`;
+    button.classList.add(direction);
+    const iconDiv = document.createElement('div');
+    iconDiv.classList.add(`arrow-${direction}`);
+    iconDiv.classList.add('carousel-arrow');
+    button.appendChild(iconDiv);
+    button.addEventListener('click', () => moveSlides(direction));
+    return button;
+  });
+}
+
 /**
  * Generic carousel block, which can be used for any content or blocks.
  * Each row is a slide.
@@ -46,17 +81,15 @@ export default async function decorate(block) {
         if (!mobile) {
           block.querySelector('.arrow-prev').style.display = 'inline-block';
         }
-        if (currentIndex == (items.length - itemsToShow)) {
+        if (currentIndex === (items.length - itemsToShow)) {
           block.querySelector('.arrow-next').style.display = 'none';
         }
       }
-    } else {
-      if (currentIndex >= 1) {
-        currentIndex -= 1;
-        slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        if (currentIndex <= 1) {
-          block.querySelector('.arrow-prev').style.display = 'none';
-        }
+    } else if (currentIndex >= 1) {
+      currentIndex -= 1;
+      slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+      if (currentIndex <= 1) {
+        block.querySelector('.arrow-prev').style.display = 'none';
       }
     }
   }
@@ -64,52 +97,4 @@ export default async function decorate(block) {
   block.append(...createButtons(moveSlides));
   await decorateIcons(block);
   setAutoScroll(moveSlides, block);
-}
-
-function setAutoScroll(moveSlides, slidesWrapper) {
-  // Set interval for auto-scrolling (change slide every 3 seconds)
-  let interval;
-  setTimeout(() => {
-    interval = setInterval(() => {
-      moveSlides('next');
-    }, 5000);
-
-    // Stop auto-scroll on user interaction
-    slidesWrapper.addEventListener('mouseenter', () => {
-      clearInterval(interval);
-    });
-    // Stop auto-scroll on user interaction
-    slidesWrapper.addEventListener('touchstart', () => {
-      console.log('touchstart');
-      clearInterval(interval);
-      // slidesWrapper.style.setProperty('overflow-x', 'auto', 'important');
-    });
-    slidesWrapper.addEventListener('mouseleave', () => {
-      console.log('mouseleave');
-      interval = setInterval(() => {
-        moveSlides('next');
-      }, 6000);
-    });
-    slidesWrapper.addEventListener('touchend', () => {
-      console.log('touchend');
-      // slidesWrapper.style.removeProperty('overflow-x');
-      interval = setInterval(() => {
-        moveSlides('next');
-      }, 6000);
-    });
-  }, 3000);
-}
-
-function createButtons(moveSlides) {
-  return ['prev', 'next'].map((direction) => {
-    const button = document.createElement('button');
-    button.ariaLabel = `show ${direction} slide`;
-    button.classList.add(direction);
-    const iconDiv = document.createElement('div');
-    iconDiv.classList.add(`arrow-${direction}`);
-    iconDiv.classList.add('carousel-arrow');
-    button.appendChild(iconDiv);
-    button.addEventListener('click', () => moveSlides(direction));
-    return button;
-  });
 }

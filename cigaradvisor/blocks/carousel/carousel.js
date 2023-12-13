@@ -14,37 +14,41 @@ export default async function decorate(block) {
 
   // make a total of 3 copies of the slides, so it appears to be infinite scrolling
   const originalSlides = [...block.querySelectorAll('.slide')];
-  block.prepend(...(cloneSlides(originalSlides)));
-  block.append(...(cloneSlides(originalSlides)));
+  // block.prepend(...(cloneSlides(originalSlides)));
+  // block.append(...(cloneSlides(originalSlides)));
 
+  const slidesWrapper = document.createElement('div');
+  slidesWrapper.classList.add('slides-wrappper');
+  while (block.firstChild) {
+    let child = block.firstChild;
+    slidesWrapper.append(child);
+  }
+  block.innerHTML = '';
+  block.append(slidesWrapper);
+
+  let currentIndex = 0;
+  const items = slidesWrapper.querySelectorAll('.slide');
   function moveSlides(prevOrNext, smooth = 'smooth') {
-    let newOffset;
-    console.log(window.screen.width);
-    const scrollWidth = (window.screen.width > 600) ? (block.clientWidth / 2) : (block.clientWidth);
-    if (prevOrNext === 'next') {
-      newOffset = block.scrollLeft + scrollWidth;
-    } else {
-      newOffset = Math.max(block.scrollLeft - scrollWidth, 0);
-    }
-    block.scrollTo({ top: 0, left: newOffset, behavior: smooth });
+    currentIndex = (currentIndex + 1) % items.length;
+    slidesWrapper.style.transform = `translate3d(-${currentIndex * 50}%, 0, 0)`;
   }
 
   // set initial position, delay scrolling until the elements are properly laid out
-  requestAnimationFrame(function initialScroll() {
-    if (originalSlides[0].offsetLeft > 0) {
-      block.scrollTo({ top: 0, left: originalSlides[0].offsetLeft, behavior: 'instant' });
-    } else {
-      setTimeout(initialScroll, 200);
-    }
-  });
+  // requestAnimationFrame(function initialScroll() {
+  //   if (originalSlides[0].offsetLeft > 0) {
+  //     block.scrollTo({ top: 0, left: originalSlides[0].offsetLeft, behavior: 'instant' });
+  //   } else {
+  //     setTimeout(initialScroll, 200);
+  //   }
+  // });
 
   // once the scroll is finished, jump back to an original slide in the middle
-  onScrollEnd(block, () => {
-    const original = getOriginalSlide(getCurrentSlide(block), block);
-    if (original) {
-      block.scrollTo({ top: 0, left: original.offsetLeft, behavior: 'instant' });
-    }
-  }, false);
+  // onScrollEnd(block, () => {
+  //   const original = getOriginalSlide(getCurrentSlide(block), block);
+  //   if (original) {
+  //     block.scrollTo({ top: 0, left: original.offsetLeft, behavior: 'instant' });
+  //   }
+  // }, false);
 
   block.append(...createButtons(moveSlides));
   await decorateIcons(block);

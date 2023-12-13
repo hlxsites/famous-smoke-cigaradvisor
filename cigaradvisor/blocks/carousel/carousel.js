@@ -8,7 +8,7 @@ import { decorateIcons } from '../../scripts/aem.js';
 export default async function decorate(block) {
   const mobile = (window.screen.width < 600);
   const offset = mobile ? 100 : 50;
-  const itemsToShow = mobile ? 2:1;
+  const itemsToShow = mobile ? 1:2;
   const slidesWrapper = document.createElement('div');
   slidesWrapper.classList.add('slides-wrappper');
   [...block.children].forEach((row) => {
@@ -40,12 +40,19 @@ export default async function decorate(block) {
       if (currentIndex < (items.length - itemsToShow)) {
         currentIndex += 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+        block.querySelector('.arrow-prev').style.display='inline-block';
+        if(currentIndex == (items.length - itemsToShow)){
+          block.querySelector('.arrow-next').style.display='none';
+        }
       }
     } else {
       console.log(currentIndex);
       if (currentIndex >= 1) {
         currentIndex -= 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+        if(currentIndex <= 1){
+          block.querySelector('.arrow-prev').style.display='none';
+        }
       }
     }
   }
@@ -54,13 +61,6 @@ export default async function decorate(block) {
   await decorateIcons(block);
   setAutoScroll(moveSlides, block);
 
-}
-
-function getCurrentSlide(block) {
-  const viewStart = block.scrollLeft;
-  const viewEnd = block.scrollLeft + block.clientWidth;
-  return [...block.querySelectorAll('.slide')]
-    .find((slide) => viewStart <= slide.offsetLeft && slide.offsetLeft < viewEnd);
 }
 
 function setAutoScroll(moveSlides, slidesWrapper) {

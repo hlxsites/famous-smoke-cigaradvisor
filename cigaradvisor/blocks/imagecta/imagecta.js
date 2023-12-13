@@ -1,3 +1,5 @@
+import { isExternal } from '../../scripts/scripts.js';
+
 export default async function decorate(block) {
   const children = [];
   const anchor = document.createElement('a');
@@ -7,7 +9,10 @@ export default async function decorate(block) {
   picture.style.paddingBottom = `${ratio}%`;
   anchor.style.maxWidth = `${img.width}px`;
   anchor.append(picture);
-  anchor.setAttribute('href', block.querySelector('a').getAttribute('href'));
+  const link = block.querySelector('a').getAttribute('href');
+  anchor.setAttribute('href', link);
+  anchor.setAttribute('target', isExternal(link) ? '_blank' : '_self');
+  anchor.setAttribute('title', img.alt);
   children.push(anchor);
   block.replaceChildren(...children);
 }

@@ -113,22 +113,3 @@ main .section[data-layout="50/50"] .right-grid > div{
   padding: 10px;
 }
 
-main .section[data-layout="50/50"] .imagecta-wrapper{
-  display: flex;
-  flex-basis: 100%;
-}
-
-main .section[data-layout="50/50"] .imagecta.block{
-  display: flex;
-  flex-basis: 100%;
-}
-
-main .section[data-layout="50/50"]  .imagecta.block > a{
-  flex-basis: 100%;
-}
-
-@media screen and (min-width: 1200px) {
-  main .section[data-layout="50/50"] .imagecta.block>a img {
-    border: 1px solid #000;
-  }
-}

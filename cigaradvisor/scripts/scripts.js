@@ -93,6 +93,15 @@ export function decorateMain(main) {
   buildTwoColumnGrid(main);
 }
 
+export function isExternal(path) {
+  try {
+    const url = new URL(path);
+    return window.location.hostname !== url.hostname;
+  } catch (error) {
+    return false;
+  }
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element

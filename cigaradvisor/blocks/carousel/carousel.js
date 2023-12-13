@@ -1,4 +1,5 @@
 import { decorateIcons } from '../../scripts/aem.js';
+import { isExternal } from '../../scripts/scripts.js';
 
 /**
  * Generic carousel block, which can be used for any content or blocks.
@@ -8,7 +9,7 @@ import { decorateIcons } from '../../scripts/aem.js';
 export default async function decorate(block) {
   const mobile = (window.screen.width < 600);
   const offset = mobile ? 100 : 50;
-  const itemsToShow = mobile ? 1:2;
+  const itemsToShow = mobile ? 1 : 2;
   const slidesWrapper = document.createElement('div');
   slidesWrapper.classList.add('slides-wrappper');
   [...block.children].forEach((row) => {
@@ -24,6 +25,10 @@ export default async function decorate(block) {
         anchor = col.querySelector('a');
       }
     });
+    const img = pic.querySelector('img');
+    const link = anchor.getAttribute('href');
+    anchor.setAttribute('target', isExternal(link) ? '_blank' : '_self');
+    anchor.setAttribute('title', img.alt);
     anchor.replaceChildren(pic);
     slide.append(anchor);
     slidesWrapper.append(slide);
@@ -34,24 +39,23 @@ export default async function decorate(block) {
   let currentIndex = 0;
   const items = slidesWrapper.querySelectorAll('.slide');
   function moveSlides(prevOrNext) {
-    console.log('moveSlides');
     if (prevOrNext === 'next') {
-      console.log(currentIndex);
       if (currentIndex < (items.length - itemsToShow)) {
         currentIndex += 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        block.querySelector('.arrow-prev').style.display='inline-block';
-        if(currentIndex == (items.length - itemsToShow)){
-          block.querySelector('.arrow-next').style.display='none';
+        if (!mobile) {
+          block.querySelector('.arrow-prev').style.display = 'inline-block';
+        }
+        if (currentIndex == (items.length - itemsToShow)) {
+          block.querySelector('.arrow-next').style.display = 'none';
         }
       }
     } else {
-      console.log(currentIndex);
       if (currentIndex >= 1) {
         currentIndex -= 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        if(currentIndex <= 1){
-          block.querySelector('.arrow-prev').style.display='none';
+        if (currentIndex <= 1) {
+          block.querySelector('.arrow-prev').style.display = 'none';
         }
       }
     }
@@ -60,7 +64,6 @@ export default async function decorate(block) {
   block.append(...createButtons(moveSlides));
   await decorateIcons(block);
   setAutoScroll(moveSlides, block);
-
 }
 
 function setAutoScroll(moveSlides, slidesWrapper) {
@@ -73,11 +76,23 @@ function setAutoScroll(moveSlides, slidesWrapper) {
 
     // Stop auto-scroll on user interaction
     slidesWrapper.addEventListener('mouseenter', () => {
-      console.log('mouseenter');
       clearInterval(interval);
+    });
+    // Stop auto-scroll on user interaction
+    slidesWrapper.addEventListener('touchstart', () => {
+      console.log('touchstart');
+      clearInterval(interval);
+      // slidesWrapper.style.setProperty('overflow-x', 'auto', 'important');
     });
     slidesWrapper.addEventListener('mouseleave', () => {
       console.log('mouseleave');
+      interval = setInterval(() => {
+        moveSlides('next');
+      }, 6000);
+    });
+    slidesWrapper.addEventListener('touchend', () => {
+      console.log('touchend');
+      // slidesWrapper.style.removeProperty('overflow-x');
       interval = setInterval(() => {
         moveSlides('next');
       }, 6000);

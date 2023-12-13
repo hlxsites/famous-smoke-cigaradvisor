@@ -6,61 +6,54 @@ import { decorateIcons } from '../../scripts/aem.js';
  * @param block
  */
 export default async function decorate(block) {
-  console.log(block);
-  [...block.children].forEach((child, index) => {
-    child.classList.add('slide');
-    child.dataset.slideId = index;
-  });
-
-  // make a total of 3 copies of the slides, so it appears to be infinite scrolling
-  const originalSlides = [...block.querySelectorAll('.slide')];
-  // block.prepend(...(cloneSlides(originalSlides)));
-  // block.append(...(cloneSlides(originalSlides)));
-
+  const mobile = (window.screen.width < 600);
+  const offset = mobile ? 100 : 50;
+  const itemsToShow = mobile ? 2:1;
   const slidesWrapper = document.createElement('div');
   slidesWrapper.classList.add('slides-wrappper');
-  while (block.firstChild) {
-    let child = block.firstChild;
-    slidesWrapper.append(child);
-  }
-  block.innerHTML = '';
-  block.append(slidesWrapper);
+  [...block.children].forEach((row) => {
+    const slide = document.createElement('div');
+    slide.classList.add('slide');
+    let pic;
+    let anchor;
+    [...row.children].forEach((col) => {
+      if (col.querySelector('picture')) {
+        pic = col.querySelector('picture');
+      }
+      if (col.querySelector('a')) {
+        anchor = col.querySelector('a');
+      }
+    });
+    anchor.replaceChildren(pic);
+    slide.append(anchor);
+    slidesWrapper.append(slide);
+  });
+
+  block.replaceChildren(slidesWrapper);
 
   let currentIndex = 0;
   const items = slidesWrapper.querySelectorAll('.slide');
-  function moveSlides(prevOrNext, smooth = 'smooth') {
-    currentIndex = (currentIndex + 1) % items.length;
-    slidesWrapper.style.transform = `translate3d(-${currentIndex * 50}%, 0, 0)`;
+  function moveSlides(prevOrNext) {
+    console.log('moveSlides');
+    if (prevOrNext === 'next') {
+      console.log(currentIndex);
+      if (currentIndex < (items.length - itemsToShow)) {
+        currentIndex += 1;
+        slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+      }
+    } else {
+      console.log(currentIndex);
+      if (currentIndex >= 1) {
+        currentIndex -= 1;
+        slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+      }
+    }
   }
-
-  // set initial position, delay scrolling until the elements are properly laid out
-  // requestAnimationFrame(function initialScroll() {
-  //   if (originalSlides[0].offsetLeft > 0) {
-  //     block.scrollTo({ top: 0, left: originalSlides[0].offsetLeft, behavior: 'instant' });
-  //   } else {
-  //     setTimeout(initialScroll, 200);
-  //   }
-  // });
-
-  // once the scroll is finished, jump back to an original slide in the middle
-  // onScrollEnd(block, () => {
-  //   const original = getOriginalSlide(getCurrentSlide(block), block);
-  //   if (original) {
-  //     block.scrollTo({ top: 0, left: original.offsetLeft, behavior: 'instant' });
-  //   }
-  // }, false);
 
   block.append(...createButtons(moveSlides));
   await decorateIcons(block);
-}
+  setAutoScroll(moveSlides, block);
 
-function cloneSlides(originalSlides) {
-  return originalSlides.map((child) => {
-    const clone = child.cloneNode(true);
-    clone.dataset.slideCloneId = child.dataset.slideId;
-    delete clone.dataset.slideId;
-    return clone;
-  });
 }
 
 function getCurrentSlide(block) {
@@ -70,11 +63,26 @@ function getCurrentSlide(block) {
     .find((slide) => viewStart <= slide.offsetLeft && slide.offsetLeft < viewEnd);
 }
 
-function getOriginalSlide(slide, block) {
-  if (slide.dataset.slideCloneId) {
-    return block.querySelector(`[data-slide-id="${slide.dataset.slideCloneId}"]`);
-  }
-  return null;
+function setAutoScroll(moveSlides, slidesWrapper) {
+  // Set interval for auto-scrolling (change slide every 3 seconds)
+  let interval;
+  setTimeout(() => {
+    interval = setInterval(() => {
+      moveSlides('next');
+    }, 5000);
+
+    // Stop auto-scroll on user interaction
+    slidesWrapper.addEventListener('mouseenter', () => {
+      console.log('mouseenter');
+      clearInterval(interval);
+    });
+    slidesWrapper.addEventListener('mouseleave', () => {
+      console.log('mouseleave');
+      interval = setInterval(() => {
+        moveSlides('next');
+      }, 6000);
+    });
+  }, 3000);
 }
 
 function createButtons(moveSlides) {
@@ -89,23 +97,4 @@ function createButtons(moveSlides) {
     button.addEventListener('click', () => moveSlides(direction));
     return button;
   });
-}
-
-/** Fallback for Safari, see explanation on https://developer.chrome.com/blog/scrollend-a-new-javascript-event/
- and https://stackoverflow.com/a/4620986/79461 */
-function onScrollEnd(block, callback, once = false) {
-  if ('onscrollend' in window) {
-    block.addEventListener('scrollend', callback, { once });
-    return;
-  }
-  let timer = null;
-  const scrollListener = () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      // no scrolling happened for 150ms
-      if (once) block.removeEventListener('scroll', scrollListener);
-      callback();
-    }, 150);
-  };
-  block.addEventListener('scroll', scrollListener);
 }

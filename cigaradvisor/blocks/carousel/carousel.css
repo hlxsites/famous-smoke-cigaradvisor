@@ -18,6 +18,14 @@
   transition: transform 3000ms ease 0ms;
 }
 
+.carousel.block a picture {
+  display: flex;
+}
+
+.carousel.block a picture > img{
+  flex-grow: 1;
+}
+
 .carousel.block>div::-webkit-scrollbar {
   display: none;
 }

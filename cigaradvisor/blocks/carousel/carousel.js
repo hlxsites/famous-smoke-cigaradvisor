@@ -2,7 +2,6 @@ import { decorateIcons } from '../../scripts/aem.js';
 import { isExternal } from '../../scripts/scripts.js';
 
 function setAutoScroll(moveSlides, slidesWrapper) {
-  // Set interval for auto-scrolling (change slide every 3 seconds)
   let interval;
   setTimeout(() => {
     interval = setInterval(() => {
@@ -42,6 +41,7 @@ function createButtons(moveSlides) {
 /**
  * Generic carousel block, which can be used for any content or blocks.
  * Each row is a slide.
+ * left column is image and right column is the link.
  * @param block
  */
 export default async function decorate(block) {

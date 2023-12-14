@@ -1,7 +1,7 @@
 import { decorateIcons } from '../../scripts/aem.js';
 import { isExternal } from '../../scripts/scripts.js';
 
-function setAutoScroll(moveSlides, slidesWrapper) {
+function setAutoScroll(moveSlides, block) {
   let interval;
   let interacting = false;
   setTimeout(() => {
@@ -10,7 +10,7 @@ function setAutoScroll(moveSlides, slidesWrapper) {
         moveSlides('next');
       }, 6000);
     }
-    slidesWrapper.addEventListener('mouseleave', () => {
+    block.addEventListener('mouseleave', () => {
       interacting = false;
       interval = setInterval(() => {
         moveSlides('next');
@@ -19,7 +19,7 @@ function setAutoScroll(moveSlides, slidesWrapper) {
   }, 3000);
 
   // Stop auto-scroll on user interaction
-  slidesWrapper.addEventListener('mouseenter', () => {
+  block.addEventListener('mouseenter', () => {
     interacting = true;
     clearInterval(interval);
   });

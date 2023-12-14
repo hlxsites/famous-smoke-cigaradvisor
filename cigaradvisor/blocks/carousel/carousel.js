@@ -2,9 +2,8 @@ import { isExternal } from '../../scripts/scripts.js';
 
 function setAutoScroll(moveSlides, block) {
   let interval;
-  let interacting = false;
   setTimeout(() => {
-    if (!interacting) {
+    if (interval === undefined) {
       interval = setInterval(() => {
         moveSlides('next');
       }, 6000);
@@ -13,12 +12,17 @@ function setAutoScroll(moveSlides, block) {
 
   // Stop auto-scroll on user interaction
   block.addEventListener('mouseenter', () => {
-    interacting = true;
     clearInterval(interval);
+    interval = undefined;
   });
 
   block.addEventListener('mouseleave', () => {
-    interacting = false;
+    if (interval === undefined) {
+      interval = setInterval(() => {
+        moveSlides('next');
+      }, 6000);
+      console.log('after checking', interval);
+    }
   });
 }
 

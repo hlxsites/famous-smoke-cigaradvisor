@@ -7,14 +7,13 @@ function setAutoScroll(moveSlides, slidesWrapper) {
   setTimeout(() => {
     interval = setInterval(() => {
       moveSlides('next');
-    }, 3000);
+    }, 6000);
 
     // Stop auto-scroll on user interaction
     slidesWrapper.addEventListener('mouseenter', () => {
       clearInterval(interval);
     });
     slidesWrapper.addEventListener('mouseleave', () => {
-      console.log('mouseleave');
       interval = setInterval(() => {
         moveSlides('next');
       }, 6000);
@@ -30,6 +29,10 @@ function createButtons(moveSlides) {
     const iconDiv = document.createElement('div');
     iconDiv.classList.add(`arrow-${direction}`);
     iconDiv.classList.add('carousel-arrow');
+    const iconSpan = document.createElement('span');
+    iconSpan.classList.add(`${direction}-icon`);
+    iconSpan.innerHTML = '&#8249;';
+    iconDiv.append(iconSpan);
     button.appendChild(iconDiv);
     button.addEventListener('click', () => moveSlides(direction));
     return button;
@@ -78,9 +81,7 @@ export default async function decorate(block) {
       if (currentIndex < (items.length - itemsToShow)) {
         currentIndex += 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        if (!mobile) {
-          block.querySelector('.arrow-prev').style.display = 'inline-block';
-        }
+        block.querySelector('.arrow-prev').style.display = 'inline-block';
         if (currentIndex === (items.length - itemsToShow)) {
           block.querySelector('.arrow-next').style.display = 'none';
         }
@@ -88,6 +89,7 @@ export default async function decorate(block) {
     } else if (currentIndex >= 1) {
       currentIndex -= 1;
       slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
+      block.querySelector('.arrow-next').style.display = 'inline-block';
       if (currentIndex <= 1) {
         block.querySelector('.arrow-prev').style.display = 'none';
       }

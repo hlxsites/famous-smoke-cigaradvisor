@@ -31,7 +31,7 @@
 }
 
 
-.carousel>button {
+.carousel.block>button {
   position: absolute;
   top: 40%;
   background: unset;
@@ -40,85 +40,52 @@
   border: none;
 }
 
-.carousel>button.prev {
+.carousel.block>button.prev {
   left: 0;
 }
 
-.carousel button.next {
+.carousel.block>button.next {
   right: 0;
   padding: 0 30px 0 0;
 }
 
 
-.carousel-arrow {
-  display: none;
-  background-color: #000;
-  /* Arrow color */
-  position: relative;
+.carousel.block .carousel-arrow {
+  display: inline-block;
   cursor: pointer;
   position: absolute;
   z-index: 9;
   padding: 0;
   margin: 0;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: #000000B3;
   text-align: center;
   width: 30px;
   height: 50px;
 }
 
-.arrow-next::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-60%, -50%);
-  /* Adjust for arrow positioning */
-  border-style: solid;
-  border-width: 2px 2px 0 0;
-  padding: 4px;
-  width: 10px;
-  /* Arrowhead width */
-  height: 10px;
-  /* Arrowhead height */
-  transform: rotate(45deg);
-  /* Rotate arrowhead for next direction */
-  border-color: #fff;
-  /* Arrowhead color */
+.carousel.block .carousel-arrow .prev-icon,
+.carousel.block .carousel-arrow .next-icon {
+  display: inline-block;
+  font-size: 45px;
+  color: #fff;
 }
 
-.next {
-  padding-right: 30px;
+.carousel.block .carousel-arrow .next-icon {
+  transform: rotate(180deg);
+  margin: 10%;
 }
 
-.arrow-prev::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(-40%, -50%);
-  border-style: solid;
-  border-width: 2px 2px 0 0;
-  padding: 4px;
-  width: 10px;
-  /* Arrowhead width */
-  height: 10px;
-  /* Arrowhead height */
-  transform: rotate(-135deg);
-  border-color: #fff;
-  /* Arrowhead color */
+.carousel.block .carousel-arrow .prev-icon {
+  margin: -10%;
+}
+
+.carousel.block .arrow-prev {
+  display: none;
 }
 
 
 @media screen and (min-width: 600px) {
   .carousel.block .slide {
     flex: 1 0 50%;
-  }
-
-  .carousel.block .carousel-arrow {
-    display: inline-block;
-  }
-
-  .carousel.block .arrow-prev {
-    display: none;
   }
 }

@@ -21,7 +21,6 @@ function setAutoScroll(moveSlides, block) {
       interval = setInterval(() => {
         moveSlides('next');
       }, 6000);
-      console.log('after checking', interval);
     }
   });
 }

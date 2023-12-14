@@ -1,4 +1,3 @@
-import { decorateIcons } from '../../scripts/aem.js';
 import { isExternal } from '../../scripts/scripts.js';
 
 function setAutoScroll(moveSlides, block) {
@@ -102,6 +101,5 @@ export default async function decorate(block) {
   }
 
   block.append(...createButtons(moveSlides));
-  await decorateIcons(block);
   setAutoScroll(moveSlides, block);
 }

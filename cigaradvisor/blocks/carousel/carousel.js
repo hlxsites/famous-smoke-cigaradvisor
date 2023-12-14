@@ -3,21 +3,26 @@ import { isExternal } from '../../scripts/scripts.js';
 
 function setAutoScroll(moveSlides, slidesWrapper) {
   let interval;
+  let interacting = false;
   setTimeout(() => {
-    interval = setInterval(() => {
-      moveSlides('next');
-    }, 6000);
-
-    // Stop auto-scroll on user interaction
-    slidesWrapper.addEventListener('mouseenter', () => {
-      clearInterval(interval);
-    });
+    if (!interacting) {
+      interval = setInterval(() => {
+        moveSlides('next');
+      }, 6000);
+    }
     slidesWrapper.addEventListener('mouseleave', () => {
+      interacting = false;
       interval = setInterval(() => {
         moveSlides('next');
       }, 6000);
     });
   }, 3000);
+
+  // Stop auto-scroll on user interaction
+  slidesWrapper.addEventListener('mouseenter', () => {
+    interacting = true;
+    clearInterval(interval);
+  });
 }
 
 function createButtons(moveSlides) {

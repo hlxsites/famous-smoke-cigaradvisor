@@ -23,6 +23,7 @@
 }
 
 .carousel.block a picture > img{
+  display: block;
   flex-grow: 1;
 }
 

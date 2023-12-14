@@ -9,18 +9,16 @@ function setAutoScroll(moveSlides, block) {
         moveSlides('next');
       }, 6000);
     }
-    block.addEventListener('mouseleave', () => {
-      interacting = false;
-      interval = setInterval(() => {
-        moveSlides('next');
-      }, 6000);
-    });
   }, 3000);
 
   // Stop auto-scroll on user interaction
   block.addEventListener('mouseenter', () => {
     interacting = true;
     clearInterval(interval);
+  });
+
+  block.addEventListener('mouseleave', () => {
+    interacting = false;
   });
 }
 
@@ -94,7 +92,7 @@ export default async function decorate(block) {
       currentIndex -= 1;
       slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
       block.querySelector('.arrow-next').style.display = 'inline-block';
-      if (currentIndex <= 1) {
+      if (currentIndex < 1) {
         block.querySelector('.arrow-prev').style.display = 'none';
       }
     }

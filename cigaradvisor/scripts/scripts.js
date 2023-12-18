@@ -103,6 +103,20 @@ export function isExternal(path) {
 }
 
 /**
+ * Simple funtion to fetch json data from a spreadsheet
+ * @param {*} url
+ * @returns jsonData
+ */
+export async function fetchData(url) {
+  const resp = await fetch(url);
+  let jsonData = '';
+  if (resp.ok) {
+    jsonData = await resp.json();
+  }
+  return jsonData.data;
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */

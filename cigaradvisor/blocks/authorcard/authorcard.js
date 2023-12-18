@@ -3,12 +3,10 @@ import { isExternal, fetchData } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
-  console.log(configs);
   const { title } = configs;
   const buttonLabel = configs['button-label'];
   const buttonLink = configs['button-link'];
   const { authors } = configs;
-  console.log(buttonLabel);
   const leftDiv = document.createElement('div');
   leftDiv.classList.add('left-column');
   const authorLeftContentWrapper = document.createElement('div');
@@ -32,9 +30,9 @@ export default async function decorate(block) {
 
   const rightDiv = document.createElement('div');
   rightDiv.classList.add('right-column');
+  //  TODO: fetch author details from query-index.xlsx
   const fetchUrl = `${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`;
   const authorContent = await fetchData(fetchUrl);
-  console.log(authorContent);
   const authorsObj = [];
   [...authors].forEach((authorPage) => {
     let authorPath;
@@ -54,17 +52,16 @@ export default async function decorate(block) {
       authorsObj.push(authorDetails);
     }
   });
-  console.log(authorsObj);
   const authorWrapperSection = document.createElement('section');
   authorWrapperSection.classList.add('author-wrapper');
   authorWrapperSection.innerHTML = '';
   [...authorsObj].forEach((author) => {
     authorWrapperSection.innerHTML
-            += `<div class="author-content">
+      += `<div class="author-content">
     <div class="overlay-image">
     ${createOptimizedPicture(author.image).outerHTML}
     <div class="overlay-content">
-    <p class="align-center"><a href="${author.path}">${author.name}</a></p>
+    <p class="align-center"><a href="${author.page}">${author.name}</a></p>
     </div>
     </div>
     </div>`;

@@ -184,12 +184,11 @@
         flex-direction: column;
     }
 
-    .authorcard-wrapper {
-        width: auto;
+    .author-wrapper {
+        flex-direction: column;
     }
 
-    .authorcard.block .left-column,
-    .right-column {
+    .authorcard-wrapper {
         width: auto;
     }
 
@@ -200,6 +199,7 @@
     /* align left-column content center and also all the text inside it center aligned */
     .authorcard.block .left-column,
     .right-column {
+        width: auto;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -229,7 +229,4 @@
     .authorcard.block .right-column p>a {
         padding: 0;
     }
-
-    
-
 }

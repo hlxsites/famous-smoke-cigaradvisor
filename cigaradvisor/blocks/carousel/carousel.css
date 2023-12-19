@@ -1,0 +1,100 @@
+.carousel-wrapper {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
+  overflow: hidden;
+}
+
+.carousel.block>div {
+  scroll-margin: 0;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  display: flex;
+  scrollbar-width: none;
+  transition: transform 3000ms ease 0ms;
+}
+
+.carousel.block a picture {
+  display: flex;
+}
+
+.carousel.block a picture > img{
+  display: block;
+  flex-grow: 1;
+}
+
+.carousel.block>div::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel.block .slide {
+  scroll-snap-align: start;
+  display: block;
+  flex: 1 0 100%;
+  scroll-margin: unset;
+  padding: 0 2px;
+}
+
+
+.carousel.block>button {
+  position: absolute;
+  top: 40%;
+  background: unset;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.carousel.block>button.prev {
+  left: 0;
+}
+
+.carousel.block>button.next {
+  right: 0;
+  padding: 0 30px 0 0;
+}
+
+
+.carousel.block .carousel-arrow {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  z-index: 9;
+  padding: 0;
+  margin: 0;
+  background-color: #000000B3;
+  text-align: center;
+  width: 30px;
+  height: 50px;
+}
+
+.carousel.block .carousel-arrow .prev-icon,
+.carousel.block .carousel-arrow .next-icon {
+  display: inline-block;
+  font-size: 45px;
+  color: #fff;
+}
+
+.carousel.block .carousel-arrow .next-icon {
+  transform: rotate(180deg);
+  margin: 10%;
+}
+
+.carousel.block .carousel-arrow .prev-icon {
+  margin: -10%;
+}
+
+.carousel.block .arrow-prev {
+  display: none;
+}
+
+
+@media screen and (min-width: 600px) {
+  .carousel.block .slide {
+    flex: 1 0 50%;
+  }
+}

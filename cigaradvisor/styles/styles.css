@@ -10,10 +10,125 @@
  * governing permissions and limitations under the License.
  */
 
+@font-face {
+  font-family: 'Open Sans Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 101.58%;
+  descent-override: 27.84%;
+  line-gap-override: 0.00%;
+  size-adjust: 105.22%;
+}
+
+@font-face {
+  font-family: 'Open Sans Fallback';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Arial Bold');
+  ascent-override: 109.90%;
+  descent-override: 30.12%;
+  line-gap-override: 0.00%;
+  size-adjust: 97.26%;
+}
+
+@font-face {
+  font-family: 'Open Sans Fallback';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Arial Bold');
+  ascent-override: 109.90%;
+  descent-override: 30.12%;
+  line-gap-override: 0.00%;
+  size-adjust: 97.26%;
+}
+
+@font-face {
+  font-family: 'Open Sans Fallback';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Arial Bold');
+  ascent-override: 109.90%;
+  descent-override: 30.12%;
+  line-gap-override: 0.00%;
+  size-adjust: 97.26%;
+}
+
+@font-face {
+  font-family: 'Montserrat Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 87.81%;
+  descent-override: 22.77%;
+  line-gap-override: 0.00%;
+  size-adjust: 110.23%;
+}
+
+@font-face {
+  font-family: 'Montserrat Fallback';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Arial Bold');
+  ascent-override: 95.01%;
+  descent-override: 24.63%;
+  line-gap-override: 0.00%;
+  size-adjust: 101.89%;
+}
+
+@font-face {
+  font-family: 'Montserrat Fallback';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Arial Bold');
+  ascent-override: 95.01%;
+  descent-override: 24.63%;
+  line-gap-override: 0.00%;
+  size-adjust: 101.89%;
+}
+
+@font-face {
+  font-family: 'Montserrat Fallback';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Arial Bold');
+  ascent-override: 95.01%;
+  descent-override: 24.63%;
+  line-gap-override: 0.00%;
+  size-adjust: 101.89%;
+}
+
+@font-face {
+  font-family: 'Alfa Slab One Fallback';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arial');
+  ascent-override: 85.41%;
+  descent-override: 27.45%;
+  line-gap-override: 0.00%;
+  size-adjust: 121.30%;
+}
+
+@font-face {
+  font-family: 'Alfa Slab One Fallback';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Arial Bold');
+  ascent-override: 92.40%;
+  descent-override: 29.70%;
+  line-gap-override: 0.00%;
+  size-adjust: 112.12%;
+}
+
+
  :root {
   /* colors */
 
   /* fonts */
+   --ff-arial: 'Arial', sans-serif;
+   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
+   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
+   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
 
   /* body sizes */
 
@@ -37,8 +152,8 @@ header {
 }
 
 html {
-  font-size:100%;
-  line-height:1.5
+  font-size: 100%;
+  line-height: 1.5
 }
 
 *, ::before, ::after{
@@ -53,7 +168,7 @@ img {
 }
 
 h2 {
-  font-family: montserrat,sans-serif;
+  font-family: var(--ff-montserrat);
   font-weight: 900;
   text-transform: uppercase;
   color: #141414;
@@ -62,7 +177,7 @@ h2 {
 }
 
 a{
-  font-family: montserrat,sans-serif;
+  font-family: var(--ff-montserrat);
   font-weight: 600;
   color: #141414;
   font-size: 12px;
@@ -104,7 +219,7 @@ main .section[data-layout="50/50"] > div {
   flex-basis: 100%;
   flex-direction: column;
 }
-  
+
 main .section[data-layout="50/50"] .left-grid > div{
   padding: 10px;
 }

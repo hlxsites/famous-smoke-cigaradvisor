@@ -1,24 +1,40 @@
 /* Add font definitions here. */
 
-    /* fallback font for Alfa Slab One (normal - 400) */
-    @font-face {
-        font-family: "alfa-slab-one-normal-400-fallback";
-        size-adjust: 89.069%;
-        src: local("Courier New");
-      }
-  
-      /* fallback font for Montserrat (normal - 400) */
-      @font-face {
-        font-family: "montserrat-normal-400-fallback";
-        size-adjust: 97.069%;
-        src: local("Verdana");
-      }
-  
-      /* fallback font for Open Sans (normal - 400) */
-      @font-face {
-        font-family: "open-sans-normal-400-fallback";
-        size-adjust: 78.069%;
-        src: local("Courier New");
-      }
-  
-  
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-display: swap;
+    src: url('../fonts/opensans.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: Montserrat;
+    font-style: normal;
+    font-display: swap;
+    src: url('../fonts/montserrat.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Alfa Slab One';
+    font-style: normal;
+    font-display: swap;
+    src: url('../fonts/alfaslabone.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: "alfa-slab-one-normal-400-fallback";
+    size-adjust: 89.069%;
+    src: local("Courier New");
+  }
+
+  @font-face {
+    font-family: "montserrat-normal-400-fallback";
+    size-adjust: 97.069%;
+    src: local("Verdana");
+  }
+
+  @font-face {
+    font-family: "open-sans-normal-400-fallback";
+    size-adjust: 78.069%;
+    src: local("Courier New");
+  }

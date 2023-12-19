@@ -31,9 +31,11 @@ export default {
     const contributor = main.querySelector('.contributorBlock');
     // upgrade title to h3 tag
     const title = contributor.querySelector('.name > p');
-    const h3 = document.createElement('h3');
-    h3.innerHTML = title.innerHTML;
-    title.replaceWith(h3);
+    if (title) {
+      const h3 = document.createElement('h3');
+      h3.innerHTML = title.innerHTML;
+      title.replaceWith(h3);
+    }
     return contributor;
   },
 

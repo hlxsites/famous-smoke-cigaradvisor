@@ -43,9 +43,9 @@
 }
 
 .authorcard.block .left-column h2 {
-    font-family: "alfa slab one", cursive;
-    font-size: 40px !important;
-    color: #673841;
+    font-family: var(--ff-alfaslabone);
+    font-size: var(--heading-font-size-xl);
+    color: var(--deep-reddish-brown);
     margin-top: 0;
     padding-bottom: 10px;
     border-image-source: url('/cigaradvisor/images/author-card/media_176afb26345b78f372ca811cf0e842c7ff75875a5.png');
@@ -54,28 +54,28 @@
 }
 
 .authorcard.block .left-column h2:first-child {
-    font-size: 35px !important;
+    font-size: var(--heading-font-size-l);
     border-bottom: none;
 }
 
 
 .authorcard.block .left-column p {
-    font-family: "open sans", sans-serif;
-    font-weight: 600;
-    color: #141414;
-    font-size: 12px;
+    font-family: var(--ff-opensans);
+    font-weight: var(--font-weight-semibold);
+    color: var(--dark-grey);
+    font-size: var(--body-font-size-xs);
     cursor: default;
     margin-top: 30px;
 }
 
 .authorcard.block .left-column .button {
-    background-color: #000;
+    background-color: var(--black);
     border: 2px solid;
-    font-family: montserrat, sans-serif;
-    font-weight: 700;
-    color: #fff;
+    font-family: var(--ff-montserrat);
+    font-weight: var(--font-weight-bold);
+    color: var(--white);
     text-transform: uppercase;
-    border-color: #8e7b5c;
+    border-color: var(--tan);
     display: inline-block;
     line-height: 26px;
     height: 50px;
@@ -91,15 +91,15 @@
     margin: 2px 0;
     padding-left: 1em;
     border-radius: 0;
-    font-size: 1em;
+    font-size: var(--body-font-size-s);
     outline: none;
     vertical-align: middle;
 }
 
 .authorcard.block .button:hover {
     transition: .5s;
-    background-color: #b19b5e;
-    border-color: #b19b5e;
+    background-color: var(--subdued-gold);
+    border-color: var(--subdued-gold);
     text-decoration: none;
 }
 
@@ -131,10 +131,10 @@
 }
 
 .authorcard.block .right-column p {
-    color: #fff;
+    color: var(--white);
     text-transform: uppercase;
     background-color: transparent;
-    font-family: montserrat, sans-serif;
+    font-family: var(--ff-montserrat);
     text-align: center;
     cursor: default;
 }
@@ -144,9 +144,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
-    color: #fff;
-    font-weight: 800;
-    font-size: 20px;
+    color: var(--white);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--body-font-size-xl);
 }
 
 .authorcard.block .right-column p>a:hover {
@@ -173,7 +173,7 @@
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    color: white;
+    color: var(--white);
     text-align: center;
 }
 

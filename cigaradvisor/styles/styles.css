@@ -141,6 +141,7 @@
 body {
   display: none;
   color: #333;
+  margin: 0;
 }
 
 body.appear {
@@ -193,6 +194,10 @@ a:hover {
 
 a:active, a:hover {
   outline-width: 0;
+}
+
+ul{
+  list-style-type: none;
 }
 
 /* Two-column grid */

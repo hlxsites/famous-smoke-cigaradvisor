@@ -1,14 +1,11 @@
 /* using flex arrange items horizontally and give a black background */
 .nav-wrapper {
-    background-color:#141414;
-    min-height: 60px;
 }   
 
 #nav { 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: auto;
-  max-width: 1080px;
 }
 
 .nav-wrapper p {
@@ -23,19 +20,71 @@
     width: 100%;
 }
 
-.heder-primary-left {
+.top-nav{
+    background-color:#141414;
+    min-height: 60px;
+    align-items: center;
+    height: 60px;
+}
+
+/* .brand-logo{
+    position: absolute;
+    left: calc(50% - 80px);
+    top: 0;
+    width: auto;
+    z-index: 1000;
+    float: left;
+    text-align: left;
+    line-height: normal;
+    margin: 0 2em 0 0;
+    height: 42px;
+    max-width: 100%;
+    font-size: 0;
+} */
+
+
+/* arrange top-nav-content horizontally centered */
+.top-nav .top-nav-content{
+    display: flex;
+    max-width: 1080px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.top-nav-left, .top-nav-right {
     width: calc(50% - 80px);
     padding: 0 10px;
-    height: 60px;
-    float: left;
     display: flex;
+    justify-content: center;
+    
+}
+
+.top-nav-left{
+    float: left;
     justify-content: center;
     align-items: center;
 }
 
+.top-nav-right{
+    float: right;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px;
+}
+
 
 /* arrange li items horizontally under .default-content-wrapper ul */
-.default-content-wrapper ul{
+.top-nav-left ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 30px;
+}
+
+.top-nav-left ul li{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -44,10 +93,37 @@
     margin: 0;
 }
 
-.default-content-wrapper picture {
+.top-nav-left ul li span{
     display: block;
-    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
+
+.top-nav-right ul{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 5px;
+}
+
+.top-nav-right ul li{
+    flex: 0 0 auto;
+    margin: 0 8px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.top-nav-right ul li a span {
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
+.top-nav-right .default-content-wrapper{
+    width: auto;
+}
+
 
 .default-content-wrapper ul a{
     text-transform: uppercase;
@@ -56,7 +132,12 @@
     font-weight: 400;
 }
 
-.default-content-wrapper ul li a::before{
+.top-nav-right ul li img{
+    width: 25px;
+    height: 25px;
+}
+
+/* .default-content-wrapper ul li a::before{
     content: 'ico';
     color: transparent;
     background-image: url('/cigaradvisor/images/header/famous.png');
@@ -65,17 +146,25 @@
     background-repeat: no-repeat;
     margin-right: 5px;
     font-size: 16px;
-}
+} */
 
 /* style the second a under default-content-wrapper ul */
-.default-content-wrapper ul li:nth-last-child(2) a::before{
+/* .default-content-wrapper ul li:nth-last-child(2) a::before{
     background-image: url('/cigaradvisor/images/header/auctioneer.png');
-}
+} */
 
-.default-content-wrapper ul li:last-child a::before{
+/* .default-content-wrapper ul li:last-child a::before{
     background-image: url('/cigaradvisor/images/header/monster.png');
-}
+} */
 
 .nav-hamburger {
+    display: none;
+}
+
+.nav-primary-nav {
+    display: none;
+}
+
+.nav-social-links {
     display: none;
 }

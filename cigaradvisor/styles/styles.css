@@ -135,7 +135,7 @@
   /* heading sizes */
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 60px;
  }
 
 body {
@@ -150,7 +150,7 @@ body.appear {
 
 header {
   height: var(--nav-height);
-}
+} 
 
 html {
   font-size: 100%;

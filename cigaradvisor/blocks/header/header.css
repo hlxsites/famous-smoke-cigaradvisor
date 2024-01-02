@@ -1,7 +1,4 @@
 /* using flex arrange items horizontally and give a black background */
-.nav-wrapper {
-}   
-
 #nav { 
   display: flex;
   flex-direction: column;
@@ -26,21 +23,6 @@
     align-items: center;
     height: 60px;
 }
-
-/* .brand-logo{
-    position: absolute;
-    left: calc(50% - 80px);
-    top: 0;
-    width: auto;
-    z-index: 1000;
-    float: left;
-    text-align: left;
-    line-height: normal;
-    margin: 0 2em 0 0;
-    height: 42px;
-    max-width: 100%;
-    font-size: 0;
-} */
 
 .brand-logo{
     z-index: 1000;
@@ -156,7 +138,9 @@
 /* Primary navigation */
 .primary-nav {
     display: flex;
+    flex-grow: 1; /* Added flex-grow property */
 }
+
 
 /* hide all nested second level ul elements under .primary-nav */
 .primary-nav ul > li > ul {
@@ -172,7 +156,6 @@
     margin: 0;
 }
 
-/*apply white transparent background to .primary-nav */
 .primary-nav{
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
@@ -193,4 +176,45 @@
     display: flex;
     max-width: 1080px;
     margin: 0 auto;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.primary-nav ul li{
+    display: flex;
+    flex: 0 0 auto;
+    margin-top: 0;
+    font-size: 14px;
+    font-family: open sans,sans-serif;
+    font-weight: 600;
+    color: #141414;
+    cursor: default;
+}
+
+.primary-nav ul li, .primary-nav ul li a{
+    font-family: montserrat,sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: transparent;
+  border-color: transparent;
+  color: #141414;
+  padding: .65em 0;
+  margin: 0;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    z-index: 111;
+}
+
+.primary-nav ul li a::after{
+    display: none;
+    content: "";
+    position: absolute;
+    visibility: hidden;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #fff;
 }

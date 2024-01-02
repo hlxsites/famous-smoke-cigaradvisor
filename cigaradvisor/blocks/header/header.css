@@ -1,8 +1,8 @@
 /* using flex arrange items horizontally and give a black background */
-#nav { 
-  display: flex;
-  flex-direction: column;
-  margin: auto;
+#nav {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }
 
 .nav-wrapper p {
@@ -12,46 +12,47 @@
     font-size: 12px;
 }
 
-.default-content-wrapper{
+.default-content-wrapper {
     display: block;
     width: 100%;
 }
 
-.top-nav{
-    background-color:#141414;
+.top-nav {
+    background-color: #141414;
     min-height: 60px;
     align-items: center;
     height: 60px;
 }
 
-.brand-logo{
+.brand-logo {
     z-index: 1000;
 }
 
 
 /* arrange top-nav-content horizontally centered */
-.top-nav .top-nav-content{
+.top-nav .top-nav-content {
     display: flex;
     max-width: 1080px;
     margin: 0 auto;
     height: 100%;
 }
 
-.top-nav-left, .top-nav-right {
+.top-nav-left,
+.top-nav-right {
     width: calc(50% - 80px);
     padding: 0 10px;
     display: flex;
     justify-content: center;
-    
+
 }
 
-.top-nav-left{
+.top-nav-left {
     float: left;
     justify-content: center;
     align-items: center;
 }
 
-.top-nav-right{
+.top-nav-right {
     float: right;
     justify-content: center;
     align-items: flex-end;
@@ -60,7 +61,7 @@
 
 
 /* arrange li items horizontally under .default-content-wrapper ul */
-.top-nav-left ul{
+.top-nav-left ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -70,7 +71,7 @@
     padding-right: 25px;
 }
 
-.top-nav-left ul li{
+.top-nav-left ul li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -79,14 +80,14 @@
     margin: 0;
 }
 
-.top-nav-left ul li span{
+.top-nav-left ul li span {
     display: block;
     width: 25px;
     height: 25px;
     margin-right: 5px;
 }
 
-.top-nav-right ul{
+.top-nav-right ul {
     display: flex;
     margin: 0;
     padding: 0;
@@ -94,7 +95,7 @@
     top: 5px;
 }
 
-.top-nav-right ul li{
+.top-nav-right ul li {
     flex: 0 0 auto;
     margin: 0 8px;
     font-weight: 400;
@@ -106,19 +107,19 @@
     font-size: 24px;
 }
 
-.top-nav-right .default-content-wrapper{
+.top-nav-right .default-content-wrapper {
     width: auto;
 }
 
 
-.default-content-wrapper ul a{
+.default-content-wrapper ul a {
     text-transform: uppercase;
     color: #fff;
     font-size: 14px;
     font-weight: 400;
 }
 
-.top-nav-right ul li img{
+.top-nav-right ul li img {
     width: 25px;
     height: 25px;
 }
@@ -138,25 +139,26 @@
 /* Primary navigation */
 .primary-nav {
     display: flex;
-    flex-grow: 1; /* Added flex-grow property */
+    flex-grow: 1;
+    /* Added flex-grow property */
 }
 
 
 /* hide all nested second level ul elements under .primary-nav */
-.primary-nav ul > li > ul {
+.primary-nav ul>li>ul {
     display: none;
 }
 
-.primary-nav ul{
+.primary-nav ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.primary-nav{
+.primary-nav {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
     position: static;
@@ -172,7 +174,7 @@
     z-index: auto;
 }
 
-.primary-nav ul{
+.primary-nav ul {
     display: flex;
     max-width: 1080px;
     margin: 0 auto;
@@ -181,33 +183,43 @@
     text-align: center;
 }
 
-.primary-nav ul li{
+.primary-nav ul li {
     display: flex;
     flex: 0 0 auto;
     margin-top: 0;
     font-size: 14px;
-    font-family: open sans,sans-serif;
+    font-family: open sans, sans-serif;
     font-weight: 600;
     color: #141414;
     cursor: default;
 }
 
-.primary-nav ul li, .primary-nav ul li a{
-    font-family: montserrat,sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  background-color: transparent;
-  border-color: transparent;
-  color: #141414;
-  padding: .65em 0;
-  margin: 0;
+.primary-nav ul li,
+.primary-nav ul li a {
+    padding: 10px 15px;
+    font-family: montserrat, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 2px solid transparent;
+    color: #141414;
+    margin: 0;
     cursor: pointer;
     font-size: 14px;
     position: relative;
     z-index: 111;
 }
 
-.primary-nav ul li a::after{
+.primary-nav ul li>a:hover,
+.nav-drop:hover {
+    border-color: #8e7b5c;
+}
+
+.primary-nav ul li:last-child a:hover {
+    border: 2px solid transparent;
+}
+
+.primary-nav ul li a::after {
     display: none;
     content: "";
     position: absolute;
@@ -217,4 +229,68 @@
     right: 0;
     height: 1px;
     background-color: #fff;
+}
+
+.nav-drop::after {
+    font-size: 16px;
+    content: '\f107';
+    font-family: FontAwesome, Arial, sans-serif;
+    /* Added Arial and sans-serif as fallback options */
+    margin-left: 10px;
+}
+
+/* Secondary navigation */
+.secondary-nav-box{
+    display: none;
+    background-color: #fff;
+    border: 2px solid #8e7b5c;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 110;
+}
+
+.secondary-nav-box ul {
+    column-count: 3;
+    width: 100%;
+    padding: 3em;
+}
+
+.secondary-nav-box.browse-categories ul li {
+    line-height: 2;
+    font-size: 14px;
+    font-family: open sans, sans-serif;
+    font-weight: 600;
+    color: #141414;
+    cursor: default;
+}
+
+.secondary-nav-box.browse-categories ul li a {
+    color: #8e7b5c;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: montserrat, sans-serif;
+    font-weight: 600;
+}
+
+/* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned*/
+.secondary-nav-box ul li span img,  .secondary-nav-box.shop-cigars ul li a {
+    display: block;
+    text-align: center;
+}
+
+.secondary-nav-box.shop-cigars ul li a {
+    margin: 14px 0;
+}
+
+.secondary-nav-box.shop-cigars ul {
+    padding: 16px;
+}
+
+/* make above img centered */
+.secondary-nav-box ul li span img {
+    margin: 0 auto;
 }

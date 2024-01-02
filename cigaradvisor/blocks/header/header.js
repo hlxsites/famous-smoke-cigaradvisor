@@ -119,8 +119,36 @@ export default async function decorate(block) {
   const primaryNav = fragment.children[0];
   primaryNav.className = 'primary-nav';
   nav.append(primaryNav);
+  // add nav-drop class to nav items with dropdowns
+  primaryNav.querySelectorAll('li').forEach((li) => {
+    if (li.querySelector('ul')) {
+      const secondaryNavBox = document.createElement('div');
+      const text = li.childNodes[0].textContent;
+      const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
+      secondaryNavBox.className = `secondary-nav-box ${textToClass}`;
+      secondaryNavBox.append(li.querySelector('ul'));
+      li.className = 'nav-drop';
+      li.setAttribute('data-secondarynav', textToClass);
+      nav.append(secondaryNavBox);
+    }
+  });
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // create a click event to show secondaynavbox based on textToClass
+  const navDrops = nav.querySelectorAll('.nav-drop');
+  navDrops.forEach((drop) => {
+    drop.addEventListener('click', () => {
+      const secondaryNavBox = document.querySelectorAll('.secondary-nav-box');
+      // hide all secondary nav boxes
+      secondaryNavBox.forEach((box) => {
+        box.style.display = 'none';
+      });
+      const targetSecondaryNavClass = drop.dataset.secondarynav;
+      const targetSecondaryNavBox = document.querySelector(`.${targetSecondaryNavClass}`);
+      targetSecondaryNavBox.style.display = 'block';
+    });
+  });
 }

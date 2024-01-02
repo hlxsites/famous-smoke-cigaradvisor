@@ -42,6 +42,10 @@
     font-size: 0;
 } */
 
+.brand-logo{
+    z-index: 1000;
+}
+
 
 /* arrange top-nav-content horizontally centered */
 .top-nav .top-nav-content{
@@ -81,7 +85,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    padding-right: 30px;
+    padding-right: 25px;
 }
 
 .top-nav-left ul li{
@@ -95,8 +99,8 @@
 
 .top-nav-left ul li span{
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     margin-right: 5px;
 }
 
@@ -137,26 +141,6 @@
     height: 25px;
 }
 
-/* .default-content-wrapper ul li a::before{
-    content: 'ico';
-    color: transparent;
-    background-image: url('/cigaradvisor/images/header/famous.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-right: 5px;
-    font-size: 16px;
-} */
-
-/* style the second a under default-content-wrapper ul */
-/* .default-content-wrapper ul li:nth-last-child(2) a::before{
-    background-image: url('/cigaradvisor/images/header/auctioneer.png');
-} */
-
-/* .default-content-wrapper ul li:last-child a::before{
-    background-image: url('/cigaradvisor/images/header/monster.png');
-} */
-
 .nav-hamburger {
     display: none;
 }
@@ -167,4 +151,46 @@
 
 .nav-social-links {
     display: none;
+}
+
+/* Primary navigation */
+.primary-nav {
+    display: flex;
+}
+
+/* hide all nested second level ul elements under .primary-nav */
+.primary-nav ul > li > ul {
+    display: none;
+}
+
+.primary-nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*apply white transparent background to .primary-nav */
+.primary-nav{
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    position: static;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    overflow: visible;
+    width: auto;
+    max-width: none;
+    padding-top: 15px;
+    transform: none;
+    transition: none;
+    z-index: auto;
+}
+
+.primary-nav ul{
+    display: flex;
+    max-width: 1080px;
+    margin: 0 auto;
 }

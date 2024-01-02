@@ -116,7 +116,9 @@ export default async function decorate(block) {
   topNavContent.append(topNavRight);
   topNav.append(topNavContent);
   nav.append(topNav);
-  nav.append(fragment.children[0]);
+  const primaryNav = fragment.children[0];
+  primaryNav.className = 'primary-nav';
+  nav.append(primaryNav);
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);

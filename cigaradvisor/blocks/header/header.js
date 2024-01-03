@@ -128,6 +128,7 @@ export default async function decorate(block) {
       secondaryNavBox.className = `secondary-nav-box ${textToClass}`;
       secondaryNavBox.append(li.querySelector('ul'));
       li.className = 'nav-drop';
+      li.setAttribute('aria-expanded', 'false');
       li.setAttribute('data-secondarynav', textToClass);
       nav.append(secondaryNavBox);
     }
@@ -137,18 +138,25 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  // create a click event to show secondaynavbox based on textToClass
   const navDrops = nav.querySelectorAll('.nav-drop');
   navDrops.forEach((drop) => {
     drop.addEventListener('click', () => {
       const secondaryNavBox = document.querySelectorAll('.secondary-nav-box');
-      // hide all secondary nav boxes
       secondaryNavBox.forEach((box) => {
         box.style.display = 'none';
       });
+      navDrops.forEach((d) => {
+        d.setAttribute('aria-expanded', 'false');
+      });
       const targetSecondaryNavClass = drop.dataset.secondarynav;
       const targetSecondaryNavBox = document.querySelector(`.${targetSecondaryNavClass}`);
-      targetSecondaryNavBox.style.display = 'block';
+      if (drop.getAttribute('aria-expanded') === 'false') {
+        targetSecondaryNavBox.style.display = 'block';
+        drop.setAttribute('aria-expanded', 'true');
+      } else {
+        targetSecondaryNavBox.style.display = 'none';
+        drop.setAttribute('aria-expanded', 'false');
+      }
     });
   });
 }

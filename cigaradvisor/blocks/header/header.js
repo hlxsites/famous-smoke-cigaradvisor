@@ -146,7 +146,9 @@ export default async function decorate(block) {
         box.style.display = 'none';
       });
       navDrops.forEach((d) => {
-        d.setAttribute('aria-expanded', 'false');
+        if (d !== drop && d.getAttribute('aria-expanded') === 'true') {
+          d.setAttribute('aria-expanded', 'false');
+        }
       });
       const targetSecondaryNavClass = drop.dataset.secondarynav;
       const targetSecondaryNavBox = document.querySelector(`.${targetSecondaryNavClass}`);

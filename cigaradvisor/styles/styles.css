@@ -203,6 +203,14 @@ ul {
   list-style-type: none;
 }
 
+li {
+  font-family: var(--ff-opensans);
+  font-weight: 600;
+  color: #141414;
+  font-size: 12px;
+  cursor: default;
+}
+
 input {
   font-size: 1em;
   font-family: var(--ff-arial);

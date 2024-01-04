@@ -207,8 +207,7 @@ nav {
     z-index: 111;
 }
 
-.primary-nav ul li>a:hover,
-.nav-drop:hover {
+.primary-nav ul li>a:hover{
     border-color: #8e7b5c;
 }
 
@@ -236,7 +235,7 @@ nav {
 }
 
 /* Secondary navigation */
-.secondary-nav-box {
+nav .secondary-nav-box {
     display: none;
     background-color: #fff;
     border: 2px solid #8e7b5c;
@@ -249,13 +248,13 @@ nav {
     z-index: 110;
 }
 
-.secondary-nav-box ul {
+nav .secondary-nav-box ul {
     column-count: 3;
     width: 100%;
     padding: 3em;
 }
 
-.secondary-nav-box.browse-categories ul li {
+nav .secondary-nav-box.browse-categories ul li {
     line-height: 2;
     font-size: 14px;
     font-family: open sans, sans-serif;
@@ -264,7 +263,7 @@ nav {
     cursor: default;
 }
 
-.secondary-nav-box.browse-categories ul li a {
+nav .secondary-nav-box.browse-categories ul li a {
     color: #8e7b5c;
     font-size: 16px;
     text-transform: uppercase;
@@ -273,26 +272,26 @@ nav {
 }
 
 /* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned*/
-.secondary-nav-box ul li span img,
-.secondary-nav-box.shop-cigars ul li a {
+nav .secondary-nav-box ul li span img,
+nav .secondary-nav-box.shop-cigars ul li a {
     display: block;
     text-align: center;
 }
 
-.secondary-nav-box.shop-cigars ul li a {
+nav .secondary-nav-box.shop-cigars ul li a {
     margin: 14px 0;
 }
 
-.secondary-nav-box.shop-cigars ul {
+nav .secondary-nav-box.shop-cigars ul {
     padding: 16px;
 }
 
 /* make above img centered */
-.secondary-nav-box ul li span img {
+nav .secondary-nav-box ul li span img {
     margin: 0 auto;
 }
 
-.secondary-nav-box.search-box {
+nav .secondary-nav-box.search-box {
     border: none;
     left: calc(60%);
     padding: 0;
@@ -300,16 +299,16 @@ nav {
     margin-right: 25%;
 }
 
-.secondary-nav-box.search-box form::before {
+nav .secondary-nav-box.search-box form::before {
     display: none;
     line-height: 2.5em;
 }
 
-.secondary-nav-box.search-box form::placeholder {
+nav .secondary-nav-box.search-box form::placeholder {
     color: #141414;
 }
 
-.secondary-nav-box.search-box form {
+nav .secondary-nav-box.search-box form {
     margin-right: 0;
     float: right;
     position: relative;
@@ -321,7 +320,7 @@ nav {
     box-sizing: content-box;
 }
 
-.secondary-nav-box.search-box form label {
+nav .secondary-nav-box.search-box form label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -335,7 +334,7 @@ nav {
     display: inline-block;
 }
 
-.secondary-nav-box.search-box form input {
+nav .secondary-nav-box.search-box form input {
     width: 100%;
     padding-left: .8em;
     padding-right: 2.571em;
@@ -344,7 +343,7 @@ nav {
     border: 1px solid #8e7b5c;
 }
 
-.secondary-nav-box.search-box form button {
+nav .secondary-nav-box.search-box form button {
     color: #fff;
     width: auto;
     background-color: #141414;
@@ -403,8 +402,8 @@ nav {
 
 .mobile-top-nav {
     padding: 0 10px;
-    overflow: hidden;
     background-color: #141414;
+    height: auto;
 }
 
 .mobile-top-nav .default-content-wrapper {
@@ -500,6 +499,17 @@ nav {
     font-size: 12px;
     cursor: default;
 }
+/* div inside above li is not visible. fix it */
+.mobile-primary-nav-content ul li div{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    min-height: 3.5rem;
+    font-family: --var(ff-open-sans);
+    font-weight: 600;
+    color: #141414;
+    font-size: 12px;
+}
 
 /* align the a tag in the above li vertically centered */
 .mobile-primary-nav-content ul li a{
@@ -517,16 +527,62 @@ nav {
     margin: 0 auto;
 }
 
-.mobile-primary-nav-content ul li:last-child {
-    display: none;
+.mobile-primary-nav-content ul li a{
+    position: relative;
+    top: 10px;
+    font-size: 16px;
 }
 
-.mobile-primary-nav-content ul>li>ul {
+.mobile-primary-nav-content .nav-drop:not([data-secondarynav='search-box']) span::after {
+    float: right;
+}
+
+.mobile-primary-nav-content>ul>li:last-child {
     display: none;
 }
 
 .mobile-primary-nav-wrapper .mobile-social-nav ul {
     display: flex;
+}
+
+.mobile-nav .secondary-nav-box ul{
+    padding: 12px 0;
+    margin: 0;
+    border: none;
+}
+
+.mobile-nav .secondary-nav-box ul li{
+    border: none;
+}
+
+.mobile-nav .secondary-nav-box ul li a{
+    border: none;
+    padding: 0.65em 0;
+    color: rgb(20, 20, 20);
+    font-size: 12px;
+}
+
+.mobile-nav .secondary-nav-box ul li span{
+    display: none;
+}
+
+.mobile-social-nav {
+    margin-top: 20px;
+    padding-top: 24px;
+}
+
+.mobile-social-nav ul{
+    display: flex;
+}
+
+.mobile-social-nav ul li{
+    flex: 1 1 auto;
+    margin-right: 10px;
+}
+
+.mobile-social-nav ul li img{
+    height: 36px;
+    width: 36px;
 }
 
 @media screen and (min-width: 900px) {

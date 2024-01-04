@@ -108,9 +108,11 @@ export default async function decorate(block) {
 
   const mobilePrimaryNavContent = document.createElement('div');
   mobilePrimaryNavContent.className = 'mobile-primary-nav-content';
+  const ul = document.createElement('ul');
 
   // add nav-drop class to nav items with dropdowns
   primaryNav.querySelectorAll('.default-content-wrapper > ul > li').forEach((li) => {
+    let mobileLi;
     if (li.querySelector('ul')) {
       const a = document.createElement('a');
       a.setAttribute('href', '#');
@@ -126,13 +128,16 @@ export default async function decorate(block) {
       li.setAttribute('data-secondarynav', textToClass);
       nav.append(secondaryNavBox);
       li.append(a);
-      mobilePrimaryNavContent.append(li.cloneNode(true));
-      mobilePrimaryNavContent.append(secondaryNavBox.cloneNode(true));
+      mobileLi = li.cloneNode(true);
+      mobileLi.append(secondaryNavBox.cloneNode(true));
+      ul.append(mobileLi);
     } else {
-      mobilePrimaryNavContent.append(li.cloneNode(true));
+      mobileLi = li.cloneNode(true);
+      ul.append(mobileLi);
     }
   });
 
+  mobilePrimaryNavContent.append(ul);
   const mobilePrimaryNavWrapper = document.createElement('div');
   mobilePrimaryNavWrapper.className = 'mobile-primary-nav-wrapper nav-content-open';
   mobilePrimaryNavWrapper.append(mobilePrimaryNavContent);
@@ -158,9 +163,10 @@ export default async function decorate(block) {
   block.append(navWrapper);
 
   const navDrops = nav.querySelectorAll('.nav-drop');
+  console.log(navDrops);
   navDrops.forEach((drop) => {
     drop.addEventListener('click', () => {
-      const secondaryNavBox = document.querySelectorAll('.secondary-nav-box');
+      const secondaryNavBox = nav.querySelectorAll('.secondary-nav-box');
       secondaryNavBox.forEach((box) => {
         box.style.display = 'none';
       });
@@ -170,7 +176,33 @@ export default async function decorate(block) {
         }
       });
       const targetSecondaryNavClass = drop.dataset.secondarynav;
-      const targetSecondaryNavBox = document.querySelector(`.${targetSecondaryNavClass}`);
+      const targetSecondaryNavBox = nav.querySelector(`.${targetSecondaryNavClass}`);
+      console.log(targetSecondaryNavBox);
+      if (drop.getAttribute('aria-expanded') === 'false') {
+        targetSecondaryNavBox.style.display = 'block';
+        drop.setAttribute('aria-expanded', 'true');
+      } else {
+        targetSecondaryNavBox.style.display = 'none';
+        drop.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  // do the above for mobile
+  const mobileNavDrops = mobileNav.querySelectorAll('.nav-drop');
+  mobileNavDrops.forEach((drop) => {
+    drop.addEventListener('click', () => {
+      const secondaryNavBox = mobileNav.querySelectorAll('.secondary-nav-box');
+      secondaryNavBox.forEach((box) => {
+        box.style.display = 'none';
+      });
+      mobileNavDrops.forEach((d) => {
+        if (d !== drop && d.getAttribute('aria-expanded') === 'true') {
+          d.setAttribute('aria-expanded', 'false');
+        }
+      });
+      const targetSecondaryNavClass = drop.dataset.secondarynav;
+      const targetSecondaryNavBox = mobileNav.querySelector(`.${targetSecondaryNavClass}`);
+      console.log(targetSecondaryNavBox);
       if (drop.getAttribute('aria-expanded') === 'false') {
         targetSecondaryNavBox.style.display = 'block';
         drop.setAttribute('aria-expanded', 'true');

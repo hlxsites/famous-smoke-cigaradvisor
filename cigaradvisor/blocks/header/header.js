@@ -1,8 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+import { decorateSocialLinks } from '../../scripts/scripts.js';
 
 /**
  * decorates the header, mainly the nav
@@ -33,7 +31,6 @@ export default async function decorate(block) {
   topNavContent.className = 'top-nav-content';
   const topNavLeft = fragment.children[0];
 
-  //make a copy of topNavLeft for mobile
   const mobileTopNavContent = topNavLeft.cloneNode(true);
 
   mobileTopNavContent.querySelectorAll('li').forEach((li) => {
@@ -80,6 +77,7 @@ export default async function decorate(block) {
   brand.className = 'brand-logo';
   topNavContent.append(brand);
   const topNavRight = fragment.children[0];
+  decorateSocialLinks(topNavRight);
   //create a clone of topNavRight for mobile
   const socialNavMobile = topNavRight.cloneNode(true);
   socialNavMobile.className = 'mobile-social-nav';

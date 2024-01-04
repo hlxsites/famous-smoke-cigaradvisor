@@ -57,6 +57,41 @@ nav {
     padding: 10px;
 }
 
+nav .top-nav-right .twitter::before{
+    content: '\e61b';
+    font-family: 'FontAwesome';
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
+nav .top-nav-right .facebook::before{
+    content: '\f39e';
+    font-family: 'FontAwesome';
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
+nav .top-nav-right .instagram::before{
+    content: '\f16d';
+    font-family: 'FontAwesome';
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
+nav .top-nav-right .youtube::before{
+    content: '\f167';
+    font-family: 'FontAwesome';
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
+nav .top-nav-right .pinterest::before{
+    content: '\f231';
+    font-family: 'FontAwesome';
+    color: #8e7b5c;
+    font-size: 24px;
+}
+
 
 /* arrange li items horizontally under .default-content-wrapper ul */
 .top-nav-left ul {
@@ -100,15 +135,9 @@ nav {
     font-size: 14px;
 }
 
-.top-nav-right ul li a span {
-    color: #8e7b5c;
-    font-size: 24px;
-}
-
 .top-nav-right .default-content-wrapper {
     width: auto;
 }
-
 
 .default-content-wrapper ul a {
     text-transform: uppercase;
@@ -117,18 +146,6 @@ nav {
     font-weight: 400;
 }
 
-.top-nav-right ul li img {
-    width: 25px;
-    height: 25px;
-}
-
-.nav-primary-nav {
-    display: none;
-}
-
-.nav-social-links {
-    display: none;
-}
 
 /* Primary navigation */
 .primary-nav {
@@ -583,6 +600,41 @@ nav .secondary-nav-box.search-box form button {
 .mobile-social-nav ul li img{
     height: 36px;
     width: 36px;
+}
+
+.mobile-nav .mobile-social-nav .twitter::before{
+    content: '\e61b';
+    font-family: 'FontAwesome';
+    color: #3c3a3b;
+    font-size: 36px;
+}
+
+.mobile-nav .mobile-social-nav .facebook::before{
+    content: '\f39e';
+    font-family: 'FontAwesome';
+    color: #3c3a3b;
+    font-size: 36px;
+}
+
+.mobile-nav .mobile-social-nav .instagram::before{
+    content: '\f16d';
+    font-family: 'FontAwesome';
+    color: #3c3a3b;
+    font-size: 36px;
+}
+
+.mobile-nav .mobile-social-nav .youtube::before{
+    content: '\f167';
+    font-family: 'FontAwesome';
+    color: #3c3a3b;
+    font-size: 36px;
+}
+
+.mobile-nav .mobile-social-nav .pinterest::before{
+    content: '\f231';
+    font-family: 'FontAwesome';
+    color: #3c3a3b;
+    font-size: 36px;
 }
 
 @media screen and (min-width: 900px) {

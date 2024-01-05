@@ -1,41 +1,40 @@
 /* using flex arrange items horizontally and give a black background */
-nav {
+.header.block nav {
     display: none;
 }
 
-.nav-wrapper p {
+.header.block .nav-wrapper p {
     color: #8e7b5c;
     text-transform: uppercase;
     margin: 0 auto;
     font-size: 12px;
 }
 
-.default-content-wrapper {
+.header.block nav .default-content-wrapper {
     display: block;
     width: 100%;
 }
 
-.top-nav {
+.header.block nav .top-nav {
     background-color: #141414;
     min-height: 60px;
     align-items: center;
     height: 60px;
 }
 
-.brand-logo {
+.header.block nav .brand-logo {
     z-index: 1000;
 }
 
 
-/* arrange top-nav-content horizontally centered */
-.top-nav .top-nav-content {
+.header.block nav .top-nav .top-nav-content {
     display: flex;
     max-width: 1080px;
     margin: 0 auto;
     height: 100%;
 }
 
-.top-nav-left,
+.header.block nav .top-nav-left,
 .top-nav-right {
     width: calc(50% - 80px);
     padding: 0 10px;
@@ -44,57 +43,56 @@ nav {
 
 }
 
-.top-nav-left {
+.header.block nav .top-nav-left {
     float: left;
     justify-content: center;
     align-items: center;
 }
 
-.top-nav-right {
+.header.block nav .top-nav-right {
     float: right;
     justify-content: center;
     align-items: flex-end;
     padding: 10px;
 }
 
-nav .top-nav-right .twitter::before{
+.header.block nav .top-nav-right .twitter::before{
     content: '\e61b';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #8e7b5c;
     font-size: 24px;
 }
 
-nav .top-nav-right .facebook::before{
+.header.block nav .top-nav-right .facebook::before{
     content: '\f39e';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #8e7b5c;
     font-size: 24px;
 }
 
-nav .top-nav-right .instagram::before{
+.header.block nav .top-nav-right .instagram::before{
     content: '\f16d';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #8e7b5c;
     font-size: 24px;
 }
 
-nav .top-nav-right .youtube::before{
+.header.block nav .top-nav-right .youtube::before{
     content: '\f167';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #8e7b5c;
     font-size: 24px;
 }
 
-nav .top-nav-right .pinterest::before{
+.header.block nav .top-nav-right .pinterest::before{
     content: '\f231';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #8e7b5c;
     font-size: 24px;
 }
 
 
-/* arrange li items horizontally under .default-content-wrapper ul */
-.top-nav-left ul {
+.header.block nav .top-nav-left ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -104,7 +102,7 @@ nav .top-nav-right .pinterest::before{
     padding-right: 25px;
 }
 
-.top-nav-left ul li {
+.header.block nav .top-nav-left ul li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -113,14 +111,14 @@ nav .top-nav-right .pinterest::before{
     margin: 0;
 }
 
-.top-nav-left ul li span {
+.header.block nav .top-nav-left ul li span {
     display: block;
     width: 25px;
     height: 25px;
     margin-right: 5px;
 }
 
-.top-nav-right ul {
+.header.block nav .top-nav-right ul {
     display: flex;
     margin: 0;
     padding: 0;
@@ -128,18 +126,18 @@ nav .top-nav-right .pinterest::before{
     top: 5px;
 }
 
-.top-nav-right ul li {
+.header.block nav .top-nav-right ul li {
     flex: 0 0 auto;
     margin: 0 8px;
     font-weight: 400;
     font-size: 14px;
 }
 
-.top-nav-right .default-content-wrapper {
+.header.block nav .top-nav-right .default-content-wrapper {
     width: auto;
 }
 
-.default-content-wrapper ul a {
+.header.block nav .default-content-wrapper ul a {
     text-transform: uppercase;
     color: #fff;
     font-size: 14px;
@@ -148,19 +146,9 @@ nav .top-nav-right .pinterest::before{
 
 
 /* Primary navigation */
-.primary-nav {
+.header.block nav .primary-nav {
     display: flex;
     flex-grow: 1;
-    /* Added flex-grow property */
-}
-
-
-/* hide all nested second level ul elements under .primary-nav */
-.primary-nav ul>li>ul {
-    display: none;
-}
-
-.primary-nav {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
     position: static;
@@ -170,38 +158,42 @@ nav .top-nav-right .pinterest::before{
     overflow: visible;
     width: auto;
     max-width: none;
-    padding-top: 15px;
+    padding-top: 10px;
     transform: none;
     transition: none;
     z-index: auto;
 }
 
-.solid-nav {
-    background-color: #ccc;
-}
-
-.primary-nav ul {
+.header.block nav .primary-nav ul {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
     max-width: 1080px;
-    margin: 10px 0 0;
+    margin: 10px auto 0;
     align-items: center;
     width: 100%;
     text-align: center;
 }
 
-.primary-nav ul li {
+.header.block nav .primary-nav ul li {
     display: flex;
     flex: 0 0 auto;
     margin-top: 0;
     font-size: 14px;
-    font-family: open sans, sans-serif;
+    font-family: var(--ff-open-sans);
     font-weight: 600;
     color: #141414;
     cursor: default;
     padding-bottom: 0.65em;
 }
 
-.primary-nav ul li a {
+.header.block nav .primary-nav.solid-nav {
+    background-color: #ccc;
+}
+
+.header.block nav .primary-nav ul li a {
     padding: 10px 15px;
     font-family: montserrat, sans-serif;
     font-weight: 700;
@@ -216,15 +208,15 @@ nav .top-nav-right .pinterest::before{
     z-index: 111;
 }
 
-.primary-nav ul li>a:hover{
+.icon-search{
+    padding: 0 20px;
+}
+
+.header.block nav .primary-nav ul li>a:hover{
     border-color: #8e7b5c;
 }
 
-.primary-nav ul li:last-child a:hover {
-    border: 2px solid transparent;
-}
-
-.primary-nav ul li a::after {
+.header.block nav .primary-nav ul li a::after {
     display: none;
     content: "";
     position: absolute;
@@ -236,7 +228,7 @@ nav .top-nav-right .pinterest::before{
     background-color: #fff;
 }
 
-.nav-drop:not([data-secondarynav='search-box']) span::after {
+.header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
     font-size: 16px;
     content: '\f107';
     font-family: FontAwesome, Arial, sans-serif;
@@ -244,7 +236,7 @@ nav .top-nav-right .pinterest::before{
 }
 
 /* Secondary navigation */
-nav .secondary-nav-box {
+.header.block nav .secondary-nav-box {
     display: none;
     background-color: #fff;
     border: 2px solid #8e7b5c;
@@ -257,13 +249,13 @@ nav .secondary-nav-box {
     z-index: 110;
 }
 
-nav .secondary-nav-box ul {
+.header.block nav .secondary-nav-box>ul {
     column-count: 3;
     width: 100%;
     padding: 3em;
 }
 
-nav .secondary-nav-box.browse-categories ul li {
+.header.block nav .secondary-nav-box.browse-categories ul li {
     line-height: 2;
     font-size: 14px;
     font-family: open sans, sans-serif;
@@ -272,7 +264,7 @@ nav .secondary-nav-box.browse-categories ul li {
     cursor: default;
 }
 
-nav .secondary-nav-box.browse-categories ul li a {
+.header.block nav .secondary-nav-box.browse-categories ul li a {
     color: #8e7b5c;
     font-size: 16px;
     text-transform: uppercase;
@@ -281,26 +273,26 @@ nav .secondary-nav-box.browse-categories ul li a {
 }
 
 /* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned*/
-nav .secondary-nav-box ul li span img,
-nav .secondary-nav-box.shop-cigars ul li a {
+.header.block nav .secondary-nav-box ul li span img,
+.header.block nav .secondary-nav-box.shop-cigars ul li a {
     display: block;
     text-align: center;
 }
 
-nav .secondary-nav-box.shop-cigars ul li a {
+.header.block nav .secondary-nav-box.shop-cigars ul li a {
     margin: 14px 0;
 }
 
-nav .secondary-nav-box.shop-cigars ul {
+.header.block nav .secondary-nav-box.shop-cigars ul {
     padding: 16px;
 }
 
 /* make above img centered */
-nav .secondary-nav-box ul li span img {
+.header.block nav .secondary-nav-box ul li span img {
     margin: 0 auto;
 }
 
-nav .secondary-nav-box.search-box {
+.header.block nav .secondary-nav-box.search-box {
     border: none;
     left: calc(60%);
     padding: 0;
@@ -308,16 +300,16 @@ nav .secondary-nav-box.search-box {
     margin-right: 25%;
 }
 
-nav .secondary-nav-box.search-box form::before {
+.header.block nav .secondary-nav-box.search-box form::before {
     display: none;
     line-height: 2.5em;
 }
 
-nav .secondary-nav-box.search-box form::placeholder {
+.header.block nav .secondary-nav-box.search-box form::placeholder {
     color: #141414;
 }
 
-nav .secondary-nav-box.search-box form {
+.header.block nav .secondary-nav-box.search-box form {
     margin-right: 0;
     float: right;
     position: relative;
@@ -329,7 +321,7 @@ nav .secondary-nav-box.search-box form {
     box-sizing: content-box;
 }
 
-nav .secondary-nav-box.search-box form label {
+.header.block nav .secondary-nav-box.search-box form label {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -343,7 +335,7 @@ nav .secondary-nav-box.search-box form label {
     display: inline-block;
 }
 
-nav .secondary-nav-box.search-box form input {
+.header.block nav .secondary-nav-box.search-box form input {
     width: 100%;
     padding-left: .8em;
     padding-right: 2.571em;
@@ -352,7 +344,7 @@ nav .secondary-nav-box.search-box form input {
     border: 1px solid #8e7b5c;
 }
 
-nav .secondary-nav-box.search-box form button {
+.header.block nav .secondary-nav-box.search-box form button {
     color: #fff;
     width: auto;
     background-color: #141414;
@@ -366,6 +358,11 @@ nav .secondary-nav-box.search-box form button {
     margin: 0;
     border: none;
     border-radius: 0;
+}
+
+.header.block nav .primary-nav ul li:last-child {
+    border: 2px solid transparent;
+    cursor: pointer;
 }
 
 /* Mobile navigation */
@@ -596,41 +593,41 @@ nav .secondary-nav-box.search-box form button {
 
 .mobile-nav .mobile-social-nav .twitter::before{
     content: '\e61b';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #3c3a3b;
     font-size: 36px;
 }
 
 .mobile-nav .mobile-social-nav .facebook::before{
     content: '\f39e';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #3c3a3b;
     font-size: 36px;
 }
 
 .mobile-nav .mobile-social-nav .instagram::before{
     content: '\f16d';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #3c3a3b;
     font-size: 36px;
 }
 
 .mobile-nav .mobile-social-nav .youtube::before{
     content: '\f167';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #3c3a3b;
     font-size: 36px;
 }
 
 .mobile-nav .mobile-social-nav .pinterest::before{
     content: '\f231';
-    font-family: 'FontAwesome';
+    font-family: var(--ff-fontawesome);
     color: #3c3a3b;
     font-size: 36px;
 }
 
 @media screen and (min-width: 900px) {
-    nav {
+    .header.block nav {
         display: flex;
         flex-direction: column;
         margin: auto;
@@ -641,7 +638,7 @@ nav .secondary-nav-box.search-box form button {
         z-index: 1000;
     }
 
-    .mobile-nav {
+    .header.block .mobile-nav {
         display: none;
     }
 }

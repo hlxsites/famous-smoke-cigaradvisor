@@ -129,17 +129,51 @@
 
 :root {
   /* colors */
+  --deep-reddish-brown: #673841;
+  --very-dark-grey: #141414;
+  --black: #000;
+  --white: #fff;
+  --tan: #8e7b5c;
+  --subdued-gold: #b19b5e;
+  --silver: #ccc;
+  --very-light-grey: #ddd;
+  --grey: #333;
+  --light-grey: #d3d3d3;
+  --dark-grey: #3c3a3b;
 
   /* fonts */
-  --ff-arial: 'Arial', sans-serif;
-  --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
-  --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
-  --ff-fontawesome: 'FontAwesome';
+   --ff-arial: 'Arial', sans-serif;
+   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
+   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
+   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
+   --ff-fontawesome: 'FontAwesome';
 
   /* body sizes */
 
   /* heading sizes */
+  --heading-font-size-xxs: 18px;
+  --heading-font-size-xs: 20px;
+  --heading-font-size-s: 24px;
+  --heading-font-size-m: 26px;
+  --heading-font-size-l: 35px;
+  --heading-font-size-xl: 40px;
+
+  /* Font Weights */
+  --font-weight-extrabold: 700;
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-normal: 400;
+  --font-weight-light: 300;
+  --font-weight-thin: 100;
+
+   /* Body */
+   --body-font-size-xxs: 10px;
+   --body-font-size-xs: 12px;
+   --body-font-size-s: 14px;
+   --body-font-size-m: 16px;
+   --body-font-size-l: 18px;
+   --body-font-size-xl: 20px;
+   --body-font-size-xxl: 24px;
 
   /* nav height */
   --nav-height: 60px;

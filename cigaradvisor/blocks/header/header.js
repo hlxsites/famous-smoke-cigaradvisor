@@ -197,7 +197,7 @@ export default async function decorate(block) {
       const targetSecondaryNavClass = drop.dataset.secondarynav;
       const targetSecondaryNavBox = mobileNav.querySelector(`.${targetSecondaryNavClass}`);
       if (drop.getAttribute('aria-expanded') === 'false') {
-        targetSecondaryNavBox.style.display = 'block';
+        targetSecondaryNavBox.style.display = 'flex';
         drop.setAttribute('aria-expanded', 'true');
       } else {
         targetSecondaryNavBox.style.display = 'none';

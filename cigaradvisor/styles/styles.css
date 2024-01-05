@@ -127,9 +127,6 @@
   src: local("Arial");
 }
 
-
-
-
 :root {
   /* colors */
 
@@ -196,6 +193,14 @@ a {
   font-size: 12px;
   background-color: transparent;
   text-decoration: none
+}
+
+p {
+  font-family: var(--ff-opensans);
+  font-weight: 600;
+  color: #141414;
+  font-size: 12px;
+  cursor: default
 }
 
 a:hover {

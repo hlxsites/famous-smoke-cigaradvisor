@@ -108,6 +108,20 @@ export function isExternal(path) {
 }
 
 /**
+ * Decorates external links by adding target="_blank" and rel="noopener".
+ * @param {HTMLElement} element - The element containing the external links.
+ */
+export function decorateExternalLink(element) {
+  const anchors = element.querySelectorAll('a');
+  anchors.forEach((a) => {
+    if (isExternal(a.getAttribute('href'))) {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+  });
+}
+
+/**
  * Decorates social links by adding classes based on their text content.
  * @param {HTMLElement} element - The element containing the social links.
  */

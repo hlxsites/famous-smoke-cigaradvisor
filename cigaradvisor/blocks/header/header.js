@@ -1,6 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { decorateSocialLinks } from '../../scripts/scripts.js';
+import { decorateSocialLinks, decorateExternalLink } from '../../scripts/scripts.js';
 
 /**
  * Decorates the header block with navigation elements.
@@ -157,6 +157,7 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   navWrapper.append(mobileNav);
   block.append(navWrapper);
+  decorateExternalLink(block);
 
   const navDrops = nav.querySelectorAll('.nav-drop');
   navDrops.forEach((drop) => {

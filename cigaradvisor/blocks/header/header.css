@@ -160,15 +160,6 @@ nav .top-nav-right .pinterest::before{
     display: none;
 }
 
-.primary-nav ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
 .primary-nav {
     background-color: rgba(255, 255, 255, 0.7);
     border: none;
@@ -192,7 +183,7 @@ nav .top-nav-right .pinterest::before{
 .primary-nav ul {
     display: flex;
     max-width: 1080px;
-    margin: 0 auto;
+    margin: 10px 0 0;
     align-items: center;
     width: 100%;
     text-align: center;
@@ -207,6 +198,7 @@ nav .top-nav-right .pinterest::before{
     font-weight: 600;
     color: #141414;
     cursor: default;
+    padding-bottom: 0.65em;
 }
 
 .primary-nav ul li a {

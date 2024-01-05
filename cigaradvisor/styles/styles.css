@@ -121,6 +121,15 @@
 }
 
 
+@font-face {
+  font-family: "fontawesome-normal-400-fallback";
+  size-adjust: 137.621%;
+  src: local("Arial");
+}
+
+
+
+
 :root {
   /* colors */
 
@@ -129,6 +138,7 @@
   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
+  --ff-fontawesome: 'fontawesome-normal-400-fallback', 'fontawesome-normal-400-fallback', sans-serif;
 
   /* body sizes */
 

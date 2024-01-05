@@ -3,8 +3,9 @@ import { loadFragment } from '../fragment/fragment.js';
 import { decorateSocialLinks } from '../../scripts/scripts.js';
 
 /**
- * decorates the header, mainly the nav
- * @param {Element} block The header block element
+ * Decorates the header block with navigation elements.
+ * @param {HTMLElement} block - The header block element.
+ * @returns {Promise<void>} - A promise that resolves once the decoration is complete.
  */
 export default async function decorate(block) {
   // load nav as fragment
@@ -43,7 +44,7 @@ export default async function decorate(block) {
     li.append(a);
   });
 
-  mobileTopNavContent.class = "mobile-top-nav-content";
+  mobileTopNavContent.class = 'mobile-top-nav-content';
   mobileTopNav.append(mobileTopNavContent);
 
   const mobilePrimaryNav = document.createElement('div');
@@ -52,19 +53,19 @@ export default async function decorate(block) {
   hamburger.classList.add('nav-hamburger');
   hamburger.setAttribute('href', '#');
   hamburger.setAttribute('title', 'Toggle navigation');
-  hamburger.innerHTML = `<i class="fa fa-bars"></i>`;
+  hamburger.innerHTML = '<i class="fa fa-bars"></i>';
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
   mobileLogo.setAttribute('href', 'https://www.famous-smoke.com/cigaradvisor');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
-  mobileLogo.innerHTML = `<img src="https://www.famous-smoke.com/cigaradvisor/wp-content/themes/CigarAdvisor/assets/images/logo1.png" alt="Cigar Advisor Logo">`;
+  mobileLogo.innerHTML = '<img src="https://www.famous-smoke.com/cigaradvisor/wp-content/themes/CigarAdvisor/assets/images/logo1.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
   search.setAttribute('href', 'https://www.famous-smoke.com/cigaradvisor/?s=');
   search.setAttribute('title', 'Search');
-  search.innerHTML = `<i class="fa fa-search"></i>`;
+  search.innerHTML = '<i class="fa fa-search"></i>';
   mobilePrimaryNav.append(search);
   mobileNav.append(mobilePrimaryNav);
 
@@ -78,7 +79,6 @@ export default async function decorate(block) {
   topNavContent.append(brand);
   const topNavRight = fragment.children[0];
   decorateSocialLinks(topNavRight);
-  //create a clone of topNavRight for mobile
   const socialNavMobile = topNavRight.cloneNode(true);
   socialNavMobile.className = 'mobile-social-nav';
   topNavRight.classList.add('top-nav-right');
@@ -89,12 +89,6 @@ export default async function decorate(block) {
   primaryNav.className = 'primary-nav';
   nav.append(primaryNav);
 
-  //toggle nav-content-open class on mobilePrimaryNavWrapper when hamburger is clicked default is with class nav-content-open
-  hamburger.addEventListener('click', () => {
-    mobilePrimaryNavWrapper.classList.toggle('nav-content-open');
-  });
-
-  // on scroll down equal to primaryNav height, set class "solid-nav" to primaryNav
   const navHeight = 60;
   window.addEventListener('scroll', () => {
     if (window.scrollY > navHeight) {
@@ -142,6 +136,10 @@ export default async function decorate(block) {
   mobilePrimaryNavWrapper.append(socialNavMobile);
   mobileNav.append(mobilePrimaryNavWrapper);
 
+  hamburger.addEventListener('click', () => {
+    mobilePrimaryNavWrapper.classList.toggle('nav-content-open');
+  });
+
   const lastChild = primaryNav.querySelector('li:last-child');
   lastChild.className = 'nav-drop';
   lastChild.setAttribute('data-secondarynav', 'search-box');
@@ -161,7 +159,6 @@ export default async function decorate(block) {
   block.append(navWrapper);
 
   const navDrops = nav.querySelectorAll('.nav-drop');
-  console.log(navDrops);
   navDrops.forEach((drop) => {
     drop.addEventListener('click', () => {
       const secondaryNavBox = nav.querySelectorAll('.secondary-nav-box');
@@ -175,7 +172,6 @@ export default async function decorate(block) {
       });
       const targetSecondaryNavClass = drop.dataset.secondarynav;
       const targetSecondaryNavBox = nav.querySelector(`.${targetSecondaryNavClass}`);
-      console.log(targetSecondaryNavBox);
       if (drop.getAttribute('aria-expanded') === 'false') {
         targetSecondaryNavBox.style.display = 'block';
         drop.setAttribute('aria-expanded', 'true');
@@ -185,7 +181,7 @@ export default async function decorate(block) {
       }
     });
   });
-  // do the above for mobile
+
   const mobileNavDrops = mobileNav.querySelectorAll('.nav-drop');
   mobileNavDrops.forEach((drop) => {
     drop.addEventListener('click', () => {
@@ -200,7 +196,6 @@ export default async function decorate(block) {
       });
       const targetSecondaryNavClass = drop.dataset.secondarynav;
       const targetSecondaryNavBox = mobileNav.querySelector(`.${targetSecondaryNavClass}`);
-      console.log(targetSecondaryNavBox);
       if (drop.getAttribute('aria-expanded') === 'false') {
         targetSecondaryNavBox.style.display = 'block';
         drop.setAttribute('aria-expanded', 'true');

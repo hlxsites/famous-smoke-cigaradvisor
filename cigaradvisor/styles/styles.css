@@ -181,7 +181,7 @@
 
 body {
   display: none;
-  color: #333;
+  color: var(--grey);
   margin: 0;
 }
 
@@ -215,7 +215,7 @@ h2 {
   font-family: var(--ff-montserrat);
   font-weight: 900;
   text-transform: uppercase;
-  color: #141414;
+  color: var(--very-dark-grey);
   margin: 0 auto;
   font-size: 12px;
 }
@@ -223,7 +223,7 @@ h2 {
 a {
   font-family: var(--ff-montserrat);
   font-weight: 600;
-  color: #141414;
+  color: var(--very-dark-grey);
   font-size: 12px;
   background-color: transparent;
   text-decoration: none
@@ -232,7 +232,7 @@ a {
 p {
   font-family: var(--ff-opensans);
   font-weight: 600;
-  color: #141414;
+  color: var(--very-dark-grey);
   font-size: 12px;
   cursor: default
 }
@@ -255,7 +255,7 @@ ul {
 li {
   font-family: var(--ff-opensans);
   font-weight: 600;
-  color: #141414;
+  color: var(--very-dark-grey);
   font-size: 12px;
   cursor: default;
 }
@@ -272,18 +272,18 @@ input {
   width: 100%;
   max-width: 100%;
   vertical-align: middle;
-  background-color: #fff;
-  border-color: #ddd;
+  background-color: var(--white);
+  border-color: var(--very-light-grey);
   margin: 0;
 }
 
 button {
   font-family: montserrat, sans-serif;
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
   text-transform: uppercase;
-  background-color: #8e7b5c;
-  border-color: #8e7b5c;
+  background-color: var(--tan);
+  border-color: var(--tan);
   display: inline-block;
   line-height: 26px;
   height: 50px;

@@ -57,13 +57,13 @@ export default async function decorate(block) {
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
-  mobileLogo.setAttribute('href', 'https://www.famous-smoke.com/cigaradvisor');
+  mobileLogo.setAttribute('href', '/cigaradvisor');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
-  mobileLogo.innerHTML = '<img src="https://www.famous-smoke.com/cigaradvisor/wp-content/themes/CigarAdvisor/assets/images/logo1.png" alt="Cigar Advisor Logo">';
+  mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
-  search.setAttribute('href', 'https://www.famous-smoke.com/cigaradvisor/?s=');
+  search.setAttribute('href', '/cigaradvisor/?s=');
   search.setAttribute('title', 'Search');
   search.innerHTML = '<i class="fa fa-search"></i>';
   mobilePrimaryNav.append(search);
@@ -72,8 +72,8 @@ export default async function decorate(block) {
   topNavLeft.classList.add('top-nav-left');
   topNavContent.append(topNavLeft);
   const brand = document.createElement('div');
-  brand.innerHTML = `<a href="https://www.famous-smoke.com/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
-  <img src="https://www.famous-smoke.com/cigaradvisor/wp-content/themes/CigarAdvisor/assets/images/logo.png?w=160" alt="Cigar Advisor Logo">
+  brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
+  <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
   </a>`;
   brand.className = 'brand-logo';
   topNavContent.append(brand);
@@ -146,7 +146,7 @@ export default async function decorate(block) {
   lastChild.setAttribute('aria-expanded', 'false');
   const searchBox = document.createElement('div');
   searchBox.className = 'secondary-nav-box search-box';
-  searchBox.innerHTML = `<form action="https://www.famous-smoke.com/cigaradvisor/" class="search search--header lg-andUp">
+  searchBox.innerHTML = `<form action="/cigaradvisor/" class="search search--header lg-andUp">
   <label class="sr-only" for="header-search-term">Search</label>
   <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off">
   <button type="submit" class="search__submit" value="Submit" title="Submit">Submit</button>

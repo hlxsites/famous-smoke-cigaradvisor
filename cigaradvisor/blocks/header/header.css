@@ -271,7 +271,7 @@
     font-weight: 600;
 }
 
-/* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned*/
+/* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned */
 .header.block nav .secondary-nav-box ul li span img,
 .header.block nav .secondary-nav-box.shop-cigars ul li a {
     display: block;
@@ -486,7 +486,7 @@
     list-style: none;
     margin: 5px auto;
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(255 255 255);
     padding: 0 15px;
 }
 

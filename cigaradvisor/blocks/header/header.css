@@ -211,6 +211,11 @@
     padding: 0 20px;
 }
 
+.header.block nav .icon-search img{
+    width: 18px;
+    height: 18px;
+}
+
 .header.block nav .primary-nav ul li>a:hover{
     border-color: #8e7b5c;
 }

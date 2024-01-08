@@ -121,26 +121,68 @@
 }
 
 
- :root {
+@font-face {
+  font-family: "fontawesome-normal-400-fallback";
+  size-adjust: 137.621%;
+  src: local("Arial");
+}
+
+:root {
   /* colors */
+  --deep-reddish-brown: #673841;
+  --very-dark-grey: #141414;
+  --black: #000;
+  --white: #fff;
+  --tan: #8e7b5c;
+  --subdued-gold: #b19b5e;
+  --silver: #ccc;
+  --very-light-grey: #ddd;
+  --grey: #333;
+  --light-grey: #d3d3d3;
+  --dark-grey: #3c3a3b;
 
   /* fonts */
    --ff-arial: 'Arial', sans-serif;
    --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
    --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
    --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
+   --ff-fontawesome: 'FontAwesome';
 
   /* body sizes */
 
   /* heading sizes */
+  --heading-font-size-xxs: 18px;
+  --heading-font-size-xs: 20px;
+  --heading-font-size-s: 24px;
+  --heading-font-size-m: 26px;
+  --heading-font-size-l: 35px;
+  --heading-font-size-xl: 40px;
+
+  /* Font Weights */
+  --font-weight-extrabold: 700;
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-normal: 400;
+  --font-weight-light: 300;
+  --font-weight-thin: 100;
+
+   /* Body */
+   --body-font-size-xxs: 10px;
+   --body-font-size-xs: 12px;
+   --body-font-size-s: 14px;
+   --body-font-size-m: 16px;
+   --body-font-size-l: 18px;
+   --body-font-size-xl: 20px;
+   --body-font-size-xxl: 24px;
 
   /* nav height */
-  --nav-height: 64px;
- }
+  --nav-height: 60px;
+}
 
 body {
   display: none;
-  color: #333;
+  color: var(--grey);
+  margin: 0;
 }
 
 body.appear {
@@ -156,7 +198,9 @@ html {
   line-height: 1.5
 }
 
-*, ::before, ::after{
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
@@ -171,18 +215,26 @@ h2 {
   font-family: var(--ff-montserrat);
   font-weight: 900;
   text-transform: uppercase;
-  color: #141414;
+  color: var(--very-dark-grey);
   margin: 0 auto;
   font-size: 12px;
 }
 
-a{
+a {
   font-family: var(--ff-montserrat);
   font-weight: 600;
-  color: #141414;
+  color: var(--very-dark-grey);
   font-size: 12px;
   background-color: transparent;
-  text-decoration:none
+  text-decoration: none
+}
+
+p {
+  font-family: var(--ff-opensans);
+  font-weight: 600;
+  color: var(--very-dark-grey);
+  font-size: 12px;
+  cursor: default
 }
 
 a:hover {
@@ -191,12 +243,57 @@ a:hover {
   outline-width: 0;
 }
 
-a:active, a:hover {
+a:active,
+a:hover {
   outline-width: 0;
 }
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  font-family: var(--ff-opensans);
+  font-weight: 600;
+  color: var(--very-dark-grey);
+  font-size: 12px;
+  cursor: default;
+}
+
+input {
+  font-size: 1em;
+  font-family: var(--ff-arial);
+  height: 2.85rem;
+  padding: 0 .5em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  outline: none;
+  border: 1px solid;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  background-color: var(--white);
+  border-color: var(--very-light-grey);
+  margin: 0;
+}
+
+button {
+  font-family: montserrat, sans-serif;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  background-color: var(--tan);
+  border-color: var(--tan);
+  display: inline-block;
+  line-height: 26px;
+  height: 50px;
+  width: 250px;
+  max-height: 50px;
+  max-width: 250px;
+}
+
 /* Two-column grid */
-main .section[data-layout="50/50"]{
+main .section[data-layout="50/50"] {
   padding-left: 0;
   padding-right: 0;
   width: 100%;
@@ -207,24 +304,23 @@ main .section[data-layout="50/50"]{
   display: flex;
 }
 
-@media screen and (max-width: 600px){
-  main .section[data-layout="50/50"]{
+@media screen and (max-width: 600px) {
+  main .section[data-layout="50/50"] {
     width: 100%;
     flex-direction: column;
   }
 }
 
-main .section[data-layout="50/50"] > div {
+main .section[data-layout="50/50"]>div {
   display: flex;
   flex-basis: 100%;
   flex-direction: column;
 }
 
-main .section[data-layout="50/50"] .left-grid > div{
+main .section[data-layout="50/50"] .left-grid>div {
   padding: 10px;
 }
 
-main .section[data-layout="50/50"] .right-grid > div{
+main .section[data-layout="50/50"] .right-grid>div {
   padding: 10px;
 }
-

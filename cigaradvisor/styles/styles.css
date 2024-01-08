@@ -131,6 +131,9 @@
   /* functional-colors */
   --clr-text: var(--clr-dark-gray);
 
+  /* filter colors (https://codepen.io/sosuke/pen/Pjoqqp) */
+  --clr-filter-gray: invert(18%) sepia(4%) saturate(304%) hue-rotate(277deg) brightness(98%) contrast(92%);
+
   /* fonts */
   --ff-arial: 'Arial', sans-serif;
   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
@@ -138,11 +141,17 @@
   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
 
   /* body sizes */
+  --text-size-xs: 12px;
+  --text-size-sm: 14px;
+  --text-size-md: 16px;
+  --text-size-lg: 18px;
+  --text-size-xl: 24px;
 
   /* heading sizes */
 
-  /* nav height */
+  /* misc */
   --nav-height: 64px;
+  --icon-size: var(--text-size-xl);
 }
 
 body {
@@ -238,6 +247,11 @@ main .section[data-layout="50/50"] .left-grid > div{
 
 main .section[data-layout="50/50"] .right-grid > div{
   padding: 10px;
+}
+
+.icon > img {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .bg-dark-gray {

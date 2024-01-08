@@ -15,11 +15,13 @@ export default async function decorate(block) {
   footerContent.innerHTML = footerContent.innerHTML.replaceAll('{year}', currentYear.toString());
 
   // decorate footer sections
-  const navContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
-  if (navContainer && navContainer.childNodes.length) {
-    navContainer.classList.add('nav-container');
+  const footerContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
+  if (footerContainer && footerContainer.childNodes.length) {
+    footerContainer.classList.add('footer-container');
+    const navContainer = document.createElement('div');
+    navContainer.classList.add('footer-nav');
 
-    let currentElement = navContainer.firstElementChild;
+    let currentElement = footerContainer.firstElementChild;
     let nextElement;
     while (currentElement) {
       // create section
@@ -37,12 +39,9 @@ export default async function decorate(block) {
       } while (nextElement && nextElement.tagName !== 'H1');
 
       // add section to container
-      if (nextElement) {
-        navContainer.insertBefore(section, nextElement);
-      } else {
-        navContainer.appendChild(section);
-      }
+      navContainer.appendChild(section);
     }
+    footerContainer.prepend(navContainer);
   }
 
   block.innerHTML = footerContent.innerHTML;

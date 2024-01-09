@@ -83,6 +83,11 @@ export function decorateMain(main) {
   buildTwoColumnGrid(main);
 }
 
+/**
+ * Checks if the given path is an external URL.
+ * @param {string} path - The path to be checked.
+ * @returns {boolean} - Returns true if the path is an external URL, false otherwise.
+ */
 export function isExternal(path) {
   try {
     const url = new URL(path);
@@ -90,6 +95,34 @@ export function isExternal(path) {
   } catch (error) {
     return false;
   }
+}
+
+/**
+ * Decorates external links by adding target="_blank" and rel="noopener".
+ * @param {HTMLElement} element - The element containing the external links.
+ */
+export function decorateExternalLink(element) {
+  const anchors = element.querySelectorAll('a');
+  anchors.forEach((a) => {
+    if (isExternal(a.getAttribute('href'))) {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+  });
+}
+
+/**
+ * Decorates social links by adding classes based on their text content.
+ * @param {HTMLElement} element - The element containing the social links.
+ */
+export function decorateSocialLinks(element) {
+  const socialLinks = element.querySelectorAll('a');
+  socialLinks.forEach((link) => {
+    const text = link.textContent;
+    const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
+    link.classList.add(textToClass);
+    link.textContent = '';
+  });
 }
 
 /**

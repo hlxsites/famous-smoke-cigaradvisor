@@ -1,148 +1,209 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
-
-function closeOnEscape(e) {
-  if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
-    }
-  }
-}
-
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    // eslint-disable-next-line no-use-before-define
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
-
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
+import { decorateSocialLinks, decorateExternalLink } from '../../scripts/scripts.js';
 
 /**
- * Toggles all nav sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
- */
-function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
-  });
-}
-
-/**
- * Toggles the entire nav
- * @param {Element} nav The container element
- * @param {Element} navSections The nav sections within the container element
- * @param {*} forceExpanded Optional param to force nav expand behavior when not null
- */
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-  const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
-  const navDrops = navSections.querySelectorAll('.nav-drop');
-  if (isDesktop.matches) {
-    navDrops.forEach((drop) => {
-      if (!drop.hasAttribute('tabindex')) {
-        drop.setAttribute('role', 'button');
-        drop.setAttribute('tabindex', 0);
-        drop.addEventListener('focus', focusNavSection);
-      }
-    });
-  } else {
-    navDrops.forEach((drop) => {
-      drop.removeAttribute('role');
-      drop.removeAttribute('tabindex');
-      drop.removeEventListener('focus', focusNavSection);
-    });
-  }
-  // enable menu collapse on escape keypress
-  if (!expanded || isDesktop.matches) {
-    // collapse menu on escape press
-    window.addEventListener('keydown', closeOnEscape);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-  }
-}
-
-/**
- * decorates the header, mainly the nav
- * @param {Element} block The header block element
+ * Decorates the header block with navigation elements.
+ * @param {HTMLElement} block - The header block element.
+ * @returns {Promise<void>} - A promise that resolves once the decoration is complete.
  */
 export default async function decorate(block) {
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/cigaradvisor/nav';
   const fragment = await loadFragment(navPath);
-
   // decorate nav DOM
   const nav = document.createElement('nav');
   nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
+  // add a separate div for mobile nav
+  const mobileNav = document.createElement('div');
+  mobileNav.className = 'mobile-nav';
+
+  const topNav = document.createElement('div');
+  topNav.className = 'top-nav';
+
+  const mobileTopNav = document.createElement('div');
+  mobileTopNav.className = 'mobile-top-nav';
+
+  mobileNav.append(mobileTopNav);
+
+  const topNavContent = document.createElement('div');
+  topNavContent.className = 'top-nav-content';
+  const topNavLeft = fragment.children[0];
+
+  const mobileTopNavContent = topNavLeft.cloneNode(true);
+
+  mobileTopNavContent.querySelectorAll('li').forEach((li) => {
+    const link = li.querySelector('a').getAttribute('href');
+    li.querySelector('a').remove();
+    const a = document.createElement('a');
+    a.setAttribute('href', link);
+    a.innerHTML = li.innerHTML;
+    li.innerHTML = '';
+    li.append(a);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
+  mobileTopNavContent.class = 'mobile-top-nav-content';
+  mobileTopNav.append(mobileTopNavContent);
 
-  const navSections = nav.querySelector('.nav-sections');
-  if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        }
-      });
-    });
-  }
-
-  // hamburger for mobile
-  const hamburger = document.createElement('div');
+  const mobilePrimaryNav = document.createElement('div');
+  mobilePrimaryNav.className = 'mobile-primary-nav';
+  const hamburger = document.createElement('a');
   hamburger.classList.add('nav-hamburger');
-  hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
-      <span class="nav-hamburger-icon"></span>
-    </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-  nav.prepend(hamburger);
-  nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  hamburger.setAttribute('href', '#');
+  hamburger.setAttribute('title', 'Toggle navigation');
+  hamburger.innerHTML = '<i class="fa fa-bars"></i>';
+  mobilePrimaryNav.append(hamburger);
+  const mobileLogo = document.createElement('a');
+  mobileLogo.className = 'mobile-logo';
+  mobileLogo.setAttribute('href', '/cigaradvisor');
+  mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
+  mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
+  mobilePrimaryNav.append(mobileLogo);
+  const search = document.createElement('a');
+  search.className = 'search';
+  search.setAttribute('href', '/cigaradvisor/?s=');
+  search.setAttribute('title', 'Search');
+  search.innerHTML = '<i class="fa fa-search"></i>';
+  mobilePrimaryNav.append(search);
+  mobileNav.append(mobilePrimaryNav);
 
+  topNavLeft.classList.add('top-nav-left');
+  topNavContent.append(topNavLeft);
+  const brand = document.createElement('div');
+  brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
+  <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
+  </a>`;
+  brand.className = 'brand-logo';
+  topNavContent.append(brand);
+  const topNavRight = fragment.children[0];
+  decorateSocialLinks(topNavRight);
+  const socialNavMobile = topNavRight.cloneNode(true);
+  socialNavMobile.className = 'mobile-social-nav';
+  topNavRight.classList.add('top-nav-right');
+  topNavContent.append(topNavRight);
+  topNav.append(topNavContent);
+  nav.append(topNav);
+  const primaryNav = fragment.children[0];
+  primaryNav.className = 'primary-nav';
+  nav.append(primaryNav);
+
+  const navHeight = 60;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > navHeight) {
+      primaryNav.classList.add('solid-nav');
+    } else {
+      primaryNav.classList.remove('solid-nav');
+    }
+  });
+
+  const mobilePrimaryNavContent = document.createElement('div');
+  mobilePrimaryNavContent.className = 'mobile-primary-nav-content';
+  const ul = document.createElement('ul');
+
+  // add nav-drop class to nav items with dropdowns
+  primaryNav.querySelectorAll('.default-content-wrapper > ul > li').forEach((li) => {
+    let mobileLi;
+    if (li.querySelector('ul')) {
+      const a = document.createElement('a');
+      a.setAttribute('href', '#');
+      const secondaryNavBox = document.createElement('div');
+      const text = li.childNodes[0].textContent;
+      a.innerHTML = `<span> ${text} </span>`;
+      li.childNodes[0].textContent = '';
+      const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
+      secondaryNavBox.className = `secondary-nav-box ${textToClass}`;
+      secondaryNavBox.append(li.querySelector('ul'));
+      li.className = 'nav-drop';
+      li.setAttribute('aria-expanded', 'false');
+      li.setAttribute('data-secondarynav', textToClass);
+      nav.append(secondaryNavBox);
+      li.append(a);
+      mobileLi = li.cloneNode(true);
+      mobileLi.append(secondaryNavBox.cloneNode(true));
+      ul.append(mobileLi);
+    } else {
+      mobileLi = li.cloneNode(true);
+      ul.append(mobileLi);
+    }
+  });
+
+  mobilePrimaryNavContent.append(ul);
+  const mobilePrimaryNavWrapper = document.createElement('div');
+  mobilePrimaryNavWrapper.className = 'mobile-primary-nav-wrapper nav-content-open';
+  mobilePrimaryNavWrapper.append(mobilePrimaryNavContent);
+  mobilePrimaryNavWrapper.append(socialNavMobile);
+  mobileNav.append(mobilePrimaryNavWrapper);
+
+  hamburger.addEventListener('click', () => {
+    mobilePrimaryNavWrapper.classList.toggle('nav-content-open');
+  });
+
+  const lastChild = primaryNav.querySelector('li:last-child');
+  lastChild.className = 'nav-drop';
+  lastChild.setAttribute('data-secondarynav', 'search-box');
+  lastChild.setAttribute('aria-expanded', 'false');
+  const searchBox = document.createElement('div');
+  searchBox.className = 'secondary-nav-box search-box';
+  searchBox.innerHTML = `<form action="/cigaradvisor/" class="search search--header lg-andUp">
+  <label class="sr-only" for="header-search-term">Search</label>
+  <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off">
+  <button type="submit" class="search__submit" value="Submit" title="Submit">Submit</button>
+  </form>`;
+  nav.append(searchBox);
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+  navWrapper.append(mobileNav);
   block.append(navWrapper);
+  decorateExternalLink(block);
+
+  const navDrops = nav.querySelectorAll('.nav-drop');
+  navDrops.forEach((drop) => {
+    drop.addEventListener('click', () => {
+      const secondaryNavBox = nav.querySelectorAll('.secondary-nav-box');
+      secondaryNavBox.forEach((box) => {
+        box.style.display = 'none';
+      });
+      navDrops.forEach((d) => {
+        if (d !== drop && d.getAttribute('aria-expanded') === 'true') {
+          d.setAttribute('aria-expanded', 'false');
+        }
+      });
+      const targetSecondaryNavClass = drop.dataset.secondarynav;
+      const targetSecondaryNavBox = nav.querySelector(`.${targetSecondaryNavClass}`);
+      if (drop.getAttribute('aria-expanded') === 'false') {
+        targetSecondaryNavBox.style.display = 'block';
+        drop.setAttribute('aria-expanded', 'true');
+      } else {
+        targetSecondaryNavBox.style.display = 'none';
+        drop.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  const mobileNavDrops = mobileNav.querySelectorAll('.nav-drop');
+  mobileNavDrops.forEach((drop) => {
+    drop.addEventListener('click', () => {
+      const secondaryNavBox = mobileNav.querySelectorAll('.secondary-nav-box');
+      secondaryNavBox.forEach((box) => {
+        box.style.display = 'none';
+      });
+      mobileNavDrops.forEach((d) => {
+        if (d !== drop && d.getAttribute('aria-expanded') === 'true') {
+          d.setAttribute('aria-expanded', 'false');
+        }
+      });
+      const targetSecondaryNavClass = drop.dataset.secondarynav;
+      const targetSecondaryNavBox = mobileNav.querySelector(`.${targetSecondaryNavClass}`);
+      if (drop.getAttribute('aria-expanded') === 'false') {
+        targetSecondaryNavBox.style.display = 'flex';
+        drop.setAttribute('aria-expanded', 'true');
+      } else {
+        targetSecondaryNavBox.style.display = 'none';
+        drop.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
 }

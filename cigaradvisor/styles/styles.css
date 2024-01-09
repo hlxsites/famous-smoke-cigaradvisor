@@ -121,26 +121,43 @@
 }
 
 
- :root {
+:root {
   /* colors */
+  --clr-white: #fff;
+  --clr-dark-gray: #141414;
+  --clr-black: #000;
+  --clr-pampas: #e9e4de;
+
+  /* functional-colors */
+  --clr-text: var(--clr-dark-gray);
+
+  /* filter colors (https://codepen.io/sosuke/pen/Pjoqqp) */
+  --clr-filter-gray: invert(18%) sepia(4%) saturate(304%) hue-rotate(277deg) brightness(98%) contrast(92%);
 
   /* fonts */
-   --ff-arial: 'Arial', sans-serif;
-   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
-   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
-   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
+  --ff-arial: 'Arial', sans-serif;
+  --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
+  --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
 
   /* body sizes */
+  --text-size-xs: 12px;
+  --text-size-sm: 14px;
+  --text-size-md: 16px;
+  --text-size-lg: 18px;
+  --text-size-xl: 24px;
 
   /* heading sizes */
 
-  /* nav height */
+  /* misc */
   --nav-height: 64px;
- }
+  --icon-size: var(--text-size-xl);
+}
 
 body {
   display: none;
-  color: #333;
+  margin: 0;
+  color: var(--clr-text);
 }
 
 body.appear {
@@ -171,7 +188,7 @@ h2 {
   font-family: var(--ff-montserrat);
   font-weight: 900;
   text-transform: uppercase;
-  color: #141414;
+  color: var(--clr-text);
   margin: 0 auto;
   font-size: 12px;
 }
@@ -179,7 +196,7 @@ h2 {
 a{
   font-family: var(--ff-montserrat);
   font-weight: 600;
-  color: #141414;
+  color: var(--clr-text);
   font-size: 12px;
   background-color: transparent;
   text-decoration:none
@@ -193,6 +210,10 @@ a:hover {
 
 a:active, a:hover {
   outline-width: 0;
+}
+
+.default-content-wrapper {
+  color: var(--clr-text);
 }
 
 /* Two-column grid */
@@ -228,3 +249,17 @@ main .section[data-layout="50/50"] .right-grid > div{
   padding: 10px;
 }
 
+.icon > img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.bg-dark-gray {
+  --clr-text: var(--clr-white);
+
+  background-color: var(--clr-dark-gray);
+}
+
+.bg-pampas {
+  background-color: var(--clr-pampas);
+}

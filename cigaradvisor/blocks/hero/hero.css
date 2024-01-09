@@ -74,9 +74,12 @@ main .hero h1 {
 }
 
 /* hero search */
-main .hero .hero-search {
+main .hero .hero-search .search-box{
   display: flex;
   justify-content: center;
+}
+
+main .hero .hero-search{
   margin: 20px auto;
   width: 100%;
 }
@@ -88,6 +91,11 @@ main .hero .search{
 main .hero .search form {
   border-bottom: 4px solid #141414;
   padding-bottom: 10px;
+}
+
+main .hero .search form .focused{
+  transition: 1s;
+  background-color: #d3d3d3;
 }
 
 .search form button {
@@ -127,28 +135,15 @@ main .hero .search form {
   z-index: 1;
 }
 
-.search form input:focus {
-  transition: 1s;
-  background-color: #d3d3d3;
-}
-
-/* unable to type in the above input when width < 900px. fix that */
-
-/* above input is not taking the color: #141414; it lighter. fix that */
 .search form input::placeholder {
   color: #141414;
 }
 
-/* align button::before with input */
 .search form button::before {
   position: relative;
   width: 2em;
   font-size: 30px;
 }
-
-/* search icon ie; form::before is still under the border. fix that */
-
-/* do the same for search icon ie; form::before */
 
 @media screen and (min-width: 900px) {
   main .hero img {

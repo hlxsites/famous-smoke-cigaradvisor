@@ -61,6 +61,13 @@ const createMetadata = (main, document, url) => {
 
   return meta;
 };
+
+const createHero = (main, document, url) => {
+  const image = document.querySelector('.newsArticle__image');
+  if (image) {
+    image.after(document.createElement('hr'));
+  }
+};
 export default {
 
   /**
@@ -91,6 +98,7 @@ export default {
 
     // create the metadata block and append it to the article element
     createMetadata(article, document, url);
+    createHero(article, document, url);
 
     WebImporter.DOMUtils.remove(article, [
       'noscript',

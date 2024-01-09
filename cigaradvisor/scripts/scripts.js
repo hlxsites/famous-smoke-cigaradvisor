@@ -25,14 +25,19 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
+    section.classList.add('section--hero');
+    const heroContent = document.createElement('div');
+    heroContent.classList.add('hero-content');
     const search = document.createElement('div');
-    search.classList.add('search');
-    search.innerHTML = `<form action="https://www.famous-smoke.com/cigaradvisor/" class="search search--header" method="get">
+    search.classList.add('hero-search-bar');
+    search.innerHTML = `<form action="https://www.famous-smoke.com/cigaradvisor/" class="hero-search-form" method="get">
     <label class="sr-only" for="main-search-term">Search</label>
     <input type="search" class="search__input predictiveSearch" id="main-search-term" maxlength="255" placeholder="SEARCH" name="s" data-url="GetSearchSuggestions" autocomplete="off" value="">
-    <button type="submit" class="search__submit" value="Submit" title="Submit"></button>
+    <button type="submit" class="search__submit" value="Submit" title="Submit">submit</button>
     </form>`;
-    section.append(buildBlock('hero', { elems: [picture, h1, search] }));
+    heroContent.append(h1);
+    heroContent.append(search);
+    section.append(buildBlock('hero', { elems: [picture, heroContent] }));
     main.prepend(section);
   }
 }

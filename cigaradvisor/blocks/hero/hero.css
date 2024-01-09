@@ -1,18 +1,25 @@
 /* block specific CSS goes here */
 
-main .hero-container > div {
+main .hero-container>div {
   max-width: unset;
 }
-  
+
 main .hero-container {
   padding: 0;
   margin-bottom: 10%;
 }
-  
+
 main .hero {
   position: relative;
   padding: 32px;
   min-height: 300px;
+}
+
+main .hero>div>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 main .hero h1 {
@@ -39,29 +46,43 @@ main .hero img {
   height: 85%;
 }
 
-.hero.block {
+main .hero.block {
   text-align: center;
 }
 
-main .hero h1 {
+main .hero-content {
   position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 25%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  color: #fff;
+  text-shadow: 0 0 1rem #000;
+}
+
+main .hero h1 {
   line-height: 1;
-    letter-spacing: 3px;
-    color: #f7f7f7;
+  letter-spacing: 3px;
+  color: #f7f7f7;
   text-shadow: 3px 3px #000;
   text-wrap: nowrap;
 }
 
 /* hero search */
-main .hero .search{
+main .hero .hero-search {
   display: flex;
   justify-content: center;
-  margin: 30px auto;
-  padding: 10% 0  0;
-  width: 55%;
+  margin: 20px auto;
+  width: 100%;
+}
+
+main .hero .search{
+  width: 70%;
 }
 
 main .hero .search form {
@@ -76,7 +97,6 @@ main .hero .search form {
   background: 0 0;
   color: #141414;
   width: 2.85rem;
-  height: 2.85rem;
   padding: 0;
   line-height: 2.85rem;
   margin: 0;
@@ -87,9 +107,9 @@ main .hero .search form {
 .search form button::before {
   content: "\f002";
   position: absolute;
-  height: 1.5em;
   text-align: center;
-  font-family: FontAwesome;
+  font-family: var(--ff-fontawesome);
+  cursor: pointer;
 }
 
 /* set form input placeholder text color color: #141414; */
@@ -102,12 +122,16 @@ main .hero .search form {
   width: 100%;
   background: 0 0;
   position: relative;
-  top: -2.5em;
   left: 0;
-  height: 2.5em;
+  max-width: 100%;
 }
 
-/* position search icon and input above the sear border */
+.search form input:focus {
+  transition: 1s;
+  background-color: #d3d3d3;
+}
+
+/* unable to type in the above input when width < 900px. fix that */
 
 /* above input is not taking the color: #141414; it lighter. fix that */
 .search form input::placeholder {
@@ -117,9 +141,7 @@ main .hero .search form {
 /* align button::before with input */
 .search form button::before {
   position: relative;
-  top: -1.5em;
   width: 2em;
-  height: 2.5em;
   font-size: 30px;
 }
 
@@ -133,5 +155,13 @@ main .hero .search form {
     height: 185%;
     max-width: none;
     margin-top: -65px;
+  }
+
+  main .hero .search{
+    width: 30%;
+  }
+
+  main .hero-content {
+    top: 100%;
   }
 }

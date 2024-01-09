@@ -16,7 +16,7 @@
 }
 
 .header.block nav .top-nav {
-    background-color: var(--very-dark-grey);
+    background-color: var(--clr-dark-gray);
     min-height: 60px;
     align-items: center;
     height: 60px;
@@ -139,7 +139,7 @@
 
 .header.block nav .default-content-wrapper ul a {
     text-transform: uppercase;
-    color: var(--white);
+    color: var(--clr-white);
     font-size: 14px;
     font-weight: 400;
 }
@@ -183,7 +183,7 @@
     font-size: 14px;
     font-family: var(--ff-open-sans);
     font-weight: 600;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     cursor: default;
     padding-bottom: 0.65em;
 }
@@ -199,7 +199,7 @@
     text-transform: uppercase;
     background-color: transparent;
     border: 2px solid transparent;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     margin: 0;
     cursor: pointer;
     font-size: 14px;
@@ -229,7 +229,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background-color: var(--white);
+    background-color: var(--clr-white);
 }
 
 .header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
@@ -242,7 +242,7 @@
 /* Secondary navigation */
 .header.block nav .secondary-nav-box {
     display: none;
-    background-color: var(--white);
+    background-color: var(--clr-white);
     border: 2px solid var(--tan);
     left: 0;
     right: 0;
@@ -264,7 +264,7 @@
     font-size: 14px;
     font-family: var(--ff-open-sans);
     font-weight: 600;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     cursor: default;
 }
 
@@ -294,6 +294,8 @@
 /* make above img centered */
 .header.block nav .secondary-nav-box ul li span img {
     margin: 0 auto;
+    width: auto;
+    height: auto;
 }
 
 .header.block nav .secondary-nav-box.search-box {
@@ -310,7 +312,7 @@
 }
 
 .header.block nav .secondary-nav-box.search-box form::placeholder {
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
 }
 
 .header.block nav .secondary-nav-box.search-box form {
@@ -349,9 +351,9 @@
 }
 
 .header.block nav .secondary-nav-box.search-box form button {
-    color: var(--white);
+    color: var(--clr-white);
     width: auto;
-    background-color: var(--very-dark-grey);
+    background-color: var(--clr-dark-gray);
     padding-left: 10px;
     padding-right: 10px;
     position: absolute;
@@ -383,7 +385,7 @@
 }
 
 .header.block .mobile-nav .mobile-primary-nav-wrapper {
-    background-color: var(--white);
+    background-color: var(--clr-white);
     width: 100%;
     height: 100%;
     margin-left: auto;
@@ -409,7 +411,7 @@
 
 .header.block .mobile-nav .mobile-top-nav {
     padding: 0 10px;
-    background-color: var(--very-dark-grey);
+    background-color: var(--clr-dark-gray);
     height: auto;
 }
 
@@ -503,7 +505,7 @@
     min-height: 3.5rem;
     font-family: --var(ff-open-sans);
     font-weight: 600;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     font-size: 12px;
     cursor: default;
 }
@@ -515,7 +517,7 @@
     min-height: 3.5rem;
     font-family: --var(ff-open-sans);
     font-weight: 600;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     font-size: 12px;
 }
 
@@ -525,7 +527,7 @@
     border: none;
     text-transform: uppercase;
     position: relative;
-    color: var(--very-dark-grey);
+    color: var(--clr-dark-gray);
     line-height: 2.5em;
     padding: 0 .3em 0 0;
     text-align: left;

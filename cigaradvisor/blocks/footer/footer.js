@@ -17,9 +17,7 @@ export default async function decorate(block) {
   // decorate footer sections
   const footerContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
   if (footerContainer && footerContainer.childNodes.length) {
-    footerContainer.classList.add('footer-container');
-    const navContainer = document.createElement('div');
-    navContainer.classList.add('footer-nav');
+    footerContainer.classList.add('nav-container');
 
     let currentElement = footerContainer.firstElementChild;
     let nextElement;
@@ -39,9 +37,8 @@ export default async function decorate(block) {
       } while (nextElement && nextElement.tagName !== 'H1');
 
       // add section to container
-      navContainer.appendChild(section);
+      footerContainer.insertBefore(section, currentElement);
     }
-    footerContainer.prepend(navContainer);
   }
 
   block.innerHTML = footerContent.innerHTML;

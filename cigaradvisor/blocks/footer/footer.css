@@ -38,18 +38,18 @@
   padding-top: 18px;
 }
 
-.footer-nav > .footer-container > .footer-nav {
+.footer-nav > .nav-container {
   display: grid;
 }
 
-.footer-nav > .footer-container > .footer-nav > .nav-section {
+.footer-nav > .nav-container > .nav-section {
   padding: 10px;
   width: 100%;
   font-size: 14px;
   line-height: 33px;
 }
 
-.footer-nav > .footer-container > .footer-nav > .nav-section.with-heading > h1 {
+.footer-nav > .nav-container > .nav-section.with-heading > h1 {
   margin-bottom: 5px;
   color: #673841;
   font-family: var(--ff-opensans);
@@ -58,7 +58,7 @@
   letter-spacing: .06em;
 }
 
-.footer-nav > .footer-container > .footer-nav > .nav-section > ul {
+.footer-nav > .nav-container > .nav-section > ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -80,25 +80,21 @@
     padding-bottom: 40px;
   }
 
-  .footer-nav > .footer-container > .footer-nav {
+  .footer-nav > .nav-container {
     max-width: 1100px;
     margin: auto;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas: "nav nav nav nav" "social social social social";
   }
 
-  .footer-nav > .footer-container > .footer-nav > .nav-section {
+  .footer-nav > .nav-container > .nav-section {
     width: fit-content;
   }
 
-  .footer-nav > .footer-container > .footer-nav > .nav-section:last-child {
+  .footer-nav > .nav-container > .nav-section:last-child {
     grid-area: social;
     margin: auto;
     text-align: center;
-  }
-
-  .footer-legal {
-    font-size: 14px;
   }
 
   .footer-legal ul > li {
@@ -113,11 +109,11 @@
 }
 
 @media screen and (min-width: 960px) {
-  .footer-nav > .footer-container > .footer-nav {
+  .footer-nav > .nav-container {
     grid-template-columns: 8% 18% 18% 18% auto;
   }
 
-  .footer-nav > .footer-container > .footer-nav > .nav-section:last-child {
+  .footer-nav > .nav-container > .nav-section:last-child {
     grid-area: unset;
     margin: unset;
     text-align: unset;
@@ -125,5 +121,11 @@
 
   .footer-nav .icon {
     margin: 0 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .footer-legal {
+    font-size: 14px;
   }
 }

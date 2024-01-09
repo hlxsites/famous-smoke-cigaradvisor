@@ -384,6 +384,10 @@
         z-index: 1000;
 }
 
+.header.block .mobile-nav.mobile-nav-closed{
+    z-index: 1;
+}
+
 .header.block .mobile-nav .mobile-primary-nav-wrapper {
     background-color: var(--clr-white);
     width: 100%;

@@ -124,6 +124,7 @@ main .hero .search form {
   position: relative;
   left: 0;
   max-width: 100%;
+  z-index: 1;
 }
 
 .search form input:focus {

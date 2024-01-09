@@ -335,14 +335,14 @@ main .section[data-layout="50/50"] .right-grid>div {
   }
 }
 
-@media screen and (min-width: 900px) {
-  h1 {
-    font-size: 45px;
-  }
-}
-
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 35px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  h1 {
+    font-size: 45px;
   }
 }

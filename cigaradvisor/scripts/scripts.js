@@ -25,7 +25,14 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    const search = document.createElement('div');
+    search.classList.add('search');
+    search.innerHTML = `<form action="https://www.famous-smoke.com/cigaradvisor/" class="search search--header" method="get">
+    <label class="sr-only" for="main-search-term">Search</label>
+    <input type="search" class="search__input predictiveSearch" id="main-search-term" maxlength="255" placeholder="SEARCH" name="s" data-url="GetSearchSuggestions" autocomplete="off" value="">
+    <button type="submit" class="search__submit" value="Submit" title="Submit"></button>
+    </form>`;
+    section.append(buildBlock('hero', { elems: [picture, h1, search] }));
     main.prepend(section);
   }
 }

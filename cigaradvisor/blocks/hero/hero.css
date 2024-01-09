@@ -45,7 +45,7 @@ main .hero img {
 
 main .hero h1 {
   position: absolute;
-  top: 45%;
+  top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1;
@@ -55,6 +55,78 @@ main .hero h1 {
   text-wrap: nowrap;
 }
 
+/* hero search */
+main .hero .search{
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  padding: 10% 0  0;
+  width: 55%;
+}
+
+main .hero .search form {
+  border-bottom: 4px solid #141414;
+  padding-bottom: 10px;
+}
+
+.search form button {
+  position: relative;
+  top: 0;
+  right: 0;
+  background: 0 0;
+  color: #141414;
+  width: 2.85rem;
+  height: 2.85rem;
+  padding: 0;
+  line-height: 2.85rem;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
+
+.search form button::before {
+  content: "\f002";
+  position: absolute;
+  height: 1.5em;
+  text-align: center;
+  font-family: FontAwesome;
+}
+
+/* set form input placeholder text color color: #141414; */
+.search form input {
+  color: #141414;
+  border: none;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: capitalize;
+  width: 100%;
+  background: 0 0;
+  position: relative;
+  top: -2.5em;
+  left: 0;
+  height: 2.5em;
+}
+
+/* position search icon and input above the sear border */
+
+/* above input is not taking the color: #141414; it lighter. fix that */
+.search form input::placeholder {
+  color: #141414;
+}
+
+/* align button::before with input */
+.search form button::before {
+  position: relative;
+  top: -1.5em;
+  width: 2em;
+  height: 2.5em;
+  font-size: 30px;
+}
+
+/* search icon ie; form::before is still under the border. fix that */
+
+/* do the same for search icon ie; form::before */
+
 @media screen and (min-width: 900px) {
   main .hero img {
     width: 100%;
@@ -62,5 +134,4 @@ main .hero h1 {
     max-width: none;
     margin-top: -65px;
   }
- 
 }

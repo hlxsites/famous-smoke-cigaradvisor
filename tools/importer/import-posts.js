@@ -10,6 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
+const edsUrl = (a) => {
+  return `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${a.pathname}`;
+};
 const createMetadata = (main, document, url) => {
   const meta = {};
 
@@ -47,12 +50,12 @@ const createMetadata = (main, document, url) => {
 
   const category = document.querySelector('.tag');
   if (category) {
-    meta.category = category.href;
+    meta.category = edsUrl(category);
   }
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    meta.author = authorLink.href;
+    meta.author = edsUrl(authorLink);
     // meta.authorName = authorLink.textContent.substring(3);
   }
 
@@ -90,7 +93,7 @@ export default {
     // contributor block
     const block = main.querySelector('.contributorBlock');
     const link = block.querySelector('.intro > a');
-    link.textContent = link.href;
+    link.textContent = edsUrl(link);
     const cells = [['Author']];
     cells.push([link]);
     const author = WebImporter.DOMUtils.createTable(cells, document);

@@ -141,6 +141,7 @@
   --grey: #333;
   --light-grey: #d3d3d3;
   --dark-grey: #3c3a3b;
+  --off-white: #f7f7f7;
 
   /* functional-colors */
   --clr-text: var(--clr-dark-gray);
@@ -222,6 +223,16 @@ img {
   height: auto;
   max-width: 100%;
   border-style: none;
+}
+
+h1 {
+  font-size: 25px;
+  font-family: var(--ff-alfaslabone);
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #141414;
+  margin: 2px auto;
 }
 
 h2 {
@@ -321,13 +332,6 @@ main .section[data-layout="50/50"] {
   display: flex;
 }
 
-@media screen and (max-width: 600px) {
-  main .section[data-layout="50/50"] {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
 main .section[data-layout="50/50"]>div {
   display: flex;
   flex-basis: 100%;
@@ -355,4 +359,23 @@ main .section[data-layout="50/50"] .right-grid>div {
 
 .bg-pampas {
   background-color: var(--clr-pampas);
+}
+
+@media screen and (max-width: 600px) {
+  main .section[data-layout="50/50"] {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  h1 {
+    font-size: 35px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  h1 {
+    font-size: 45px;
+  }
 }

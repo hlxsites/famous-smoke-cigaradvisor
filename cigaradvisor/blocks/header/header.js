@@ -135,9 +135,17 @@ export default async function decorate(block) {
   mobilePrimaryNavWrapper.append(mobilePrimaryNavContent);
   mobilePrimaryNavWrapper.append(socialNavMobile);
   mobileNav.append(mobilePrimaryNavWrapper);
+  mobileNav.classList.add('mobile-nav-closed');
 
   hamburger.addEventListener('click', () => {
     mobilePrimaryNavWrapper.classList.toggle('nav-content-open');
+    if (mobileNav.classList.contains('mobile-nav-closed')) {
+      mobileNav.classList.remove('mobile-nav-closed');
+    } else {
+      setTimeout(() => {
+        mobileNav.classList.add('mobile-nav-closed');
+      }, 500);
+    }
   });
 
   const lastChild = primaryNav.querySelector('li:last-child');

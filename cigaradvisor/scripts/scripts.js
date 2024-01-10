@@ -1,5 +1,6 @@
 import {
   sampleRUM,
+  buildBlock,
   loadHeader,
   loadFooter,
   decorateButtons,
@@ -18,6 +19,39 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
+function buildHeroBlock(main) {
+  const h1 = main.querySelector('h1');
+  const picture = main.querySelector('picture');
+  // eslint-disable-next-line no-bitwise
+  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+    const section = document.createElement('div');
+    section.classList.add('section--hero');
+    const heroContent = document.createElement('div');
+    heroContent.classList.add('hero-content');
+    const search = document.createElement('div');
+    search.classList.add('search');
+    search.innerHTML = `<form action="/cigaradvisor/" class="hero-search" method="get">
+    <label class="sr-only" for="main-search-term">Search</label>
+    <div class="search-box">
+    <input type="search" class="search__input predictiveSearch" id="main-search-term" maxlength="255" placeholder="SEARCH" name="s" data-url="GetSearchSuggestions" autocomplete="off" value="">
+    <button type="submit" class="search__submit" value="Submit" title="Submit"></button>
+    </div>
+    </form>`;
+    heroContent.append(h1);
+    heroContent.append(search);
+    section.append(buildBlock('hero', { elems: [picture, heroContent] }));
+    main.prepend(section);
+    // on-focus of input, add class to form
+    const searchInput = main.querySelector('.hero-search input');
+    searchInput.addEventListener('focus', () => {
+      searchInput.parentNode.classList.add('focused');
+    });
+    // on-blur of input, remove class from form
+    searchInput.addEventListener('blur', () => {
+      searchInput.parentNode.classList.remove('focused');
+    });
+  }
+}
 
 /**
  * Builds two column grid.
@@ -58,10 +92,9 @@ async function loadFonts() {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-// eslint-disable-next-line no-unused-vars
 function buildAutoBlocks(main) {
   try {
-    // do nothing
+    buildHeroBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

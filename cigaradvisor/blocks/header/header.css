@@ -384,6 +384,10 @@
         z-index: 1000;
 }
 
+.header.block .mobile-nav.mobile-nav-closed{
+    z-index: 1;
+}
+
 .header.block .mobile-nav .mobile-primary-nav-wrapper {
     background-color: var(--clr-white);
     width: 100%;
@@ -460,7 +464,7 @@
     padding: 20px 0 5px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav .nav-hamburger, .search{
+.header.block .mobile-nav .mobile-primary-nav .nav-hamburger,.header.block .mobile-nav .mobile-primary-nav .search{
     width: 1.25em;
     height: 1.25em;
     font-size: 2em;

@@ -9,27 +9,33 @@ main .hero-container {
   margin-bottom: 10%;
 }
 
-main .hero {
+main .hero.block {
   position: relative;
   padding: 32px;
   min-height: 300px;
+  text-align: center;
+  line-height: 1;
+  letter-spacing: 3px;
+  color: #f7f7f7;
+  text-shadow: 3px 3px #000;
+  text-wrap: nowrap;
 }
 
-main .hero>div>div {
+main .hero.block>div>div {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
 
-main .hero h1 {
+main .hero.block h1 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   color: white;
 }
 
-main .hero picture {
+main .hero.block picture {
   position: absolute;
   z-index: -1;
   top: 0;
@@ -40,17 +46,13 @@ main .hero picture {
   box-sizing: border-box;
 }
 
-main .hero img {
+main .hero.block img {
   object-fit: cover;
   margin-top: 1%;
   height: 85%;
 }
 
-main .hero.block {
-  text-align: center;
-}
-
-main .hero-content {
+main .hero.block .hero-content {
   position: absolute;
   top: 25%;
   left: 0;
@@ -65,40 +67,32 @@ main .hero-content {
   text-shadow: 0 0 1rem #000;
 }
 
-main .hero h1 {
-  line-height: 1;
-  letter-spacing: 3px;
-  color: #f7f7f7;
-  text-shadow: 3px 3px #000;
-  text-wrap: nowrap;
-}
-
 /* hero search */
-main .hero .hero-search .search-box{
+main .hero.block .hero-search .search-box{
   display: flex;
   justify-content: center;
 }
 
-main .hero .hero-search{
+main .hero.block .hero-search{
   margin: 20px auto;
   width: 100%;
 }
 
-main .hero .search{
+main .hero.block .search{
   width: 70%;
 }
 
-main .hero .search form {
+main .hero.block .search form {
   border-bottom: 4px solid #141414;
   padding-bottom: 10px;
 }
 
-main .hero .search form .focused{
+main .hero.block .search form .focused{
   transition: 1s;
   background-color: #d3d3d3;
 }
 
-.search form button {
+main .hero.block .search form button {
   position: relative;
   top: 0;
   right: 0;
@@ -112,16 +106,8 @@ main .hero .search form .focused{
   border-radius: 0;
 }
 
-.search form button::before {
-  content: "\f002";
-  position: absolute;
-  text-align: center;
-  font-family: var(--ff-fontawesome);
-  cursor: pointer;
-}
-
 /* set form input placeholder text color color: #141414; */
-.search form input {
+main .hero.block .search form input {
   color: #141414;
   border: none;
   font-weight: 700;
@@ -135,29 +121,33 @@ main .hero .search form .focused{
   z-index: 1;
 }
 
-.search form input::placeholder {
+main .hero.block .search form input::placeholder {
   color: #141414;
 }
 
-.search form button::before {
+main .hero.block .search form button::before {
   position: relative;
   width: 2em;
   font-size: 30px;
+  content: "\f002";
+  text-align: center;
+  font-family: var(--ff-fontawesome);
+  cursor: pointer;
 }
 
 @media screen and (min-width: 900px) {
-  main .hero img {
+  main .hero.block img {
     width: 100%;
     height: 185%;
     max-width: none;
     margin-top: -65px;
   }
 
-  main .hero .search{
+  main .hero.block .search{
     width: 30%;
   }
 
-  main .hero-content {
+  main .hero.block .hero-content {
     top: 100%;
   }
 }

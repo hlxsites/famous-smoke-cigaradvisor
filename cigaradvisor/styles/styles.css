@@ -141,6 +141,7 @@
   --grey: #333;
   --light-grey: #d3d3d3;
   --dark-grey: #3c3a3b;
+  --off-white: #f7f7f7;
 
   /* functional-colors */
   --clr-text: var(--clr-dark-gray);

@@ -16,8 +16,8 @@ main .hero.block {
   text-align: center;
   line-height: 1;
   letter-spacing: 3px;
-  color: #f7f7f7;
-  text-shadow: 3px 3px #000;
+  color: var(--off-white);
+  text-shadow: 3px 3px var(--clr-black);
   text-wrap: nowrap;
 }
 
@@ -63,8 +63,8 @@ main .hero.block .hero-content {
   justify-content: center;
   align-items: center;
   padding: 0 1rem;
-  color: #fff;
-  text-shadow: 0 0 1rem #000;
+  color: var(--clr-white);
+  text-shadow: 0 0 1rem var(--clr-black);
 }
 
 /* hero search */
@@ -83,13 +83,13 @@ main .hero.block .search{
 }
 
 main .hero.block .search form {
-  border-bottom: 4px solid #141414;
+  border-bottom: 4px solid var(--clr-dark-gray);
   padding-bottom: 10px;
 }
 
 main .hero.block .search form .focused{
   transition: 1s;
-  background-color: #d3d3d3;
+  background-color: var(--light-grey);
 }
 
 main .hero.block .search form button {
@@ -97,7 +97,7 @@ main .hero.block .search form button {
   top: 0;
   right: 0;
   background: 0 0;
-  color: #141414;
+  color: var(--clr-dark-gray);
   width: 2.85rem;
   padding: 0;
   line-height: 2.85rem;
@@ -106,9 +106,9 @@ main .hero.block .search form button {
   border-radius: 0;
 }
 
-/* set form input placeholder text color color: #141414; */
+/* set form input placeholder text color color: var(--clr-dark-gray); */
 main .hero.block .search form input {
-  color: #141414;
+  color: var(--clr-dark-gray);
   border: none;
   font-weight: 700;
   font-size: 18px;
@@ -122,7 +122,7 @@ main .hero.block .search form input {
 }
 
 main .hero.block .search form input::placeholder {
-  color: #141414;
+  color: var(--clr-dark-gray);
 }
 
 main .hero.block .search form button::before {

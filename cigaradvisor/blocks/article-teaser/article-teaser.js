@@ -1,4 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { fetchData } from '../../scripts/scripts.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
@@ -10,15 +11,6 @@ function formatDate(originalDateString) {
   const formattedDate = `${day} ${month} ${year}`;
   const dateTimeAttribute = `${utcDate.getUTCFullYear()}-${String(utcDate.getUTCMonth() + 1).padStart(2, '0')}-${String(utcDate.getUTCDate()).padStart(2, '0')}`;
   return `${formattedDate}|${dateTimeAttribute}`;
-}
-
-async function fetchData(url) {
-  const resp = await fetch(url);
-  let jsonDataJson = '';
-  if (resp.ok) {
-    jsonDataJson = await resp.json();
-  }
-  return jsonDataJson.data;
 }
 
 export default async function decorate(block) {

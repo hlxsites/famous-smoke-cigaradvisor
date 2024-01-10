@@ -1,0 +1,224 @@
+.authorcard-container {
+    background: url('/cigaradvisor/images/author-card/media_17501a5f7bf5b4aebcf109765ead7cb5956480cbe.png');
+    margin-top: 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    padding: 0 40px;
+    background-size: 900px 500px;
+    margin-bottom: 40px;
+}
+
+.authorcard-wrapper::after {
+    display: block;
+    clear: both;
+}
+
+.authorcard-wrapper {
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1080px;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.authorcard.block {
+    display: flex;
+}
+
+.authorcard.block .left-column,
+.right-column {
+    display: flex;
+    float: none;
+    width: 50%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.authorcard.block .left-column h2 {
+    font-family: var(--ff-alfaslabone);
+    font-size: var(--heading-font-size-xl);
+    color: var(--deep-reddish-brown);
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-image-source: url('/cigaradvisor/images/author-card/media_176afb26345b78f372ca811cf0e842c7ff75875a5.png');
+    border-image-slice: 50;
+    border-bottom: 30px solid;
+}
+
+.authorcard.block .left-column h2:first-child {
+    font-size: var(--heading-font-size-l);
+    border-bottom: none;
+}
+
+
+.authorcard.block .left-column p {
+    font-family: var(--ff-opensans);
+    font-weight: var(--font-weight-semibold);
+    color: var(--dark-grey);
+    font-size: var(--body-font-size-xs);
+    cursor: default;
+    margin-top: 30px;
+}
+
+.authorcard.block .left-column .button {
+    background-color: var(--clr-black);
+    border: 2px solid;
+    font-family: var(--ff-montserrat);
+    font-weight: var(--font-weight-bold);
+    color: var(--clr-white);
+    text-transform: uppercase;
+    border-color: var(--tan);
+    display: inline-block;
+    line-height: 26px;
+    height: 50px;
+    width: 250px;
+    max-height: 50px;
+    max-width: 250px;
+    min-height: 2.85rem;
+    padding-top: .8em;
+    padding-bottom: .8em;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    margin: 2px 0;
+    padding-left: 1em;
+    border-radius: 0;
+    font-size: var(--body-font-size-s);
+    outline: none;
+    vertical-align: middle;
+}
+
+.authorcard.block .button:hover {
+    transition: .5s;
+    background-color: var(--subdued-gold);
+    border-color: var(--subdued-gold);
+    text-decoration: none;
+}
+
+.authorcard.block .right-column .author-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.authorcard.block .author-content {
+    flex: 0 0 50%;
+    padding: 3px;
+}
+
+.authorcard.block .author-content .overlay-image {
+    margin-right: -100%;
+    background-image: none;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    height: auto;
+}
+
+.authorcard.block .author-content .overlay-image img {
+    display: block;
+}
+
+.authorcard.block .right-column p {
+    color: var(--clr-white);
+    text-transform: uppercase;
+    background-color: transparent;
+    font-family: var(--ff-montserrat);
+    text-align: center;
+    cursor: default;
+}
+
+.authorcard.block .right-column p>a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    color: var(--clr-white);
+    font-weight: var(--font-weight-extrabold);
+    font-size: var(--body-font-size-xl);
+}
+
+.authorcard.block .right-column p>a:hover {
+    transition: .8s;
+    text-decoration: none;
+}
+
+
+.authorcard.block .overlay-image:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0 0 0 / 60%);
+}
+
+
+.authorcard.block .align-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: var(--clr-white);
+    text-align: center;
+}
+
+.authorcard.block .overlay-image:hover .align-center {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .authorcard-container {
+        padding: 60px 10px;
+        background: none #ece8e3;
+        background-size: auto 150%;
+    }
+
+    .author-wrapper {
+        display: flex;
+        width: 100%;
+    }
+
+    .authorcard.block {
+        flex-flow: column wrap;
+        width: 100%;
+    }
+
+    .authorcard.block .author-content {
+        flex: 0 0 100%;
+    }
+
+    .authorcard.block .left-column,
+    .right-column {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0;
+    }
+
+    .authorcard.block .overlay-image {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .authorcard.block .author-content .overlay-image img {
+        display: block;
+        width: 100%;
+    }
+}

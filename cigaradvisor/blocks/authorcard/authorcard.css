@@ -69,11 +69,11 @@
 }
 
 .authorcard.block .left-column .button {
-    background-color: var(--black);
+    background-color: var(--clr-black);
     border: 2px solid;
     font-family: var(--ff-montserrat);
     font-weight: var(--font-weight-bold);
-    color: var(--white);
+    color: var(--clr-white);
     text-transform: uppercase;
     border-color: var(--tan);
     display: inline-block;
@@ -131,7 +131,7 @@
 }
 
 .authorcard.block .right-column p {
-    color: var(--white);
+    color: var(--clr-white);
     text-transform: uppercase;
     background-color: transparent;
     font-family: var(--ff-montserrat);
@@ -144,7 +144,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: block;
-    color: var(--white);
+    color: var(--clr-white);
     font-weight: var(--font-weight-extrabold);
     font-size: var(--body-font-size-xl);
 }
@@ -173,7 +173,7 @@
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    color: var(--white);
+    color: var(--clr-white);
     text-align: center;
 }
 

@@ -25,8 +25,31 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.classList.add('section--hero');
+    const heroContent = document.createElement('div');
+    heroContent.classList.add('hero-content');
+    const search = document.createElement('div');
+    search.classList.add('search');
+    search.innerHTML = `<form action="/cigaradvisor/" class="hero-search" method="get">
+    <label class="sr-only" for="main-search-term">Search</label>
+    <div class="search-box">
+    <input type="search" class="search__input predictiveSearch" id="main-search-term" maxlength="255" placeholder="SEARCH" name="s" data-url="GetSearchSuggestions" autocomplete="off" value="">
+    <button type="submit" class="search__submit" value="Submit" title="Submit"></button>
+    </div>
+    </form>`;
+    heroContent.append(h1);
+    heroContent.append(search);
+    section.append(buildBlock('hero', { elems: [picture, heroContent] }));
     main.prepend(section);
+    // on-focus of input, add class to form
+    const searchInput = main.querySelector('.hero-search input');
+    searchInput.addEventListener('focus', () => {
+      searchInput.parentNode.classList.add('focused');
+    });
+    // on-blur of input, remove class from form
+    searchInput.addEventListener('blur', () => {
+      searchInput.parentNode.classList.remove('focused');
+    });
   }
 }
 
@@ -93,6 +116,11 @@ export function decorateMain(main) {
   buildTwoColumnGrid(main);
 }
 
+/**
+ * Checks if the given path is an external URL.
+ * @param {string} path - The path to be checked.
+ * @returns {boolean} - Returns true if the path is an external URL, false otherwise.
+ */
 export function isExternal(path) {
   try {
     const url = new URL(path);
@@ -100,6 +128,20 @@ export function isExternal(path) {
   } catch (error) {
     return false;
   }
+}
+
+/**
+ * Decorates external links by adding target="_blank" and rel="noopener".
+ * @param {HTMLElement} element - The element containing the external links.
+ */
+export function decorateExternalLink(element) {
+  const anchors = element.querySelectorAll('a');
+  anchors.forEach((a) => {
+    if (isExternal(a.getAttribute('href'))) {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+  });
 }
 
 /**
@@ -114,6 +156,20 @@ export async function fetchData(url) {
     jsonData = await resp.json();
   }
   return jsonData.data;
+}
+
+/**
+ * Decorates social links by adding classes based on their text content.
+ * @param {HTMLElement} element - The element containing the social links.
+ */
+export function decorateSocialLinks(element) {
+  const socialLinks = element.querySelectorAll('a');
+  socialLinks.forEach((link) => {
+    const text = link.textContent;
+    const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
+    link.classList.add(textToClass);
+    link.textContent = '';
+  });
 }
 
 /**

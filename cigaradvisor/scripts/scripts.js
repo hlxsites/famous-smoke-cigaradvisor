@@ -60,12 +60,17 @@ function buildHeroBlock(main) {
  */
 function buildArticleHeader(mainEl) {
   const paragraphs = mainEl.querySelectorAll('p');
-  paragraphs.forEach(function(paragraph) {
+  paragraphs.forEach((paragraph) => {
     if (paragraph.querySelector('picture') !== null) {
-      var nextSibling = paragraph.nextElementSibling;
+      const imageWrapper = document.createElement('div');
+      imageWrapper.classList.add('article-image-wrapper');
+      imageWrapper.append(paragraph.querySelector('picture'));
+      const nextSibling = paragraph.nextElementSibling;
       if (nextSibling && nextSibling.querySelector('em') !== null) {
         nextSibling.classList.add('article-image-caption');
+        imageWrapper.append(nextSibling);
       }
+      paragraph.replaceChildren(imageWrapper);
     }
   });
   const div = document.createElement('div');

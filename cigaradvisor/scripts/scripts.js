@@ -59,6 +59,7 @@ function buildHeroBlock(main) {
  * @param {HTMLElement} mainEl - The main element to build the article header for.
  */
 function buildArticleHeader(mainEl) {
+  // eslint-disable-next-line no-use-before-define
   decorateExternalLink(mainEl);
   const paragraphs = mainEl.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {

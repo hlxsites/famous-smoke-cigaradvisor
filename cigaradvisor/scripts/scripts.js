@@ -59,12 +59,19 @@ function buildHeroBlock(main) {
  * @param {HTMLElement} mainEl - The main element to build the article header for.
  */
 function buildArticleHeader(mainEl) {
+  decorateExternalLink(mainEl);
   const paragraphs = mainEl.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {
     if (paragraph.querySelector('picture') !== null) {
       const imageWrapper = document.createElement('div');
       imageWrapper.classList.add('article-image-wrapper');
-      imageWrapper.append(paragraph.querySelector('picture'));
+      if (paragraph.querySelector('a') !== null) {
+        const a = paragraph.querySelector('a');
+        a.replaceChildren(paragraph.querySelector('picture'));
+        imageWrapper.append(a);
+      } else {
+        imageWrapper.append(paragraph.querySelector('picture'));
+      }
       const nextSibling = paragraph.nextElementSibling;
       if (nextSibling && nextSibling.querySelector('em') !== null) {
         nextSibling.classList.add('article-image-caption');
@@ -72,6 +79,12 @@ function buildArticleHeader(mainEl) {
       }
       paragraph.replaceChildren(imageWrapper);
     }
+  });
+  const h3 = mainEl.querySelectorAll('h3');
+  h3.forEach((heading) => {
+    const p = document.createElement('p');
+    p.innerHTML = '&nbsp;';
+    heading.prepend(p);
   });
   const div = document.createElement('div');
   const h1 = mainEl.querySelector('h1');

@@ -1,4 +1,4 @@
-main .articleheader-container{
+main .articleheader-container {
     margin-top: 46px;
 }
 
@@ -10,7 +10,7 @@ main .articleheader-container{
     background-color: #eaeaea;
 }
 
-.articleheader.block .image-wrapper img{
+.articleheader.block .image-wrapper img {
     display: block;
     width: 100%;
     max-height: 650px;
@@ -31,29 +31,29 @@ main .articleheader-container{
 }
 
 .articleheader.block .article-info .article-category {
-  float: none;
-  display: flex;
-  justify-content: center;
-  margin: 30px auto 10px;
+    float: none;
+    display: flex;
+    justify-content: center;
+    margin: 30px auto 10px;
 }
 
 .articleheader.block .article-info .article-category a {
     position: relative;
     top: 0;
     left: 0;
-  padding: 7px 24px;
-  margin: 0 auto;
-  text-transform: capitalize;
-  display: flex;
-  justify-content: center;
-  color: #fff;
-  font-family: montserrat,sans-serif;
-  font-weight: 600;
-  background-color: #3c3a3b;
-  font-size: 12px;
+    padding: 7px 24px;
+    margin: 0 auto;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-family: montserrat, sans-serif;
+    font-weight: 600;
+    background-color: #3c3a3b;
+    font-size: 12px;
 }
 
-.articleheader.block .article-info h1{
+.articleheader.block .article-info h1 {
     font-size: 36px;
 }
 
@@ -66,7 +66,7 @@ main .articleheader-container{
 }
 
 /* separate children of .article-author with a pipe */
-.articleheader.block .article-info .article-author > a::after {
+.articleheader.block .article-info .article-author>a::after {
     content: "";
     display: inline-block;
     width: 1px;
@@ -75,7 +75,7 @@ main .articleheader-container{
     margin: 0 10px;
 }
 
-.articleheader.block .article-info .article-author .article-published-date   {
+.articleheader.block .article-info .article-author .article-published-date {
     font-family: var(--ff-opensans);
     font-weight: 600;
     color: #141414;
@@ -84,10 +84,10 @@ main .articleheader-container{
 
 .articleheader.block .article-read-time {
     text-align: justify;
-  font-size: 18px;
-  line-height: 30px;
-  color: var(--grey);
-  padding-left: 0;
+    font-size: 18px;
+    line-height: 30px;
+    color: var(--grey);
+    padding-left: 0;
     padding-right: 0;
     width: 100%;
     margin-left: auto;
@@ -95,7 +95,7 @@ main .articleheader-container{
     max-width: 1080px;
 }
 
-.blog-post-template .author-container > .default-content-wrapper {
+.blog-post-template .author-container>.default-content-wrapper {
     padding: 0 15px;
     width: 100%;
     margin-left: auto;
@@ -104,33 +104,40 @@ main .articleheader-container{
     text-align: justify;
 }
 
-.blog-post-template .author-container > .default-content-wrapper p {
+.blog-post-template .author-container>.default-content-wrapper p {
     font-size: 18px;
     line-height: 30px;
     font-family: var(--ff-opensans);
-  font-weight: 600;
-  color: #141414;
-  cursor: default;
+    font-weight: 600;
+    color: #141414;
+    cursor: default;
 }
 
-.blog-post-template .author-container > .default-content-wrapper .article-image-wrapper {
+.blog-post-template .author-container>.default-content-wrapper a{
+    font-size: 18px;
+    line-height: 30px;
+    text-decoration: underline;
+  color: #b19b5e;
+}
+
+.blog-post-template .author-container>.default-content-wrapper .article-image-wrapper {
     width: 1000px;
     padding: 20px;
     max-width: 100%;
     clear: both;
 }
 
-.blog-post-template .author-container > .default-content-wrapper picture img {
+.blog-post-template .author-container>.default-content-wrapper picture img {
     padding: 20px 20px 20px 0;
 }
 
-.blog-post-template .author-container > .default-content-wrapper .article-image-caption { 
+.blog-post-template .author-container>.default-content-wrapper .article-image-caption {
     font-family: var(--ff-opensans);
     font-size: 16px;
     text-align: center;
     font-style: italic;
-  font-weight: 700;
-  color: #888;
+    font-weight: 700;
+    color: #888;
     margin: 0;
 }
 
@@ -141,7 +148,7 @@ main .articleheader-container{
 }
 
 @media screen and (min-width: 1200px) {
-    .blog-post-template .author-container > .default-content-wrapper {
+    .blog-post-template .author-container>.default-content-wrapper {
         padding: 0;
     }
 }

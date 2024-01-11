@@ -197,6 +197,7 @@ body {
   display: none;
   margin: 0;
   color: var(--clr-text);
+  font-family: var(--ff-arial);
 }
 
 body.appear {
@@ -377,5 +378,11 @@ main .section[data-layout="50/50"] .right-grid>div {
 @media screen and (min-width: 900px) {
   h1 {
     font-size: 45px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  a {
+    font-size: 14px;
   }
 }

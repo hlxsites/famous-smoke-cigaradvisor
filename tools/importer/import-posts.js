@@ -76,7 +76,10 @@ const handleTextMediaBlock = (figure, document, url) => {
   const caption = figure.querySelector('figure figcaption');
   const emCaption = document.createElement('em');
   emCaption.textContent = caption.textContent;
-  caption.replaceWith(emCaption);
+  const div = document.createElement('div');
+  div.appendChild(emCaption);
+  figure.append(div);
+  caption.remove();
 };
 export default {
 

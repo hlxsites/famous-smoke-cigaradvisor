@@ -54,7 +54,20 @@ function buildHeroBlock(main) {
   }
 }
 
+/**
+ * Builds the article header for the given main element.
+ * @param {HTMLElement} mainEl - The main element to build the article header for.
+ */
 function buildArticleHeader(mainEl) {
+  const paragraphs = mainEl.querySelectorAll('p');
+  paragraphs.forEach(function(paragraph) {
+    if (paragraph.querySelector('picture') !== null) {
+      var nextSibling = paragraph.nextElementSibling;
+      if (nextSibling && nextSibling.querySelector('em') !== null) {
+        nextSibling.classList.add('article-image-caption');
+      }
+    }
+  });
   const div = document.createElement('div');
   const h1 = mainEl.querySelector('h1');
   const picture = mainEl.querySelector('picture');

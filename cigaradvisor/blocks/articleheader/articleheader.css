@@ -125,6 +125,17 @@ main .articleheader-container{
     padding: 20px 20px 20px 0;
 }
 
+.blog-post-template .author-container > .default-content-wrapper .article-image-caption { 
+    font-family: var(--ff-opensans);
+    font-size: 16px;
+    text-align: center;
+    padding: 0 20px;
+    font-style: italic;
+  font-weight: 700;
+  color: #888;
+
+}
+
 @media screen and (min-width: 900px) {
     main .articleheader-container {
         margin-top: 77px;

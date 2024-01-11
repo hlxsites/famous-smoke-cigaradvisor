@@ -96,8 +96,7 @@ main .articleheader-container{
 }
 
 .blog-post-template .author-container > .default-content-wrapper {
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0 15px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -138,5 +137,11 @@ main .articleheader-container{
 @media screen and (min-width: 900px) {
     main .articleheader-container {
         margin-top: 77px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .blog-post-template .author-container > .default-content-wrapper {
+        padding: 0;
     }
 }

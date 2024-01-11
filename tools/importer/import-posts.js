@@ -71,6 +71,13 @@ const createHero = (main, document, url) => {
     image.after(document.createElement('hr'));
   }
 };
+
+const handleTextMediaBlock = (figure, document, url) => {
+  const caption = figure.querySelector('figure figcaption');
+  const emCaption = document.createElement('em');
+  emCaption.textContent = caption.textContent;
+  caption.replaceWith(emCaption);
+};
 export default {
 
   /**
@@ -102,6 +109,10 @@ export default {
     // create the metadata block and append it to the article element
     createMetadata(article, document, url);
     createHero(article, document, url);
+    // Text-media autoblocks to image + <em> text
+    document.querySelectorAll('figure').forEach((figure) => {
+      handleTextMediaBlock(figure, document, url);
+    });
 
     WebImporter.DOMUtils.remove(article, [
       'noscript',

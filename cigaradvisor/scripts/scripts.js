@@ -74,7 +74,7 @@ function buildArticleHeader(mainEl) {
         imageWrapper.append(paragraph.querySelector('picture'));
       }
       const nextSibling = paragraph.nextElementSibling;
-      if (nextSibling && nextSibling.querySelector('em') !== null) {
+      if (nextSibling && nextSibling.tagName === 'P' && nextSibling.querySelector('em')) {
         nextSibling.classList.add('article-image-caption');
         imageWrapper.append(nextSibling);
       }
@@ -151,7 +151,7 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     const isHome = document.querySelector('body.homepage');
-    const isBlogPost = !!document.querySelector('body.blog-post-template');
+    const isBlogPost = document.querySelector('body.blog-post-template');
     if (isHome) {
       buildHeroBlock(main);
     }

@@ -245,6 +245,10 @@ h2 {
   font-size: 12px;
 }
 
+b,strong{
+  font-weight: bolder;
+}
+
 a {
   font-family: var(--ff-montserrat);
   font-weight: 600;
@@ -410,7 +414,25 @@ color: #b19b5e;
   margin: 0;
 }
 
-/* Blog post template ends */
+.blog-post-template .author-container>.default-content-wrapper blockquote {
+  border-color: #e0e0e0;
+  border-width: 1px 0;
+  border-style: solid;
+  margin: 0 0 20px;
+  padding: 10px 0 10px 50px;
+  background: transparent url('/cigaradvisor/images/blog-post/blockquote.png') no-repeat 0 20px;
+}
+
+.blog-post-template .author-container>.default-content-wrapper blockquote p{
+  padding: 10px;
+  margin: 0;
+  color: #1c1c1c;
+  background: transparent url('/cigaradvisor/images/blog-post/pattern-1.png') repeat;
+}
+
+.blog-post-template .author-container>.default-content-wrapper blockquote p strong{
+  font-weight: 700;
+}
 
 @media screen and (max-width: 600px) {
   main .section[data-layout="50/50"] {

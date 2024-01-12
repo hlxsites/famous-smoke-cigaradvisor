@@ -11,7 +11,7 @@
  */
 
 const edsUrl = (a) => {
-  return `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${a.pathname}`;
+  return a.pathname;
 };
 const createMetadata = (main, document, url) => {
   const meta = {};

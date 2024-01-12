@@ -1,0 +1,49 @@
+version: 1
+indices:
+  default:
+    include:
+      - /**
+    target: /query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+  authors:
+    include:
+      - /cigaradvisor/author/**
+    target: /cigaradvisor/author/query-index.json
+    properties:
+      name:
+        select: div:nth-of-type(1) > h2:nth-of-type(1)
+        value: |
+          textContent(el)
+      description:
+        select: div:nth-of-type(1) > p:nth-of-type(2)
+        value: |
+          textContent(el)
+      image:
+        select: div:nth-of-type(1) > p:nth-of-type(1) > picture:nth-of-type(1) > img
+        value: |
+          attribute(el, 'src')
+      twitter:
+        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        value: |
+          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+      facebook:
+        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        value: |
+          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+      instagram:
+        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        value: |
+          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+      youtube:
+        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        value: |
+          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')

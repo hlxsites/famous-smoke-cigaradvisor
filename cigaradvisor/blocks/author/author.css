@@ -1,4 +1,78 @@
-.author {
+.author.block{
     display: flex;
-    flex-wrap: wrap;
+    padding: 20px 0;
+}
+
+.author.block > div{
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1080px;
+}
+
+.author.block .image-wrapper{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 25%;
+    float: left;
+}
+
+.author.block .image-wrapper img{
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #8e7b5c;
+}
+
+.author.block .author-details{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  border-top: 2px solid #141414;
+  border-bottom: 2px solid #141414;
+  text-align: left;
+  width: 75%;
+  margin-top: 0;
+    padding: 0;
+    margin-left: 60px;
+    float: left;
+}
+
+.author.block .author-details .author-heading-wrapper{
+    display: flex;
+    text-align: left;
+}
+
+.author.block .author-details .author-heading{
+    display: flex;
+    align-items: center;
+}
+
+.author.block .author-details .author-heading h2{
+    font-size: 24px;
+    text-align: center;
+    font-family: montserrat,sans-serif;
+    font-weight: 900;
+    color: #141414;
+}
+
+.author.block .author-details .author-heading h3{
+    margin: 0 0 0 10px;
+    position: relative;
+    bottom: 2px;
+    font-size: 14px;
+    font-family: var(--ff-opensans);
+    font-weight: 600;
+    color: #141414;
+    cursor: default;
+    display: inline-block;
+}
+
+
+.author.block .author-details p{
+    font-weight: bolder;
 }

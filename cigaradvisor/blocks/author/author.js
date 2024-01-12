@@ -22,9 +22,30 @@ export default async function decorate(block) {
   const author = await loadAuthor(path);
   if (author) {
     // add updated link to all author articles
+    const imageWrapper = document.createElement('div');
+    imageWrapper.classList.add('image-wrapper');
+    const picture = author.querySelector('picture');
+    imageWrapper.append(picture);
     const authorName = author.querySelector('h2').innerHTML;
+    const authorDetails = document.createElement('div');
+    authorDetails.classList.add('author-details');
+    const authorHeadingWrapper = document.createElement('div');
+    authorHeadingWrapper.classList.add('author-heading-wrapper');
+    const authorHeading = document.createElement('div');
+    authorHeading.classList.add('author-heading');
+    authorHeading.append(author.querySelector('h2'));
+    authorHeading.append(author.querySelector('h3'));
+    authorHeadingWrapper.append(authorHeading);
+    authorDetails.append(authorHeadingWrapper);
+    const authorP = author.querySelectorAll('p');
+    const authorPCount = authorP.length;
+    const authorPIndex = authorPCount - 1;
+    const authorPContent = authorP[authorPIndex];
+    authorDetails.append(authorPContent);
     link.textContent = `Show all ${authorName}'s Articles`;
-    author.append(link);
+    authorDetails.append(link);
+    author.replaceChildren(imageWrapper);
+    author.append(authorDetails);
     block.append(author);
   }
 }

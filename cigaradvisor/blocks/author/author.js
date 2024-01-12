@@ -1,3 +1,5 @@
+import { decorateExternalLink } from '../../scripts/scripts.js';
+
 /**
  * Loads an author.
  * @param {string} path The path to the author
@@ -20,6 +22,7 @@ export default async function decorate(block) {
   const path = link ? link.getAttribute('href') : block.textContent.trim();
   block.innerHTML = '';
   const author = await loadAuthor(path);
+  decorateExternalLink(author);
   if (author) {
     // add updated link to all author articles
     const imageWrapper = document.createElement('div');
@@ -33,17 +36,43 @@ export default async function decorate(block) {
     authorHeadingWrapper.classList.add('author-heading-wrapper');
     const authorHeading = document.createElement('div');
     authorHeading.classList.add('author-heading');
-    authorHeading.append(author.querySelector('h2'));
-    authorHeading.append(author.querySelector('h3'));
+    if (author.querySelector('h2')) {
+      authorHeading.append(author.querySelector('h2'));
+    }
+    if (author.querySelector('h3')) {
+      authorHeading.append(author.querySelector('h3'));
+    }
     authorHeadingWrapper.append(authorHeading);
     authorDetails.append(authorHeadingWrapper);
     const authorP = author.querySelectorAll('p');
     const authorPCount = authorP.length;
     const authorPIndex = authorPCount - 1;
     const authorPContent = authorP[authorPIndex];
-    authorDetails.append(authorPContent);
-    link.textContent = `Show all ${authorName}'s Articles`;
-    authorDetails.append(link);
+    if (authorPContent) {
+      authorDetails.append(authorPContent);
+    }
+    const socilaLinks = author.querySelector('ul');
+    if (socilaLinks) {
+      const socialItems = socilaLinks.querySelectorAll('li');
+      socialItems.forEach((item) => {
+        const textNode = item.childNodes[0];
+        if (textNode && textNode.textContent !== '') {
+          const text = `social-${textNode.textContent.trim()}`;
+          textNode.innerText = '';
+          const textToClass = text.toLowerCase().replace(/\s/g, '-');
+          item.className = textToClass;
+        }
+      });
+
+      authorDetails.append(socilaLinks);
+    } else {
+      const emptySocialLinks = document.createElement('ul');
+      authorDetails.append(emptySocialLinks);
+    }
+    if (authorName) {
+      link.textContent = `Show all ${authorName}'s Articles`;
+      authorDetails.append(link);
+    }
     author.replaceChildren(imageWrapper);
     author.append(authorDetails);
     block.append(author);

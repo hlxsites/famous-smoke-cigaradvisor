@@ -11,6 +11,7 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -54,6 +55,61 @@ function buildHeroBlock(main) {
 }
 
 /**
+ * Builds the article header for the given main element.
+ * @param {HTMLElement} mainEl - The main element to build the article header for.
+ */
+function buildArticleHeader(mainEl) {
+  // eslint-disable-next-line no-use-before-define
+  decorateExternalLink(mainEl);
+  const paragraphs = mainEl.querySelectorAll('p');
+  paragraphs.forEach((paragraph) => {
+    if (paragraph.querySelector('picture') !== null) {
+      const imageWrapper = document.createElement('div');
+      imageWrapper.classList.add('article-image-wrapper');
+      if (paragraph.querySelector('a') !== null) {
+        const a = paragraph.querySelector('a');
+        a.replaceChildren(paragraph.querySelector('picture'));
+        imageWrapper.append(a);
+      } else {
+        imageWrapper.append(paragraph.querySelector('picture'));
+      }
+      const nextSibling = paragraph.nextElementSibling;
+      if (nextSibling && nextSibling.querySelector('em') !== null) {
+        nextSibling.classList.add('article-image-caption');
+        imageWrapper.append(nextSibling);
+      }
+      paragraph.replaceChildren(imageWrapper);
+    }
+  });
+  const h3 = mainEl.querySelectorAll('h3');
+  h3.forEach((heading) => {
+    const p = document.createElement('p');
+    p.innerHTML = '&nbsp;';
+    heading.prepend(p);
+  });
+  const div = document.createElement('div');
+  const h1 = mainEl.querySelector('h1');
+  const picture = mainEl.querySelector('picture');
+  const category = getMetadata('category');
+  const authorLink = getMetadata('author');
+  const publishedDate = getMetadata('publisheddate');
+  const readTime = document.querySelector('meta[name="readingtime"]').content;
+  const articleBlurb = getMetadata('articleblurb');
+
+  const articleHeaderBlockEl = buildBlock('articleheader', [
+    [picture],
+    [`<p class="category">${category}</p>`],
+    [h1],
+    [`<p class="read-time">${readTime}</p>`],
+    [`<p class="author">${authorLink}</p>`],
+    [`<p class="published-date">${publishedDate}</p>`],
+    [`<p class="article-blurb">${articleBlurb}</p>`],
+  ]);
+  div.append(articleHeaderBlockEl);
+  mainEl.prepend(div);
+}
+
+/**
  * Builds two column grid.
  * @param {Element} main The container element
  */
@@ -94,7 +150,14 @@ async function loadFonts() {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    const isHome = document.querySelector('body.homepage');
+    const isBlogPost = !!document.querySelector('body.blog-post-template');
+    if (isHome) {
+      buildHeroBlock(main);
+    }
+    if (isBlogPost) {
+      buildArticleHeader(main);
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -145,17 +208,20 @@ export function decorateExternalLink(element) {
 }
 
 /**
- * Simple funtion to fetch json data from a spreadsheet
+ * Simple funtion to fetch json data from query-index.json
  * @param {*} url
  * @returns jsonData
  */
-export async function fetchData(url) {
-  const resp = await fetch(url);
+export async function fetchData(filterPath) {
+  const fetchUrl = '/query-index.json';
+  const resp = await fetch(fetchUrl);
   let jsonData = '';
   if (resp.ok) {
     jsonData = await resp.json();
   }
-  return jsonData.data;
+  const responseData = jsonData.data;
+  const filteredData = responseData.find((obj) => obj.path === filterPath);
+  return filteredData;
 }
 
 /**

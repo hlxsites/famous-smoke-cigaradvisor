@@ -197,6 +197,7 @@ body {
   display: none;
   margin: 0;
   color: var(--clr-text);
+  font-family: var(--ff-arial);
 }
 
 body.appear {
@@ -242,6 +243,10 @@ h2 {
   color: var(--clr-text);
   margin: 0 auto;
   font-size: 12px;
+}
+
+b,strong{
+  font-weight: bolder;
 }
 
 a {
@@ -361,6 +366,74 @@ main .section[data-layout="50/50"] .right-grid>div {
   background-color: var(--clr-pampas);
 }
 
+/* Blog post template starts */
+
+.blog-post-template .author-container>.default-content-wrapper {
+  padding: 0 15px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
+  text-align: justify;
+}
+
+.blog-post-template .author-container>.default-content-wrapper p {
+  font-size: 18px;
+  line-height: 30px;
+  font-family: var(--ff-opensans);
+  font-weight: 600;
+  color: #141414;
+  cursor: default;
+}
+
+.blog-post-template .author-container>.default-content-wrapper a{
+  font-size: 18px;
+  line-height: 30px;
+  text-decoration: underline;
+color: #b19b5e;
+}
+
+.blog-post-template .author-container>.default-content-wrapper .article-image-wrapper {
+  width: 1000px;
+  padding: 20px;
+  max-width: 100%;
+  clear: both;
+}
+
+.blog-post-template .author-container>.default-content-wrapper picture img {
+  padding: 20px 20px 20px 0;
+}
+
+.blog-post-template .author-container>.default-content-wrapper .article-image-caption {
+  font-family: var(--ff-opensans);
+  font-size: 16px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 700;
+  color: #888;
+  margin: 0;
+}
+
+.blog-post-template .author-container>.default-content-wrapper blockquote {
+  border-color: #e0e0e0;
+  border-width: 1px 0;
+  border-style: solid;
+  margin: 0 0 20px;
+  padding: 10px 0 10px 50px;
+  background: transparent url('/cigaradvisor/images/blog-post/blockquote.png') no-repeat 0 20px;
+}
+
+.blog-post-template .author-container>.default-content-wrapper blockquote p{
+  padding: 10px;
+  margin: 0;
+  color: #1c1c1c;
+  background: transparent url('/cigaradvisor/images/blog-post/pattern-1.png') repeat;
+}
+
+.blog-post-template .author-container>.default-content-wrapper blockquote p strong{
+  font-weight: 700;
+}
+
 @media screen and (max-width: 600px) {
   main .section[data-layout="50/50"] {
     width: 100%;
@@ -377,5 +450,15 @@ main .section[data-layout="50/50"] .right-grid>div {
 @media screen and (min-width: 900px) {
   h1 {
     font-size: 45px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  a {
+    font-size: 14px;
+  }
+
+  .blog-post-template .author-container>.default-content-wrapper {
+    padding: 0;
   }
 }

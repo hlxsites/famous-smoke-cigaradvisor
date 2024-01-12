@@ -21,9 +21,9 @@ const createMetadata = (main, document, url) => {
     meta.title = title.innerHTML.replace(/[\n\t]/gm, '');
   }
 
-  const articleBlurb = document.querySelector('[property="og:description"]');
-  if (articleBlurb) {
-    meta.articleBlurb = articleBlurb.content;
+  const description = document.querySelector('[property="og:description"]');
+  if (description) {
+    meta.description = description.content;
   }
 
   const img = document.querySelector('[property="og:image"]');

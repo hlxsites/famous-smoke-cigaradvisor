@@ -17,6 +17,32 @@ indices:
       description:
         select: head > meta[name="description"]
         value: attribute(el, "content")
+  articles:
+    include:
+      - /cigaradvisor/posts/**
+    target: /cigaradvisor/posts/query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      author:
+        select: head > meta[name="author"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      published:
+        select: head > meta[name="publisheddate"]
+        value: parseTimestamp(attribute(el, "content"), "ddd, DD MMM YYYY hh:mm:ss GMT")
+      readingTime:
+        select: head > meta[name="readingtime"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      description:
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
+      category:
+        select: head > meta[name="category"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
   authors:
     include:
       - /cigaradvisor/author/**
@@ -24,29 +50,22 @@ indices:
     properties:
       name:
         select: div:nth-of-type(1) > h2:nth-of-type(1)
-        value: |
-          textContent(el)
+        value: textContent(el)
       description:
         select: div:nth-of-type(1) > p:nth-of-type(2)
-        value: |
-          textContent(el)
+        value: textContent(el)
       image:
         select: div:nth-of-type(1) > p:nth-of-type(1) > picture:nth-of-type(1) > img
-        value: |
-          attribute(el, 'src')
+        value: match(attribute(el, 'src'), "(?:https:\/\/[^/]+)?(.+)")
       twitter:
         select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
-        value: |
-          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       facebook:
         select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
-        value: |
-          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       instagram:
         select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
-        value: |
-          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       youtube:
         select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
-        value: |
-          match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')

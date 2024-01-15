@@ -12,6 +12,7 @@ function getRelativePath(path) {
 }
 
 export default async function decorate(block) {
+  const section = document.createElement('section');
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('image-wrapper');
   const picture = block.querySelector('picture');
@@ -46,6 +47,7 @@ export default async function decorate(block) {
   readTimeEl.classList.add('article-read-time');
   readTimeEl.innerHTML = `<span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${readTime}</span>`;
   articleInfo.append(readTimeEl);
-  block.replaceChildren(imageWrapper);
-  block.append(articleInfo);
+  section.append(imageWrapper);
+  section.append(articleInfo);
+  block.replaceChildren(section);
 }

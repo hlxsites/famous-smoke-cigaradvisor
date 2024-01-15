@@ -13,7 +13,7 @@
 const edsUrl = (a) => {
   return a.pathname;
 };
-const createMetadata = (main, document, url) => {
+const createMetadata = (main, document, url, params) => {
   const meta = {};
 
   const title = document.querySelector('title');
@@ -24,6 +24,10 @@ const createMetadata = (main, document, url) => {
   const description = document.querySelector('[property="og:description"]');
   if (description) {
     meta.description = description.content;
+  }
+
+  if (params.articleBlurb) {
+    meta.articleBlurb = params.articleBlurb;
   }
 
   const img = document.querySelector('[property="og:image"]');
@@ -83,6 +87,15 @@ const handleTextMediaBlock = (figure, document, url) => {
 };
 export default {
 
+  preprocess: ({ document, url, html, params }) => {
+    document.querySelectorAll('script[type="application/ld+json"]').forEach((script) => {
+      const ld = JSON.parse(script.innerHTML);
+      if (!Array.isArray(ld) && ld.description) {
+        params.articleBlurb = ld.description;
+      }
+    });
+  },
+
   /**
    * Apply DOM operations to the provided document and return
    * the root element to be then transformed to Markdown.
@@ -110,7 +123,7 @@ export default {
     article.append(author);
 
     // create the metadata block and append it to the article element
-    createMetadata(article, document, url);
+    createMetadata(article, document, url, params);
     createHero(article, document, url);
     // Text-media autoblocks to image + <em> text
     document.querySelectorAll('figure').forEach((figure) => {

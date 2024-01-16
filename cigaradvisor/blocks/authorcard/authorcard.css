@@ -145,7 +145,7 @@
     text-overflow: ellipsis;
     display: block;
     color: var(--clr-white);
-    font-weight: var(--font-weight-extrabold);
+    font-weight: var(--font-weight-bold);
     font-size: var(--body-font-size-xl);
 }
 

@@ -138,11 +138,14 @@
   --subdued-gold: #b19b5e;
   --silver: #ccc;
   --very-light-grey: #ddd;
+  --vv-light-grey: #e0e0e0;
+  --medium-grey: #888;
   --grey: #333;
   --light-grey: #d3d3d3;
   --dark-grey: #3c3a3b;
   --off-white: #f7f7f7;
-  --section-background: #eaeaea;
+  --grey-background: #eaeaea;
+  --charcoal: #1c1c1c;
 
   /* functional-colors */
   --clr-text: var(--clr-dark-gray);
@@ -173,7 +176,7 @@
   --heading-font-size-xl: 40px;
 
   /* Font Weights */
-  --font-weight-extrabold: 700;
+  --font-weight-extrabold: 900;
   --font-weight-bold: 700;
   --font-weight-semibold: 600;
   --font-weight-normal: 400;
@@ -233,7 +236,7 @@ h1 {
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
-  color: #141414;
+  color: var(--clr-dark-gray);
   margin: 2px auto;
 }
 
@@ -391,7 +394,7 @@ main .section[data-layout="50/50"] .right-grid>div {
   line-height: 30px;
   font-family: var(--ff-opensans);
   font-weight: 600;
-  color: #141414;
+  color: var(--clr-dark-gray);
   cursor: default;
 }
 
@@ -399,7 +402,7 @@ main .section[data-layout="50/50"] .right-grid>div {
   font-size: 18px;
   line-height: 30px;
   text-decoration: underline;
-color: #b19b5e;
+color: var(--subdued-gold);
 }
 
 .blog-post-template .author-container>.default-content-wrapper .article-image-wrapper {
@@ -419,12 +422,12 @@ color: #b19b5e;
   text-align: center;
   font-style: italic;
   font-weight: 700;
-  color: #888;
+  color: var(--medium-grey);
   margin: 0;
 }
 
 .blog-post-template .author-container>.default-content-wrapper blockquote {
-  border-color: #e0e0e0;
+  border-color: var(--vv-light-grey);
   border-width: 1px 0;
   border-style: solid;
   margin: 0 0 20px;
@@ -435,7 +438,7 @@ color: #b19b5e;
 .blog-post-template .author-container>.default-content-wrapper blockquote p{
   padding: 10px;
   margin: 0;
-  color: #1c1c1c;
+  color: var(--charcoal);
   background: transparent url('/cigaradvisor/images/blog-post/pattern-1.png') repeat;
 }
 
@@ -448,7 +451,7 @@ main .section>.default-content-wrapper>h2{
   text-transform: uppercase;
   font-family: var(--ff-montserrat);
   font-weight: 900;
-  color: #8e7b5c;
+  color: var(--tan);
   padding: 38px 15px;
   font-size: 45px;
 }
@@ -456,7 +459,7 @@ main .section>.default-content-wrapper>h2{
 main .section>.default-content-wrapper>h2 ::before{
   content: 'decor';
     color: transparent;
-    background: url('/cigaradvisor/images/homepage/sectiontitle/media_10c44610cd58523f02bbd64b114069404ca081e41.png') center no-repeat;
+    background: url('../icons/decorleft.png') center no-repeat;
     background-size: auto;
     background-size: contain;
     margin-right: 15px;
@@ -465,7 +468,7 @@ main .section>.default-content-wrapper>h2 ::before{
 main .section>.default-content-wrapper>h2 ::after{
   content: 'decor';
     color: transparent;
-    background: url('/cigaradvisor/images/homepage/sectiontitle/media_18425bf754b7f7294fbc2cd0065feadd21151d1c7.png') center no-repeat;
+    background: url('../icons/decorright.png') center no-repeat;
     background-size: auto;
     background-size: contain;
     margin-left: 15px;
@@ -481,10 +484,10 @@ main .button-container .button{
   font-style: normal;
   font-family: var(--ff-montserrat);
   font-weight: 700;
-  color: #fff;
+  color: var(--clr-white);
   text-transform: uppercase;
-  background-color: #000;
-  border-color: #8e7b5c;
+  background-color: var(--clr-black);
+  border-color: var(--tan);
   border-width: 2px;
   border-radius: 0;
   border-style: solid;
@@ -504,8 +507,8 @@ main .button-container .button{
 
 main .button-container .button:hover{
   transition: .5s;
-  background-color: #b19b5e;
-  border-color: #b19b5e;
+  background-color: var(--subdued-gold);
+  border-color: var(--subdued-gold);
   text-decoration: none;
 }
 
@@ -534,7 +537,7 @@ main .button-container .button:hover{
   }
   
   main .section.background-grey {
-    background-color: var(--section-background);
+    background-color: var(--grey-background);
   }
 
 }

@@ -87,21 +87,19 @@
   content: '\f054';
   font-family: var(--ff-fontawesome);
   padding-left: 50%;
-  font-size: x-large;
+  font-size: var(--body-font-size-xxl);
 }
 
 .carousel.block .carousel-arrow .prev-icon::before {
   content: '\f053';
   font-family: var(--ff-fontawesome);
   padding-left: 50%;
-  font-size: x-large;
+  font-size: var(--body-font-size-xxl);
 }
 
-
-.carousel.block .arrow-prev {
+.carousel.block .carousel-arrow.arrow-prev.disabled, .carousel.block .carousel-arrow.arrow-next.disabled {
   display: none;
 }
-
 
 @media screen and (min-width: 600px) {
   .carousel.block .slide {

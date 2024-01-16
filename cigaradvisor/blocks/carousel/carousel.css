@@ -47,6 +47,8 @@
   padding: 0;
   margin: 0;
   border: none;
+  width: 0;
+  line-height: none;
 }
 
 .carousel.block>button.prev {
@@ -60,7 +62,7 @@
 
 
 .carousel.block .carousel-arrow {
-  display: inline-block;
+  display: flex;
   cursor: pointer;
   position: absolute;
   z-index: 9;
@@ -70,23 +72,30 @@
   text-align: center;
   width: 30px;
   height: 50px;
+  align-items: center;
 }
 
 .carousel.block .carousel-arrow .prev-icon,
 .carousel.block .carousel-arrow .next-icon {
-  display: inline-block;
+  display: flex;
   font-size: 45px;
   color: #fff;
 }
 
-.carousel.block .carousel-arrow .next-icon {
-  transform: rotate(180deg);
-  margin: 10%;
+.carousel.block .carousel-arrow .next-icon::before {
+  content: '\f054';
+  font-family: var(--ff-fontawesome);
+  padding-left: 50%;
+  font-size: x-large;
 }
 
-.carousel.block .carousel-arrow .prev-icon {
-  margin: -10%;
+.carousel.block .carousel-arrow .prev-icon::before {
+  content: '\f053';
+  font-family: var(--ff-fontawesome);
+  padding-left: 50%;
+  font-size: x-large;
 }
+
 
 .carousel.block .arrow-prev {
   display: none;

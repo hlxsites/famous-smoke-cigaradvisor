@@ -42,6 +42,15 @@ const createMetadata = (main, document, url, params) => {
     meta.publishedDate = publishedDate.textContent;
   }
 
+  const publishedTime = document.querySelector('[property="article:published_time"]');
+  if (publishedTime) {
+    const date = new Date(publishedTime.content);
+    const bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
+    params.bucket = bucket;
+  } else {
+    params.bucket = '';
+  }
+
   const readingTime = document.querySelector('.rt-time');
   if (readingTime) {
     meta.readingTime = readingTime.textContent;
@@ -153,5 +162,9 @@ export default {
   generateDocumentPath: ({
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
-  }) => WebImporter.FileUtils.sanitizePath(new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, '')),
+  }) => {
+    const path = WebImporter.FileUtils.sanitizePath(new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''));
+    const lastSlashIndex = path.lastIndexOf('/');
+    return `${params.bucket}${path.slice(lastSlashIndex)}`;
+  },
 };

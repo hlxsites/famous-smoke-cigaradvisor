@@ -322,8 +322,16 @@ button {
   max-width: 250px;
 }
 
+
 .default-content-wrapper {
   color: var(--clr-text);
+}
+
+main .default-content-wrapper{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
 }
 
 /* Two-column grid */
@@ -462,6 +470,46 @@ main .section>.default-content-wrapper>h2 ::after{
     background-size: contain;
     margin-left: 15px;
 }
+
+main .button-container{
+  padding : 10px 10px 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+main .button-container .button{
+  font-style: normal;
+  font-family: var(--ff-montserrat);
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: #000;
+  border-color: #8e7b5c;
+  border-width: 2px;
+  border-radius: 0;
+  border-style: solid;
+  display: inline-block;
+  line-height: 26px;
+  height: 50px;
+  width: 250px;
+  max-height: 50px;
+  max-width: 250px;
+  min-height: 2.85rem;
+  padding: 0.8em 1em;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  margin: 2px 0;
+}
+
+main .button-container .button:hover{
+  transition: .5s;
+  background-color: #b19b5e;
+  border-color: #b19b5e;
+  text-decoration: none;
+}
+
+
 
 @media screen and (max-width: 600px) {
   main .section[data-layout="50/50"] {

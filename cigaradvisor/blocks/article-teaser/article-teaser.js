@@ -1,8 +1,8 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { fetchData } from '../../scripts/scripts.js';
+import { fetchData, getRelativePath } from '../../scripts/scripts.js';
 
 function formatDate(originalDateString) {
-  const utcDateString = new Date((originalDateString - 25569) * 86400 * 1000);
+  const utcDateString = new Date(originalDateString * 1000);
   const utcDate = new Date(utcDateString);
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const day = utcDate.getUTCDate();
@@ -16,20 +16,18 @@ function formatDate(originalDateString) {
 export default async function decorate(block) {
   const filterPath = block.querySelector('a').getAttribute('href');
   block.classList.add('article-teaser');
-  const fetchUrl = `${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`;
-  const teaserContent = await fetchData(fetchUrl);
-  const articleInfo = teaserContent.find((obj) => obj.path === filterPath);
-  const categoryListUrl = `${window.hlx.codeBasePath}/drafts/Kailas/category/category-list.json`;
-  const categoryListData = await fetchData(categoryListUrl);
-  const articleCategory = articleInfo.category;
-  const articleCategoryInfo = categoryListData.find((obj) => obj.category === articleCategory);
-  const articleCategoryLink = articleCategoryInfo.categoryLink;
-  const [formattedDate, datetimeAttr] = formatDate(articleInfo.publishedDate).split('|');
-  const authorNameHyphenSeparated = articleInfo.author.split(' ').join('-');
-  const authorLink = `${window.hlx.codeBasePath}/author/drafts/${authorNameHyphenSeparated.toLowerCase()}`;
+  const articleInfo = await fetchData(getRelativePath(filterPath), '/cigaradvisor/posts/query-index.json');
+  if (!articleInfo) {
+    return;
+  }
+  const articleCategoryLink = articleInfo.category;
+  const articleCategoryInfo = await fetchData(getRelativePath(articleCategoryLink));
+  const [formattedDate, datetimeAttr] = formatDate(articleInfo.published).split('|');
+  const articleAuthorLink = articleInfo.author;
+  const articleAuthorInfo = await fetchData(getRelativePath(articleAuthorLink), '/cigaradvisor/author/query-index.json');
   block.innerHTML = `
         <article class="article article-thumbnail">
-          <a class="article-category" href="${articleCategoryLink}" data-category="${articleCategory}" title="${articleCategory}">${articleCategory}</a>
+          <a class="article-category" href="${articleCategoryLink}" data-category="${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}" title="${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}">${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}</a>
           <div class="article-image">
           ${createOptimizedPicture(articleInfo.image).outerHTML}
           </div>
@@ -39,13 +37,13 @@ export default async function decorate(block) {
                 <a class="article-title-link" href="${articleInfo.path}" title="${articleInfo.title}">${articleInfo.title}</a>
                   </h2>
                   <div class="article-meta">
-                <a class="article-authorLink" href="${authorLink}" title="By ${articleInfo.author}">By ${articleInfo.author}</a>
+                <a class="article-authorLink" href="${articleAuthorLink}" title="By ${(articleAuthorInfo && articleAuthorInfo.name) ? articleAuthorInfo.name : ''}">By ${(articleAuthorInfo && articleAuthorInfo.name) ? articleAuthorInfo.name : ''}</a>
                 <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
           </div>
           </articleheader>
           <div class="article-preview">
             <div class="article-excerpt">
-                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${articleInfo.readingTime}</span></span> ${articleInfo.articleBlurb}</p>
+                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${articleInfo.readingTime}</span></span> ${articleInfo.description}</p>
             </div>
             <a class="article-read-more read-more" href="${articleInfo.path}" title="Read More">Read More</a>
           </div>

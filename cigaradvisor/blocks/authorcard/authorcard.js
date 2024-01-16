@@ -1,5 +1,5 @@
 import { readBlockConfig, createOptimizedPicture } from '../../scripts/aem.js';
-import { isExternal, fetchData } from '../../scripts/scripts.js';
+import { isExternal, fetchData, getRelativePath } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
@@ -30,42 +30,31 @@ export default async function decorate(block) {
 
   const rightDiv = document.createElement('div');
   rightDiv.classList.add('right-column');
-  //  TODO: fetch author details from query-index.xlsx
-  const fetchUrl = `${window.hlx.codeBasePath}/drafts/Kailas/pagemeta.json`;
-  const authorContent = await fetchData(fetchUrl);
-  const authorsObj = [];
-  [...authors].forEach((authorPage) => {
-    let authorPath;
-    try {
-      const url = new URL(authorPage);
-      authorPath = url.pathname;
-    } catch (error) {
-      authorPath = authorPage;
-    }
-    const authorInfo = authorContent.find((obj) => obj.path === authorPath);
-    if (authorInfo) {
-      const authorDetails = {
-        page: authorInfo.path,
-        name: authorInfo.authorName,
-        image: authorInfo.authorImage,
-      };
-      authorsObj.push(authorDetails);
-    }
-  });
   const authorWrapperSection = document.createElement('section');
   authorWrapperSection.classList.add('author-wrapper');
   authorWrapperSection.innerHTML = '';
-  [...authorsObj].forEach((author) => {
-    authorWrapperSection.innerHTML
-      += `<div class="author-content">
-    <div class="overlay-image">
-    ${createOptimizedPicture(author.image).outerHTML}
-    <div class="overlay-content">
-    <p class="align-center"><a href="${author.page}">${author.name}</a></p>
-    </div>
-    </div>
-    </div>`;
+  const authorPromises = [...authors].map(async (authorPage) => {
+    const authorInfo = await fetchData(getRelativePath(authorPage), '/cigaradvisor/author/query-index.json');
+    if (authorInfo) {
+      return `<div class="author-content">
+        <div class="overlay-image">
+          ${createOptimizedPicture(authorInfo.image).outerHTML}
+          <div class="overlay-content">
+            <p class="align-center"><a href="${authorInfo.page}">${authorInfo.name}</a></p>
+          </div>
+        </div>
+      </div>`;
+    }
+    return ''; // return an empty string if there's no authorInfo
   });
+
+  Promise.all(authorPromises)
+    .then((authorContents) => {
+      authorWrapperSection.innerHTML += authorContents.join('');
+    })
+    .catch((error) => {
+      console.error('Error fetching author info:', error);
+    });
   rightDiv.replaceChildren(authorWrapperSection);
   block.append(rightDiv);
 }

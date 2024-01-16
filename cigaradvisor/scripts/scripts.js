@@ -208,19 +208,72 @@ export function decorateExternalLink(element) {
 }
 
 /**
- * Simple funtion to fetch json data from query-index.json
- * @param {*} url
- * @returns jsonData
+ * Returns the relative path from a given path.
+ * If the path is a URL, it extracts the pathname.
+ * @param {string} path - The path to get the relative path from.
+ * @returns {string} - The relative path.
  */
-export async function fetchData(filterPath) {
-  const fetchUrl = '/query-index.json';
-  const resp = await fetch(fetchUrl);
-  let jsonData = '';
-  if (resp.ok) {
-    jsonData = await resp.json();
+export function getRelativePath(path) {
+  let relPath = path;
+  try {
+    const url = new URL(path);
+    relPath = url.pathname;
+  } catch (error) {
+    // do nothing
   }
-  const responseData = jsonData.data;
-  const filteredData = responseData.find((obj) => obj.path === filterPath);
+  return relPath;
+}
+
+let indexData = '';
+let authorIndexData = '';
+let articleIndexData = '';
+/**
+ * Fetches data from a specified URL and returns the filtered
+ * data based on the provided filter path.
+ * @param {string} filterPath - The path used to filter the data.
+ * @param {string} [fetchUrl='/query-index.json'] - The URL to fetch the data
+ *  from. Defaults to '/query-index.json'.
+ * @returns {Promise<Object>} - A promise that resolves to the filtered data object.
+ */
+export async function fetchData(filterPath, fetchUrl = '/query-index.json') {
+  let responeData = '';
+  if (fetchUrl === '/query-index.json') {
+    if (!indexData) {
+      const resp = await fetch(fetchUrl);
+      let jsonData = '';
+      if (resp.ok) {
+        jsonData = await resp.json();
+      }
+      indexData = jsonData.data;
+    }
+    responeData = indexData;
+  }
+  if (fetchUrl === '/cigaradvisor/posts/query-index.json') {
+    if (!articleIndexData) {
+      const resp = await fetch(fetchUrl);
+      let jsonData = '';
+      if (resp.ok) {
+        jsonData = await resp.json();
+      }
+      articleIndexData = jsonData.data;
+    }
+    responeData = articleIndexData;
+  }
+  if (fetchUrl === '/cigaradvisor/author/query-index.json') {
+    if (!authorIndexData) {
+      const resp = await fetch(fetchUrl);
+      let jsonData = '';
+      if (resp.ok) {
+        jsonData = await resp.json();
+      }
+      authorIndexData = jsonData.data;
+    }
+    responeData = authorIndexData;
+  }
+  let filteredData = '';
+  if (responeData) {
+    filteredData = responeData.find((obj) => obj.path === filterPath);
+  }
   return filteredData;
 }
 

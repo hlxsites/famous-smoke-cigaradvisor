@@ -1,15 +1,4 @@
-import { fetchData } from '../../scripts/scripts.js';
-
-function getRelativePath(path) {
-  let relPath = path;
-  try {
-    const url = new URL(path);
-    relPath = url.pathname;
-  } catch (error) {
-    // do nothing
-  }
-  return relPath;
-}
+import { fetchData, getRelativePath } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const section = document.createElement('section');

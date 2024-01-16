@@ -286,8 +286,10 @@ export function decorateSocialLinks(element) {
   socialLinks.forEach((link) => {
     const text = link.textContent;
     const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
-    link.classList.add(textToClass);
-    link.textContent = '';
+    if (textToClass) {
+      link.classList.add(textToClass);
+      link.textContent = '';
+    }
   });
 }
 

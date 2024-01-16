@@ -78,6 +78,7 @@ export default async function decorate(block) {
   brand.className = 'brand-logo';
   topNavContent.append(brand);
   const topNavRight = fragment.children[0];
+  decorateSocialLinks(topNavRight);
   const socialNavMobile = topNavRight.cloneNode(true);
   socialNavMobile.className = 'mobile-social-nav';
   topNavRight.classList.add('top-nav-right');

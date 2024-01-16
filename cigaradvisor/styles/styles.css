@@ -426,6 +426,7 @@ main .section[data-layout="50/50"] .right-grid > div {
   :root {
     --nav-height: 130px;
   }
+
   header {
     background-color: transparent;
   }

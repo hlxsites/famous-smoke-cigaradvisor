@@ -18,13 +18,17 @@ export default async function decorate(block) {
   if (style) {
     block.classList.add(style.toLowerCase());
   }
-  const header = block.querySelector('h1');
   const image = document.createElement('div');
   image.classList.add('hero-image');
   image.replaceChildren(block.querySelector('picture'));
+
   const content = document.createElement('div');
   content.classList.add('hero-content');
-  content.append(header);
+
+  const header = block.querySelector('h1');
+  if (header) {
+    content.append(header);
+  }
   if (!block.classList.contains('no-search')) {
     buildSearch()
   }

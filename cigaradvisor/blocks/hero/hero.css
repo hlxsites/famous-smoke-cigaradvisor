@@ -1,133 +1,110 @@
-/* block specific CSS goes here */
-
-main .hero-container>div {
-  max-width: unset;
-}
+/** Override global settings **/
 
 main .hero-container {
   padding: 0;
   margin-bottom: 10%;
 }
 
+main .hero-container > div {
+  max-width: unset;
+}
+
+/** Hero Stuff **/
 main .hero.block {
   position: relative;
-  padding: 32px;
-  min-height: 300px;
-  text-align: center;
-  line-height: 1;
-  letter-spacing: 3px;
-  color: var(--off-white);
-  text-shadow: 3px 3px var(--clr-black);
-  text-wrap: nowrap;
 }
 
-main .hero.block>div>div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+main .hero.block.under-nav {
+  margin-top: -43px;
 }
 
-main .hero.block h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-}
-
-main .hero.block picture {
+main .hero.block .hero-image {
+  z-index: -9999;
+  display: block;
   position: absolute;
-  z-index: -1;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
+  height: 100%;
+  width: 100%;
+  overflow: clip;
+}
+
+main .hero.block .hero-image picture {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+main .hero.block .hero-image img {
+  object-position: center center;
   object-fit: cover;
-  box-sizing: border-box;
-}
-
-main .hero.block img {
-  object-fit: cover;
-  margin-top: 1%;
-  height: 85%;
-}
-
-main .hero.block .hero-content {
-  position: absolute;
-  top: 25%;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 1rem;
-  color: var(--clr-white);
-  text-shadow: 0 0 1rem var(--clr-black);
-}
-
-/* hero search */
-main .hero.block .hero-search .search-box{
-  display: flex;
-  justify-content: center;
-}
-
-main .hero.block .hero-search{
-  margin: 20px auto;
+  height: 100%;
   width: 100%;
 }
 
-main .hero.block .search{
-  width: 70%;
+main .hero.block .hero-content {
+  padding-top: 80px;
 }
 
-main .hero.block .search form {
+main .hero.block h1 {
+  color: var(--clr-white);
+  text-align: center;
+  line-height: 1;
+  letter-spacing: 3px;
+  text-shadow: 3px 3px var(--clr-black);
+}
+
+/* hero search */
+main .hero.block .hero-search {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto 0;
+}
+
+main .hero.block .hero-search form {
+  display: flex;
+  width: 70%;
   border-bottom: 4px solid var(--clr-dark-gray);
   padding-bottom: 10px;
 }
 
-main .hero.block .search form .focused{
-  transition: 1s;
+/* set form input placeholder text color color: var(--clr-dark-gray); */
+main .hero.block .hero-search form input {
+  flex: 1;
+  padding-left: 18px;
+  height: 45px;
+  width: 100%;
+  border: none;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--body-font-size-l);
+  line-height: 27px;
+  transition: background-color 1s;
+  background-color: transparent;
+}
+
+main .hero.block .hero-search form input::placeholder {
+  color: var(--clr-dark-gray);
+}
+
+main .hero.block .hero-search form input:focus {
+  border: none;
+  transition: background-color 1s;
   background-color: var(--light-grey);
 }
 
-main .hero.block .search form button {
-  position: relative;
-  top: 0;
-  right: 0;
-  background: 0 0;
-  color: var(--clr-dark-gray);
-  width: 2.85rem;
-  padding: 0;
-  line-height: 2.85rem;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-}
-
-/* set form input placeholder text color color: var(--clr-dark-gray); */
-main .hero.block .search form input {
-  color: var(--clr-dark-gray);
-  border: none;
-  font-weight: 700;
-  font-size: 18px;
-  text-transform: capitalize;
+main .hero.block .hero-search form button {
+  flex: 0 1;
+  height: 100%;
   width: 100%;
-  background: 0 0;
-  position: relative;
-  left: 0;
-  max-width: 100%;
-  z-index: 1;
+  background: transparent;
+  border: none;
 }
 
-main .hero.block .search form input::placeholder {
-  color: var(--clr-dark-gray);
-}
-
-main .hero.block .search form button::before {
+main .hero.block .hero-search form button::before {
   position: relative;
-  width: 2em;
+  height: 100%;
+  width: 100%;
   font-size: 30px;
   content: "\f002";
   text-align: center;
@@ -136,18 +113,16 @@ main .hero.block .search form button::before {
 }
 
 @media screen and (min-width: 900px) {
-  main .hero.block img {
-    width: 100%;
-    height: 185%;
-    max-width: none;
-    margin-top: -65px;
-  }
-
-  main .hero.block .search{
-    width: 30%;
+  main .hero.block.under-nav {
+    margin-top: -70px;
   }
 
   main .hero.block .hero-content {
-    top: 100%;
+    padding-top: 200px;
+    padding-bottom: 100px;
+  }
+
+  main .hero.block .hero-search form {
+    width: 30%;
   }
 }

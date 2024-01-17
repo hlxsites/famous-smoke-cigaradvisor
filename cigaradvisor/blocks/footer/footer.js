@@ -25,7 +25,7 @@ export default async function decorate(block) {
       // create section
       const section = document.createElement('div');
       section.classList.add('nav-section');
-      if (currentElement.tagName === 'H1') {
+      if (currentElement.tagName === 'h4') {
         section.classList.add('with-heading');
       }
 
@@ -34,7 +34,7 @@ export default async function decorate(block) {
         nextElement = currentElement.nextSibling;
         section.appendChild(currentElement);
         currentElement = nextElement;
-      } while (nextElement && nextElement.tagName !== 'H1');
+      } while (nextElement && nextElement.tagName !== 'h4');
 
       // add section to container
       footerContainer.insertBefore(section, currentElement);

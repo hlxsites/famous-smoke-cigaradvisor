@@ -65,12 +65,12 @@ const createMetadata = (main, document, url, params) => {
 
   const category = document.querySelector('.tag');
   if (category) {
-    meta.category = category.pathname;
+    meta.category = famousUrl(category);
   }
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    meta.author = authorLink.pathname;
+    meta.author = famousUrl(authorLink);
   }
 
   const block = WebImporter.Blocks.getMetadataBlock(document, meta);

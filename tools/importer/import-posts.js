@@ -10,8 +10,11 @@
  * governing permissions and limitations under the License.
  */
 
-const edsUrl = (a) => {
-  return a.pathname;
+const famousUrl = (a) => {
+  const baseUri = a.pathname.startsWith('/cigaradvisor')
+    ? 'https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page'
+    : 'https://www.famous-smoke.com';
+  return `${baseUri}${a.pathname}`;
 };
 const createMetadata = (main, document, url, params) => {
   const meta = {};
@@ -45,8 +48,7 @@ const createMetadata = (main, document, url, params) => {
   const publishedTime = document.querySelector('[property="article:published_time"]');
   if (publishedTime) {
     const date = new Date(publishedTime.content);
-    const bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
-    params.bucket = bucket;
+    params.bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
   } else {
     params.bucket = '';
   }
@@ -63,13 +65,12 @@ const createMetadata = (main, document, url, params) => {
 
   const category = document.querySelector('.tag');
   if (category) {
-    meta.category = edsUrl(category);
+    meta.category = category.pathname;
   }
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    meta.author = edsUrl(authorLink);
-    // meta.authorName = authorLink.textContent.substring(3);
+    meta.author = authorLink.pathname;
   }
 
   const block = WebImporter.Blocks.getMetadataBlock(document, meta);
@@ -125,7 +126,9 @@ export default {
     // contributor block
     const block = main.querySelector('.contributorBlock');
     const link = block.querySelector('.intro > a');
-    link.textContent = edsUrl(link);
+    const u = famousUrl(link);
+    link.href = u;
+    link.textContent = u;
     const cells = [['Author']];
     cells.push([link]);
     const author = WebImporter.DOMUtils.createTable(cells, document);
@@ -137,6 +140,9 @@ export default {
     // Text-media autoblocks to image + <em> text
     document.querySelectorAll('figure').forEach((figure) => {
       handleTextMediaBlock(figure, document, url);
+    });
+    article.querySelectorAll('a').forEach((a) => {
+      a.href = famousUrl(a);
     });
 
     WebImporter.DOMUtils.remove(article, [

@@ -142,6 +142,7 @@
   /* filter colors (https://codepen.io/sosuke/pen/Pjoqqp) */
   --clr-filter-gray: invert(18%) sepia(4%) saturate(304%) hue-rotate(277deg) brightness(98%) contrast(92%);
   --clr-filter-tan: invert(50%) sepia(27%) saturate(408%) hue-rotate(358deg) brightness(93%) contrast(91%);
+  --clr-filter-subdued-gold: invert(62%) sepia(55%) saturate(302%) hue-rotate(6deg) brightness(90%) contrast(88%);
 
 
   /* fonts */

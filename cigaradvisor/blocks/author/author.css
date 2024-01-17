@@ -83,35 +83,12 @@
 .author.block .author-details ul {
     display: flex;
     margin: 10px 0;
+
+    --icon-size: 20px;
 }
 
 .author.block .author-details ul li {
     margin-right: 20px;
-}
-
-.author.block .author-details ul li a::before {
-    font-family: var(--ff-fontawesome);
-    font-style: normal;
-    font-weight: bolder;
-    text-decoration: inherit;
-    font-size: 20px;
-    color: #141414
-}
-
-.author.block .author-details ul li.social-twitter a::before {
-    content: "\f099";
-}
-
-.author.block .author-details ul li.social-facebook a::before {
-    content: "\f39e";
-}
-
-.author.block .author-details ul li.social-instagram a::before {
-    content: "\f16d";
-}
-
-.author.block .author-details ul li.social-youtube a::before {
-    content: "\f167";
 }
 
 /* media queries */
@@ -153,6 +130,6 @@
     .author.block .author-details .author-heading {
         display: flex;
         flex-direction: row;
-        align-items: left;
+        align-items: start;
     }
 }

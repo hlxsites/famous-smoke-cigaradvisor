@@ -10,6 +10,61 @@
  * governing permissions and limitations under the License.
  */
 
+const createMetadataBlock = (main, document, img) => {
+  const meta = {}
+
+  const title = document.querySelector('title');
+  if (title) {
+    meta.title = title.textContent;
+  }
+
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    meta.description = description.getAttribute('content');
+  }
+
+  meta['hero-style'] = 'under-nav';
+  const block = WebImporter.Blocks.getMetadataBlock(document, meta);
+  main.append(block);
+  return meta;
+}
+
+const createAuthorBlock = (main, document) => {
+  const contributor = document.querySelector('.contributorBlock');
+
+  const cells = []
+  cells.push(['Author'])
+  const name = contributor.querySelector('[data-epi-property-name="ContributorName"]').textContent
+  cells.push(['Name', name]);
+  cells.push(['Image', contributor.querySelector('img')]);
+
+  if (contributor.querySelector('[data-epi-property-name="ContributorTitle"]')) {
+    cells.push(['Title', contributor.querySelector('[data-epi-property-name="ContributorTitle"]').textContent]);
+  }
+
+  cells.push(['Intro', contributor.querySelector('[data-epi-property-name="ContributorIntro"]').textContent]);
+
+  const socialList = contributor.querySelector('ul.social__links');
+  if (socialList) {
+    const ul = document.createElement('ul');
+    socialList.querySelectorAll('li').forEach((li) => {
+      const site = li.getAttribute('data-epi-property-name').replace(/Contributor(.*)Link/, '$1');
+      const link = li.querySelector('a');
+      if (link) {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${link}">${name} on ${site}</a>`;
+        ul.append(li);
+      }
+    })
+    cells.push(['Social', ul]);
+  }
+
+
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  main.append(table);
+  return table;
+}
+
 export default {
   /**
    * Apply DOM operations to the provided document and return
@@ -24,19 +79,13 @@ export default {
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
   }) => {
-    const main = document.body;
-    WebImporter.DOMUtils.remove(main, [
-      'noscript',
-    ]);
-    const contributor = main.querySelector('.contributorBlock');
-    // upgrade title to h3 tag
-    const title = contributor.querySelector('.name > p');
-    if (title) {
-      const h3 = document.createElement('h3');
-      h3.innerHTML = title.innerHTML;
-      title.replaceWith(h3);
-    }
-    return contributor;
+    const main = document.createElement('main');
+
+    const author = createAuthorBlock(main, document);
+    createMetadataBlock(main, document, author.image);
+
+
+    return main;
   },
 
   /**

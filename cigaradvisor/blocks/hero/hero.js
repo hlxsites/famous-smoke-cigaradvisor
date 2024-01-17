@@ -14,6 +14,7 @@ function buildSearch() {
 }
 
 export default async function decorate(block) {
+  block.classList.add('under-nav');
   const style = getMetadata('hero-style');
   if (style) {
     block.classList.add(style.toLowerCase());
@@ -25,6 +26,10 @@ export default async function decorate(block) {
   image.replaceChildren(block.querySelector('picture'));
   const content = document.createElement('div');
   content.classList.add('hero-content');
-  content.append(header, buildSearch());
+  if (document.querySelector('body.homepage')) {
+    content.append(header, buildSearch());
+  } else {
+    content.append(header);
+  }
   block.replaceChildren(image, content);
 }

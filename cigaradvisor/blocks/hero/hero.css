@@ -2,7 +2,6 @@
 
 main .hero-container {
   padding: 0;
-  margin-bottom: 10%;
 }
 
 main .hero-container > div {
@@ -15,7 +14,7 @@ main .hero.block {
 }
 
 main .hero.block.under-nav {
-  margin-top: -43px;
+  padding-top: 60px;
 }
 
 main .hero.block .hero-image {
@@ -44,7 +43,7 @@ main .hero.block .hero-image img {
 }
 
 main .hero.block .hero-content {
-  padding-top: 80px;
+  padding-top: 120px;
 }
 
 main .hero.block h1 {
@@ -53,6 +52,18 @@ main .hero.block h1 {
   line-height: 1;
   letter-spacing: 3px;
   text-shadow: 3px 3px var(--clr-black);
+}
+
+/* align above h1 vertically centered with img as background */
+main .hero.block .hero-content h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* hero search */

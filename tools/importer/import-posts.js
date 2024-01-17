@@ -129,7 +129,7 @@ export default {
     const u = famousUrl(link);
     link.href = u;
     link.textContent = u;
-    const cells = [['Author']];
+    const cells = [['Author-teaser']];
     cells.push([link]);
     const author = WebImporter.DOMUtils.createTable(cells, document);
     article.append(author);

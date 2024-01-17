@@ -453,25 +453,7 @@ main .section>.default-content-wrapper>h2{
   font-weight: 900;
   color: var(--tan);
   padding: 38px 15px;
-  font-size: 45px;
-}
-
-main .section>.default-content-wrapper>h2 ::before{
-  content: 'decor';
-    color: transparent;
-    background: url('../icons/decorleft.png') center no-repeat;
-    background-size: auto;
-    background-size: contain;
-    margin-right: 15px;
-}
-
-main .section>.default-content-wrapper>h2 ::after{
-  content: 'decor';
-    color: transparent;
-    background: url('../icons/decorright.png') center no-repeat;
-    background-size: auto;
-    background-size: contain;
-    margin-left: 15px;
+  font-size: 25px;
 }
 
 main .button-container{
@@ -525,6 +507,28 @@ main .button-container .button:hover{
   h1 {
     font-size: 35px;
   }
+
+  main .section>.default-content-wrapper>h2{
+    font-size: 35px;
+  }
+
+  main .section>.default-content-wrapper>h2 ::before{
+    content: 'decor';
+      color: transparent;
+      background: url('../icons/decorleft.png') center no-repeat;
+      background-size: auto;
+      background-size: contain;
+      margin-right: 15px;
+  }
+  
+  main .section>.default-content-wrapper>h2 ::after{
+    content: 'decor';
+      color: transparent;
+      background: url('../icons/decorright.png') center no-repeat;
+      background-size: auto;
+      background-size: contain;
+      margin-left: 15px;
+  }
 }
 
 @media screen and (min-width: 900px) {
@@ -538,6 +542,10 @@ main .button-container .button:hover{
   
   main .section.background-grey {
     background-color: var(--grey-background);
+  }
+
+  main .section>.default-content-wrapper>h2{
+    font-size: 45px;
   }
 
 }

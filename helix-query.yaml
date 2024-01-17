@@ -3,6 +3,8 @@ indices:
   default:
     include:
       - /**
+    exclude:
+      - /drafts/**
     target: /query-index.json
     properties:
       lastModified:

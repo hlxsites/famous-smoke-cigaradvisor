@@ -32,10 +32,13 @@ function createButtons(moveSlides) {
     button.classList.add(direction);
     const iconDiv = document.createElement('div');
     iconDiv.classList.add(`arrow-${direction}`);
+    if (direction === 'prev') {
+      iconDiv.classList.add('disabled');
+    }
     iconDiv.classList.add('carousel-arrow');
     const iconSpan = document.createElement('span');
     iconSpan.classList.add(`${direction}-icon`);
-    iconSpan.innerHTML = '&#8249;';
+    iconSpan.innerHTML = '';
     iconDiv.append(iconSpan);
     button.appendChild(iconDiv);
     button.addEventListener('click', () => moveSlides(direction));
@@ -86,17 +89,17 @@ export default async function decorate(block) {
       if (currentIndex < (items.length - itemsToShow)) {
         currentIndex += 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        block.querySelector('.arrow-prev').style.display = 'inline-block';
+        block.querySelector('.arrow-prev').classList.remove('disabled');
         if (currentIndex === (items.length - itemsToShow)) {
-          block.querySelector('.arrow-next').style.display = 'none';
+          block.querySelector('.arrow-next').classList.add('disabled');
         }
       }
     } else if (currentIndex >= 1) {
       currentIndex -= 1;
       slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-      block.querySelector('.arrow-next').style.display = 'inline-block';
+      block.querySelector('.arrow-next').classList.remove('disabled');
       if (currentIndex < 1) {
-        block.querySelector('.arrow-prev').style.display = 'none';
+        block.querySelector('.arrow-prev').classList.add('disabled');
       }
     }
   }

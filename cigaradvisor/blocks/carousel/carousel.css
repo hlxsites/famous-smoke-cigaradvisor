@@ -7,6 +7,7 @@
   margin-right: auto;
   max-width: 1080px;
   overflow: hidden;
+  margin-bottom: 25px;
 }
 
 .carousel.block>div {
@@ -47,6 +48,8 @@
   padding: 0;
   margin: 0;
   border: none;
+  width: 0;
+  line-height: none;
 }
 
 .carousel.block>button.prev {
@@ -60,7 +63,7 @@
 
 
 .carousel.block .carousel-arrow {
-  display: inline-block;
+  display: flex;
   cursor: pointer;
   position: absolute;
   z-index: 9;
@@ -70,28 +73,33 @@
   text-align: center;
   width: 30px;
   height: 50px;
+  align-items: center;
 }
 
 .carousel.block .carousel-arrow .prev-icon,
 .carousel.block .carousel-arrow .next-icon {
-  display: inline-block;
+  display: flex;
   font-size: 45px;
   color: #fff;
 }
 
-.carousel.block .carousel-arrow .next-icon {
-  transform: rotate(180deg);
-  margin: 10%;
+.carousel.block .carousel-arrow .next-icon::before {
+  content: '\f054';
+  font-family: var(--ff-fontawesome);
+  padding-left: 50%;
+  font-size: var(--body-font-size-xxl);
 }
 
-.carousel.block .carousel-arrow .prev-icon {
-  margin: -10%;
+.carousel.block .carousel-arrow .prev-icon::before {
+  content: '\f053';
+  font-family: var(--ff-fontawesome);
+  padding-left: 50%;
+  font-size: var(--body-font-size-xxl);
 }
 
-.carousel.block .arrow-prev {
+.carousel.block .carousel-arrow.arrow-prev.disabled, .carousel.block .carousel-arrow.arrow-next.disabled {
   display: none;
 }
-
 
 @media screen and (min-width: 600px) {
   .carousel.block .slide {

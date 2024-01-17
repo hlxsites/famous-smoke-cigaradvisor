@@ -377,9 +377,7 @@ main .section[data-layout="50/50"] .right-grid > div {
   font-size: 18px;
   line-height: 30px;
   text-decoration: underline;
-< < < < < < < HEAD color: #b19b5e;
-= = = = = = = color: var(--subdued-gold);
->>> >>> > origin / main
+  color: var(--subdued-gold);
 }
 
 .blog-post-template .author-container > .default-content-wrapper .article-image-wrapper {

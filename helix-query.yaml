@@ -4,7 +4,12 @@ indices:
     include:
       - /**
     exclude:
-      - /drafts/**
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
+      - '/**/footer'
+      - '/**/nav'
+      - '/**/404'
     target: /query-index.json
     properties:
       lastModified:

@@ -196,10 +196,13 @@
 }
 
 .header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-    font-size: 16px;
-    content: '\f107';
-    font-family: FontAwesome, Arial, sans-serif;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: url('/cigaradvisor/icons/angle-down.svg');
     margin-left: 10px;
+    vertical-align: top;
+    margin-top: 1px
 }
 
 /* Secondary navigation */
@@ -515,10 +518,13 @@
 }
 
 .header.block .mobile-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-    font-size: 16px;
-    content: '\f107';
-    font-family: FontAwesome, Arial, sans-serif;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: url('/cigaradvisor/icons/angle-down.svg');
     margin-left: 10px;
+    vertical-align: top;
+    margin-top: 1px;
 }
 
 .header.block .mobile-nav .secondary-nav-box ul li {

@@ -58,27 +58,33 @@ indices:
       - /cigaradvisor/author/**
     target: /cigaradvisor/author/query-index.json
     properties:
-      name:
-        select: div:nth-of-type(1) > h2:nth-of-type(1)
-        value: textContent(el)
       title:
-        select: div:nth-of-type(1) > h3:nth-of-type(1)
+        select: head > title
         value: textContent(el)
       description:
-        select: div:nth-of-type(1) > p:nth-of-type(2)
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
+      name:
+        select: .block.author-detail h2.author-name
+        value: textContent(el)
+      author-title:
+        select: .block.author-detail p.author-title
+        value: textContent(el)
+      intro:
+        select: .block.author-detail div.author-intro > p
         value: textContent(el)
       image:
-        select: div:nth-of-type(1) > p:nth-of-type(1) > picture:nth-of-type(1) > img
+        select: .block.author-detail div.author-image > picture > img
         value: match(attribute(el, 'src'), "(?:https:\/\/[^/]+)?(.+)")
       twitter:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: .block.author-detail div.social-links > ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       facebook:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: .block.author-detail div.social-links > ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       instagram:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: .block.author-detail div.social-links > ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       youtube:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: .block.author-detail div.social-links > ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')

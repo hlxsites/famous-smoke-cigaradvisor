@@ -53,7 +53,8 @@ export default async function decorate(block) {
       authorWrapperSection.innerHTML += authorContents.join('');
     })
     .catch((error) => {
-      console.error('Error fetching author info:', error);
+      // eslint-disable-next-line no-console
+      console.log('Error fetching author info:', error);
     });
   rightDiv.replaceChildren(authorWrapperSection);
   block.append(rightDiv);

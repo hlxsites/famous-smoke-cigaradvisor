@@ -24,33 +24,16 @@ function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.classList.add('section--hero');
-    const heroContent = document.createElement('div');
-    heroContent.classList.add('hero-content');
-    const search = document.createElement('div');
-    search.classList.add('search');
-    search.innerHTML = `<form action="/cigaradvisor/" class="hero-search" method="get">
-    <label class="sr-only" for="main-search-term">Search</label>
-    <div class="search-box">
-    <input type="search" class="search__input predictiveSearch" id="main-search-term" maxlength="255" placeholder="SEARCH" name="s" data-url="GetSearchSuggestions" autocomplete="off" value="">
-    <button type="submit" class="search__submit" value="Submit" title="Submit"></button>
-    </div>
-    </form>`;
-    heroContent.append(h1);
-    heroContent.append(search);
-    section.append(buildBlock('hero', { elems: [picture, heroContent] }));
+  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)
+    && h1.parentElement === picture.closest('div')) {
+    let section = document.createElement('div');
+    if (h1.parentElement.childElementCount === 2) {
+      section = h1.parentElement;
+    }
+    const p = picture.parentElement;
+    section.replaceChildren(buildBlock('hero', { elems: [h1, picture] }));
     main.prepend(section);
-    // on-focus of input, add class to form
-    const searchInput = main.querySelector('.hero-search input');
-    searchInput.addEventListener('focus', () => {
-      searchInput.parentNode.classList.add('focused');
-    });
-    // on-blur of input, remove class from form
-    searchInput.addEventListener('blur', () => {
-      searchInput.parentNode.classList.remove('focused');
-    });
+    p.remove();
   }
 }
 
@@ -59,6 +42,9 @@ function buildHeroBlock(main) {
  * @param {HTMLElement} mainEl - The main element to build the article header for.
  */
 function buildArticleHeader(mainEl) {
+  if (!document.querySelector('body.blog-post-template')) {
+    return;
+  }
   // eslint-disable-next-line no-use-before-define
   decorateExternalLink(mainEl);
   const paragraphs = mainEl.querySelectorAll('p');
@@ -150,14 +136,8 @@ async function loadFonts() {
  */
 function buildAutoBlocks(main) {
   try {
-    const isHome = document.querySelector('body.homepage');
-    const isBlogPost = document.querySelector('body.blog-post-template');
-    if (isHome) {
-      buildHeroBlock(main);
-    }
-    if (isBlogPost) {
-      buildArticleHeader(main);
-    }
+    buildHeroBlock(main);
+    buildArticleHeader(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

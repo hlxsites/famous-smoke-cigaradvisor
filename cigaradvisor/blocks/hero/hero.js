@@ -3,11 +3,16 @@ import { getMetadata } from '../../scripts/aem.js';
 function buildSearch() {
   const search = document.createElement('div');
   search.classList.add('hero-search');
+  // noinspection HtmlRequiredAltAttribute
   search.innerHTML = `
     <form action="/cigaradvisor/" method="get">
       <label class="sr-only" for="main-search-term">Search</label>
       <input type="text" maxlength="255" placeholder="SEARCH" autocomplete="off" value="">
-      <button type="submit" value="Submit" title="Submit"></button>
+      <button type="submit" value="Submit" title="Submit">
+        <span class="icon icon-magnifying-glass">
+          <img data-icon-name="magnifying-glass" src="/cigaradvisor/icons/magnifying-glass.svg" loading="lazy">
+        </span>
+      </button>
     </form>
   `;
   return search;

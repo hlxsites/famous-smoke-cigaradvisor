@@ -354,12 +354,12 @@ main .section[data-layout="3-column"] ul {
   list-style-type: disc;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section[data-layout="3-column"] > div {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
-
 
 main .section[data-layout="3-column"] > .left-grid {
   flex: 0 0 25%;
@@ -369,6 +369,7 @@ main .section[data-layout="3-column"] > .center-grid, main .section[data-layout=
   flex: 0 0 37.5%;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .section[data-layout="3-column"] * > div {
   padding: 2px;
 }

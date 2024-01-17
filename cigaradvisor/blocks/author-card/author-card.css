@@ -1,4 +1,4 @@
-.authorcard-container {
+.author-card-container {
     background: url('/cigaradvisor/images/author-card/media_17501a5f7bf5b4aebcf109765ead7cb5956480cbe.png');
     margin-top: 50px;
     background-position: center;
@@ -9,12 +9,12 @@
     margin-bottom: 40px;
 }
 
-.authorcard-wrapper::after {
+.author-card-wrapper::after {
     display: block;
     clear: both;
 }
 
-.authorcard-wrapper {
+.author-card-wrapper {
     display: flex;
     padding-left: 0;
     padding-right: 0;
@@ -28,11 +28,11 @@
     align-content: flex-start;
 }
 
-.authorcard.block {
+.author-card.block {
     display: flex;
 }
 
-.authorcard.block .left-column,
+.author-card.block .left-column,
 .right-column {
     display: flex;
     float: none;
@@ -42,7 +42,7 @@
     padding: 10px;
 }
 
-.authorcard.block .left-column h2 {
+.author-card.block .left-column h2 {
     font-family: var(--ff-alfaslabone);
     font-size: var(--heading-font-size-xl);
     color: var(--deep-reddish-brown);
@@ -53,13 +53,13 @@
     border-bottom: 30px solid;
 }
 
-.authorcard.block .left-column h2:first-child {
+.author-card.block .left-column h2:first-child {
     font-size: var(--heading-font-size-l);
     border-bottom: none;
 }
 
 
-.authorcard.block .left-column p {
+.author-card.block .left-column p {
     font-family: var(--ff-opensans);
     font-weight: var(--font-weight-semibold);
     color: var(--dark-grey);
@@ -68,7 +68,7 @@
     margin-top: 30px;
 }
 
-.authorcard.block .left-column .button {
+.author-card.block .left-column .button {
     background-color: var(--clr-black);
     border: 2px solid;
     font-family: var(--ff-montserrat);
@@ -96,26 +96,26 @@
     vertical-align: middle;
 }
 
-.authorcard.block .button:hover {
+.author-card.block .button:hover {
     transition: .5s;
     background-color: var(--subdued-gold);
     border-color: var(--subdued-gold);
     text-decoration: none;
 }
 
-.authorcard.block .right-column .author-wrapper {
+.author-card.block .right-column .author-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
-.authorcard.block .author-content {
+.author-card.block .author-content {
     flex: 0 0 50%;
     padding: 3px;
 }
 
-.authorcard.block .author-content .overlay-image {
+.author-card.block .author-content .overlay-image {
     margin-right: -100%;
     background-image: none;
     width: 100%;
@@ -126,11 +126,11 @@
     height: auto;
 }
 
-.authorcard.block .author-content .overlay-image img {
+.author-card.block .author-content .overlay-image img {
     display: block;
 }
 
-.authorcard.block .right-column p {
+.author-card.block .right-column p {
     color: var(--clr-white);
     text-transform: uppercase;
     background-color: transparent;
@@ -139,7 +139,7 @@
     cursor: default;
 }
 
-.authorcard.block .right-column p>a {
+.author-card.block .right-column p>a {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -149,13 +149,13 @@
     font-size: var(--body-font-size-xl);
 }
 
-.authorcard.block .right-column p>a:hover {
+.author-card.block .right-column p>a:hover {
     transition: .8s;
     text-decoration: none;
 }
 
 
-.authorcard.block .overlay-image:hover::before {
+.author-card.block .overlay-image:hover::before {
     content: "";
     position: absolute;
     top: 0;
@@ -166,7 +166,7 @@
 }
 
 
-.authorcard.block .align-center {
+.author-card.block .align-center {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -177,12 +177,12 @@
     text-align: center;
 }
 
-.authorcard.block .overlay-image:hover .align-center {
+.author-card.block .overlay-image:hover .align-center {
     opacity: 1;
 }
 
 @media (max-width: 768px) {
-    .authorcard-container {
+    .author-card-container {
         padding: 60px 10px;
         background: none #ece8e3;
         background-size: auto 150%;
@@ -193,16 +193,16 @@
         width: 100%;
     }
 
-    .authorcard.block {
+    .author-card.block {
         flex-flow: column wrap;
         width: 100%;
     }
 
-    .authorcard.block .author-content {
+    .author-card.block .author-content {
         flex: 0 0 100%;
     }
 
-    .authorcard.block .left-column,
+    .author-card.block .left-column,
     .right-column {
         width: 100%;
         display: flex;
@@ -212,12 +212,12 @@
         padding: 0;
     }
 
-    .authorcard.block .overlay-image {
+    .author-card.block .overlay-image {
         flex: 0 0 100%;
         width: 100%;
     }
 
-    .authorcard.block .author-content .overlay-image img {
+    .author-card.block .author-content .overlay-image img {
         display: block;
         width: 100%;
     }

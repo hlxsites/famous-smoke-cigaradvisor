@@ -3,11 +3,15 @@ indices:
   default:
     include:
       - /**
-    target: /query-index.json
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
+      - '/**/footer'
+      - '/**/nav'
+      - '/**/404'
+    target: /cigaradvisor/query-index.json
     properties:
-      lastModified:
-        select: none
-        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
       title:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
@@ -17,6 +21,9 @@ indices:
       description:
         select: head > meta[name="description"]
         value: attribute(el, "content")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
   articles:
     include:
       - /cigaradvisor/posts/**

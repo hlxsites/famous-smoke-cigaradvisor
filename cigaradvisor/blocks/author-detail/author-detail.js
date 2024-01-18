@@ -42,7 +42,6 @@ export default async function decorate(block) {
       }
     });
   }
-  decorateIcons(social);
   block.innerHTML = `
     <div class="author-detail-content">
       <div class="author-image">
@@ -57,10 +56,10 @@ export default async function decorate(block) {
           <p>${config.intro}</p>
         </div>
         <div class="social-links">
-          ${social.outerHTML}
+          ${social ? social.outerHTML : ''}
         </div>
       </div>
     </div>
   `;
-
+  decorateIcons(block);
 }

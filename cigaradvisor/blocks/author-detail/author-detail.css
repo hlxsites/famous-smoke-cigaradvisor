@@ -130,6 +130,11 @@
     transform: translate(-22%, -32%);
   }
 
+  .author-detail.block .author-image picture {
+    width: 245px;
+    padding-bottom: 0;
+  }
+
   .author-detail.block .author-info .author-intro p {
     font-size: var(--body-font-size-s);
     line-height: var(--line-height-l);

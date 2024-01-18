@@ -1,124 +1,137 @@
+
 .author-detail.block {
-    display: flex;
-    flex-direction: column;
-    margin: 40px auto;
-    margin-bottom: 40px;
-    border: 2px solid var(--tan);
-    min-height: 350px;
-    padding: 20px 0;
+  background: url("https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/images/backgrounds/author.jpg") top no-repeat;
+  background-size: auto 300px;
+}
+
+.author-detail.block .author-detail-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid var(--tan);
+  min-height: 350px;
+  padding: 20px 0;
 }
 
 .author-detail.block .author-image {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
+  max-width: 245px;
+  width: 100%;
+}
+
+.author-detail.block .author-image picture {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .author-detail.block .author-image img {
-    max-height: 245px;
-    max-width: 245px;
-    margin: 0 auto;
-    padding: 0;
-    border: 1px solid var(--tan);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-position: center center;
+  object-fit: contain;
+  border: 1px solid var(--tan);
 }
 
 .author-detail.block .author-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    padding: 20px;
-    margin-left: 0;
-    margin-top: 20px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .author-detail.block .author-info .author-name {
-    font-size: 20px;
-    text-align: center;
-    font-family: montserrat, sans-serif;
-    font-weight: 900;
-    color: var(--clr-dark-gray);
+  font-size: var(--heading-font-size-xxs);
+  font-weight: var(--font-weight-heavy);
+  line-height: var(--line-height-m);
+  text-align: center;
+  font-family: montserrat, sans-serif;
+  color: var(--clr-dark-gray);
 }
 
 .author-detail.block .author-info .author-title {
-    font-style: italic;
-    font-size: 18px;
-    margin: 0 15px;
-    font-weight: 400;
-    position: relative;
-    bottom: 2px;
+  font-style: italic;
+  font-size: var(--body-font-size-l);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-m);
+  margin: 0 15px;
 }
 
 .author-detail.block .author-intro {
-    margin: 12px 0;
+  margin: 12px 0;
 }
 
 .author-detail.block .author-intro p {
-    line-height: 24px;
-    font-weight: 700;
-    margin: 0;
+  line-height: var(--line-height-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
 }
 
 .author-detail.block .social-links ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  gap: 25px;
 }
 
-.author-detail.block .social-links ul>li {
-    margin-right: 25px;
-}
 
 /* media queries */
 @media screen and (min-width: 900px) {
-    .author-detail.block{
-        flex-direction: row;
-        align-items: stretch;
-        max-width: 1080px;
-    }
+  .author-detail.block {
+    padding-top: 200px;
+    background-size: cover;
+  }
 
-    .author-detail.block .author-image {
-        width: 25%;
-        float: left;
-    }
+  .author-detail.block .author-detail-content {
+    padding: 0 20px;
+    max-width: 1076px;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid var(--tan);
+    background-color: var(--clr-white);
+  }
 
-    .author-detail.block .author-info {
-        width: 75%;
-        padding: 50px;
-        margin-top: 0;
-        text-align: left;
-        float: left;
-        align-items: flex-start;
-    }
+  .author-detail.block .author-info {
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 0;
+    padding: 50px;
+  }
 
-    .author-detail.block .author-heading-wrapper {
-        display: flex;
-        align-items: center;
-    }
+  .author-detail.block .author-heading-wrapper {
+    display: flex;
+    align-items: center;
+  }
 
-    .author-detail.block .author-info .author-name {
-        font-size: 24px;
-    }
+  .author-detail.block .author-info .author-name {
+    font-size: var(--heading-font-size-s);
+  }
 
-    .author-detail.block .author-info .author-title {
-        font-size: 24px;
-    }
+  .author-detail.block .author-info .author-title {
+    font-size: var(--body-font-size-xxl);
+  }
 
-    .author-detail.block .social-links ul {
-        justify-content: flex-start;
-        padding-left: 0;
-    }
-
+  .author-detail.block .social-links ul {
+    justify-content: flex-start;
+  }
 }
 
 @media screen and (min-width: 1200px) {
-    .author-detail.block .author-image {
-        transform: translate(-20%,-20%);
-        margin-right: 0;
-    }
+  .author-detail.block .author-image {
+    transform: translate(-22%, -32%);
+  }
+
+  .author-detail.block .author-info .author-intro p {
+    font-size: var(--body-font-size-s);
+    line-height: var(--line-height-l);
+  }
 }

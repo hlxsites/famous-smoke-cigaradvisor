@@ -89,7 +89,7 @@
   display: flex;
   align-items: flex-start;
   flex: 1 0 13rem;
-  width: 100%;  
+  width: 100%;
 }
 
 .article-teaser.block .article.article-thumbnail .article-image>img {
@@ -238,12 +238,14 @@
 }
 
 .article-teaser.block .read-more::after {
-  content: '\f054';
-  font-family: FontAwesome, sans-serif;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  content: url('/cigaradvisor/icons/angle-right.svg');
   margin-left: 8px;
-  line-height: 1.5;
-  color: #b19b5e;
-  font-size: 18px;
+  vertical-align: top;
+  margin-top: 2px;
+  filter: var(--clr-filter-subdued-gold);
 }
 
 .article-teaser.block .article-thumbnail .article-read-more {

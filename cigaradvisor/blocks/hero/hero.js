@@ -19,7 +19,6 @@ function buildSearch() {
 }
 
 export default async function decorate(block) {
-  block.classList.add('under-nav');
   const style = getMetadata('hero-style');
   if (style) {
     block.classList.add(style.toLowerCase());

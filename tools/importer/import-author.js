@@ -10,23 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
-const createMetadataBlock = (main, document, img) => {
-  const meta = {}
-
-  const title = document.querySelector('title');
-  if (title) {
-    meta.title = title.textContent;
-  }
-
-  const description = document.querySelector('meta[name="description"]');
-  if (description) {
-    meta.description = description.getAttribute('content');
-  }
-
-  meta['hero-style'] = 'under-nav';
-  const block = WebImporter.Blocks.getMetadataBlock(document, meta);
-  main.append(block);
-  return meta;
+const createHero = (main, document) => {
+  const contributor = document.querySelector('aside .contributorBlock');
+  WebImporter.DOMUtils.replaceBackgroundByImg(contributor, document);
 }
 
 const createAuthorBlock = (main, document) => {
@@ -58,11 +44,37 @@ const createAuthorBlock = (main, document) => {
     })
     cells.push(['Social', ul]);
   }
-
-
   const table = WebImporter.DOMUtils.createTable(cells, document);
   main.append(table);
   return table;
+}
+
+const createArticleListBlock = (main, document) => {
+  const cells = [];
+  cells.push(['Article List']);
+  cells.push(['Author', '']);
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  main.append(table);
+  return table;
+}
+
+const createMetadataBlock = (main, document, img) => {
+  const meta = {}
+
+  const title = document.querySelector('title');
+  if (title) {
+    meta.title = title.textContent;
+  }
+
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    meta.description = description.getAttribute('content');
+  }
+
+  meta['og:image'] = img;
+  const block = WebImporter.Blocks.getMetadataBlock(document, meta);
+  main.append(block);
+  return meta;
 }
 
 export default {
@@ -80,10 +92,11 @@ export default {
     document, url, html, params,
   }) => {
     const main = document.createElement('main');
-
+    createHero(main, document);
+    // main.querySelector('img').after(document.createElement('hr'));
     const author = createAuthorBlock(main, document);
-    createMetadataBlock(main, document, author.image);
-
+    createArticleListBlock(main, document);
+    createMetadataBlock(main, document, author.querySelector('img').cloneNode());
 
     return main;
   },

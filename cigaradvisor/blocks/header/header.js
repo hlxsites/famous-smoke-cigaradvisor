@@ -1,6 +1,6 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { decorateSocialLinks, decorateExternalLink } from '../../scripts/scripts.js';
+import { decorateExternalLink } from '../../scripts/scripts.js';
 
 /**
  * Decorates the header block with navigation elements.
@@ -53,7 +53,7 @@ export default async function decorate(block) {
   hamburger.classList.add('nav-hamburger');
   hamburger.setAttribute('href', '#');
   hamburger.setAttribute('title', 'Toggle navigation');
-  hamburger.innerHTML = '<i class="fa fa-bars"></i>';
+  hamburger.innerHTML = '<span class="icon icon-bars"></span>';
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
@@ -65,9 +65,10 @@ export default async function decorate(block) {
   search.className = 'search';
   search.setAttribute('href', '/cigaradvisor/?s=');
   search.setAttribute('title', 'Search');
-  search.innerHTML = '<i class="fa fa-search"></i>';
+  search.innerHTML = '<span class="icon icon-magnifying-glass"></span>';
   mobilePrimaryNav.append(search);
   mobileNav.append(mobilePrimaryNav);
+  decorateIcons(mobilePrimaryNav);
 
   topNavLeft.classList.add('top-nav-left');
   topNavContent.append(topNavLeft);
@@ -78,7 +79,6 @@ export default async function decorate(block) {
   brand.className = 'brand-logo';
   topNavContent.append(brand);
   const topNavRight = fragment.children[0];
-  decorateSocialLinks(topNavRight);
   const socialNavMobile = topNavRight.cloneNode(true);
   socialNavMobile.className = 'mobile-social-nav';
   topNavRight.classList.add('top-nav-right');
@@ -148,10 +148,13 @@ export default async function decorate(block) {
     }
   });
 
-  const lastChild = primaryNav.querySelector('li:last-child');
-  lastChild.className = 'nav-drop';
-  lastChild.setAttribute('data-secondarynav', 'search-box');
-  lastChild.setAttribute('aria-expanded', 'false');
+  const searchButton = document.createElement('li');
+  primaryNav.querySelector('ul').append(searchButton);
+  searchButton.innerHTML = '<span class="icon icon-search"></span>';
+  decorateIcons(primaryNav);
+  searchButton.className = 'nav-drop';
+  searchButton.setAttribute('data-secondarynav', 'search-box');
+  searchButton.setAttribute('aria-expanded', 'false');
   const searchBox = document.createElement('div');
   searchBox.className = 'secondary-nav-box search-box';
   searchBox.innerHTML = `<form action="/cigaradvisor/" class="search search--header lg-andUp">

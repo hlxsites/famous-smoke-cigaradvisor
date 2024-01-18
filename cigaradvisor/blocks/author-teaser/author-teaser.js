@@ -1,4 +1,5 @@
 import { decorateExternalLink } from '../../scripts/scripts.js';
+import { decorateIcons } from '../../scripts/aem.js';
 
 /**
  * Loads an author.
@@ -51,20 +52,38 @@ export default async function decorate(block) {
     if (authorPContent) {
       authorDetails.append(authorPContent);
     }
-    const socilaLinks = author.querySelector('ul');
-    if (socilaLinks) {
-      const socialItems = socilaLinks.querySelectorAll('li');
+    const socialLinks = author.querySelector('ul');
+    if (socialLinks) {
+      const socialItems = socialLinks.querySelectorAll('li > a');
       socialItems.forEach((item) => {
-        const textNode = item.childNodes[0];
-        if (textNode && textNode.textContent !== '') {
-          const text = `social-${textNode.textContent.trim()}`;
-          textNode.innerText = '';
-          const textToClass = text.toLowerCase().replace(/\s/g, '-');
-          item.className = textToClass;
+        const innerText = item.innerText.trim();
+        if (innerText && innerText !== '') {
+          let icon;
+          switch (innerText) {
+            case 'twitter':
+              icon = 'twitter';
+              break;
+            case 'facebook':
+              icon = 'facebook-f';
+              break;
+            case 'instagram':
+              icon = 'instagram';
+              break;
+            case 'youtube':
+              icon = 'youtube';
+              break;
+            case 'pintrest':
+              icon = 'pintrest-p';
+              break;
+            default:
+              icon = 'unknown';
+          }
+          item.innerHTML = `<span class="icon icon-${icon}"></span>`;
         }
       });
 
-      authorDetails.append(socilaLinks);
+      decorateIcons(socialLinks);
+      authorDetails.append(socialLinks);
     } else {
       const emptySocialLinks = document.createElement('ul');
       authorDetails.append(emptySocialLinks);

@@ -76,7 +76,7 @@
 
 /* media queries */
 @media screen and (min-width: 900px) {
-    .author-detail.block .author-detail.block {
+    .author-detail.block{
         flex-direction: row;
         align-items: stretch;
         max-width: 1080px;

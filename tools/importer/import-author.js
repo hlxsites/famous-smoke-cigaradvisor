@@ -10,21 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-const createHero = (main, document) => {
-
-  const contributor = document.querySelector('aside .contributorBlock');
-  const bgimg = contributor.style.backgroundImage
-  const tmp = bgimg.replace(/^.*(http:.*)".*$/, '$1');
-  const img = document.createElement('img');
-  img.src = tmp;
-  const cells = [];
-  cells.push(['Hero']);
-  cells.push([img])
-  const hero = WebImporter.DOMUtils.createTable(cells, document);
-  main.append(hero);
-  return hero;
-}
-
 const createAuthorBlock = (main, document) => {
   const contributor = document.querySelector('.contributorBlock');
 
@@ -68,7 +53,7 @@ const createArticleListBlock = (main, document) => {
   return table;
 }
 
-const createMetadataBlock = (main, document, img) => {
+const createMetadataBlock = (main, document) => {
   const meta = {}
 
   const title = document.querySelector('title');
@@ -81,7 +66,6 @@ const createMetadataBlock = (main, document, img) => {
     meta.description = description.getAttribute('content');
   }
 
-  meta['og:image'] = img;
   const block = WebImporter.Blocks.getMetadataBlock(document, meta);
   main.append(block);
   return meta;
@@ -102,11 +86,10 @@ export default {
     document, url, html, params,
   }) => {
     const main = document.createElement('main');
-    createHero(main, document);
-    // main.querySelector('img').after(document.createElement('hr'));
     const author = createAuthorBlock(main, document);
+    main.append(document.createElement('hr'));
     createArticleListBlock(main, document);
-    createMetadataBlock(main, document, author.querySelector('img').cloneNode());
+    createMetadataBlock(main, document);
 
     return main;
   },

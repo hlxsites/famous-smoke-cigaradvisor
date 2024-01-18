@@ -15,7 +15,9 @@ export default async function decorate(block) {
         let icon;
         switch (textToClass) {
           case 'twitter':
-            icon = 'twitter';
+          case 'x':
+          case 'x-twitter':
+            icon = 'x-twitter';
             break;
           case 'facebook':
             icon = 'facebook-f';

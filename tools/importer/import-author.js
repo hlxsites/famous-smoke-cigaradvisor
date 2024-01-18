@@ -11,8 +11,18 @@
  */
 
 const createHero = (main, document) => {
+
   const contributor = document.querySelector('aside .contributorBlock');
-  WebImporter.DOMUtils.replaceBackgroundByImg(contributor, document);
+  const bgimg = contributor.style.backgroundImage
+  const tmp = bgimg.replace(/^.*(http:.*)".*$/, '$1');
+  const img = document.createElement('img');
+  img.src = tmp;
+  const cells = [];
+  cells.push(['Hero']);
+  cells.push([img])
+  const hero = WebImporter.DOMUtils.createTable(cells, document);
+  main.append(hero);
+  return hero;
 }
 
 const createAuthorBlock = (main, document) => {

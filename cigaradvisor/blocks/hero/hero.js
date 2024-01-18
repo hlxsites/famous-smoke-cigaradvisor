@@ -34,7 +34,7 @@ export default async function decorate(block) {
   if (header) {
     content.append(header);
   }
-  if (!block.classList.contains('no-search')) {
+  if (block.classList.contains('search')) {
     buildSearch();
   }
   block.replaceChildren(image, content);

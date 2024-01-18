@@ -29,7 +29,7 @@ const createAuthorBlock = (main, document) => {
   const contributor = document.querySelector('.contributorBlock');
 
   const cells = []
-  cells.push(['Author'])
+  cells.push(['Author Detail'])
   const name = contributor.querySelector('[data-epi-property-name="ContributorName"]').textContent
   cells.push(['Name', name]);
   cells.push(['Image', contributor.querySelector('img')]);

@@ -105,22 +105,11 @@ main .hero.block .hero-search form input:focus {
 }
 
 main .hero.block .hero-search form button {
-  flex: 0 1;
-  height: 100%;
-  width: 100%;
   background: transparent;
   border: none;
-}
-
-main .hero.block .hero-search form button::before {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  font-size: 30px;
-  content: "\f002";
-  text-align: center;
-  font-family: var(--ff-fontawesome);
   cursor: pointer;
+
+  --icon-size: 30px;
 }
 
 @media screen and (min-width: 900px) {

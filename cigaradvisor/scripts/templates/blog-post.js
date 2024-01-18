@@ -1,3 +1,6 @@
+import { decorateExternalLink } from '../scripts.js';
+import { buildBlock, getMetadata } from '../aem.js';
+
 export default async function decorate(main) {
   // eslint-disable-next-line no-use-before-define
   decorateExternalLink(main);
@@ -46,5 +49,5 @@ export default async function decorate(main) {
     [`<p class="article-blurb">${articleBlurb}</p>`],
   ]);
   div.append(articleHeaderBlockEl);
-  main.prepend(div)
+  main.prepend(div);
 }

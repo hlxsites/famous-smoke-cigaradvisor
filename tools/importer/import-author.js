@@ -48,7 +48,7 @@ const createAuthorBlock = (main, document) => {
       const link = li.querySelector('a');
       if (link) {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="${link}">${name} on ${site}</a>`;
+        li.innerHTML = `<a href="${link}">${site}</a>`;
         ul.append(li);
       }
     })

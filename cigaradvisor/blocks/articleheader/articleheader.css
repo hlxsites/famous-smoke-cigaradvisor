@@ -78,7 +78,7 @@ main .articleheader-container {
 .articleheader.block .article-info .article-author .article-published-date {
     font-family: var(--ff-opensans);
     font-weight: 600;
-    color: #141414;
+    color: var(--clr-dark-gray);
     font-size: 14px;
 }
 

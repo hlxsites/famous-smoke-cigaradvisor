@@ -58,7 +58,7 @@
 }
 
 .article-teaser.block .article-category[data-category="Cigar Makers"] {
-  background-color: #8e7b5c
+  background-color: var(--tan)
 }
 
 .article-teaser.block .article-category[data-category="Cigar News"] {
@@ -151,14 +151,14 @@
 
 .article-teaser.block .article-thumbnail .article-meta {
   font-size: 0;
-  color: #141414;
+  color: var(--clr-dark-gray);
 }
 
 .article-teaser.block .article-thumbnail .article-meta a {
   position: relative;
   z-index: 2;
   text-decoration: none;
-  color: #141414;
+  color: var(--clr-dark-gray);
 }
 
 .article-teaser.block .article-thumbnail .article-meta>* {

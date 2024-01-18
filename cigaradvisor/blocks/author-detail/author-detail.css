@@ -3,7 +3,7 @@
     flex-direction: column;
     margin: 40px auto;
     margin-bottom: 40px;
-    border: 2px solid #8e7b5c;
+    border: 2px solid var(--tan);
     min-height: 350px;
     padding: 20px 0;
 }
@@ -21,7 +21,7 @@
     max-width: 245px;
     margin: 0 auto;
     padding: 0;
-    border: 1px solid #8e7b5c;
+    border: 1px solid var(--tan);
 }
 
 .author-detail.block .author-info {
@@ -41,7 +41,7 @@
     text-align: center;
     font-family: montserrat, sans-serif;
     font-weight: 900;
-    color: #141414;
+    color: var(--clr-dark-gray);
 }
 
 .author-detail.block .author-info .author-title {

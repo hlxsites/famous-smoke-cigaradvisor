@@ -54,52 +54,16 @@
     justify-content: center;
     align-items: flex-end;
     padding: 10px;
+    filter: var(--clr-filter-tan);
 }
-
-.header.block nav .top-nav-right .twitter::before{
-    content: '\e61b';
-    font-family: var(--ff-fontawesome);
-    color: var(--tan);
-    font-size: 24px;
-}
-
-.header.block nav .top-nav-right .facebook::before{
-    content: '\f39e';
-    font-family: var(--ff-fontawesome);
-    color: var(--tan);
-    font-size: 24px;
-}
-
-.header.block nav .top-nav-right .instagram::before{
-    content: '\f16d';
-    font-family: var(--ff-fontawesome);
-    color: var(--tan);
-    font-size: 24px;
-}
-
-.header.block nav .top-nav-right .youtube::before{
-    content: '\f167';
-    font-family: var(--ff-fontawesome);
-    color: var(--tan);
-    font-size: 24px;
-}
-
-.header.block nav .top-nav-right .pinterest::before{
-    content: '\f231';
-    font-family: var(--ff-fontawesome);
-    color: var(--tan);
-    font-size: 24px;
-}
-
 
 .header.block nav .top-nav-left ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     list-style-type: none;
-    padding: 0;
     margin: 0;
-    padding-right: 25px;
+    padding: 0 25px 0 0;
 }
 
 .header.block nav .top-nav-left ul li {
@@ -149,7 +113,8 @@
 .header.block nav .primary-nav {
     display: flex;
     flex-grow: 1;
-    background-color: rgb(255 255 255 / 70%);    border: none;
+    background-color: rgb(255 255 255 / 70%);
+    border: none;
     position: static;
     top: auto;
     bottom: auto;
@@ -161,6 +126,8 @@
     transform: none;
     transition: none;
     z-index: auto;
+
+    --icon-size: 18px;
 }
 
 .header.block nav .primary-nav ul {
@@ -181,7 +148,7 @@
     flex: 0 0 auto;
     margin-top: 0;
     font-size: 14px;
-    font-family: var(--ff-open-sans);
+    font-family: var(--ff-opensans);
     font-weight: 600;
     color: var(--clr-dark-gray);
     cursor: default;
@@ -207,16 +174,12 @@
     z-index: 111;
 }
 
-.header.block nav .icon-search{
-    padding: 0 20px;
+.header.block nav .primary-nav .icon-search {
+    display: inline-block;
+    margin: 0 10px
 }
 
-.header.block nav .icon-search img{
-    width: 18px;
-    height: 18px;
-}
-
-.header.block nav .primary-nav ul li>a:hover{
+.header.block nav .primary-nav ul li > a:hover {
     border-color: var(--tan);
 }
 
@@ -233,10 +196,13 @@
 }
 
 .header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-    font-size: 16px;
-    content: '\f107';
-    font-family: FontAwesome, Arial, sans-serif;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: url('/cigaradvisor/icons/angle-down.svg');
     margin-left: 10px;
+    vertical-align: top;
+    margin-top: 1px
 }
 
 /* Secondary navigation */
@@ -253,7 +219,7 @@
     z-index: 110;
 }
 
-.header.block nav .secondary-nav-box>ul {
+.header.block nav .secondary-nav-box > ul {
     column-count: 3;
     width: 100%;
     padding: 3em;
@@ -262,7 +228,7 @@
 .header.block nav .secondary-nav-box.browse-categories ul li {
     line-height: 2;
     font-size: 14px;
-    font-family: var(--ff-open-sans);
+    font-family: var(--ff-opensans);
     font-weight: 600;
     color: var(--clr-dark-gray);
     cursor: default;
@@ -337,7 +303,6 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
-    border: 0;
     display: inline-block;
 }
 
@@ -366,25 +331,20 @@
     border-radius: 0;
 }
 
-.header.block nav .primary-nav ul li:last-child {
-    border: 2px solid transparent;
-    cursor: pointer;
-}
-
 /* Mobile navigation */
 .header.block .mobile-nav {
     height: 100%;
     display: flex;
-        flex-direction: column;
-        margin: auto;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
+    flex-direction: column;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
-.header.block .mobile-nav.mobile-nav-closed{
+.header.block .mobile-nav.mobile-nav-closed {
     z-index: 1;
 }
 
@@ -403,11 +363,12 @@
     bottom: 0;
     right: 100%;
     overflow: auto;
-    transition: transform .3s ease-in-out,-webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-wrapper.nav-content-open{
-    transform: translate3d(-100%,0,0);}
+.header.block .mobile-nav .mobile-primary-nav-wrapper.nav-content-open {
+    transform: translate3d(-100%, 0, 0);
+}
 
 .header.block .mobile-nav .mobile-primary-nav-wrapper > * {
     flex: 0 0 auto;
@@ -435,19 +396,19 @@
 }
 
 .header.block .mobile-nav .mobile-top-nav .default-content-wrapper p {
-   width: 35%;
-   font-size: 10px;
+    width: 35%;
+    font-size: 10px;
 }
 
 .header.block .mobile-nav .mobile-top-nav .default-content-wrapper ul li {
-  margin: 2px;
-  flex: 1 1 auto;
-  border-left: 1px solid var(--tan);
-  justify-content: center;
-  display: flex;
+    margin: 2px;
+    flex: 1 1 auto;
+    border-left: 1px solid var(--tan);
+    justify-content: center;
+    display: flex;
 }
 
-.header.block .mobile-nav .mobile-top-nav .default-content-wrapper ul li a{
+.header.block .mobile-nav .mobile-top-nav .default-content-wrapper ul li a {
     margin: 0 auto;
     width: 30px;
     height: 25px;
@@ -462,9 +423,11 @@
     width: 100%;
     background-color: rgb(255 255 255);
     padding: 20px 0 5px;
+
+    --icon-size: 32px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav .nav-hamburger,.header.block .mobile-nav .mobile-primary-nav .search{
+.header.block .mobile-nav .mobile-primary-nav .nav-hamburger, .header.block .mobile-nav .mobile-primary-nav .search {
     width: 1.25em;
     height: 1.25em;
     font-size: 2em;
@@ -472,18 +435,12 @@
     color: var(--grey);
 }
 
-.header.block .mobile-nav .nav-hamburger i::before {
-    content: "\f0c9"; 
-    color: var(--tan);
-}
-
-.header.block .mobile-nav .fa-search::before {
-    content: "\f002";
-    color: var(--tan);
+.header.block .mobile-nav .icon {
+    filter: var(--clr-filter-tan);
 }
 
 /* mobile primary nav */
-.header.block .mobile-nav .mobile-primary-nav-content{
+.header.block .mobile-nav .mobile-primary-nav-content {
     display: flex;
     flex: 0 0 auto;
     flex-direction: row;
@@ -494,7 +451,7 @@
     padding-top: 15px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul{
+.header.block .mobile-nav .mobile-primary-nav-content ul {
     list-style: none;
     margin: 5px auto;
     width: 100%;
@@ -502,30 +459,30 @@
     padding: 0 15px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul li{
+.header.block .mobile-nav .mobile-primary-nav-content ul li {
     display: block;
     align-items: center;
     border-bottom: 1px solid var(--light-grey);
     min-height: 3.5rem;
-    font-family: --var(ff-open-sans);
+    font-family: var(--ff-opensans);
     font-weight: 600;
     color: var(--clr-dark-gray);
     font-size: 12px;
     cursor: default;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul li div{
+.header.block .mobile-nav .mobile-primary-nav-content ul li div {
     display: none;
     flex-direction: column;
-    align-items: left;
+    align-items: start;
     min-height: 3.5rem;
-    font-family: --var(ff-open-sans);
+    font-family: var(--ff-opensans);
     font-weight: 600;
     color: var(--clr-dark-gray);
     font-size: 12px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul li a{
+.header.block .mobile-nav .mobile-primary-nav-content ul li a {
     background-color: transparent;
     align-items: center;
     border: none;
@@ -546,7 +503,7 @@
     float: right;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content>ul>li:last-child {
+.header.block .mobile-nav .mobile-primary-nav-content > ul > li:last-child {
     display: none;
 }
 
@@ -554,31 +511,34 @@
     display: flex;
 }
 
-.header.block .mobile-nav .secondary-nav-box ul{
+.header.block .mobile-nav .secondary-nav-box ul {
     padding: 12px 0;
     margin: 0;
     border: none;
 }
 
 .header.block .mobile-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-    font-size: 16px;
-    content: '\f107';
-    font-family: FontAwesome, Arial, sans-serif;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    content: url('/cigaradvisor/icons/angle-down.svg');
     margin-left: 10px;
+    vertical-align: top;
+    margin-top: 1px;
 }
 
-.header.block .mobile-nav .secondary-nav-box ul li{
+.header.block .mobile-nav .secondary-nav-box ul li {
     border: none;
 }
 
-.header.block .mobile-nav .secondary-nav-box ul li a{
+.header.block .mobile-nav .secondary-nav-box ul li a {
     border: none;
     padding: 0.65em 0;
     color: rgb(20 20 20);
     font-size: 12px;
 }
 
-.header.block .mobile-nav .secondary-nav-box ul li span{
+.header.block .mobile-nav .secondary-nav-box ul li span {
     display: none;
 }
 
@@ -587,53 +547,18 @@
     padding-top: 24px;
 }
 
-.header.block .mobile-nav .mobile-social-nav ul{
+.header.block .mobile-nav .mobile-social-nav ul {
     display: flex;
 }
 
-.header.block .mobile-nav .mobile-social-nav ul li{
+.header.block .mobile-nav .mobile-social-nav ul li {
     flex: 1 1 auto;
     margin-right: 10px;
 }
 
-.header.block .mobile-nav .mobile-social-nav ul li img{
+.header.block .mobile-nav .mobile-social-nav ul li img {
     height: 36px;
     width: 36px;
-}
-
-.header.block .mobile-nav .mobile-social-nav .twitter::before{
-    content: '\e61b';
-    font-family: var(--ff-fontawesome);
-    color: var(--dark-grey);
-    font-size: 36px;
-}
-
-.header.block .mobile-nav .mobile-social-nav .facebook::before{
-    content: '\f39e';
-    font-family: var(--ff-fontawesome);
-    color: var(--dark-grey);
-    font-size: 36px;
-}
-
-.header.block .mobile-nav .mobile-social-nav .instagram::before{
-    content: '\f16d';
-    font-family: var(--ff-fontawesome);
-    color: var(--dark-grey);
-    font-size: 36px;
-}
-
-.header.block .mobile-nav .mobile-social-nav .youtube::before{
-    content: '\f167';
-    font-family: var(--ff-fontawesome);
-    color: var(--dark-grey);
-    font-size: 36px;
-}
-
-.header.block .mobile-nav .mobile-social-nav .pinterest::before{
-    content: '\f231';
-    font-family: var(--ff-fontawesome);
-    color: var(--dark-grey);
-    font-size: 36px;
 }
 
 @media screen and (min-width: 900px) {

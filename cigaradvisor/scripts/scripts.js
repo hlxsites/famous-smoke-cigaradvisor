@@ -94,35 +94,6 @@ function buildThreeColumnGrid(main) {
 }
 
 /**
- * Builds three column grid.
- * @param {Element} main The container element
- */
-function buildThreeColumnGrid(main) {
-  main.querySelectorAll(':scope > .section[data-layout="3-column"]').forEach((section) => {
-    const leftDiv = document.createElement('div');
-    leftDiv.classList.add('left-grid');
-    const centerDiv = document.createElement('div');
-    centerDiv.classList.add('center-grid');
-    const rightDiv = document.createElement('div');
-    rightDiv.classList.add('right-grid');
-    let current = leftDiv;
-    [...section.children].forEach((child) => {
-      if (child.classList.contains('separator-wrapper')) {
-        if (current === centerDiv) {
-          current = rightDiv;
-        } else {
-          current = centerDiv;
-        }
-        child.remove();
-        return;
-      }
-      current.append(child);
-    });
-    section.append(leftDiv, centerDiv, rightDiv);
-  });
-}
-
-/**
  * Builds two column grid.
  * @param {Element} main The container element
  */

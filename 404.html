@@ -9,11 +9,12 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:title" content="Page not found">
-  <script src="/cigaradvisor/scripts/cigaradvisor/scripts.js" type="module" crossorigin="use-credentials"></script>
+  <script src="/cigaradvisor/scripts/scripts.js" type="module" crossorigin="use-credentials"></script>
   <script type="module">
     import { sampleRUM } from '/cigaradvisor/scripts/aem.js';
+    import { loadFragment } from '/cigaradvisor/blocks/fragment/fragment.js';
 
-    window.addEventListener('load', () => {
+    window.addEventListener('load', async() => {
       if (document.referrer) {
         const { origin, pathname } = new URL(document.referrer);
         if (origin === window.location.origin) {
@@ -27,6 +28,8 @@
         }
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
+      const main = document.querySelector('main');
+      main.replaceWith(await loadFragment('/cigaradvisor/fragments/404'));
     });
   </script>
   <link rel="stylesheet" href="/cigaradvisor/styles/styles.css">

@@ -5,6 +5,7 @@ export default async function decorate(block) {
   const social = block.querySelector('ul');
   const picture = block.querySelector('picture');
   const img = picture.querySelector('img');
+  img.setAttribute('loading', 'eager');
   const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
   picture.style.paddingBottom = `${ratio}%`;
 

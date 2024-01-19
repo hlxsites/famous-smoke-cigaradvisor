@@ -1,7 +1,24 @@
 
 .author-detail.block {
-  background: url("https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/images/backgrounds/author.jpg") top no-repeat;
-  background-size: auto 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+.author-detail.block picture.bg-image {
+  max-height: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.author-detail.block picture.bg-image img {
+  object-position: center center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .author-detail.block .author-detail-content {
@@ -87,7 +104,10 @@
 @media screen and (min-width: 900px) {
   .author-detail.block {
     padding-top: 200px;
-    background-size: cover;
+  }
+
+  .author-detail.block picture.bg-image {
+    max-height: unset;
   }
 
   .author-detail.block .author-detail-content {

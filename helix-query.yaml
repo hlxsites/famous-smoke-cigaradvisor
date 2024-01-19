@@ -64,27 +64,27 @@ indices:
       description:
         select: head > meta[property="og:description"]
         value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: attribute(el, "content")
       name:
-        select: .block.author-detail h2.author-name
+        select: div.author-detail > div:nth-of-type(1) > div:nth-of-type(2)
         value: textContent(el)
       author-title:
-        select: .block.author-detail p.author-title
+        select: div.author-detail > div:nth-of-type(2) > div:nth-of-type(2)
         value: textContent(el)
       intro:
-        select: .block.author-detail div.author-intro > p
+        select: div.author-detail > div:nth-of-type(4) > div:nth-of-type(2)
         value: textContent(el)
-      image:
-        select: .block.author-detail div.author-image > picture > img
-        value: match(attribute(el, 'src'), "(?:https:\/\/[^/]+)?(.+)")
       twitter:
-        select: .block.author-detail div.social-links > ul > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       facebook:
-        select: .block.author-detail div.social-links > ul > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       instagram:
-        select: .block.author-detail div.social-links > ul > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       youtube:
-        select: .block.author-detail div.social-links > ul > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')

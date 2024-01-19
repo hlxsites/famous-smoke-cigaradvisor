@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/aem.js';
+import { readBlockConfig, decorateIcons, createOptimizedPicture } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
@@ -61,5 +61,8 @@ export default async function decorate(block) {
       </div>
     </div>
   `;
+  const bg = createOptimizedPicture('https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/images/backgrounds/author.jpg');
+  bg.classList.add('bg-image');
+  block.append(bg);
   decorateIcons(block);
 }

@@ -144,6 +144,14 @@ export default {
     article.querySelectorAll('a').forEach((a) => {
       a.href = famousUrl(a);
     });
+    // Fix image located inside a h3 tag
+    article.querySelectorAll('h3 a > img').forEach((img) => {
+      const a = img.closest('a');
+      const h3 = a.closest('h3');
+      const picture = document.createElement('picture');
+      picture.appendChild(a);
+      h3.after(picture);
+    });
 
     WebImporter.DOMUtils.remove(article, [
       'noscript',

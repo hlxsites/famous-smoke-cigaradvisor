@@ -345,6 +345,7 @@
 }
 
 .header.block .mobile-nav.mobile-nav-closed {
+    height: 0;
     z-index: 1;
 }
 

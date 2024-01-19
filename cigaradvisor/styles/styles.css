@@ -158,12 +158,12 @@ a {
 }
 
 p {
-  font-family: var(--ff-opensans);
-  font-weight: 600;
-  color: var(--clr-dark-gray);
   margin: 16px 0;
-  font-size: 12px;
-  cursor: default
+  font-family: var(--ff-opensans);
+  font-size: var(--body-font-size-m);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-l);
+  color: var(--clr-dark-gray);
 }
 
 a:hover {
@@ -193,12 +193,12 @@ li {
   display: none;
 }
 
-
 .default-content-wrapper {
   color: var(--clr-text);
 }
 
 main .default-content-wrapper {
+  padding: 10px 20px;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -396,17 +396,6 @@ main .button-container .button:hover {
   background-color: var(--subdued-gold);
   border-color: var(--subdued-gold);
   text-decoration: none;
-}
-
-/* category landing page */
-.category-landing-page main > .section > .default-content-wrapper {
-  padding: 10px 20px;
-  text-align: justify;
-}
-
-.category-landing-page main > .section > .default-content-wrapper p {
-  font-size: 16px;
-  line-height: 26px;
 }
 
 

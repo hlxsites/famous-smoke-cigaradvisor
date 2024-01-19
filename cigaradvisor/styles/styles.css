@@ -467,11 +467,11 @@ main .button-container .button:hover {
     font-size: 14px;
   }
 
-  .blog-post-template .author-container > .default-content-wrapper {
+  .default-content-wrapper {
     padding: 0;
   }
 
-  .category-landing-page main > .section > .default-content-wrapper {
+  .blog-post-template .author-container > .default-content-wrapper {
     padding: 0;
   }
 }

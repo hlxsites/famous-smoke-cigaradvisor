@@ -58,27 +58,33 @@ indices:
       - /cigaradvisor/author/**
     target: /cigaradvisor/author/query-index.json
     properties:
-      name:
-        select: div:nth-of-type(1) > h2:nth-of-type(1)
-        value: textContent(el)
       title:
-        select: div:nth-of-type(1) > h3:nth-of-type(1)
+        select: head > title
         value: textContent(el)
       description:
-        select: div:nth-of-type(1) > p:nth-of-type(2)
-        value: textContent(el)
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
       image:
-        select: div:nth-of-type(1) > p:nth-of-type(1) > picture:nth-of-type(1) > img
-        value: match(attribute(el, 'src'), "(?:https:\/\/[^/]+)?(.+)")
+        select: head > meta[property="og:image"]
+        value: attribute(el, "content")
+      name:
+        select: div.author-detail > div:nth-of-type(1) > div:nth-of-type(2)
+        value: textContent(el)
+      author-title:
+        select: div.author-detail > div:nth-of-type(2) > div:nth-of-type(2)
+        value: textContent(el)
+      intro:
+        select: div.author-detail > div:nth-of-type(4) > div:nth-of-type(2)
+        value: textContent(el)
       twitter:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       facebook:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       instagram:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
       youtube:
-        select: div:nth-of-type(1) > ul:nth-of-type(1) > li > a
+        select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')

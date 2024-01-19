@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+@import url('reset.css');
+
 @font-face {
   font-family: 'Open Sans Fallback';
   font-style: normal;
@@ -155,13 +157,6 @@
   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
 
-  /* body sizes */
-  --text-size-xs: 12px;
-  --text-size-sm: 14px;
-  --text-size-md: 16px;
-  --text-size-lg: 18px;
-  --text-size-xl: 24px;
-
   /* heading sizes */
   --heading-font-size-xxs: 18px;
   --heading-font-size-xs: 20px;
@@ -171,7 +166,7 @@
   --heading-font-size-xl: 40px;
 
   /* Font Weights */
-  --font-weight-extrabold: 900;
+  --font-weight-heavy: 900;
   --font-weight-bold: 700;
   --font-weight-semibold: 600;
   --font-weight-normal: 400;
@@ -187,9 +182,16 @@
   --body-font-size-xl: 20px;
   --body-font-size-xxl: 24px;
 
+  /* Line Heights */
+  --line-height-xs: 1.15em;
+  --line-height-s: 1.25em;
+  --line-height-m: 1.5em;
+  --line-height-l: 1.75em;
+  --line-height-xl: 2em;
+
   /* misc */
   --nav-height: 100px;
-  --icon-size: var(--text-size-xl);
+  --icon-size: var(--body-font-size-xxl);
 }
 
 body {

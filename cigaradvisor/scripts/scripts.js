@@ -38,61 +38,30 @@ function buildHeroBlock(main) {
 }
 
 /**
- * Builds the article header for the given main element.
- * @param {HTMLElement} mainEl - The main element to build the article header for.
+ * Imports a template specific JS file for decorating the page with auto-blocks, etc.
+ * @param main
  */
-function buildArticleHeader(mainEl) {
-  if (!document.querySelector('body.blog-post-template')) {
+async function decorateTemplate(main) {
+  // Nothing to process
+  const template = getMetadata('template');
+  if (!template) {
     return;
   }
-  // eslint-disable-next-line no-use-before-define
-  decorateExternalLink(mainEl);
-  const paragraphs = mainEl.querySelectorAll('p');
-  paragraphs.forEach((paragraph) => {
-    if (paragraph.querySelector('picture') !== null) {
-      const imageWrapper = document.createElement('div');
-      imageWrapper.classList.add('article-image-wrapper');
-      if (paragraph.querySelector('a') !== null) {
-        const a = paragraph.querySelector('a');
-        a.replaceChildren(paragraph.querySelector('picture'));
-        imageWrapper.append(a);
-      } else {
-        imageWrapper.append(paragraph.querySelector('picture'));
-      }
-      const nextSibling = paragraph.nextElementSibling;
-      if (nextSibling && nextSibling.tagName === 'P' && nextSibling.querySelector('em')) {
-        nextSibling.classList.add('article-image-caption');
-        imageWrapper.append(nextSibling);
-      }
-      paragraph.replaceChildren(imageWrapper);
-    }
-  });
-  const h3 = mainEl.querySelectorAll('h3');
-  h3.forEach((heading) => {
-    const p = document.createElement('p');
-    p.innerHTML = '&nbsp;';
-    heading.prepend(p);
-  });
-  const div = document.createElement('div');
-  const h1 = mainEl.querySelector('h1');
-  const picture = mainEl.querySelector('picture');
-  const category = getMetadata('category');
-  const authorLink = getMetadata('author');
-  const publishedDate = getMetadata('publisheddate');
-  const readTime = document.querySelector('meta[name="readingtime"]').content;
-  const articleBlurb = getMetadata('articleblurb');
 
-  const articleHeaderBlockEl = buildBlock('articleheader', [
-    [picture],
-    [`<p class="category">${category}</p>`],
-    [h1],
-    [`<p class="read-time">${readTime}</p>`],
-    [`<p class="author">${authorLink}</p>`],
-    [`<p class="published-date">${publishedDate}</p>`],
-    [`<p class="article-blurb">${articleBlurb}</p>`],
-  ]);
-  div.append(articleHeaderBlockEl);
-  mainEl.prepend(div);
+  // Protect against recursion from fragment block
+  if (!main.closest(`.${template}`)) {
+    return;
+  }
+  const name = template.replace('-template', '');
+  try {
+    const tpl = await import(`${window.hlx.codeBasePath}/scripts/templates/${name}.js`);
+    if (tpl.default) {
+      await tpl.default(main);
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(`failed to load template script for ${name}`, error);
+  }
 }
 
 /**
@@ -163,10 +132,10 @@ async function loadFonts() {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
-    buildArticleHeader(main);
+    await decorateTemplate(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -178,11 +147,11 @@ function buildAutoBlocks(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export async function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  buildAutoBlocks(main);
+  await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
   buildTwoColumnGrid(main);
@@ -312,7 +281,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    decorateMain(main);
+    await decorateMain(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }

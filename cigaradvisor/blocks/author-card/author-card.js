@@ -35,12 +35,12 @@ export default async function decorate(block) {
   authorWrapperSection.innerHTML = '';
   const authorPromises = [...authors].map(async (authorPage) => {
     const authorInfo = await fetchData(getRelativePath(authorPage), '/cigaradvisor/author/query-index.json');
-    if (authorInfo) {
+    if (authorInfo[0]) {
       return `<div class="author-content">
         <div class="overlay-image">
-          ${createOptimizedPicture(authorInfo.image).outerHTML}
+          ${createOptimizedPicture(authorInfo[0].image).outerHTML}
           <div class="overlay-content">
-            <p class="align-center"><a href="${authorInfo.page}">${authorInfo.name}</a></p>
+            <p class="align-center"><a href="${authorInfo[0].page}">${authorInfo[0].name}</a></p>
           </div>
         </div>
       </div>`;

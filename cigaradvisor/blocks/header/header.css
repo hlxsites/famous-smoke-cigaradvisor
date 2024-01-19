@@ -435,7 +435,7 @@
     color: var(--grey);
 }
 
-.header.block .mobile-nav .icon {
+.header.block .mobile-nav .mobile-primary-nav .icon {
     filter: var(--clr-filter-tan);
 }
 

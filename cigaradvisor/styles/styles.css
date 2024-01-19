@@ -500,6 +500,17 @@ main .button-container .button:hover {
   text-decoration: none;
 }
 
+/* category landign page */
+.category-landing-page main>.section>.default-content-wrapper {
+  padding: 10px 20px;
+  text-align: justify;
+}
+
+.category-landing-page main>.section>.default-content-wrapper p{
+  font-size: 16px;
+  line-height: 26px;
+}
+
 
 @media screen and (max-width: 600px) {
   main .section[data-layout="50/50"] {
@@ -570,6 +581,10 @@ main .button-container .button:hover {
   }
 
   .blog-post-template .author-container > .default-content-wrapper {
+    padding: 0;
+  }
+
+  .category-landing-page main>.section>.default-content-wrapper {
     padding: 0;
   }
 }

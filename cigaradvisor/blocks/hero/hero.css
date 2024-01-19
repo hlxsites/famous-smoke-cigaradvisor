@@ -2,7 +2,6 @@
 
 main .hero-container {
   padding: 0;
-  margin-bottom: 10%;
 }
 
 main .hero-container > div {
@@ -43,15 +42,21 @@ main .hero.block .hero-image img {
   width: 100%;
 }
 
-main .hero.block .hero-content {
+main .hero.block.search .hero-content {
   padding-top: 80px;
+}
+
+main .hero.block:not(.search) {
+  display: flex;
+  min-height: 150px;
+  align-items: center;
+  justify-content: center;
 }
 
 main .hero.block h1 {
   color: var(--clr-white);
   text-align: center;
   line-height: 1;
-  letter-spacing: 3px;
   text-shadow: 3px 3px var(--clr-black);
 }
 

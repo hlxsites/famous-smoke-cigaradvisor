@@ -17,16 +17,16 @@ const createAuthorBlock = (main, document) => {
   cells.push(['Author Detail'])
   const name = contributor.querySelector('[data-epi-property-name="ContributorName"]').textContent
   cells.push(['Name', name]);
-  cells.push(['Image', contributor.querySelector('img')]);
-
   if (contributor.querySelector('[data-epi-property-name="ContributorTitle"]')) {
     cells.push(['Title', contributor.querySelector('[data-epi-property-name="ContributorTitle"]').textContent]);
+  } else {
+    cells.push(['Title', '']);
   }
-
+  cells.push(['Image', contributor.querySelector('img')]);
   cells.push(['Intro', contributor.querySelector('[data-epi-property-name="ContributorIntro"]').textContent]);
 
   const socialList = contributor.querySelector('ul.social__links');
-  if (socialList) {
+  if (socialList.querySelector('li')) {
     const ul = document.createElement('ul');
     socialList.querySelectorAll('li').forEach((li) => {
       const site = li.getAttribute('data-epi-property-name').replace(/Contributor(.*)Link/, '$1');

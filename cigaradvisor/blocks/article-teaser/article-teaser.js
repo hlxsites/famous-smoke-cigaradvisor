@@ -13,21 +13,28 @@ function formatDate(originalDateString) {
   return `${formattedDate}|${dateTimeAttribute}`;
 }
 
-export default async function decorate(block) {
-  const filterPath = block.querySelector('a').getAttribute('href');
-  block.classList.add('article-teaser');
-  const articleInfo = await fetchData(getRelativePath(filterPath), '/cigaradvisor/posts/query-index.json');
-  if (!articleInfo) {
-    return;
+// eslint-disable-next-line max-len
+export async function buildArticleTeaser(parentElement, articleInfo, articleCategoryInfo, articleAuthorInfo) {
+  let categoryInfo = articleCategoryInfo;
+  let authorInfo = articleAuthorInfo;
+  if (!articleCategoryInfo) {
+    const articleCategoryLink = articleInfo.category;
+    const fetchedCategoryInfo = await fetchData(getRelativePath(articleCategoryLink), '/cigaradvisor/query-index.json');
+    if (fetchedCategoryInfo && fetchedCategoryInfo.length !== 0) {
+      [categoryInfo] = fetchedCategoryInfo;
+    }
   }
-  const articleCategoryLink = articleInfo.category;
-  const articleCategoryInfo = await fetchData(getRelativePath(articleCategoryLink));
+  if (!articleAuthorInfo) {
+    const articleAuthorLink = articleInfo.author;
+    const fetchedAuthorInfo = await fetchData(getRelativePath(articleAuthorLink), '/cigaradvisor/author/query-index.json');
+    if (fetchedAuthorInfo && fetchedAuthorInfo.length !== 0) {
+      [authorInfo] = fetchedAuthorInfo;
+    }
+  }
   const [formattedDate, datetimeAttr] = formatDate(articleInfo.published).split('|');
-  const articleAuthorLink = articleInfo.author;
-  const articleAuthorInfo = await fetchData(getRelativePath(articleAuthorLink), '/cigaradvisor/author/query-index.json');
-  block.innerHTML = `
+  parentElement.innerHTML += `
         <article class="article article-thumbnail">
-          <a class="article-category" href="${articleCategoryLink}" data-category="${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}" title="${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}">${(articleCategoryInfo && articleCategoryInfo.title) ? articleCategoryInfo.title : ''}</a>
+          <a class="article-category" href="${categoryInfo ? categoryInfo.path : ''}" data-category="${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}" title="${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}">${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}</a>
           <div class="article-image">
           ${createOptimizedPicture(articleInfo.image).outerHTML}
           </div>
@@ -37,7 +44,7 @@ export default async function decorate(block) {
                 <a class="article-title-link" href="${articleInfo.path}" title="${articleInfo.title}">${articleInfo.title}</a>
                   </h2>
                   <div class="article-meta">
-                <a class="article-authorLink" href="${articleAuthorLink}" title="By ${(articleAuthorInfo && articleAuthorInfo.name) ? articleAuthorInfo.name : ''}">By ${(articleAuthorInfo && articleAuthorInfo.name) ? articleAuthorInfo.name : ''}</a>
+                <a class="article-authorLink" href="${authorInfo ? authorInfo.path : ''}" title="By ${(authorInfo && authorInfo.name) ? authorInfo.name : ''}">By ${(authorInfo && authorInfo.name) ? authorInfo.name : ''}</a>
                 <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
           </div>
           </articleheader>
@@ -50,4 +57,15 @@ export default async function decorate(block) {
           </div>
         </article>
         `;
+}
+
+export default async function decorate(block) {
+  const filterPath = block.querySelector('a').getAttribute('href');
+  block.classList.add('article-teaser');
+  const articleInfo = await fetchData(getRelativePath(filterPath), '/cigaradvisor/posts/query-index.json');
+  if (!articleInfo || articleInfo.length === 0) {
+    return;
+  }
+  block.innerHTML = '';
+  buildArticleTeaser(block, articleInfo[0]);
 }

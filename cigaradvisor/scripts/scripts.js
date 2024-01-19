@@ -237,17 +237,17 @@ export function getRelativePath(path) {
 let indexData = '';
 let authorIndexData = '';
 let articleIndexData = '';
+
 /**
- * Fetches data from a specified URL and returns the filtered
- * data based on the provided filter path.
- * @param {string} filterPath - The path used to filter the data.
- * @param {string} [fetchUrl='/query-index.json'] - The URL to fetch the data
- *  from. Defaults to '/query-index.json'.
- * @returns {Promise<Object>} - A promise that resolves to the filtered data object.
+ * Fetches data based on the search value and fetch URL.
+ * @param {string} searchValue - The value to search for.
+ * @param {string} fetchUrl - The URL to fetch the data from. Default value is '/query-index.json'.
+ * @param {string} searchParam - The parameter to search for in the data. Default value is 'path'.
+ * @returns {Promise<Array>} - A promise that resolves to an array of filtered data.
  */
-export async function fetchData(filterPath, fetchUrl = '/query-index.json') {
+export async function fetchData(searchValue, fetchUrl = '/query-index.json', searchParam = 'path') {
   let responeData = '';
-  if (fetchUrl === '/query-index.json') {
+  if (fetchUrl === '/cigaradvisor/query-index.json') {
     if (!indexData) {
       const resp = await fetch(fetchUrl);
       let jsonData = '';
@@ -282,7 +282,7 @@ export async function fetchData(filterPath, fetchUrl = '/query-index.json') {
   }
   let filteredData = '';
   if (responeData) {
-    filteredData = responeData.find((obj) => obj.path === filterPath);
+    filteredData = responeData.filter((obj) => obj[searchParam] === searchValue);
   }
   return filteredData;
 }

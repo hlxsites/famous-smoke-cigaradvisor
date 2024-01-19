@@ -9,20 +9,20 @@ export default async function decorate(block) {
   const articleInfo = document.createElement('div');
   articleInfo.classList.add('article-info');
   const categoryLink = block.querySelector('p.category').innerText;
-  const category = await fetchData(getRelativePath(categoryLink));
-  if (category) {
+  const category = await fetchData(getRelativePath(categoryLink), '/cigaradvisor/query-index.json');
+  if (category[0]) {
     const categoryLinkEl = document.createElement('div');
     categoryLinkEl.classList.add('article-category');
-    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category.title}</a>`;
+    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category[0].title}</a>`;
     articleInfo.append(categoryLinkEl);
   }
   articleInfo.append(block.querySelector('h1'));
   const authorLink = block.querySelector('p.author').innerText;
-  const author = await fetchData(getRelativePath(authorLink));
+  const author = await fetchData(getRelativePath(authorLink), '/cigaradvisor/author/query-index.json');
   const authorLinkEl = document.createElement('div');
   authorLinkEl.classList.add('article-author');
-  if (author) {
-    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.title}</a>`;
+  if (author[0]) {
+    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author[0].title}</a>`;
     articleInfo.append(authorLinkEl);
   }
   const publishedDate = block.querySelector('p.published-date').innerText;

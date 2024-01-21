@@ -445,15 +445,15 @@ main .button-container .button:hover {
     font-size: 45px;
   }
 
-  main .section {
+  main > .section {
     margin-bottom: 40px;
   }
 
-  main .section.background-grey {
+  main > .section.background-grey {
     background-color: var(--grey-background);
   }
 
-  main .section > .default-content-wrapper > h2 {
+  main > .section > .default-content-wrapper > h2 {
     font-size: 45px;
   }
 }

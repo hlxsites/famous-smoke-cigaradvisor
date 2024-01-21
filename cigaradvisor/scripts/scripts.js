@@ -214,9 +214,9 @@ let articleIndexData = '';
  * @param {string} searchParam - The parameter to search for in the data. Default value is 'path'.
  * @returns {Promise<Array>} - A promise that resolves to an array of filtered data.
  */
-export async function fetchData(searchValue, fetchUrl = '/query-index.json', searchParam = 'path') {
+export async function fetchData(searchValue, fetchUrl = '/cigaradvisor/drafts/Kailas/query-index.json', searchParam = 'path') {
   let responeData = '';
-  if (fetchUrl === '/cigaradvisor/query-index.json') {
+  if (fetchUrl === '/cigaradvisor/drafts/Kailas/query-index.json') {
     if (!indexData) {
       const resp = await fetch(fetchUrl);
       let jsonData = '';

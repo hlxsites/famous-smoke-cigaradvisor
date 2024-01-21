@@ -1,1 +1,54 @@
 @import url('../article-teaser/article-teaser.css');
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+
+}
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a {
+    border: .5px solid #8e7b5c;
+    margin: auto 2px;
+    font-size: 15px;
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    font-weight: 400;
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.4286;
+    text-decoration: none;
+    background-color: #fff;
+
+}
+
+.pagination a:hover {
+    background-color: #8e7b5c;
+    border-color: #8e7b5c;
+    color: #fff;
+}
+
+.pagination .gap:hover {
+    background-color: #eee;
+}
+
+.pagination a.active {
+    background-color: #8e7b5c;
+    color: #fff;
+}

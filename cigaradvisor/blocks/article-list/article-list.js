@@ -76,6 +76,7 @@ function generatePagination(currentPage, totalPages) {
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
   const { category } = configs;
+  const { author } = configs;
   const { limit } = configs;
   const parentDiv = document.createElement('div');
   parentDiv.classList.add('section');
@@ -86,11 +87,23 @@ export default async function decorate(block) {
   rightDiv.classList.add('right-grid');
   let current = rightDiv;
   let currentPage = 1;
-  if (category) {
-    const articles = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json', 'category');
+  if (category || author) {
+    let articles;
+    if (category) {
+      articles = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json', 'category');
+    } else if (author) {
+      articles = await fetchData(getRelativePath(author), '/cigaradvisor/drafts/Kailas/query-index.json', 'author');
+    }
     const totalArticles = articles.length;
     const totalPages = Math.ceil(totalArticles / limit);
-    const categoryInfo = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json');
+    let categoryInfo;
+    let authorInfo;
+    if (category) {
+      categoryInfo = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json');
+    }
+    if (author) {
+      authorInfo = await fetchData(getRelativePath(author), '/cigaradvisor/author/query-index.json');
+    }
     if (!articles || articles.length === 0) {
       return;
     }
@@ -106,7 +119,11 @@ export default async function decorate(block) {
       articletTeaserWrapper.append(articleTeaser);
       current = (current === leftDiv) ? rightDiv : leftDiv;
       current.append(articletTeaserWrapper);
-      await buildArticleTeaser(articleTeaser, article, categoryInfo[0]);
+      if (categoryInfo) {
+        await buildArticleTeaser(articleTeaser, article, categoryInfo[0]);
+      } else if (authorInfo) {
+        await buildArticleTeaser(articleTeaser, article, null, authorInfo[0]);
+      }
     });
     await Promise.all(articlePromises);
 

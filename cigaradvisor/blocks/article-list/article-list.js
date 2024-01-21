@@ -20,7 +20,6 @@ function createPageLink(pageNumber, text, className) {
   const link = document.createElement('a');
   const currentPagePath = window.location.pathname;
   link.href = `${currentPagePath}?page=${pageNumber}`;
-  link.title = pageNumber;
   link.textContent = text;
 
   if (className) {
@@ -34,10 +33,12 @@ function createPageLink(pageNumber, text, className) {
 function generatePagination(currentPage, totalPages) {
   const displayPages = 7;
   const paginationList = document.createElement('ol');
-  paginationList.className = 'pagination font-inherit';
+  paginationList.className = 'pagination';
 
   // Previous page link
-  paginationList.appendChild(createPageLink(currentPage - 1, '«', 'prev'));
+  if (currentPage > 1) {
+    paginationList.appendChild(createPageLink(currentPage - 1, '«', 'prev'));
+  }
 
   // Page links
   const startPage = Math.max(1, currentPage - Math.floor(displayPages / 2));
@@ -66,7 +67,9 @@ function generatePagination(currentPage, totalPages) {
   }
 
   // Next page link
-  paginationList.appendChild(createPageLink(currentPage + 1, '»', 'next'));
+  if (currentPage < totalPages) {
+    paginationList.appendChild(createPageLink(currentPage + 1, '»', 'next'));
+  }
   return paginationList;
 }
 

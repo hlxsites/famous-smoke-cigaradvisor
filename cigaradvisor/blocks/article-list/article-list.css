@@ -1,6 +1,6 @@
 @import url('../article-teaser/article-teaser.css');
 
-.pagination-container {
+.article-list.block .pagination-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,18 +8,18 @@
 
 }
 
-.pagination {
+.article-list.block .pagination {
     display: flex;
     padding-left: 0;
     margin: 20px 0;
     border-radius: 4px;
 }
 
-.pagination li {
+.article-list.block .pagination li {
     display: inline;
 }
 
-.pagination a {
+.article-list.block .pagination a {
     border: .5px solid #8e7b5c;
     margin: auto 2px;
     font-size: 15px;
@@ -38,17 +38,17 @@
 
 }
 
-.pagination a:hover {
+.article-list.block .pagination a:hover {
     background-color: #8e7b5c;
     border-color: #8e7b5c;
     color: #fff;
 }
 
-.pagination .gap:hover {
+.article-list.block .pagination .gap:hover {
     background-color: #eee;
 }
 
-.pagination a.active {
+.article-list.block .pagination a.active {
     background-color: #8e7b5c;
     color: #fff;
 }

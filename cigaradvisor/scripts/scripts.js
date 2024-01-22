@@ -16,12 +16,8 @@ import {
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
-// const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
-// const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
-
-const DEFAULT_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
-const ARTICLE_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
-
+const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element

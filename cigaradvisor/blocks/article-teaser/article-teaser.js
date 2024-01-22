@@ -1,5 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
-import { fetchData, getRelativePath } from '../../scripts/scripts.js';
+import { fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo } from '../../scripts/scripts.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date(originalDateString * 1000);
@@ -14,45 +14,29 @@ function formatDate(originalDateString) {
 }
 
 // eslint-disable-next-line max-len
-export async function buildArticleTeaser(parentElement, articleInfo, articleCategoryInfo, articleAuthorInfo) {
-  let categoryInfo = articleCategoryInfo;
-  let authorInfo = articleAuthorInfo;
-  if (!articleCategoryInfo) {
-    const articleCategoryLink = articleInfo.category;
-    const fetchedCategoryInfo = await fetchData(getRelativePath(articleCategoryLink), '/cigaradvisor/query-index.json');
-    if (fetchedCategoryInfo && fetchedCategoryInfo.length !== 0) {
-      [categoryInfo] = fetchedCategoryInfo;
-    }
-  }
-  if (!articleAuthorInfo) {
-    const articleAuthorLink = articleInfo.author;
-    const fetchedAuthorInfo = await fetchData(getRelativePath(articleAuthorLink), '/cigaradvisor/author/query-index.json');
-    if (fetchedAuthorInfo && fetchedAuthorInfo.length !== 0) {
-      [authorInfo] = fetchedAuthorInfo;
-    }
-  }
-  const [formattedDate, datetimeAttr] = formatDate(articleInfo.published).split('|');
+export function buildArticleTeaser(parentElement, article) {
+  const [formattedDate, datetimeAttr] = formatDate(article.published).split('|');
   parentElement.innerHTML += `
         <article class="article article-thumbnail">
-          <a class="article-category" href="${categoryInfo ? categoryInfo.path : ''}" data-category="${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}" title="${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}">${(categoryInfo && categoryInfo.title) ? categoryInfo.title : ''}</a>
+          <a class="article-category" href="${article.category ? article.category.path : ''}" data-category="${(article.category && article.category.title) ? article.category.title : ''}" title="${(article.category && article.category.title) ? article.category.title : ''}">${(article.category && article.category.title) ? article.category.title : ''}</a>
           <div class="article-image">
-          ${createOptimizedPicture(articleInfo.image).outerHTML}
+          ${createOptimizedPicture(article.image).outerHTML}
           </div>
           <div class="article-content">
             <articleheader class="article-header">
                 <h2 class="article-title">
-                <a class="article-title-link" href="${articleInfo.path}" title="${articleInfo.title}">${articleInfo.title}</a>
+                <a class="article-title-link" href="${article.path}" title="${article.title}">${article.title}</a>
                   </h2>
                   <div class="article-meta">
-                <a class="article-authorLink" href="${authorInfo ? authorInfo.path : ''}" title="By ${(authorInfo && authorInfo.name) ? authorInfo.name : ''}">By ${(authorInfo && authorInfo.name) ? authorInfo.name : ''}</a>
+                <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
                 <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
           </div>
           </articleheader>
           <div class="article-preview">
             <div class="article-excerpt">
-                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${articleInfo.readingTime}</span></span> ${articleInfo.description}</p>
+                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${article.readingTime}</span></span> ${article.description}</p>
             </div>
-            <a class="article-read-more read-more" href="${articleInfo.path}" title="Read More">Read More</a>
+            <a class="article-read-more read-more" href="${article.path}" title="Read More">Read More</a>
           </div>
           </div>
         </article>
@@ -62,10 +46,15 @@ export async function buildArticleTeaser(parentElement, articleInfo, articleCate
 export default async function decorate(block) {
   const filterPath = block.querySelector('a').getAttribute('href');
   block.classList.add('article-teaser');
-  const articleInfo = await fetchData(getRelativePath(filterPath), '/cigaradvisor/posts/query-index.json');
+  const articleInfo = await fetchPostsInfo(filterPath);
   if (!articleInfo || articleInfo.length === 0) {
     return;
   }
   block.innerHTML = '';
-  buildArticleTeaser(block, articleInfo[0]);
+  const article = articleInfo[0];
+  const categoryInfo = await fetchCategoryInfo(article.category);
+  const authorInfo = await fetchAuthorInfo(article.author);
+  article.category = categoryInfo;
+  article.author = authorInfo;
+  buildArticleTeaser(block, article);
 }

@@ -1,4 +1,4 @@
-import { fetchData, getRelativePath } from '../../scripts/scripts.js';
+import { fetchCategoryInfo, fetchAuthorInfo } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const section = document.createElement('section');
@@ -9,7 +9,7 @@ export default async function decorate(block) {
   const articleInfo = document.createElement('div');
   articleInfo.classList.add('article-info');
   const categoryLink = block.querySelector('p.category').innerText;
-  const category = await fetchData(getRelativePath(categoryLink), '/cigaradvisor/query-index.json');
+  const category = await fetchCategoryInfo(categoryLink);
   if (category[0]) {
     const categoryLinkEl = document.createElement('div');
     categoryLinkEl.classList.add('article-category');
@@ -18,7 +18,7 @@ export default async function decorate(block) {
   }
   articleInfo.append(block.querySelector('h1'));
   const authorLink = block.querySelector('p.author').innerText;
-  const author = await fetchData(getRelativePath(authorLink), '/cigaradvisor/author/query-index.json');
+  const author = await fetchAuthorInfo(authorLink);
   const authorLinkEl = document.createElement('div');
   authorLinkEl.classList.add('article-author');
   if (author[0]) {

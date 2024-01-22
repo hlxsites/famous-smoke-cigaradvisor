@@ -15,6 +15,12 @@ import {
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
+// const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+// const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+
+const DEFAULT_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -203,57 +209,48 @@ export function getRelativePath(path) {
   return relPath;
 }
 
-let indexData = '';
-let authorIndexData = '';
 let articleIndexData = '';
-
-/**
- * Fetches data based on the search value and fetch URL.
- * @param {string} searchValue - The value to search for.
- * @param {string} fetchUrl - The URL to fetch the data from. Default value is '/query-index.json'.
- * @param {string} searchParam - The parameter to search for in the data. Default value is 'path'.
- * @returns {Promise<Array>} - A promise that resolves to an array of filtered data.
- */
-export async function fetchData(searchValue, fetchUrl = '/cigaradvisor/drafts/Kailas/query-index.json', searchParam = 'path') {
-  let responeData = '';
-  if (fetchUrl === '/cigaradvisor/drafts/Kailas/query-index.json') {
-    if (!indexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      indexData = jsonData.data;
+export async function fetchPostsInfo(filterValue, filterParam = 'path') {
+  let filter = filterValue;
+  filter = getRelativePath(filterValue);
+  if (!articleIndexData) {
+    const resp = await fetch(ARTICLE_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
     }
-    responeData = indexData;
+    articleIndexData = jsonData.data;
   }
-  if (fetchUrl === '/cigaradvisor/posts/query-index.json') {
-    if (!articleIndexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      articleIndexData = jsonData.data;
-    }
-    responeData = articleIndexData;
-  }
-  if (fetchUrl === '/cigaradvisor/author/query-index.json') {
-    if (!authorIndexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      authorIndexData = jsonData.data;
-    }
-    responeData = authorIndexData;
-  }
-  let filteredData = '';
-  if (responeData) {
-    filteredData = responeData.filter((obj) => obj[searchParam] === searchValue);
-  }
+  const filteredData = articleIndexData.filter((obj) => obj[filterParam] === filter);
   return filteredData;
+}
+
+let authorIndexData = '';
+export async function fetchAuthorInfo(authorLink) {
+  const filter = getRelativePath(authorLink);
+  if (!authorIndexData) {
+    const resp = await fetch(AUTHOR_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    authorIndexData = jsonData.data;
+  }
+  return authorIndexData.filter((obj) => obj.path === filter);
+}
+
+let categoryIndexData = '';
+export async function fetchCategoryInfo(categoryLink) {
+  const filter = getRelativePath(categoryLink);
+  if (!categoryIndexData) {
+    const resp = await fetch(DEFAULT_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    categoryIndexData = jsonData.data;
+  }
+  return categoryIndexData.filter((obj) => obj.path === filter);
 }
 
 /**

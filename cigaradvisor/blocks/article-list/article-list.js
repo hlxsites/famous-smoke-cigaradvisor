@@ -1,5 +1,5 @@
 import { readBlockConfig } from '../../scripts/aem.js';
-import { fetchData, getRelativePath } from '../../scripts/scripts.js';
+import { fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 
 // Function to create ellipsis
@@ -90,19 +90,19 @@ export default async function decorate(block) {
   if (category || author) {
     let articles;
     if (category) {
-      articles = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json', 'category');
+      articles = await fetchPostsInfo(category, 'category');
     } else if (author) {
-      articles = await fetchData(getRelativePath(author), '/cigaradvisor/drafts/Kailas/query-index.json', 'author');
+      articles = await fetchPostsInfo(author, 'author');
     }
     const totalArticles = articles.length;
     const totalPages = Math.ceil(totalArticles / limit);
     let categoryInfo;
     let authorInfo;
     if (category) {
-      categoryInfo = await fetchData(getRelativePath(category), '/cigaradvisor/drafts/Kailas/query-index.json');
+      categoryInfo = await fetchCategoryInfo(category);
     }
     if (author) {
-      authorInfo = await fetchData(getRelativePath(author), '/cigaradvisor/author/query-index.json');
+      authorInfo = await fetchAuthorInfo(author);
     }
     if (!articles || articles.length === 0) {
       return;
@@ -120,9 +120,15 @@ export default async function decorate(block) {
       current = (current === leftDiv) ? rightDiv : leftDiv;
       current.append(articletTeaserWrapper);
       if (categoryInfo) {
-        await buildArticleTeaser(articleTeaser, article, categoryInfo[0]);
+        authorInfo = await fetchAuthorInfo(article.author);
+        [article.author] = authorInfo;
+        [article.category] = categoryInfo;
+        buildArticleTeaser(articleTeaser, article);
       } else if (authorInfo) {
-        await buildArticleTeaser(articleTeaser, article, null, authorInfo[0]);
+        categoryInfo = await fetchCategoryInfo(article.category);
+        [article.author] = authorInfo;
+        [article.category] = categoryInfo;
+        buildArticleTeaser(articleTeaser, article);
       }
     });
     await Promise.all(articlePromises);

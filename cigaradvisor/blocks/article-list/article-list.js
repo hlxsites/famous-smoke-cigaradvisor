@@ -77,10 +77,11 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   const configs = readBlockConfig(block);
   block.innerHTML = '';
+  // eslint-disable-next-line prefer-const
   let { category, author, limit = 10 } = configs;
-  if (!category && configs.hasOwnProperty('category') && window.location.pathname.includes('/cigaradvisor/category/')) {
+  if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
     category = window.location.toString();
-  } else if (!author && configs.hasOwnProperty('author') && window.location.pathname.includes('/cigaradvisor/author/')) {
+  } else if (!author && Object.hasOwn(configs, 'author') && window.location.pathname.includes('/cigaradvisor/author/')) {
     author = window.location.toString();
   }
   const parentDiv = document.createElement('div');
@@ -90,7 +91,6 @@ export default async function decorate(block) {
   leftDiv.classList.add('left-grid');
   const rightDiv = document.createElement('div');
   rightDiv.classList.add('right-grid');
-
 
   let current = rightDiv;
   let currentPage = 1;

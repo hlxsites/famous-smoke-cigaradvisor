@@ -34,3 +34,10 @@
     font-display: swap;
     src: url('../fonts/alfaslabone.woff2') format('woff2');
 }
+
+@font-face {
+    font-family: 'Font Awesome';
+    font-style: normal;
+    font-display: swap;
+    src: url('../fonts/fontawesome-webfont.woff') format('woff2');
+}

@@ -126,9 +126,10 @@
 /* Primary navigation */
 .header.block nav .primary-nav {
   display: flex;
+  height: 70px;
   flex-grow: 1;
-  padding-top: 10px;
   background-color: rgb(255 255 255 / 70%);
+  align-items: center;
 
   --icon-size: 18px;
 }
@@ -140,7 +141,6 @@
   list-style-type: none;
   padding: 0;
   max-width: 1080px;
-  margin: 10px auto 0;
   align-items: center;
   width: 100%;
   text-align: center;
@@ -155,7 +155,6 @@
   font-weight: 600;
   color: var(--clr-dark-gray);
   cursor: default;
-  padding-bottom: 0.65em;
 }
 
 .header.block nav .primary-nav.solid-nav {
@@ -621,5 +620,11 @@
 
   .header.block .mobile-nav {
     display: none;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .header.block nav .top-nav-left ul li {
+    flex-basis: 0;
   }
 }

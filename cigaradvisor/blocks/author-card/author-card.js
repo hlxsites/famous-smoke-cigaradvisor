@@ -40,7 +40,7 @@ export default async function decorate(block) {
         <div class="overlay-image">
           ${createOptimizedPicture(authorInfo[0].image).outerHTML}
           <div class="overlay-content">
-            <p class="align-center"><a href="${authorInfo[0].page}">${authorInfo[0].name}</a></p>
+            <p class="align-center"><a href="${authorInfo[0].path}">${authorInfo[0].name}</a></p>
           </div>
         </div>
       </div>`;

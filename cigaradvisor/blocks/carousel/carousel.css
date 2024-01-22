@@ -84,17 +84,17 @@
 }
 
 .carousel.block .carousel-arrow .next-icon::before {
-  content: '\f054';
+  content: '\f105';
   font-family: var(--ff-fontawesome);
   padding-left: 50%;
-  font-size: var(--body-font-size-xxl);
+  font-size: var(--body-font-size-xxxl);
 }
 
 .carousel.block .carousel-arrow .prev-icon::before {
-  content: '\f053';
+  content: '\f104';
   font-family: var(--ff-fontawesome);
   padding-left: 50%;
-  font-size: var(--body-font-size-xxl);
+  font-size: var(--body-font-size-xxxl);
 }
 
 .carousel.block .carousel-arrow.arrow-prev.disabled, .carousel.block .carousel-arrow.arrow-next.disabled {

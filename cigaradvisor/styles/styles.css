@@ -48,6 +48,7 @@
   --ff-opensans: 'Open Sans', 'Open Sans Fallback', sans-serif;
   --ff-montserrat: 'Montserrat', 'Montserrat Fallback', sans-serif;
   --ff-alfaslabone: 'Alfa Slab One', 'Alfa Slab One Fallback', cursive;
+  --ff-fontawesome: 'Font Awesome';
 
   /* heading sizes */
   --heading-font-size-xxs: 18px;
@@ -73,6 +74,7 @@
   --body-font-size-l: 18px;
   --body-font-size-xl: 20px;
   --body-font-size-xxl: 24px;
+  --body-font-size-xxxl: 40px;
 
   /* Line Heights */
   --line-height-xs: 1.15em;

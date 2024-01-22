@@ -24,6 +24,9 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
   articles:
     include:
       - /cigaradvisor/posts/**

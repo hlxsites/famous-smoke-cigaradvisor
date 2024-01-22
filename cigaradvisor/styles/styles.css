@@ -26,6 +26,7 @@
   --very-light-grey: #ddd;
   --vv-light-grey: #e0e0e0;
   --medium-grey: #888;
+  --neutral-grey: #eee;
   --grey: #333;
   --light-grey: #d3d3d3;
   --dark-grey: #3c3a3b;
@@ -447,15 +448,15 @@ main .button-container .button:hover {
     font-size: 45px;
   }
 
-  main .section {
+  main > .section {
     margin-bottom: 40px;
   }
 
-  main .section.background-grey {
+  main > .section.background-grey {
     background-color: var(--grey-background);
   }
 
-  main .section > .default-content-wrapper > h2 {
+  main > .section > .default-content-wrapper > h2 {
     font-size: 45px;
   }
 }

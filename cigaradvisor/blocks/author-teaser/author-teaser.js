@@ -1,23 +1,6 @@
 import { decorateExternalLink } from '../../scripts/scripts.js';
 import { decorateIcons } from '../../scripts/aem.js';
 
-/**
- * Loads an author.
- * @param {string} path The path to the author
- * @returns {HTMLElement} The root element of the author
- */
-async function loadAuthor(path) {
-  if (path && path.startsWith('/')) {
-    const resp = await fetch(`${path}.plain.html`);
-    if (resp.ok) {
-      const div = document.createElement('div');
-      div.innerHTML = await resp.text();
-      return div;
-    }
-  }
-  return null;
-}
-
 export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();

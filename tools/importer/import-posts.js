@@ -155,7 +155,7 @@ export default {
     // Create video block for vimeo
     article.querySelectorAll('iframe[data-src^="https://player.vimeo.com/video"]').forEach((iframe) => {
       const cells = [['video']];
-      cells.push(['url', iframe.getAttribute('data-src')]);
+      cells.push([iframe.getAttribute('data-src')]);
       const table = WebImporter.DOMUtils.createTable(cells, document);
       iframe.replaceWith(table);
     });

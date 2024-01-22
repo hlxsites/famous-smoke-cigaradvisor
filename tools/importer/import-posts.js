@@ -152,6 +152,13 @@ export default {
       picture.appendChild(a);
       h3.after(picture);
     });
+    // Create video block for vimeo
+    article.querySelectorAll('iframe[data-src^="https://player.vimeo.com/video"]').forEach((iframe) => {
+      const cells = [['video']];
+      cells.push(['url', iframe.getAttribute('data-src')]);
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      iframe.replaceWith(table);
+    });
 
     WebImporter.DOMUtils.remove(article, [
       'noscript',

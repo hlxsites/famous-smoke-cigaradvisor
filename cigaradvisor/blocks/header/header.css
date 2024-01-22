@@ -625,6 +625,6 @@
 
 @media screen and (min-width: 1200px) {
   .header.block nav .top-nav-left ul li {
-    flex-basis: 0;
+    flex: 0 1 auto;
   }
 }

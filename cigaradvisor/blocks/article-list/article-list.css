@@ -20,7 +20,7 @@
 }
 
 .article-list.block .pagination a {
-    border: .5px solid #8e7b5c;
+    border: .5px solid var(--tan);
     margin: auto 2px;
     font-size: 15px;
     min-width: 40px;
@@ -34,21 +34,21 @@
     padding: 6px 12px;
     line-height: 1.4286;
     text-decoration: none;
-    background-color: #fff;
+    background-color: var(--clr-white);
 
 }
 
 .article-list.block .pagination a:hover {
-    background-color: #8e7b5c;
-    border-color: #8e7b5c;
-    color: #fff;
+    background-color: var(--tan);
+    border-color: var(--tan);
+    color: var(--clr-white);
 }
 
 .article-list.block .pagination .gap:hover {
-    background-color: #eee;
+    background-color: var(--neutral-grey);
 }
 
 .article-list.block .pagination a.active {
-    background-color: #8e7b5c;
-    color: #fff;
+    background-color: var(--tan);
+    color: var(--clr-white);;
 }

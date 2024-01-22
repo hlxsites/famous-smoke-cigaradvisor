@@ -8,6 +8,7 @@ import { decorateExternalLink } from '../../scripts/scripts.js';
  * @returns {Promise<void>} - A promise that resolves once the decoration is complete.
  */
 export default async function decorate(block) {
+  block.innerHTML = '';
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/cigaradvisor/nav';
@@ -57,7 +58,7 @@ export default async function decorate(block) {
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
-  mobileLogo.setAttribute('href', '/cigaradvisor');
+  mobileLogo.setAttribute('href', '/cigaradvisor/');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
   mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);

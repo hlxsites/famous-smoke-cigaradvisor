@@ -11,6 +11,7 @@ main .hero-container > div {
 /** Hero Stuff **/
 main .hero.block {
   position: relative;
+  margin-bottom: 40px;
 }
 
 main .hero.block.under-nav {

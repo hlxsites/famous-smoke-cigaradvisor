@@ -32,18 +32,16 @@ export default async function decorate(block) {
   const topNavContent = document.createElement('div');
   topNavContent.className = 'top-nav-content';
   const topNavLeft = fragment.children[0];
-
-  const mobileTopNavContent = topNavLeft.cloneNode(true);
-
-  mobileTopNavContent.querySelectorAll('li').forEach((li) => {
-    const link = li.querySelector('a').getAttribute('href');
-    li.querySelector('a').remove();
-    const a = document.createElement('a');
-    a.setAttribute('href', link);
-    a.innerHTML = li.innerHTML;
-    li.innerHTML = '';
-    li.append(a);
+  topNavLeft.querySelectorAll('li a').forEach((a) => {
+    a.childNodes.forEach((n) => {
+      if (n.nodeType === Node.TEXT_NODE) {
+        const p = document.createElement('p');
+        p.textContent = n.textContent;
+        n.replaceWith(p);
+      }
+    });
   });
+  const mobileTopNavContent = topNavLeft.cloneNode(true);
 
   mobileTopNavContent.class = 'mobile-top-nav-content';
   mobileTopNav.append(mobileTopNavContent);
@@ -74,7 +72,7 @@ export default async function decorate(block) {
   topNavLeft.classList.add('top-nav-left');
   topNavContent.append(topNavLeft);
   const brand = document.createElement('div');
-  brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
+  brand.innerHTML = `<a href="/cigaradvisor/" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
   <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
   </a>`;
   brand.className = 'brand-logo';

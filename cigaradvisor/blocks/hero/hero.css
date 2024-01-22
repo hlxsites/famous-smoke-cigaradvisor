@@ -2,6 +2,7 @@
 
 main .hero-container {
   padding: 0;
+  margin-bottom: 0;
 }
 
 main .hero-container > div {
@@ -11,7 +12,6 @@ main .hero-container > div {
 /** Hero Stuff **/
 main .hero.block {
   position: relative;
-  margin-bottom: 40px;
 }
 
 main .hero.block.under-nav {
@@ -43,10 +43,6 @@ main .hero.block .hero-image img {
   width: 100%;
 }
 
-main .hero.block.search .hero-content {
-  padding-top: 80px;
-}
-
 main .hero.block:not(.search) {
   display: flex;
   min-height: 150px;
@@ -57,7 +53,8 @@ main .hero.block:not(.search) {
 main .hero.block h1 {
   color: var(--clr-white);
   text-align: center;
-  line-height: 1;
+  line-height: var(--line-height-xs);
+  letter-spacing: 3px;
   text-shadow: 3px 3px var(--clr-black);
 }
 
@@ -108,13 +105,17 @@ main .hero.block .hero-search form button {
 }
 
 @media screen and (min-width: 900px) {
-  main .hero.block.under-nav {
-    margin-top: -70px;
+   body.under-nav .hero.block .hero-content {
+    padding-top: 250px;
+    padding-bottom: 100px;
   }
 
-  main .hero.block .hero-content {
-    padding-top: 200px;
-    padding-bottom: 100px;
+  body.under-nav main .hero.block:not(.search) {
+    min-height: 500px;
+  }
+
+  body.under-nav main .hero.block:not(.search) .hero-content {
+    padding: 0;
   }
 
   main .hero.block .hero-search form {

@@ -442,6 +442,10 @@ main .button-container .button:hover {
     background-color: transparent;
   }
 
+  body.under-nav main {
+    margin-top: calc(var(--nav-height) * -1);
+  }
+
   h1 {
     font-size: 45px;
   }

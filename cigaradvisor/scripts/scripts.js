@@ -210,6 +210,12 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData = '';
+/**
+ * Fetches posts information based on the provided filter value and filter parameter.
+ * @param {string} filterValue - The value to filter the posts by.
+ * @param {string} [filterParam='path'] - The parameter to filter the posts by (default is 'path').
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of filtered post data.
+ */
 export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
@@ -226,6 +232,12 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
 }
 
 let authorIndexData = '';
+/**
+ * Fetches author information based on the provided author link.
+ * @param {string} authorLink - The link to the author's page.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of
+ * author information objects.
+ */
 export async function fetchAuthorInfo(authorLink) {
   const filter = getRelativePath(authorLink);
   if (!authorIndexData) {
@@ -240,6 +252,12 @@ export async function fetchAuthorInfo(authorLink) {
 }
 
 let categoryIndexData = '';
+/**
+ * Fetches category information based on the provided category link.
+ * @param {string} categoryLink - The link to the category.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of
+ * category objects matching the provided link.
+ */
 export async function fetchCategoryInfo(categoryLink) {
   const filter = getRelativePath(categoryLink);
   if (!categoryIndexData) {

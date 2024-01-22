@@ -50,7 +50,6 @@ export default async function decorate(block) {
   mobilePrimaryNav.className = 'mobile-primary-nav';
   const hamburger = document.createElement('a');
   hamburger.classList.add('nav-hamburger');
-  hamburger.setAttribute('href', '#');
   hamburger.setAttribute('title', 'Toggle navigation');
   hamburger.innerHTML = '<span class="icon icon-bars"></span>';
   mobilePrimaryNav.append(hamburger);
@@ -106,7 +105,6 @@ export default async function decorate(block) {
     let mobileLi;
     if (li.querySelector('ul')) {
       const a = document.createElement('a');
-      a.setAttribute('href', '#');
       const secondaryNavBox = document.createElement('div');
       const text = li.childNodes[0].textContent;
       a.innerHTML = `<span> ${text} </span>`;

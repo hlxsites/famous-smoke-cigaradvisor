@@ -1,6 +1,8 @@
-import { readBlockConfig } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
+
+await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
 
 // Function to create ellipsis
 function createEllipsis() {
@@ -121,13 +123,13 @@ export default async function decorate(block) {
       current.append(articletTeaserWrapper);
       if (categoryInfo) {
         authorInfo = await fetchAuthorInfo(article.author);
-        [article.author] = authorInfo;
-        [article.category] = categoryInfo;
+        article.author = authorInfo;
+        article.category = categoryInfo;
         buildArticleTeaser(articleTeaser, article);
       } else if (authorInfo) {
         categoryInfo = await fetchCategoryInfo(article.category);
-        [article.author] = authorInfo;
-        [article.category] = categoryInfo;
+        article.author = authorInfo;
+        article.category = categoryInfo;
         buildArticleTeaser(articleTeaser, article);
       }
     });

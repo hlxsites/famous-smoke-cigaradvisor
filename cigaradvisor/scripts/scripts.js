@@ -248,7 +248,7 @@ export async function fetchAuthorInfo(authorLink) {
     }
     authorIndexData = jsonData.data;
   }
-  return authorIndexData.filter((obj) => obj.path === filter);
+  return authorIndexData.find((obj) => obj.path === filter);
 }
 
 let categoryIndexData = '';
@@ -268,7 +268,7 @@ export async function fetchCategoryInfo(categoryLink) {
     }
     categoryIndexData = jsonData.data;
   }
-  return categoryIndexData.filter((obj) => obj.path === filter);
+  return categoryIndexData.find((obj) => obj.path === filter);
 }
 
 /**

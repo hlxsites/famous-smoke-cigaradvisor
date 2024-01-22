@@ -35,12 +35,12 @@ export default async function decorate(block) {
   authorWrapperSection.innerHTML = '';
   const authorPromises = [...authors].map(async (authorPage) => {
     const authorInfo = await fetchAuthorInfo(authorPage);
-    if (authorInfo[0]) {
+    if (authorInfo) {
       return `<div class="author-content">
         <div class="overlay-image">
-          ${createOptimizedPicture(authorInfo[0].image).outerHTML}
+          ${createOptimizedPicture(authorInfo.image).outerHTML}
           <div class="overlay-content">
-            <p class="align-center"><a href="${authorInfo[0].path}">${authorInfo[0].name}</a></p>
+            <p class="align-center"><a href="${authorInfo.path}">${authorInfo.name}</a></p>
           </div>
         </div>
       </div>`;

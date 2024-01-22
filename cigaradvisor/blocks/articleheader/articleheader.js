@@ -10,10 +10,10 @@ export default async function decorate(block) {
   articleInfo.classList.add('article-info');
   const categoryLink = block.querySelector('p.category').innerText;
   const category = await fetchCategoryInfo(categoryLink);
-  if (category[0]) {
+  if (category) {
     const categoryLinkEl = document.createElement('div');
     categoryLinkEl.classList.add('article-category');
-    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category[0].title}</a>`;
+    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category.title}</a>`;
     articleInfo.append(categoryLinkEl);
   }
   articleInfo.append(block.querySelector('h1'));
@@ -21,8 +21,8 @@ export default async function decorate(block) {
   const author = await fetchAuthorInfo(authorLink);
   const authorLinkEl = document.createElement('div');
   authorLinkEl.classList.add('article-author');
-  if (author[0]) {
-    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author[0].title}</a>`;
+  if (author) {
+    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.title}</a>`;
     articleInfo.append(authorLinkEl);
   }
   const publishedDate = block.querySelector('p.published-date').innerText;

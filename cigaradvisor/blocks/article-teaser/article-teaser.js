@@ -16,9 +16,10 @@ function formatDate(originalDateString) {
 // eslint-disable-next-line max-len
 export function buildArticleTeaser(parentElement, article) {
   const [formattedDate, datetimeAttr] = formatDate(article.published).split('|');
+  const category = (article.category && article.category.heading) ? article.category.heading : '';
   parentElement.innerHTML += `
         <article class="article article-thumbnail">
-          <a class="article-category" href="${article.category ? article.category.path : ''}" data-category="${(article.category && article.category.title) ? article.category.title : ''}" title="${(article.category && article.category.title) ? article.category.title : ''}">${(article.category && article.category.title) ? article.category.title : ''}</a>
+          <a class="article-category ${category.toLowerCase().replaceAll(/\s+/g, '-')}" href="${article.category ? article.category.path : ''}" data-category="${category}" title="${category}">${category}</a>
           <div class="article-image">
           ${createOptimizedPicture(article.image).outerHTML}
           </div>

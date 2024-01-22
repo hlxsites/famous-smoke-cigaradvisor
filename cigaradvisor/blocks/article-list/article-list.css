@@ -1,1 +1,52 @@
-/** Dummy File for now **/
+.article-list.block .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+
+}
+
+.article-list.block .pagination {
+    display: flex;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.article-list.block .pagination li {
+    display: inline;
+}
+
+.article-list.block .pagination a {
+    border: .5px solid var(--tan);
+    margin: auto 2px;
+    font-size: var(--body-font-size-s);
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    font-weight: var(--font-weight-normal);
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: var(--line-height-m);
+    text-decoration: none;
+    background-color: var(--clr-white);
+
+}
+
+.article-list.block .pagination a:hover {
+    background-color: var(--tan);
+    border-color: var(--tan);
+    color: var(--clr-white);
+}
+
+.article-list.block .pagination .gap:hover {
+    background-color: var(--neutral-grey);
+}
+
+.article-list.block .pagination a.active {
+    background-color: var(--tan);
+    color: var(--clr-white);;
+}

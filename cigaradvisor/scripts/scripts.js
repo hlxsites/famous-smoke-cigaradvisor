@@ -15,6 +15,12 @@ import {
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
+// const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+// const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+
+const DEFAULT_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/drafts/Kailas/query-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -203,57 +209,66 @@ export function getRelativePath(path) {
   return relPath;
 }
 
-let indexData = '';
-let authorIndexData = '';
 let articleIndexData = '';
 /**
- * Fetches data from a specified URL and returns the filtered
- * data based on the provided filter path.
- * @param {string} filterPath - The path used to filter the data.
- * @param {string} [fetchUrl='/query-index.json'] - The URL to fetch the data
- *  from. Defaults to '/query-index.json'.
- * @returns {Promise<Object>} - A promise that resolves to the filtered data object.
+ * Fetches posts information based on the provided filter value and filter parameter.
+ * @param {string} filterValue - The value to filter the posts by.
+ * @param {string} [filterParam='path'] - The parameter to filter the posts by (default is 'path').
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of filtered post data.
  */
-export async function fetchData(filterPath, fetchUrl = '/query-index.json') {
-  let responeData = '';
-  if (fetchUrl === '/query-index.json') {
-    if (!indexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      indexData = jsonData.data;
+export async function fetchPostsInfo(filterValue, filterParam = 'path') {
+  let filter = filterValue;
+  filter = getRelativePath(filterValue);
+  if (!articleIndexData) {
+    const resp = await fetch(ARTICLE_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
     }
-    responeData = indexData;
+    articleIndexData = jsonData.data;
   }
-  if (fetchUrl === '/cigaradvisor/posts/query-index.json') {
-    if (!articleIndexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      articleIndexData = jsonData.data;
-    }
-    responeData = articleIndexData;
-  }
-  if (fetchUrl === '/cigaradvisor/author/query-index.json') {
-    if (!authorIndexData) {
-      const resp = await fetch(fetchUrl);
-      let jsonData = '';
-      if (resp.ok) {
-        jsonData = await resp.json();
-      }
-      authorIndexData = jsonData.data;
-    }
-    responeData = authorIndexData;
-  }
-  let filteredData = '';
-  if (responeData) {
-    filteredData = responeData.find((obj) => obj.path === filterPath);
-  }
+  const filteredData = articleIndexData.filter((obj) => obj[filterParam] === filter);
   return filteredData;
+}
+
+let authorIndexData = '';
+/**
+ * Fetches author information based on the provided author link.
+ * @param {string} authorLink - The link to the author's page.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of
+ * author information objects.
+ */
+export async function fetchAuthorInfo(authorLink) {
+  const filter = getRelativePath(authorLink);
+  if (!authorIndexData) {
+    const resp = await fetch(AUTHOR_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    authorIndexData = jsonData.data;
+  }
+  return authorIndexData.find((obj) => obj.path === filter);
+}
+
+let categoryIndexData = '';
+/**
+ * Fetches category information based on the provided category link.
+ * @param {string} categoryLink - The link to the category.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of
+ * category objects matching the provided link.
+ */
+export async function fetchCategoryInfo(categoryLink) {
+  const filter = getRelativePath(categoryLink);
+  if (!categoryIndexData) {
+    const resp = await fetch(DEFAULT_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    categoryIndexData = jsonData.data;
+  }
+  return categoryIndexData.find((obj) => obj.path === filter);
 }
 
 /**

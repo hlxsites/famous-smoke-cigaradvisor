@@ -1,5 +1,5 @@
 import { readBlockConfig, createOptimizedPicture } from '../../scripts/aem.js';
-import { isExternal, fetchData, getRelativePath } from '../../scripts/scripts.js';
+import { isExternal, fetchAuthorInfo } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
@@ -34,13 +34,13 @@ export default async function decorate(block) {
   authorWrapperSection.classList.add('author-wrapper');
   authorWrapperSection.innerHTML = '';
   const authorPromises = [...authors].map(async (authorPage) => {
-    const authorInfo = await fetchData(getRelativePath(authorPage), '/cigaradvisor/author/query-index.json');
+    const authorInfo = await fetchAuthorInfo(authorPage);
     if (authorInfo) {
       return `<div class="author-content">
         <div class="overlay-image">
           ${createOptimizedPicture(authorInfo.image).outerHTML}
           <div class="overlay-content">
-            <p class="align-center"><a href="${authorInfo.page}">${authorInfo.name}</a></p>
+            <p class="align-center"><a href="${authorInfo.path}">${authorInfo.name}</a></p>
           </div>
         </div>
       </div>`;

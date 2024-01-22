@@ -2,8 +2,6 @@ import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 
-await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
-
 // Function to create ellipsis
 function createEllipsis() {
   const listItem = document.createElement('li');
@@ -76,6 +74,7 @@ function generatePagination(currentPage, totalPages) {
 }
 
 export default async function decorate(block) {
+  await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   const configs = readBlockConfig(block);
   const { category } = configs;
   const { author } = configs;

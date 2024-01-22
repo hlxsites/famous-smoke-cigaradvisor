@@ -1,82 +1,62 @@
-import { decorateExternalLink } from '../../scripts/scripts.js';
-import { decorateIcons } from '../../scripts/aem.js';
+import { decorateExternalLink, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { decorateIcons, createOptimizedPicture } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();
   block.innerHTML = '';
-  const author = await loadAuthor(path);
-  decorateExternalLink(author);
+  const author = await fetchAuthorInfo(path);
   if (author) {
     // add updated link to all author articles
     const imageWrapper = document.createElement('div');
     imageWrapper.classList.add('image-wrapper');
-    const picture = author.querySelector('picture');
-    imageWrapper.append(picture);
-    const authorName = author.querySelector('h2').innerHTML;
+    imageWrapper.append(createOptimizedPicture(author.image));
     const authorDetails = document.createElement('div');
     authorDetails.classList.add('author-details');
     const authorHeadingWrapper = document.createElement('div');
     authorHeadingWrapper.classList.add('author-heading-wrapper');
     const authorHeading = document.createElement('div');
     authorHeading.classList.add('author-heading');
-    if (author.querySelector('h2')) {
-      authorHeading.append(author.querySelector('h2'));
-    }
-    if (author.querySelector('h3')) {
-      authorHeading.append(author.querySelector('h3'));
-    }
+    authorHeading.append(author.name);
+    authorHeading.append(author.title);
     authorHeadingWrapper.append(authorHeading);
     authorDetails.append(authorHeadingWrapper);
-    const authorP = author.querySelectorAll('p');
-    const authorPCount = authorP.length;
-    const authorPIndex = authorPCount - 1;
-    const authorPContent = authorP[authorPIndex];
-    if (authorPContent) {
-      authorDetails.append(authorPContent);
+    const authorDescription = document.createElement('p');
+    authorDescription.append(author.description);
+    authorDetails.append(authorDescription);
+    const socialLinks = document.createElement('ul');
+    if (author.twitter) {
+      const twitterLink = document.createElement('li');
+      twitterLink.innerHTML = `<a href="https://twitter.com/${author.twitter}" target="_blank" rel="noopener noreferrer"><span class="icon icon-x-twitter"></span></a>`;
+      socialLinks.append(twitterLink);
     }
-    const socialLinks = author.querySelector('ul');
-    if (socialLinks) {
-      const socialItems = socialLinks.querySelectorAll('li > a');
-      socialItems.forEach((item) => {
-        const innerText = item.innerText.trim();
-        if (innerText && innerText !== '') {
-          let icon;
-          switch (innerText) {
-            case 'twitter':
-              icon = 'twitter';
-              break;
-            case 'facebook':
-              icon = 'facebook-f';
-              break;
-            case 'instagram':
-              icon = 'instagram';
-              break;
-            case 'youtube':
-              icon = 'youtube';
-              break;
-            case 'pintrest':
-              icon = 'pintrest-p';
-              break;
-            default:
-              icon = 'unknown';
-          }
-          item.innerHTML = `<span class="icon icon-${icon}"></span>`;
-        }
-      });
-
-      decorateIcons(socialLinks);
-      authorDetails.append(socialLinks);
-    } else {
-      const emptySocialLinks = document.createElement('ul');
-      authorDetails.append(emptySocialLinks);
+    if (author.facebook) {
+      const facebookLink = document.createElement('li');
+      facebookLink.innerHTML = `<a href="https://facebook.com/${author.facebook}" target="_blank" rel="noopener noreferrer"><span class="icon icon-facebook-f"></span></a>`;
+      socialLinks.append(facebookLink);
     }
-    if (authorName) {
-      link.textContent = `Show all ${authorName}'s Articles`;
+    if (author.instagram) {
+      const instagramLink = document.createElement('li');
+      instagramLink.innerHTML = `<a href="https://instagram.com/${author.instagram}" target="_blank" rel="noopener noreferrer"><span class="icon icon-instagram"></span></a>`;
+      socialLinks.append(instagramLink);
+    }
+    if (author.youtube) {
+      const youtubeLink = document.createElement('li');
+      youtubeLink.innerHTML = `<a href="https://youtube.com/${author.youtube}" target="_blank" rel="noopener noreferrer"><span class="icon icon-youtube"></span></a>`;
+      socialLinks.append(youtubeLink);
+    }
+    if (author.pintrest) {
+      const pintrestLink = document.createElement('li');
+      pintrestLink.innerHTML = `<a href="https://pintrest.com/${author.pintrest}" target="_blank" rel="noopener noreferrer"><span class="icon icon-pintrest-p"></span></a>`;
+      socialLinks.append(pintrestLink);
+    }
+    decorateIcons(socialLinks);
+    authorDetails.append(socialLinks);
+    if (author.name) {
+      link.textContent = `Show all ${author.name}'s Articles`;
       authorDetails.append(link);
     }
-    author.replaceChildren(imageWrapper);
-    author.append(authorDetails);
-    block.append(author);
+    block.replaceChildren(imageWrapper);
+    block.append(authorDetails);
   }
 }

@@ -1,4 +1,4 @@
-import { decorateExternalLink, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { fetchAuthorInfo } from '../../scripts/scripts.js';
 import { decorateIcons, createOptimizedPicture } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
@@ -17,12 +17,11 @@ export default async function decorate(block) {
     authorHeadingWrapper.classList.add('author-heading-wrapper');
     const authorHeading = document.createElement('div');
     authorHeading.classList.add('author-heading');
-    authorHeading.append(author.name);
-    authorHeading.append(author.title);
+    authorHeading.innerHTML = `<h2 class="author-name">${author.name}</h2><h3 class="author-title">${author.title}</h3>`;
     authorHeadingWrapper.append(authorHeading);
     authorDetails.append(authorHeadingWrapper);
     const authorDescription = document.createElement('p');
-    authorDescription.append(author.description);
+    authorDescription.append(author.intro);
     authorDetails.append(authorDescription);
     const socialLinks = document.createElement('ul');
     if (author.twitter) {

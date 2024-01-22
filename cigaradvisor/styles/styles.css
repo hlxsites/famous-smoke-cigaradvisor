@@ -469,7 +469,8 @@ main .button-container .button:hover {
   }
 
   a, p {
-    font-size: 14px;
+    font-size: var(--body-font-size-m);
+    line-height: var(--line-height-m);
   }
 
   .default-content-wrapper {

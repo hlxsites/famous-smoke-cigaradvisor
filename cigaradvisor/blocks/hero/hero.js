@@ -21,7 +21,9 @@ function buildSearch() {
 export default async function decorate(block) {
   const style = getMetadata('hero-style');
   if (style) {
-    block.classList.add(style.toLowerCase());
+    style.split(',').filter((s) => s.trim()).map((s) => s.trim()).forEach((s) => {
+      block.classList.add(s.toLowerCase());
+    });
   }
   const image = document.createElement('div');
   image.classList.add('hero-image');
@@ -35,7 +37,7 @@ export default async function decorate(block) {
     content.append(header);
   }
   if (block.classList.contains('search')) {
-    buildSearch();
+    content.append(buildSearch());
   }
   block.replaceChildren(image, content);
 }

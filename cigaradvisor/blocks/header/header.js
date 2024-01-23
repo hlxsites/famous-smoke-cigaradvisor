@@ -8,6 +8,7 @@ import { decorateExternalLink } from '../../scripts/scripts.js';
  * @returns {Promise<void>} - A promise that resolves once the decoration is complete.
  */
 export default async function decorate(block) {
+  block.innerHTML = '';
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta).pathname : '/cigaradvisor/nav';
@@ -31,18 +32,16 @@ export default async function decorate(block) {
   const topNavContent = document.createElement('div');
   topNavContent.className = 'top-nav-content';
   const topNavLeft = fragment.children[0];
-
-  const mobileTopNavContent = topNavLeft.cloneNode(true);
-
-  mobileTopNavContent.querySelectorAll('li').forEach((li) => {
-    const link = li.querySelector('a').getAttribute('href');
-    li.querySelector('a').remove();
-    const a = document.createElement('a');
-    a.setAttribute('href', link);
-    a.innerHTML = li.innerHTML;
-    li.innerHTML = '';
-    li.append(a);
+  topNavLeft.querySelectorAll('li a').forEach((a) => {
+    a.childNodes.forEach((n) => {
+      if (n.nodeType === Node.TEXT_NODE) {
+        const p = document.createElement('p');
+        p.textContent = n.textContent;
+        n.replaceWith(p);
+      }
+    });
   });
+  const mobileTopNavContent = topNavLeft.cloneNode(true);
 
   mobileTopNavContent.class = 'mobile-top-nav-content';
   mobileTopNav.append(mobileTopNavContent);
@@ -51,13 +50,12 @@ export default async function decorate(block) {
   mobilePrimaryNav.className = 'mobile-primary-nav';
   const hamburger = document.createElement('a');
   hamburger.classList.add('nav-hamburger');
-  hamburger.setAttribute('href', '#');
   hamburger.setAttribute('title', 'Toggle navigation');
   hamburger.innerHTML = '<span class="icon icon-bars"></span>';
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
-  mobileLogo.setAttribute('href', '/cigaradvisor');
+  mobileLogo.setAttribute('href', '/cigaradvisor/');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
   mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
@@ -73,7 +71,7 @@ export default async function decorate(block) {
   topNavLeft.classList.add('top-nav-left');
   topNavContent.append(topNavLeft);
   const brand = document.createElement('div');
-  brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
+  brand.innerHTML = `<a href="/cigaradvisor/" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
   <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
   </a>`;
   brand.className = 'brand-logo';
@@ -107,7 +105,6 @@ export default async function decorate(block) {
     let mobileLi;
     if (li.querySelector('ul')) {
       const a = document.createElement('a');
-      a.setAttribute('href', '#');
       const secondaryNavBox = document.createElement('div');
       const text = li.childNodes[0].textContent;
       a.innerHTML = `<span> ${text} </span>`;

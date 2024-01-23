@@ -2,6 +2,7 @@
 
 main .hero-container {
   padding: 0;
+  margin-bottom: 0;
 }
 
 main .hero-container > div {
@@ -9,15 +10,12 @@ main .hero-container > div {
 }
 
 /** Hero Stuff **/
-main .hero.block {
+.hero.block {
   position: relative;
 }
 
-main .hero.block.under-nav {
-  margin-top: -43px;
-}
 
-main .hero.block .hero-image {
+.hero.block .hero-image {
   z-index: -9999;
   display: block;
   position: absolute;
@@ -28,46 +26,47 @@ main .hero.block .hero-image {
   overflow: clip;
 }
 
-main .hero.block .hero-image picture {
+.hero.block .hero-image picture {
   display: block;
   height: 100%;
   width: 100%;
   position: relative;
 }
 
-main .hero.block .hero-image img {
+.hero.block .hero-image img {
   object-position: center center;
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
 
-main .hero.block.search .hero-content {
-  padding-top: 80px;
-}
-
-main .hero.block:not(.search) {
+.hero.block:not(.search) {
   display: flex;
   min-height: 150px;
   align-items: center;
   justify-content: center;
 }
 
-main .hero.block h1 {
+.hero.block .hero-content {
+  padding: 40px 0;
+}
+
+.hero.block h1 {
   color: var(--clr-white);
   text-align: center;
-  line-height: 1;
+  line-height: var(--line-height-xs);
+  letter-spacing: 3px;
   text-shadow: 3px 3px var(--clr-black);
 }
 
 /* hero search */
-main .hero.block .hero-search {
+.hero.block .hero-search {
   display: flex;
   justify-content: center;
   margin: 30px auto 0;
 }
 
-main .hero.block .hero-search form {
+.hero.block .hero-search form {
   display: flex;
   width: 70%;
   border-bottom: 4px solid var(--clr-dark-gray);
@@ -75,7 +74,7 @@ main .hero.block .hero-search form {
 }
 
 /* set form input placeholder text color color: var(--clr-dark-gray); */
-main .hero.block .hero-search form input {
+.hero.block .hero-search form input {
   flex: 1;
   padding-left: 18px;
   height: 45px;
@@ -88,17 +87,17 @@ main .hero.block .hero-search form input {
   background-color: transparent;
 }
 
-main .hero.block .hero-search form input::placeholder {
+.hero.block .hero-search form input::placeholder {
   color: var(--clr-dark-gray);
 }
 
-main .hero.block .hero-search form input:focus {
+.hero.block .hero-search form input:focus {
   border: none;
   transition: background-color 1s;
   background-color: var(--light-grey);
 }
 
-main .hero.block .hero-search form button {
+.hero.block .hero-search form button {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -107,16 +106,20 @@ main .hero.block .hero-search form button {
 }
 
 @media screen and (min-width: 900px) {
-  main .hero.block.under-nav {
-    margin-top: -70px;
-  }
-
-  main .hero.block .hero-content {
-    padding-top: 200px;
+   body.under-nav .hero.block .hero-content {
+    padding-top: 250px;
     padding-bottom: 100px;
   }
 
-  main .hero.block .hero-search form {
+  body.under-nav .hero.block:not(.search) {
+    min-height: 500px;
+  }
+
+  body.under-nav .hero.block:not(.search) .hero-content {
+    padding: 0;
+  }
+
+  .hero.block .hero-search form {
     width: 30%;
   }
 }

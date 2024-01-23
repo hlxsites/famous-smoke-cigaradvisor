@@ -10,58 +10,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="og:title" content="Page not found">
   <script src="/cigaradvisor/scripts/scripts.js" type="module" crossorigin="use-credentials"></script>
+  <link rel="stylesheet" href="/cigaradvisor/styles/styles.css">
   <script type="module">
     import { sampleRUM } from '/cigaradvisor/scripts/aem.js';
-    import { loadFragment } from '/cigaradvisor/blocks/fragment/fragment.js';
-
     window.addEventListener('load', async() => {
-      if (document.referrer) {
-        const { origin, pathname } = new URL(document.referrer);
-        if (origin === window.location.origin) {
-          const backBtn = document.createElement('a');
-          backBtn.classList.add('button', 'error-button-back');
-          backBtn.href = pathname;
-          backBtn.textContent = 'Go back';
-          backBtn.title = 'Go back';
-          const btnContainer = document.querySelector('.button-container');
-          btnContainer.append(backBtn);
-        }
-      }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
-      const main = document.querySelector('main');
-      main.replaceWith(await loadFragment('/cigaradvisor/fragments/404'));
     });
   </script>
-  <link rel="stylesheet" href="/cigaradvisor/styles/styles.css">
-  <style>
-    main.error {
-      min-height: calc(100vh - var(--nav-height));
-      display: flex;
-      align-items: center;
-    }
-
-    main.error .error-number {
-      width: 100%;
-    }
-
-    main.error .error-number text {
-      font-family: var(--fixed-font-family);
-    }
-  </style>
-  <link rel="stylesheet" href="/cigaradvisor/styles/lazy-styles.css">
 </head>
 
-<body>
+<body class="under-nav">
   <header></header>
   <main class="error">
-    <div class="section">
-      <svg viewBox="1 0 38 18" class="error-number">
-        <text x="0" y="17">404</text>
-      </svg>
-      <h2 class="error-message">Page Not Found</h2>
-      <p class="button-container">
-        <a href="/" class="button secondary error-button-home">Go home</a>
-      </p>
+    <div>
+      <div class="fragment">
+        <div>path</div>
+        <div>
+          <a href="/cigaradvisor/fragments/404"></a>
+        </div>
+      </div>
     </div>
   </main>
   <footer></footer>

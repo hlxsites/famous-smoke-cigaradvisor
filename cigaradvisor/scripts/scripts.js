@@ -57,51 +57,36 @@ async function decorateTemplate(main) {
   }
   const name = template.replace('-template', '');
   try {
-    const tpl = await import(`${window.hlx.codeBasePath}/scripts/templates/${name}.js`);
-    if (tpl.default) {
-      await tpl.default(main);
-    }
+    const cssLoaded = loadCSS(`${window.hlx.codeBasePath}/styles/templates/${name}.css`);
+    const decorationComplete = new Promise((resolve) => {
+      (async () => {
+        try {
+          const tpl = await import(`${window.hlx.codeBasePath}/scripts/templates/${name}.js`);
+          if (tpl.default) {
+            await tpl.default(main);
+          }
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(`failed to load template script for ${name}`, error);
+        }
+        resolve();
+      })();
+    });
+    await Promise.all([cssLoaded, decorationComplete]);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(`failed to load template script for ${name}`, error);
+    console.log(`failed to load template ${name}`, error);
   }
-}
-
-/**
- * Builds three column grid.
- * @param {Element} main The container element
- */
-function buildThreeColumnGrid(main) {
-  main.querySelectorAll(':scope > .section[data-layout="3-column"]').forEach((section) => {
-    const leftDiv = document.createElement('div');
-    leftDiv.classList.add('left-grid');
-    const centerDiv = document.createElement('div');
-    centerDiv.classList.add('center-grid');
-    const rightDiv = document.createElement('div');
-    rightDiv.classList.add('right-grid');
-    let current = leftDiv;
-    [...section.children].forEach((child) => {
-      if (child.classList.contains('separator-wrapper')) {
-        if (current === centerDiv) {
-          current = rightDiv;
-        } else {
-          current = centerDiv;
-        }
-        child.remove();
-        return;
-      }
-      current.append(child);
-    });
-    section.append(leftDiv, centerDiv, rightDiv);
-  });
 }
 
 /**
  * Builds two column grid.
  * @param {Element} main The container element
  */
-function buildTwoColumnGrid(main) {
-  main.querySelectorAll(':scope > .section[data-layout="50/50"]').forEach((section) => {
+function buildLayoutContainer(main) {
+  main.querySelectorAll(':scope > .section[data-layout]').forEach((section) => {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('layout-wrapper');
     const leftDiv = document.createElement('div');
     leftDiv.classList.add('left-grid');
     const rightDiv = document.createElement('div');
@@ -115,7 +100,8 @@ function buildTwoColumnGrid(main) {
       }
       current.append(child);
     });
-    section.append(leftDiv, rightDiv);
+    wrapper.append(leftDiv, rightDiv);
+    section.append(wrapper);
   });
 }
 
@@ -157,8 +143,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  buildTwoColumnGrid(main);
-  buildThreeColumnGrid(main);
+  buildLayoutContainer(main);
 }
 
 /**
@@ -206,7 +191,7 @@ export function getRelativePath(path) {
   return relPath;
 }
 
-let articleIndexData = '';
+let articleIndexData;
 /**
  * Fetches posts information based on the provided filter value and filter parameter.
  * @param {string} filterValue - The value to filter the posts by.
@@ -224,11 +209,10 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
     }
     articleIndexData = jsonData.data;
   }
-  const filteredData = articleIndexData.filter((obj) => obj[filterParam] === filter);
-  return filteredData;
+  return articleIndexData.find((obj) => obj[filterParam] === filter);
 }
 
-let authorIndexData = '';
+let authorIndexData;
 /**
  * Retrieves all authors from the server.
  * @returns {Promise<Array>} A promise that resolves to an array of author data.
@@ -265,7 +249,7 @@ export async function fetchAuthorInfo(authorLink) {
   return authorIndexData.find((obj) => obj.path === filter);
 }
 
-let categoryIndexData = '';
+let categoryIndexData;
 /**
  * Fetches category information based on the provided category link.
  * @param {string} categoryLink - The link to the category.

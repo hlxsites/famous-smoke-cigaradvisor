@@ -1,13 +1,16 @@
 /** Override global settings **/
 
-main .hero-container {
+main .section.hero-container {
   padding: 0;
   margin-bottom: 0;
 }
 
-main .hero-container > div {
+main .section.hero-container > div {
+  margin: 0;
+  padding: 0;
   max-width: unset;
 }
+
 
 /** Hero Stuff **/
 .hero.block {
@@ -48,7 +51,7 @@ main .hero-container > div {
 }
 
 .hero.block .hero-content {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 
 .hero.block h1 {
@@ -112,7 +115,7 @@ main .hero-container > div {
   }
 
   body.under-nav .hero.block:not(.search) {
-    min-height: 500px;
+    min-height: 450px;
   }
 
   body.under-nav .hero.block:not(.search) .hero-content {

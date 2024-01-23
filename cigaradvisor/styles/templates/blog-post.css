@@ -1,0 +1,68 @@
+
+body.blog-post-template main main .default-content-wrapper {
+  padding: 0 15px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1080px;
+  text-align: justify;
+}
+
+body.blog-post-template main .default-content-wrapper p {
+  font-size: var(--body-font-size-l);
+  line-height: var(--line-height-l);
+  font-family: var(--ff-opensans);
+  color: var(--clr-dark-gray);
+  cursor: default;
+}
+
+body.blog-post-template main .default-content-wrapper a {
+  font-size: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  color: var(--subdued-gold);
+}
+
+body.blog-post-template main .default-content-wrapper .article-image-wrapper {
+  width: 1000px;
+  padding: 20px;
+  max-width: 100%;
+  clear: both;
+}
+
+body.blog-post-template main .default-content-wrapper picture img {
+  padding: 20px 20px 20px 0;
+}
+
+body.blog-post-template main .default-content-wrapper .article-image-caption {
+  font-family: var(--ff-opensans);
+  font-size: 16px;
+  text-align: center;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--medium-grey);
+  margin: 0;
+}
+
+body.blog-post-template main .default-content-wrapper blockquote {
+  border-color: var(--vv-light-grey);
+  border-width: 1px 0;
+  border-style: solid;
+  margin: 0 0 20px;
+  padding: 10px 0 10px 50px;
+  background: transparent url('/cigaradvisor/images/blog-post/blockquote.png') no-repeat 0 20px;
+}
+
+body.blog-post-template main .default-content-wrapper blockquote p {
+  padding: 10px;
+  margin: 0;
+  color: var(--charcoal);
+  background: transparent url('/cigaradvisor/images/blog-post/pattern-1.png') repeat;
+}
+
+
+@media screen and (min-width: 1200px) {
+  .blog-post-template main .default-content-wrapper {
+    padding: 0;
+  }
+}

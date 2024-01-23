@@ -13,7 +13,7 @@ export default async function decorate(block) {
   if (category) {
     const categoryLinkEl = document.createElement('div');
     categoryLinkEl.classList.add('article-category');
-    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category.title}</a>`;
+    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category.heading}</a>`;
     articleInfo.append(categoryLinkEl);
   }
   articleInfo.append(block.querySelector('h1'));
@@ -22,7 +22,7 @@ export default async function decorate(block) {
   const authorLinkEl = document.createElement('div');
   authorLinkEl.classList.add('article-author');
   if (author) {
-    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.title}</a>`;
+    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.name}</a>`;
     articleInfo.append(authorLinkEl);
   }
   const publishedDate = block.querySelector('p.published-date').innerText;

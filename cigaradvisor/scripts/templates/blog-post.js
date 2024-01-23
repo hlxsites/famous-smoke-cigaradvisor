@@ -2,7 +2,6 @@ import { decorateExternalLink } from '../scripts.js';
 import { buildBlock, getMetadata } from '../aem.js';
 
 export default async function decorate(main) {
-  // eslint-disable-next-line no-use-before-define
   decorateExternalLink(main);
   const paragraphs = main.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {

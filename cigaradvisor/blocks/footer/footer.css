@@ -8,10 +8,11 @@
   display: none;
 }
 
+
 .footer a {
-  line-height: unset;
-  font-size: unset;
-  font-family: unset;
+  line-height: var(--line-height-xl);
+  font-size: var(--body-font-size-s);
+  font-family: var(--ff-montserrat);
   font-weight: 600;
 }
 

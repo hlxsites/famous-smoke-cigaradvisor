@@ -1,4 +1,6 @@
-import { createOptimizedPicture, decorateIcons } from '../../scripts/aem.js';
+import {
+  buildBlock, createOptimizedPicture, decorateBlock, decorateIcons, loadBlock,
+} from '../../scripts/aem.js';
 
 function onScroll() {
   const link = document.getElementById('return-to-top');
@@ -34,4 +36,13 @@ export default function decorate(block) {
   link.appendChild(iconContainer);
 
   window.onscroll = onScroll;
+}
+
+export async function loadReturnToTop(main) {
+  const container = document.createElement('aside');
+  main.insertAdjacentElement('afterend', container);
+  const block = buildBlock('return-to-top', '');
+  container.append(block);
+  decorateBlock(block);
+  return loadBlock(block);
 }

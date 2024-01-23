@@ -1,77 +1,7 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
-
-// Function to create ellipsis
-function createEllipsis() {
-  const listItem = document.createElement('li');
-  const a = document.createElement('a');
-  const span = document.createElement('span');
-  a.className = 'gap';
-  span.textContent = '...';
-  a.appendChild(span);
-  listItem.appendChild(a);
-  return listItem;
-}
-
-// Function to create a page link
-function createPageLink(pageNumber, text, className) {
-  const listItem = document.createElement('li');
-  const link = document.createElement('a');
-  const currentPagePath = window.location.pathname;
-  link.href = `${currentPagePath}?page=${pageNumber}`;
-  link.textContent = text;
-
-  if (className) {
-    link.classList.add(className);
-  }
-
-  listItem.appendChild(link);
-  return listItem;
-}
-
-function generatePagination(currentPage, totalPages) {
-  const displayPages = 7;
-  const paginationList = document.createElement('ol');
-  paginationList.className = 'pagination';
-
-  // Previous page link
-  if (currentPage > 1) {
-    paginationList.appendChild(createPageLink(currentPage - 1, '«', 'prev'));
-  }
-
-  // Page links
-  const startPage = Math.max(1, currentPage - Math.floor(displayPages / 2));
-  const endPage = Math.min(totalPages, startPage + displayPages - 1);
-
-  if (startPage > 1) {
-    paginationList.appendChild(createPageLink(1, '1'));
-    if (startPage > 2) {
-      paginationList.appendChild(createEllipsis());
-    }
-  }
-
-  for (let i = startPage; i <= endPage; i += 1) {
-    if (i === currentPage) {
-      paginationList.appendChild(createPageLink(i, i, 'active'));
-    } else {
-      paginationList.appendChild(createPageLink(i, i));
-    }
-  }
-
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) {
-      paginationList.appendChild(createEllipsis());
-    }
-    paginationList.appendChild(createPageLink(totalPages, totalPages));
-  }
-
-  // Next page link
-  if (currentPage < totalPages) {
-    paginationList.appendChild(createPageLink(currentPage + 1, '»', 'next'));
-  }
-  return paginationList;
-}
+import { generatePagination } from '../../scripts/util.js';
 
 export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
@@ -119,14 +49,14 @@ export default async function decorate(block) {
     currentPage = urlParams.get('page') ? parseInt(urlParams.get('page'), 10) : 1;
     // eslint-disable-next-line max-len
     const articlePromises = [...fetchedArticles].slice((currentPage - 1) * limit, currentPage * limit).map(async (article) => {
-      const articletTeaserWrapper = document.createElement('div');
-      articletTeaserWrapper.classList.add('article-teaser-wrapper');
+      const articleTeaserWrapper = document.createElement('div');
+      articleTeaserWrapper.classList.add('article-teaser-wrapper');
       const articleTeaser = document.createElement('div');
       articleTeaser.classList.add('article-teaser');
       articleTeaser.classList.add('block');
-      articletTeaserWrapper.append(articleTeaser);
+      articleTeaserWrapper.append(articleTeaser);
       current = (current === leftDiv) ? rightDiv : leftDiv;
-      current.append(articletTeaserWrapper);
+      current.append(articleTeaserWrapper);
       if (categoryInfo) {
         authorInfo = await fetchAuthorInfo(article.author);
         article.author = authorInfo;

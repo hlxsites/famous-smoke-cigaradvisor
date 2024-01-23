@@ -143,9 +143,11 @@ export default async function decorate(block) {
     parentDiv.append(leftDiv);
     parentDiv.append(rightDiv);
     block.replaceChildren(parentDiv);
-    const pageinationContainer = document.createElement('div');
-    pageinationContainer.classList.add('pagination-container');
-    pageinationContainer.appendChild(generatePagination(currentPage, totalPages));
-    block.append(pageinationContainer);
+    if (totalPages > 1) {
+      const pageinationContainer = document.createElement('div');
+      pageinationContainer.classList.add('pagination-container');
+      pageinationContainer.appendChild(generatePagination(currentPage, totalPages));
+      block.append(pageinationContainer);
+    }
   }
 }

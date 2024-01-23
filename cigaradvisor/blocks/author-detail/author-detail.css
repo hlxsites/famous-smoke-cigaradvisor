@@ -69,6 +69,7 @@
 }
 
 .author-detail.block .author-intro p {
+  font-size: var(--body-font-size-xs);
   line-height: var(--line-height-xl);
   font-weight: var(--font-weight-bold);
   margin: 0;
@@ -103,7 +104,7 @@
 /* media queries */
 @media screen and (min-width: 900px) {
   .author-detail.block {
-    padding-top: 200px;
+    padding-top: 250px;
   }
 
   .author-detail.block picture.bg-image {

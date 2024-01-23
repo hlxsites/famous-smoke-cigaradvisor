@@ -24,6 +24,9 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
   articles:
     include:
       - /cigaradvisor/posts/**
@@ -78,13 +81,13 @@ indices:
         value: textContent(el)
       twitter:
         select: div.author-detail ul > li > a
-        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?twitter\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?twitter\.com\/.*)$')
       facebook:
         select: div.author-detail ul > li > a
-        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?facebook\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?facebook\.com\/.*)$')
       instagram:
         select: div.author-detail ul > li > a
-        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?instagram\.com\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?instagram\.com\/.*)$')
       youtube:
         select: div.author-detail ul > li > a
-        value: match(attribute(el, 'href'), '^https?:\/\/(?:www\.)?youtube\.com\/user\/(?:#!\/)?@?([^/?#]*)\/?(?:[?#].*)?$')
+        value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?youtube\.com\/.*)$')

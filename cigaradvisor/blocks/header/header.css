@@ -130,8 +130,12 @@
   flex-grow: 1;
   background-color: rgb(255 255 255 / 70%);
   align-items: center;
-
+  justify-content: center;
   --icon-size: 18px;
+}
+
+.header.block nav .primary-nav .default-content-wrapper {
+  max-width: 1080px;
 }
 
 .header.block nav .primary-nav ul {

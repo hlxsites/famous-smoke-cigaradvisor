@@ -21,24 +21,24 @@ export function buildArticleTeaser(parentElement, article) {
         <article class="article article-thumbnail">
           <a class="article-category ${category.toLowerCase().replaceAll(/\s+/g, '-')}" href="${article.category ? article.category.path : ''}" data-category="${category}" title="${category}">${category}</a>
           <div class="article-image">
-          ${createOptimizedPicture(article.image).outerHTML}
+            ${createOptimizedPicture(article.image).outerHTML}
           </div>
           <div class="article-content">
             <articleheader class="article-header">
                 <h2 class="article-title">
-                <a class="article-title-link" href="${article.path}" title="${article.title}">${article.title}</a>
-                  </h2>
-                  <div class="article-meta">
-                <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
-                <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
-          </div>
-          </articleheader>
-          <div class="article-preview">
-            <div class="article-excerpt">
-                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${article.readingTime}</span></span> ${article.description}</p>
+                  <a class="article-title-link" href="${article.path}" title="${article.heading}">${article.heading}</a>
+                </h2>
+                <div class="article-meta">
+                  <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
+                  <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
+                </div>
+            </articleheader>
+            <div class="article-preview">
+              <div class="article-excerpt">
+                <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${article.readingTime}</span></span> ${article.articleBlurb}</p>
+              </div>
+              <a class="article-read-more read-more" href="${article.path}" title="Read More">Read More</a>
             </div>
-            <a class="article-read-more read-more" href="${article.path}" title="Read More">Read More</a>
-          </div>
           </div>
         </article>
         `;
@@ -47,15 +47,12 @@ export function buildArticleTeaser(parentElement, article) {
 export default async function decorate(block) {
   const filterPath = block.querySelector('a').getAttribute('href');
   block.classList.add('article-teaser');
-  const articleInfo = await fetchPostsInfo(filterPath);
-  if (!articleInfo || articleInfo.length === 0) {
+  const article = await fetchPostsInfo(filterPath);
+  if (!article) {
     return;
   }
   block.innerHTML = '';
-  const article = articleInfo[0];
-  const categoryInfo = await fetchCategoryInfo(article.category);
-  const authorInfo = await fetchAuthorInfo(article.author);
-  article.category = categoryInfo;
-  article.author = authorInfo;
+  article.category = await fetchCategoryInfo(article.category);
+  article.author = await fetchAuthorInfo(article.author);
   buildArticleTeaser(block, article);
 }

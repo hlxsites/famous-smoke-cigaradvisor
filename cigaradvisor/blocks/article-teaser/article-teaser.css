@@ -1,3 +1,4 @@
+
 .article-teaser.block .article-thumbnail:hover::before {
   visibility: hidden;
 }
@@ -69,11 +70,11 @@
   background-color: #7e4a3a
 }
 
-.article-teaser.block .article-category[data-category="Cigar Lifestyle"] .article-category {
+.article-teaser.block .article-category[data-category="Cigar Lifestyle"] {
   background-color: #673841
 }
 
-.article-teaser.block .article-category[data-category="Food & Drink"] .article-category {
+.article-teaser.block .article-category[data-category="Food & Drink"] {
   background-color: #3c5351
 }
 
@@ -199,7 +200,7 @@
   left: 0;
   right: 0;
   height: 20px;
-  background: linear-gradient(to top, #eaeaea, rgba(234 234 234 80%) 6px, rgba(234 234 234 0%));
+  background: linear-gradient(to top, #eaeaea, rgba(234 234 234 / 80%) 6px, rgba(234 234 234 / 0%));
 }
 
 .article-teaser.block .article.article-thumbnail .article-excerpt {
@@ -245,7 +246,6 @@
   margin-left: 8px;
   vertical-align: top;
   margin-top: 2px;
-  filter: var(--clr-filter-subdued-gold);
 }
 
 .article-teaser.block .article-thumbnail .article-read-more {
@@ -272,7 +272,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
-  color: #b19b5e;
+  color: var(--clr-black);
   font-size: 18px;
 }
 

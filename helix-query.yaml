@@ -35,6 +35,9 @@ indices:
       title:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
       author:
         select: head > meta[name="author"]
         value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")

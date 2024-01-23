@@ -76,9 +76,14 @@ function generatePagination(currentPage, totalPages) {
 export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   const configs = readBlockConfig(block);
-  const { category } = configs;
-  const { author } = configs;
-  const { limit } = configs;
+  block.innerHTML = '';
+  // eslint-disable-next-line prefer-const
+  let { category, author, limit = 10 } = configs;
+  if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
+    category = window.location.toString();
+  } else if (!author && Object.hasOwn(configs, 'author') && window.location.pathname.includes('/cigaradvisor/author/')) {
+    author = window.location.toString();
+  }
   const parentDiv = document.createElement('div');
   parentDiv.classList.add('section');
   parentDiv.dataset.layout = '50/50';
@@ -86,6 +91,7 @@ export default async function decorate(block) {
   leftDiv.classList.add('left-grid');
   const rightDiv = document.createElement('div');
   rightDiv.classList.add('right-grid');
+
   let current = rightDiv;
   let currentPage = 1;
   if (category || author) {
@@ -94,6 +100,9 @@ export default async function decorate(block) {
       articles = await fetchPostsInfo(category, 'category');
     } else if (author) {
       articles = await fetchPostsInfo(author, 'author');
+    }
+    if (!articles || articles.length === 0) {
+      return;
     }
     const totalArticles = articles.length;
     const totalPages = Math.ceil(totalArticles / limit);
@@ -104,9 +113,6 @@ export default async function decorate(block) {
     }
     if (author) {
       authorInfo = await fetchAuthorInfo(author);
-    }
-    if (!articles || articles.length === 0) {
-      return;
     }
     const urlParams = new URLSearchParams(window.location.search);
     currentPage = urlParams.get('page') ? parseInt(urlParams.get('page'), 10) : 1;

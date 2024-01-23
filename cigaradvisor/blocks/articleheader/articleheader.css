@@ -1,7 +1,3 @@
-main .articleheader-container {
-    margin-top: 46px;
-}
-
 .articleheader.block .image-wrapper {
     display: flex;
     justify-content: center;
@@ -93,10 +89,4 @@ main .articleheader-container {
     margin-left: auto;
     margin-right: auto;
     max-width: 1080px;
-}
-
-@media screen and (min-width: 900px) {
-    main .articleheader-container {
-        margin-top: 77px;
-    }
 }

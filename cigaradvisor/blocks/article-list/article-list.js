@@ -77,8 +77,8 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   const configs = readBlockConfig(block);
   block.innerHTML = '';
-  // eslint-disable-next-line prefer-const
-  let { category, author, limit = 10 } = configs;
+  // eslint-disable-next-line prefer-const, object-curly-newline
+  let { category, author, limit = 10, articles } = configs;
   if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
     category = window.location.toString();
   } else if (!author && Object.hasOwn(configs, 'author') && window.location.pathname.includes('/cigaradvisor/author/')) {
@@ -91,20 +91,21 @@ export default async function decorate(block) {
   leftDiv.classList.add('left-grid');
   const rightDiv = document.createElement('div');
   rightDiv.classList.add('right-grid');
-
   let current = rightDiv;
   let currentPage = 1;
-  if (category || author) {
-    let articles;
+  if (category || author || articles) {
+    let fetchedArticles;
     if (category) {
-      articles = await fetchPostsInfo(category, 'category');
+      fetchedArticles = await fetchPostsInfo(category, 'category');
     } else if (author) {
-      articles = await fetchPostsInfo(author, 'author');
+      fetchedArticles = await fetchPostsInfo(author, 'author');
+    } else if (articles) {
+      fetchedArticles = articles;
     }
-    if (!articles || articles.length === 0) {
+    if (!fetchedArticles || fetchedArticles.length === 0) {
       return;
     }
-    const totalArticles = articles.length;
+    const totalArticles = fetchedArticles.length;
     const totalPages = Math.ceil(totalArticles / limit);
     let categoryInfo;
     let authorInfo;
@@ -117,7 +118,7 @@ export default async function decorate(block) {
     const urlParams = new URLSearchParams(window.location.search);
     currentPage = urlParams.get('page') ? parseInt(urlParams.get('page'), 10) : 1;
     // eslint-disable-next-line max-len
-    const articlePromises = [...articles].slice((currentPage - 1) * limit, currentPage * limit).map(async (article) => {
+    const articlePromises = [...fetchedArticles].slice((currentPage - 1) * limit, currentPage * limit).map(async (article) => {
       const articletTeaserWrapper = document.createElement('div');
       articletTeaserWrapper.classList.add('article-teaser-wrapper');
       const articleTeaser = document.createElement('div');
@@ -136,6 +137,16 @@ export default async function decorate(block) {
         article.author = authorInfo;
         article.category = categoryInfo;
         buildArticleTeaser(articleTeaser, article);
+      } else {
+        const [articleInfo] = await fetchPostsInfo(article);
+        if (!articleInfo) {
+          return;
+        }
+        categoryInfo = await fetchCategoryInfo(articleInfo.category);
+        authorInfo = await fetchAuthorInfo(articleInfo.author);
+        articleInfo.author = authorInfo;
+        articleInfo.category = categoryInfo;
+        buildArticleTeaser(articleTeaser, articleInfo);
       }
     });
     await Promise.all(articlePromises);

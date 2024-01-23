@@ -354,7 +354,7 @@ main .section[data-layout="3-column"] * > div {
   font-weight: 700;
 }
 
-:not(.blog-post-template) main .section > .default-content-wrapper > h2 {
+body:not(.blog-post-template) main .section > .default-content-wrapper > h2 {
   text-align: center;
   text-transform: uppercase;
   font-family: var(--ff-montserrat);
@@ -415,11 +415,11 @@ main .button-container .button:hover {
     font-size: 35px;
   }
 
-  :not(.blog-post-template) main .section > .default-content-wrapper > h2 {
+  body:not(.blog-post-template) main .section > .default-content-wrapper > h2 {
     font-size: 35px;
   }
 
-  :not(.blog-post-template) main .section > .default-content-wrapper > h2::before {
+  body:not(.blog-post-template) main .section > .default-content-wrapper > h2::before {
     content: 'decor';
     color: transparent;
     background: url('../icons/decorleft.png') center no-repeat;
@@ -427,7 +427,7 @@ main .button-container .button:hover {
     margin-right: 15px;
   }
 
-  :not(.blog-post-template) main .section > .default-content-wrapper > h2::after {
+  body:not(.blog-post-template) main .section > .default-content-wrapper > h2::after {
     content: 'decor';
     color: transparent;
     background: url('../icons/decorright.png') center no-repeat;
@@ -461,7 +461,7 @@ main .button-container .button:hover {
     background-color: var(--grey-background);
   }
 
-  main > .section > .default-content-wrapper > h2 {
+  body:not(.blog-post-template) main > .section > .default-content-wrapper > h2 {
     font-size: 45px;
   }
   

@@ -1,0 +1,59 @@
+#return-to-top {
+    display: block;
+    position: fixed;
+    top: 50%;
+    right: 10px;
+    z-index: 499;
+    opacity: .5;
+    transition: opacity .2s ease-in-out,visibility .2s linear;
+    cursor: pointer;
+}
+
+#return-to-top.hidden {
+    opacity: 0;
+}
+
+#return-to-top > .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--tan);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+
+    --icon-size: 36px;
+}
+
+#return-to-top > .icon-container > .icon {
+    margin-top: 2px;
+    filter: var(--clr-filter-white);
+}
+
+@media print, screen and (max-width: 720px) {
+    #return-to-top {
+        height: 50px;
+        width: 50px;
+        margin-top: -25px;
+    }
+
+    #return-to-top > picture {
+        display: none;
+    }
+}
+
+@media print, screen and (min-width: 720px) {
+    #return-to-top {
+        height: 170px;
+        width: 50px;
+        margin-top: -75px;
+    }
+
+    #return-to-top:hover {
+        opacity: 1;
+    }
+
+    #return-to-top > .icon-container {
+        display: none;
+    }
+}

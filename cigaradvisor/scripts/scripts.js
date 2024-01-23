@@ -13,6 +13,7 @@ import {
   loadCSS,
   getMetadata,
 } from './aem.js';
+import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
@@ -321,6 +322,7 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  loadReturnToTop(main);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

@@ -19,7 +19,7 @@ function embedYoutube(url, autoplay) {
 }
 
 function embedVimeo(url, autoplay) {
-  const [, video] = url.pathname.split('/');
+  const video = url.pathname.split('/').at(-1);
   const suffix = autoplay ? '?muted=1&autoplay=1' : '';
   return `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
       <iframe src="https://player.vimeo.com/video/${video}${suffix}" 

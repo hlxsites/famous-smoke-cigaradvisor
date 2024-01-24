@@ -23,8 +23,8 @@ export default async function decorate(block) {
     .then((currentArticle) => {
       allArticles.forEach((article, index) => {
         if (currentArticle.indexOf(article.path) > -1) {
-          previousArticle = allArticles[index - 1];
-          nextArticle = allArticles[index + 1];
+          previousArticle = allArticles[index + 1];
+          nextArticle = allArticles[index - 1];
         }
       });
       const previousArticleNav = document.createElement('div');

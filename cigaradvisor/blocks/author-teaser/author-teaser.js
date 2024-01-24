@@ -64,6 +64,7 @@ export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();
   const author = await fetchAuthorInfo(path);
+  block.innerHTML = '';
   if (author) {
     buildAuthorTeaser(block, author);
   }

@@ -81,6 +81,7 @@
 }
 
 .author-teaser.block .author-details ul {
+    list-style-type: none;
     display: flex;
     margin: 10px 30px;
 

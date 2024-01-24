@@ -183,7 +183,7 @@
 
 @media (max-width: 768px) {
     .author-card-container {
-        padding: 60px 10px;
+        padding: 60px 0;
         background: none #ece8e3;
         background-size: auto 150%;
     }
@@ -196,10 +196,6 @@
     .author-card.block {
         flex-flow: column wrap;
         width: 100%;
-    }
-
-    .author-card.block .author-content {
-        flex: 0 0 100%;
     }
 
     .author-card.block .left-column,

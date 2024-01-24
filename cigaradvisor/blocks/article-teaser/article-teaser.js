@@ -1,5 +1,7 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo, getPostByIdx } from '../../scripts/scripts.js';
+import { createOptimizedPicture } from '../../scripts/aem.js';
+import {
+  fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo, getPostByIdx,
+} from '../../scripts/scripts.js';
 
 function formatDate(originalDateString) {
   const utcDateString = new Date(originalDateString * 1000);
@@ -49,18 +51,16 @@ export default async function decorate(block) {
   let article;
   if (filterPath) {
     article = await fetchPostsInfo(filterPath);
-  } else {
-    if (block.querySelector(':scope > div > div:nth-of-type(2)').textContent.toLowerCase() === 'next') {
-      block.classList.add('next');
-      const idx = document.querySelectorAll('main .article-teaser.block.next').length;
-      article = await getPostByIdx(idx);
+  } else if (block.querySelector(':scope > div > div:nth-of-type(2)').textContent.toLowerCase() === 'next') {
+    block.classList.add('next');
+    const idx = document.querySelectorAll('main .article-teaser.block.next').length;
+    article = await getPostByIdx(idx);
 
-      // Check for a pinned / manually entered teaser
-      const existing = document.querySelector(`a[href="${article.path}"]`)
-      if (existing && existing.closest('div.block.article-teaser')) {
-        existing.closest('div.block.article-teaser').classList.add('next');
-        article = await getPostByIdx(idx + 1);
-      }
+    // Check for a pinned / manually entered teaser
+    const existing = document.querySelector(`a[href="${article.path}"]`);
+    if (existing && existing.closest('div.block.article-teaser')) {
+      existing.closest('div.block.article-teaser').classList.add('next');
+      article = await getPostByIdx(idx + 1);
     }
   }
   if (!article) {

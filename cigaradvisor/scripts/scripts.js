@@ -192,6 +192,17 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData;
+async function loadPosts() {
+  if (!articleIndexData) {
+    const resp = await fetch(ARTICLE_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    articleIndexData = jsonData.data;
+  }
+}
+
 /**
  * Fetches posts information based on the provided filter value and filter parameter.
  * @param {string} filterValue - The value to filter the posts by.
@@ -201,15 +212,21 @@ let articleIndexData;
 export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
-  if (!articleIndexData) {
-    const resp = await fetch(ARTICLE_INDEX_PATH);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
-    }
-    articleIndexData = jsonData.data;
-  }
+  await loadPosts();
   return articleIndexData.find((obj) => obj[filterParam] === filter);
+}
+
+/**
+ * Fetches a post by a given index, starting at 1.
+ * @param idx the index
+ * @return {Promise<void>}
+ */
+export async function getPostByIdx(idx) {
+  await loadPosts();
+  if (articleIndexData.length >= idx) {
+    return articleIndexData[idx - 1];
+  }
+  return undefined;
 }
 
 let authorIndexData;

@@ -209,11 +209,11 @@ async function loadPosts() {
  * @param {string} [filterParam='path'] - The parameter to filter the posts by (default is 'path').
  * @returns {Promise<Array<Object>>} - A promise that resolves to an array of filtered post data.
  */
-export async function fetchPostsInfo(filterValue, filterParam = 'raw_path') {
+export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
   await loadPosts();
-  return articleIndexData.find((obj) => obj[filterParam] === filter);
+  return articleIndexData.filter((obj) => obj[filterParam] === filter);
 }
 
 /**

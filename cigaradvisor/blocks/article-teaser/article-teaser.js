@@ -47,8 +47,7 @@ export function buildArticleTeaser(parentElement, article) {
 }
 
 export default async function decorate(block) {
-  const filterPath = block.querySelector('a').getAttribute('href');
-  block.classList.add('article-teaser');
+  const filterPath = block.querySelector('a')?.getAttribute('href');
   let article;
   if (filterPath) {
     const list = await fetchPostsInfo(filterPath);

@@ -82,6 +82,7 @@ async function renderByList(configs, wrapper, articles) {
 
   const tmp = [];
   const promises = [];
+  articles = Array.isArray(articles) ? articles : [articles];
   articles.forEach((post) => {
     promises.push(fetchPostsInfo(post));
   });

@@ -59,6 +59,9 @@ indices:
       category:
         select: head > meta[name="category"]
         value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      seo_path:
+        select: none
+        value: replace(path, match(path, "(/posts\/[^/]+\/[^/]+)\/"), '/posts')
   authors:
     include:
       - /cigaradvisor/author/**

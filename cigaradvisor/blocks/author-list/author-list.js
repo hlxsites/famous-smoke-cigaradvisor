@@ -6,11 +6,10 @@ import { generatePagination } from '../../scripts/util.js';
 let pageSize;
 
 async function renderList(wrapper, curatedAuthors) {
-
   let currentPage = 1;
-  const match = window.location.hash.match(/page=(\d+)/)
+  const match = window.location.hash.match(/page=(\d+)/);
   if (match) {
-    currentPage = isNaN(parseInt(match[1])) ? currentPage : parseInt(match[1]);
+    currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
 
   let allAuthors = [...(await getAllAuthors(true))];
@@ -30,14 +29,14 @@ async function renderList(wrapper, curatedAuthors) {
   const list = document.createElement('div');
   list.classList.add('author-teaser-list');
 
-
-  [...allAuthors].slice((currentPage - 1) * pageSize, currentPage * pageSize).map(async (author) => {
-    const authorTeaser = document.createElement('div');
-    authorTeaser.classList.add('author-teaser');
-    authorTeaser.classList.add('block');
-    buildAuthorTeaser(authorTeaser, author, true);
-    list.append(authorTeaser);
-  });
+  [...allAuthors].slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    .map(async (author) => {
+      const authorTeaser = document.createElement('div');
+      authorTeaser.classList.add('author-teaser');
+      authorTeaser.classList.add('block');
+      buildAuthorTeaser(authorTeaser, author, true);
+      list.append(authorTeaser);
+    });
 
   wrapper.replaceChildren(list);
 
@@ -53,14 +52,14 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/author-teaser/author-teaser.css`);
   const configs = readBlockConfig(block);
   const { curatedauthors } = configs;
-  pageSize  = isNaN(parseInt(configs.limit)) ? 2 : parseInt(configs.limit);
+  pageSize = Number.isNaN(parseInt(configs.limit, 10)) ? 2 : parseInt(configs.limit, 10);
 
   const authorTeaserWrapper = document.createElement('div');
   authorTeaserWrapper.classList.add('author-teaser-wrapper');
   block.replaceChildren(authorTeaserWrapper);
   await renderList(authorTeaserWrapper, curatedauthors);
 
-  addEventListener('hashchange', async() => {
+  window.addEventListener('hashchange', async () => {
     await renderList(authorTeaserWrapper, curatedauthors);
-  })
+  });
 }

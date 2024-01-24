@@ -214,6 +214,30 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
 
 let authorIndexData;
 /**
+ * Retrieves all authors from the server.
+ * @returns {Promise<Array>} A promise that resolves to an array of author data.
+ */
+export async function getAllAuthors(sort = false) {
+  if (!authorIndexData) {
+    const resp = await fetch(AUTHOR_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+      authorIndexData = jsonData.data;
+    }
+  }
+  if (sort) {
+    authorIndexData.sort((a, b) => {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+      // eslint-disable-next-line no-nested-ternary
+      return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+    });
+  }
+  return authorIndexData;
+}
+
+/**
  * Fetches author information based on the provided author link.
  * @param {string} authorLink - The link to the author's page.
  * @returns {Promise<Array<Object>>} - A promise that resolves to an array of
@@ -221,14 +245,7 @@ let authorIndexData;
  */
 export async function fetchAuthorInfo(authorLink) {
   const filter = getRelativePath(authorLink);
-  if (!authorIndexData) {
-    const resp = await fetch(AUTHOR_INDEX_PATH);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
-    }
-    authorIndexData = jsonData.data;
-  }
+  await getAllAuthors();
   return authorIndexData.find((obj) => obj.path === filter);
 }
 

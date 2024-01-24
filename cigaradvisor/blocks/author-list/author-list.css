@@ -50,3 +50,7 @@
     background-color: var(--tan);
     color: var(--clr-white);;
 }
+
+.author-list.block .author-teaser.block .author-details .author-heading h3 {
+    display: none;
+}

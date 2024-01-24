@@ -140,9 +140,7 @@
 }
 
 .author-card.block .right-column p>a {
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: block;
     color: var(--clr-white);
     font-weight: var(--font-weight-bold);
@@ -168,8 +166,10 @@
 
 .author-card.block .align-center {
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
+    margin: 0;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;

@@ -229,6 +229,23 @@ export async function getPostByIdx(idx) {
   return undefined;
 }
 
+/**
+ * Retrieves all posts and sorts them by published date.
+ * @param {boolean} sort - Indicates whether to sort the posts by published date in ascending order.
+ * @returns {Promise<Array>} - A promise that resolves to an array of post data.
+ */
+export async function getAllPosts(sort = true) {
+  await loadPosts();
+  if (sort) {
+    articleIndexData.sort((a, b) => {
+      const dateA = new Date(a.published * 1000);
+      const dateB = new Date(b.published * 1000);
+      return dateA - dateB;
+    });
+  }
+  return articleIndexData;
+}
+
 let authorIndexData;
 /**
  * Retrieves all authors from the server.

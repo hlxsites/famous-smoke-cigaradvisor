@@ -1,9 +1,9 @@
 .article-navigation.block {
     display: flex;
     flex-wrap: wrap;
+    margin: 30px auto 0;
     justify-content: space-between;
     max-width: 1080px;
-    margin: 30px auto 0;
     align-items: stretch;
 }
 
@@ -13,8 +13,8 @@
 }
 
 .article-navigation.block a {
-    background-color: var(--tan);
-    padding: 20px 10px;
+    background-color: var(--transparent-tan);
+    padding: 20px 40px;
     border: 1px solid var(--tan);
     display: block;
     width: 100%;
@@ -22,6 +22,7 @@
 }
 
 .article-navigation.block h3 {
+    margin: 18px 0;
     line-height: 35px;
     font-size: var(--body-font-size-l);
     font-weight: var(--font-weight-bold);
@@ -64,6 +65,7 @@
 @media screen and (min-width: 600px) {
     .article-navigation.block>div {
         width: 50%;
+        padding: 10px 10px 10px 0;
     }
 
     .article-navigation.block .previous-article-nav a {

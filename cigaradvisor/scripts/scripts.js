@@ -192,6 +192,12 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData;
+
+/**
+ * Returns all the posts in the posts index.
+ *
+ * @return {Promise<Array[Object]>}
+ */
 export async function loadPosts() {
   if (!articleIndexData) {
     const resp = await fetch(ARTICLE_INDEX_PATH);
@@ -220,7 +226,7 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
 /**
  * Fetches a post by a given index, starting at 1.
  * @param idx the index
- * @return {Promise<void>}
+ * @return {Promise<Object>}
  */
 export async function getPostByIdx(idx) {
   const articles = await loadPosts();

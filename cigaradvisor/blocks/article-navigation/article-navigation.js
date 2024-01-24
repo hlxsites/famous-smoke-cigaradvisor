@@ -1,7 +1,7 @@
-import { getAllPosts } from '../../scripts/scripts.js';
+import { loadPosts } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
-  const allArticles = await getAllPosts();
+  const allArticles = await loadPosts();
   let previousArticle;
   let nextArticle;
   const currentArticle = window.location.href;

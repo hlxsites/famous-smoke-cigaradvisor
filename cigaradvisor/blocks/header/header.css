@@ -168,8 +168,12 @@
   background-color: var(--silver);
 }
 
-.header.block nav .primary-nav ul li a {
+.header.block nav .primary-nav ul li > * {
   padding: 10px 20px;
+  cursor: pointer;
+}
+
+.header.block nav .primary-nav ul li a {
   font-family: montserrat, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -177,15 +181,14 @@
   border: 2px solid transparent;
   color: var(--clr-dark-gray);
   margin: 0;
-  cursor: pointer;
   font-size: 14px;
   position: relative;
   z-index: 111;
 }
 
-.header.block nav .primary-nav .icon-search {
+.header.block nav .primary-nav .icon-magnifying-glass {
   display: inline-block;
-  margin: 0 10px
+  margin-top: 2px;
 }
 
 .header.block nav .primary-nav ul li > a:hover {

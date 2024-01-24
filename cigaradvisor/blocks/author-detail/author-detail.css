@@ -93,6 +93,7 @@ main .section.author-detail-container > div {
   align-items: center;
   margin: 0;
   gap: 25px;
+  list-style-type: none;
 }
 
 .author-detail.block picture.bg-image {

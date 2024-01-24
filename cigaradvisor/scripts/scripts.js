@@ -201,7 +201,6 @@ async function loadPosts() {
     }
     articleIndexData = jsonData.data;
   }
-  return articleIndexData;
 }
 
 /**
@@ -213,8 +212,8 @@ async function loadPosts() {
 export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
-  const articles = await loadPosts();
-  return articles.find((obj) => obj[filterParam] === filter);
+  await loadPosts();
+  return articleIndexData.filter((obj) => obj[filterParam] === filter);
 }
 
 /**
@@ -223,21 +222,11 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
  * @return {Promise<void>}
  */
 export async function getPostByIdx(idx) {
-  const articles = await loadPosts();
-  if (articles.length >= idx) {
-    return articles[idx - 1];
+  await loadPosts();
+  if (articleIndexData.length >= idx) {
+    return articleIndexData[idx - 1];
   }
   return undefined;
-}
-
-/**
- * Retrieves all posts and sorts them by published date.
- * @param {boolean} sort - Indicates whether to sort the posts by published date in ascending order.
- * @returns {Promise<Array>} - A promise that resolves to an array of post data.
- */
-export async function getAllPosts() {
-  const articles = await loadPosts();
-  return articles;
 }
 
 let authorIndexData;

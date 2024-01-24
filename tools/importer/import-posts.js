@@ -33,13 +33,6 @@ const createMetadata = (main, document, url, params) => {
     meta.articleBlurb = params.articleBlurb;
   }
 
-  const img = document.querySelector('[property="og:image"]');
-  if (img && img.content) {
-    const el = document.createElement('img');
-    el.src = img.content;
-    meta.image = el;
-  }
-
   const publishedDate = document.querySelector('#articleNav > li:nth-child(2)');
   if (publishedDate) {
     meta.publishedDate = publishedDate.textContent;

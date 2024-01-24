@@ -213,7 +213,7 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
   await loadPosts();
-  return articleIndexData.find((obj) => obj[filterParam] === filter);
+  return articleIndexData.filter((obj) => obj[filterParam] === filter);
 }
 
 /**

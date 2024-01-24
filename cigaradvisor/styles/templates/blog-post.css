@@ -1,5 +1,16 @@
+/** Override global settings for hero **/
+body.blog-post-template main .articleheader-container > div {
+  padding: 0;
+  max-width: unset;
+}
 
-body.blog-post-template main main .default-content-wrapper {
+body.blog-post-template main .articleheader-container > div {
+  max-width: unset;
+}
+
+/** End Global overrides **/
+
+body.blog-post-template main .default-content-wrapper {
   padding: 0 15px;
   width: 100%;
   margin-left: auto;

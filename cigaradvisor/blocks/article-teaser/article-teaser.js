@@ -50,7 +50,10 @@ export default async function decorate(block) {
   const filterPath = block.querySelector('a')?.getAttribute('href');
   let article;
   if (filterPath) {
-    article = await fetchPostsInfo(filterPath);
+    const list = await fetchPostsInfo(filterPath);
+    if (list && list.length > 0) {
+      [article] = list;
+    }
   } else if (block.querySelector(':scope > div > div:nth-of-type(2)').textContent.toLowerCase() === 'next') {
     block.classList.add('next');
     const idx = document.querySelectorAll('main .article-teaser.block.next').length;

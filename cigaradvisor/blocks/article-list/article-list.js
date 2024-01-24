@@ -27,7 +27,7 @@ export default async function decorate(block) {
     });
     await Promise.all(promises).then((result) => {
       result.forEach((detail) => {
-        if (detail) tmp.push(detail);
+        if (detail && detail.length > 0) tmp.push(detail[0]);
       });
     });
     articles = tmp;

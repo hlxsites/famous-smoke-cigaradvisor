@@ -140,9 +140,7 @@
 }
 
 .author-card.block .right-column p>a {
-    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     display: block;
     color: var(--clr-white);
     font-weight: var(--font-weight-bold);
@@ -168,8 +166,10 @@
 
 .author-card.block .align-center {
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
+    margin: 0;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -183,7 +183,7 @@
 
 @media (max-width: 768px) {
     .author-card-container {
-        padding: 60px 10px;
+        padding: 60px 0;
         background: none #ece8e3;
         background-size: auto 150%;
     }
@@ -196,10 +196,6 @@
     .author-card.block {
         flex-flow: column wrap;
         width: 100%;
-    }
-
-    .author-card.block .author-content {
-        flex: 0 0 100%;
     }
 
     .author-card.block .left-column,

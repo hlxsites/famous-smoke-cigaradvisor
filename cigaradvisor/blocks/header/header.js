@@ -147,7 +147,7 @@ export default async function decorate(block) {
 
   const searchButton = document.createElement('li');
   primaryNav.querySelector('ul').append(searchButton);
-  searchButton.innerHTML = '<span class="icon icon-search"></span>';
+  searchButton.innerHTML = '<span class="icon icon-magnifying-glass"></span>';
   decorateIcons(primaryNav);
   searchButton.className = 'nav-drop';
   searchButton.setAttribute('data-secondarynav', 'search-box');

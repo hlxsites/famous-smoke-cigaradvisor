@@ -192,7 +192,7 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData;
-async function loadPosts() {
+export async function loadPosts() {
   if (!articleIndexData) {
     const resp = await fetch(ARTICLE_INDEX_PATH);
     let jsonData = '';
@@ -201,6 +201,7 @@ async function loadPosts() {
     }
     articleIndexData = jsonData.data;
   }
+  return articleIndexData;
 }
 
 /**
@@ -212,8 +213,8 @@ async function loadPosts() {
 export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
-  await loadPosts();
-  return articleIndexData.find((obj) => obj[filterParam] === filter);
+  const articles = await loadPosts();
+  return articles.filter((obj) => obj[filterParam] === filter);
 }
 
 /**
@@ -222,9 +223,9 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
  * @return {Promise<void>}
  */
 export async function getPostByIdx(idx) {
-  await loadPosts();
-  if (articleIndexData.length >= idx) {
-    return articleIndexData[idx - 1];
+  const articles = await loadPosts();
+  if (articles.length >= idx) {
+    return articles[idx - 1];
   }
   return undefined;
 }

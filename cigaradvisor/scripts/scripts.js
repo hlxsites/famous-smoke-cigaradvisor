@@ -19,6 +19,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -210,8 +211,8 @@ export async function loadPosts() {
   // Protected against callers modifying the objects
   const ret = [];
   articleIndexData.forEach((a) => {
-    ret.push(Object.assign({}, a));
-  })
+    ret.push({ ...a });
+  });
   return ret;
 }
 
@@ -242,6 +243,7 @@ export async function getPostByIdx(idx) {
 }
 
 let authorIndexData;
+
 /**
  * Retrieves all authors from the server.
  * @returns {Promise<Array>} A promise that resolves to an array of author data.
@@ -265,10 +267,10 @@ export async function getAllAuthors(sort = false) {
   }
 
   // Protected against callers modifying the objects
-  const ret = []
+  const ret = [];
   authorIndexData.forEach((a) => {
-    ret.push(Object.assign({}, a));
-  })
+    ret.push({ ...a });
+  });
   return ret;
 }
 
@@ -285,6 +287,7 @@ export async function fetchAuthorInfo(authorLink) {
 }
 
 let categoryIndexData;
+
 /**
  * Fetches category information based on the provided category link.
  * @param {string} categoryLink - The link to the category.
@@ -303,7 +306,7 @@ export async function fetchCategoryInfo(categoryLink) {
   }
   // Protect against caller modifying object;
   const found = categoryIndexData.find((obj) => obj.path === filter);
-  return Object.assign({}, found);
+  return { ...found };
 }
 
 /**

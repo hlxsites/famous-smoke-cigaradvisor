@@ -144,3 +144,20 @@ indices:
       seo_path:
         select: none
         value: replace(path, match(path, "(/articles\/[^/]+\/[^/]+)\/"), '/posts')
+  article-search:
+    include:
+      - /cigaradvisor/articles/**/*
+    target: /cigaradvisor/posts/search-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
+      text:
+        select: main > div p
+        value: words(textContent(el), 0, 30000)

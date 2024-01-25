@@ -1,7 +1,6 @@
 import { fetchCategoryInfo, fetchAuthorInfo } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
-  const section = document.createElement('section');
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('image-wrapper');
   const picture = block.querySelector('picture');
@@ -25,18 +24,11 @@ export default async function decorate(block) {
     authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.name}</a>`;
     articleInfo.append(authorLinkEl);
   }
-  const publishedDate = block.querySelector('p.published-date').innerText;
-  const publishedDateEl = document.createElement('span');
-  publishedDateEl.classList.add('article-published-date');
-  publishedDateEl.innerText = publishedDate;
-  authorLinkEl.append(publishedDateEl);
   articleInfo.append(authorLinkEl);
   const readTime = block.querySelector('p.read-time') ? block.querySelector('p.read-time').innerText : '';
   const readTimeEl = document.createElement('span');
   readTimeEl.classList.add('article-read-time');
   readTimeEl.innerHTML = `<span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${readTime}</span>`;
   articleInfo.append(readTimeEl);
-  section.append(imageWrapper);
-  section.append(articleInfo);
-  block.replaceChildren(section);
+  block.replaceChildren(imageWrapper, articleInfo);
 }

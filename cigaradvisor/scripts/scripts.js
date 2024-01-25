@@ -16,9 +16,11 @@ import {
 import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/posts/search-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -85,7 +87,7 @@ function decoratePictures(main) {
     const img = picture.querySelector('img');
     const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
     picture.style.paddingBottom = `${ratio}%`;
-    picture.style.maxWidth = `${img.width}px`; // Prevent pixelation
+    picture.parentElement.style.maxWidth = `${img.width}px`; // Prevent pixelation
   });
 }
 
@@ -232,7 +234,7 @@ export async function loadPosts() {
  * @param {string} [filterParam='path'] - The parameter to filter the posts by (default is 'path').
  * @returns {Promise<Array<Object>>} - A promise that resolves to an array of filtered post data.
  */
-export async function fetchPostsInfo(filterValue, filterParam = 'path') {
+export async function fetchPostsInfo(filterValue, filterParam = 'raw_path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
   const articles = await loadPosts();
@@ -307,7 +309,7 @@ let categoryIndexData;
 export async function fetchCategoryInfo(categoryLink) {
   const filter = getRelativePath(categoryLink);
   if (!categoryIndexData) {
-    const resp = await fetch(DEFAULT_INDEX_PATH);
+    const resp = await fetch(CATEGORY_INDEX_PATH);
     let jsonData = '';
     if (resp.ok) {
       jsonData = await resp.json();

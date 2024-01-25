@@ -1,19 +1,16 @@
 /** Override global settings for hero **/
-body.blog-post-template main .
-
-
-/** End Global overrides **/
-
-body.blog-post-template main .default-content-wrapper {
-  padding: 0 15px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1080px;
-  text-align: justify;
+main .section.article-detail-container > div {
+  padding: 0;
+  max-width: unset;
 }
 
-body.blog-post-template main .default-content-wrapper p {
+/** End Global Overrides **/
+
+.article-detail.block .section > div {
+  padding: 0;
+}
+
+.article-detail.block .default-content-wrapper p {
   font-size: var(--body-font-size-l);
   line-height: var(--line-height-l);
   font-family: var(--ff-opensans);
@@ -21,21 +18,21 @@ body.blog-post-template main .default-content-wrapper p {
   cursor: default;
 }
 
-body.blog-post-template main .default-content-wrapper a {
+.article-detail.block .default-content-wrapper a {
   text-decoration: underline;
   color: var(--subdued-gold);
 }
 
-body.blog-post-template main .default-content-wrapper .article-image-wrapper {
+.article-detail.block .default-content-wrapper .article-image-wrapper {
   padding: 20px;
 }
 
-body.blog-post-template main .default-content-wrapper .article-image-wrapper a {
+.article-detail.block .default-content-wrapper .article-image-wrapper a {
   display: block;
   margin: 0 auto;
 }
 
-body.blog-post-template main .default-content-wrapper .article-image-caption {
+.article-detail.block .default-content-wrapper .article-image-caption {
   font-family: var(--ff-opensans);
   font-size: 16px;
   text-align: center;
@@ -46,7 +43,7 @@ body.blog-post-template main .default-content-wrapper .article-image-caption {
   padding-top: 20px;
 }
 
-body.blog-post-template main .default-content-wrapper blockquote {
+.article-detail.block .default-content-wrapper blockquote {
   border-color: var(--vv-light-grey);
   border-width: 1px 0;
   border-style: solid;
@@ -55,7 +52,7 @@ body.blog-post-template main .default-content-wrapper blockquote {
   background: transparent url('/cigaradvisor/images/blog-post/blockquote.png') no-repeat 0 20px;
 }
 
-body.blog-post-template main .default-content-wrapper blockquote p {
+.article-detail.block .default-content-wrapper blockquote p {
   padding: 10px;
   margin: 0;
   color: var(--charcoal);

@@ -173,7 +173,7 @@ a {
 }
 
 p {
-  margin: 16px 0;
+  margin: 16px auto;
   font-family: var(--ff-opensans);
   font-size: var(--body-font-size-m);
   font-weight: var(--font-weight-normal);

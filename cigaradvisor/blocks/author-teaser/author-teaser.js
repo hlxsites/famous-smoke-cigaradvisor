@@ -12,7 +12,7 @@ export function buildAuthorTeaser(parentElement, author, isAuthorList = false) {
   authorHeadingWrapper.classList.add('author-heading-wrapper');
   const authorHeading = document.createElement('div');
   authorHeading.classList.add('author-heading');
-  authorHeading.innerHTML = `<h2 class="author-name">${author.name}</h2><h3 class="author-title">${author.title}</h3>`;
+  authorHeading.innerHTML = `<h2 class="author-name">${author.name}</h2><h3 class="author-title">${author['author-title']}</h3>`;
   authorHeadingWrapper.append(authorHeading);
   authorDetails.append(authorHeadingWrapper);
   const authorDescription = document.createElement('p');

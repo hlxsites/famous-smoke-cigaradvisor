@@ -32,6 +32,7 @@ export default async function decorate(main) {
   const div = document.createElement('div');
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
+  picture.querySelector('img').setAttribute('loading', 'eager');
   const category = getMetadata('category');
   const authorLink = getMetadata('author');
   const readTime = getMetadata('readingtime');

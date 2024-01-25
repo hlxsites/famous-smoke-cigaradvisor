@@ -1,5 +1,5 @@
 import { decorateMain, fetchPostsInfo } from '../../scripts/scripts.js';
-import { buildBlock, getMetadata, loadBlocks } from '../../scripts/aem.js';
+import { buildBlock, getMetadata, loadBlocks, waitForLCP } from '../../scripts/aem.js';
 
 // Replace template head
 function replaceHead(head) {
@@ -20,6 +20,7 @@ function replaceHead(head) {
 
 function autoBlockHero(main) {
   const picture = main.querySelector('picture');
+  picture.querySelector('img').setAttribute('loading', 'eager');
   let section = picture.parentElement;
   const hero = buildBlock('article-hero', [
     [picture],
@@ -70,4 +71,5 @@ export default async function decorate(block) {
   await decorateMain(main);
   await loadBlocks(main);
   block.replaceChildren(...main.querySelectorAll(':scope > *'));
+  await waitForLCP(['article-hero']);
 }

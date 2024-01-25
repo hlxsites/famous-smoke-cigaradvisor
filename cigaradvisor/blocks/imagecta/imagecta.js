@@ -6,7 +6,7 @@ function createRandom(availableRows) {
   // retrieve CTA data
   const picture = randomRow.querySelector('div:nth-of-type(1) > picture');
   const oldAnchor = randomRow.querySelector('div:nth-of-type(2) > a');
-  if (!picture || !oldAnchor) {
+  if (!picture && !oldAnchor) {
     return 'Malformed Image CTA';
   }
 

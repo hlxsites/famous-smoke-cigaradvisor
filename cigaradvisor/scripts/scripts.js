@@ -80,6 +80,15 @@ async function decorateTemplate(main) {
   }
 }
 
+function decoratePictures(main) {
+  main.querySelectorAll('.default-content-wrapper picture').forEach((picture) => {
+    const img = picture.querySelector('img');
+    const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
+    picture.style.paddingBottom = `${ratio}%`;
+    picture.style.maxWidth = `${img.width}px`; // Prevent pixelation
+  });
+}
+
 /**
  * Builds two column grid.
  * @param {Element} main The container element
@@ -144,6 +153,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decoratePictures(main);
   buildLayoutContainer(main);
 }
 

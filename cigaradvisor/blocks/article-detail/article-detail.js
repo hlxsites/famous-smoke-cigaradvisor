@@ -1,5 +1,7 @@
 import { decorateMain, fetchPostsInfo } from '../../scripts/scripts.js';
-import { buildBlock, getMetadata, loadBlocks, waitForLCP } from '../../scripts/aem.js';
+import {
+  buildBlock, getMetadata, loadBlocks, waitForLCP,
+} from '../../scripts/aem.js';
 
 // Replace template head
 function replaceHead(head) {
@@ -38,14 +40,14 @@ function autoBlockHero(main) {
 
 function autoWrapPictures(main) {
   main.querySelectorAll(':scope p > picture').forEach((picture) => {
-    const alt = picture.querySelector('img').alt;
+    const { alt } = picture.querySelector('img');
     const anchor = picture.parentElement.querySelector('a');
     if (anchor) {
-      anchor.replaceChildren(picture)
+      anchor.replaceChildren(picture);
       anchor.title = alt;
       anchor.closest('p').classList.add('article-image-wrapper');
     }
-  })
+  });
 }
 
 export default async function decorate(block) {
@@ -62,7 +64,7 @@ export default async function decorate(block) {
   if (!resp) {
     return;
   }
-  const data = await resp.text()
+  const data = await resp.text();
   const html = new window.DOMParser().parseFromString(data, 'text/html');
   replaceHead(html.querySelector('head'));
   const main = html.querySelector('main');

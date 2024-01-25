@@ -71,7 +71,8 @@ async function renderByList(configs, wrapper, pinnedArticles) {
     extra = [...(await loadPosts())];
   } else if (configs.next && !Number.isNaN(parseInt(configs.next, 10))) {
     const total = parseInt(configs.next, 10);
-    let i = 0; // Counter for how many we've found
+    let count = 0; // count of items added to extra
+    let i = 0; // Counter for how many we've looked at
     const posts = [...(await loadPosts())];
     do {
       const next = posts[i];
@@ -79,9 +80,10 @@ async function renderByList(configs, wrapper, pinnedArticles) {
       const url = new URL(next.path, window.location.href).toString();
       if (!pinnedArticles.includes(url)) {
         extra.push(next);
+        count += 1;
       }
       i += 1;
-    } while (i < total);
+    } while (count < total);
   }
 
   const tmp = [];

@@ -323,6 +323,15 @@ main .default-content-wrapper picture > img {
 }
 
 
+main .section.center {
+  margin: 0 auto;
+}
+
+main .section.center .default-content-wrapper {
+  text-align: center;
+  padding: 0;
+}
+
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 35px;

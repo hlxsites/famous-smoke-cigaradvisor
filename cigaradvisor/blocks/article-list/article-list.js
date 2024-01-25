@@ -72,17 +72,15 @@ async function renderByList(configs, wrapper, pinnedArticles) {
   } else if (configs.next && !Number.isNaN(parseInt(configs.next, 10))) {
     const total = parseInt(configs.next, 10);
     let i = 0; // Counter for how many we've found
-    let idx = 1; // Counter for moving through the post list.
     const posts = [...(await loadPosts())];
     do {
-      const next = posts[idx];
+      const next = posts[i];
       if (!next) break;
       const url = new URL(next.path, window.location.href).toString();
       if (!pinnedArticles.includes(url)) {
         extra.push(next);
-        i += 1;
       }
-      idx += 1;
+      i += 1;
     } while (i < total);
   }
 

@@ -85,7 +85,7 @@ function decoratePictures(main) {
     const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
     picture.style.paddingBottom = `${ratio}%`;
     picture.style.maxWidth = `${img.width}px`; // Prevent pixelation
-  })
+  });
 }
 
 /**

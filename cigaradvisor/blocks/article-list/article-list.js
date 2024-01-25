@@ -66,22 +66,24 @@ async function renderByAuthor(wrapper, author) {
 async function renderByList(configs, wrapper, pinnedArticles) {
 // eslint-disable-next-line no-param-reassign
   pinnedArticles = Array.isArray(pinnedArticles) ? pinnedArticles : [pinnedArticles];
-  const extra = [];
-  if (configs.next && !Number.isNaN(parseInt(configs.next, 10))) {
+  let extra = [];
+  if (configs.next && configs.next.toLowerCase() === 'all') {
+    extra = [...(await loadPosts())];
+  } else if (configs.next && !Number.isNaN(parseInt(configs.next, 10))) {
     const total = parseInt(configs.next, 10);
-    let i = 0; // Counter for how many we've found
-    let idx = 1; // Counter for moving through the post list.
+    let count = 0; // count of items added to extra
+    let i = 0; // Counter for how many we've looked at
     const posts = [...(await loadPosts())];
     do {
-      const next = posts[idx];
-      if (!next) break;
+      if (i >= posts.length) break; // We've run out of posts to look at (shouldn't happen
+      const next = posts[i];
       const url = new URL(next.path, window.location.href).toString();
       if (!pinnedArticles.includes(url)) {
         extra.push(next);
-        i += 1;
+        count += 1;
       }
-      idx += 1;
-    } while (i < total);
+      i += 1;
+    } while (count < total);
   }
 
   const tmp = [];
@@ -125,7 +127,7 @@ export default async function decorate(block) {
     await renderByCategory(articleTeaserWrapper, category);
   } else if (author) {
     await renderByAuthor(articleTeaserWrapper, author);
-  } else if (articles) {
+  } else {
     await renderByList(configs, articleTeaserWrapper, articles);
   }
 
@@ -134,7 +136,7 @@ export default async function decorate(block) {
       await renderByCategory(articleTeaserWrapper, category);
     } else if (author) {
       await renderByAuthor(articleTeaserWrapper, author);
-    } else if (articles) {
+    } else {
       await renderByList(configs, articleTeaserWrapper, articles);
     }
   });

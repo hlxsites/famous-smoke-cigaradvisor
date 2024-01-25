@@ -19,6 +19,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -192,6 +193,12 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData;
+
+/**
+ * Returns all the posts in the posts index.
+ *
+ * @return {Promise<Array[Object]>}
+ */
 export async function loadPosts() {
   if (!articleIndexData) {
     const resp = await fetch(ARTICLE_INDEX_PATH);
@@ -201,7 +208,12 @@ export async function loadPosts() {
     }
     articleIndexData = jsonData.data;
   }
-  return articleIndexData;
+  // Protected against callers modifying the objects
+  const ret = [];
+  articleIndexData.forEach((a) => {
+    ret.push({ ...a });
+  });
+  return ret;
 }
 
 /**
@@ -220,7 +232,7 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
 /**
  * Fetches a post by a given index, starting at 1.
  * @param idx the index
- * @return {Promise<void>}
+ * @return {Promise<Object>}
  */
 export async function getPostByIdx(idx) {
   const articles = await loadPosts();
@@ -231,6 +243,7 @@ export async function getPostByIdx(idx) {
 }
 
 let authorIndexData;
+
 /**
  * Retrieves all authors from the server.
  * @returns {Promise<Array>} A promise that resolves to an array of author data.
@@ -252,7 +265,13 @@ export async function getAllAuthors(sort = false) {
       return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
     });
   }
-  return authorIndexData;
+
+  // Protected against callers modifying the objects
+  const ret = [];
+  authorIndexData.forEach((a) => {
+    ret.push({ ...a });
+  });
+  return ret;
 }
 
 /**
@@ -268,6 +287,7 @@ export async function fetchAuthorInfo(authorLink) {
 }
 
 let categoryIndexData;
+
 /**
  * Fetches category information based on the provided category link.
  * @param {string} categoryLink - The link to the category.
@@ -284,7 +304,9 @@ export async function fetchCategoryInfo(categoryLink) {
     }
     categoryIndexData = jsonData.data;
   }
-  return categoryIndexData.find((obj) => obj.path === filter);
+  // Protect against caller modifying object;
+  const found = categoryIndexData.find((obj) => obj.path === filter);
+  return { ...found };
 }
 
 /**

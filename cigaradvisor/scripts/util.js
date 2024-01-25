@@ -15,7 +15,7 @@ function createPageLink(pageNumber, text, className) {
   const listItem = document.createElement('li');
   const link = document.createElement('a');
   const currentPagePath = window.location.pathname;
-  link.href = `${currentPagePath}?page=${pageNumber}`;
+  link.href = `${currentPagePath}#page=${pageNumber}`;
   link.textContent = text;
 
   if (className) {

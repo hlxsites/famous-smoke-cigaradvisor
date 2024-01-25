@@ -86,8 +86,8 @@ main .section.hero-container > div {
   font-weight: var(--font-weight-bold);
   font-size: var(--body-font-size-l);
   line-height: 27px;
-  transition: background-color 1s;
   background-color: transparent;
+  text-transform: capitalize;
 }
 
 .hero.block .hero-search form input::placeholder {

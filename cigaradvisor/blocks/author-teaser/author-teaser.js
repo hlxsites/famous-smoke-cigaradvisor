@@ -52,7 +52,7 @@ export function buildAuthorTeaser(parentElement, author, isAuthorList = false) {
   }
   if (author.name) {
     const link = document.createElement('a');
-    link.dataset.href = author.path;
+    link.href = author.path;
     link.textContent = `Show all ${author.name}'s Articles`;
     authorDetails.append(link);
   }

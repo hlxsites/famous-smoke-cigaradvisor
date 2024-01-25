@@ -126,6 +126,9 @@ indices:
       published:
         select: head > meta[name="publisheddate"]
         value: parseTimestamp(attribute(el, "content"), "ddd, DD MMM YYYY hh:mm:ss GMT")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
       readingTime:
         select: head > meta[name="readingtime"]
         value: attribute(el, "content")

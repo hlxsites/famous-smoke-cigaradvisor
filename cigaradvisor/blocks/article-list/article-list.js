@@ -75,6 +75,7 @@ async function renderByList(configs, wrapper, pinnedArticles) {
     let i = 0; // Counter for how many we've looked at
     const posts = [...(await loadPosts())];
     do {
+      if (i >= posts.length) break; // We've run out of posts to look at (shouldn't happen
       const next = posts[i];
       if (!next) break;
       const url = new URL(next.path, window.location.href).toString();

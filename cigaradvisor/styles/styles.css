@@ -255,6 +255,15 @@ main .section[data-layout] .layout-wrapper > div {
   gap: 20px;
 }
 
+main .section.center {
+  margin: 0 auto;
+}
+
+main .section.center .default-content-wrapper {
+  text-align: center;
+  padding: 0;
+}
+
 main .section.stylized-header > .default-content-wrapper > h2 {
   text-align: center;
   text-transform: uppercase;

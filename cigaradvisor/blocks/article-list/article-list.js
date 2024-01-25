@@ -23,7 +23,7 @@ async function renderPage(wrapper, articles) {
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len
-  const articlePromises = [...articles].slice((currentPage - 1) * pageSize, currentPage * pageSize).map(async (article) => {
+  const articlePromises = articles.slice((currentPage - 1) * pageSize, currentPage * pageSize).map(async (article) => {
     const articleTeaser = document.createElement('div');
     articleTeaser.classList.add('article-teaser');
     articleTeaser.classList.add('block');

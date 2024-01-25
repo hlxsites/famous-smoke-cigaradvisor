@@ -207,7 +207,12 @@ export async function loadPosts() {
     }
     articleIndexData = jsonData.data;
   }
-  return articleIndexData;
+  // Protected against callers modifying the objects
+  const ret = [];
+  articleIndexData.forEach((a) => {
+    ret.push(Object.assign({}, a));
+  })
+  return ret;
 }
 
 /**
@@ -258,7 +263,13 @@ export async function getAllAuthors(sort = false) {
       return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
     });
   }
-  return authorIndexData;
+
+  // Protected against callers modifying the objects
+  const ret = []
+  authorIndexData.forEach((a) => {
+    ret.push(Object.assign({}, a));
+  })
+  return ret;
 }
 
 /**
@@ -290,7 +301,9 @@ export async function fetchCategoryInfo(categoryLink) {
     }
     categoryIndexData = jsonData.data;
   }
-  return categoryIndexData.find((obj) => obj.path === filter);
+  // Protect against caller modifying object;
+  const found = categoryIndexData.find((obj) => obj.path === filter);
+  return Object.assign({}, found);
 }
 
 /**

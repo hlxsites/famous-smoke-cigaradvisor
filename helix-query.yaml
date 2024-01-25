@@ -160,4 +160,4 @@ indices:
         value: textContent(el)
       text:
         select: main > div p
-        value: words(textContent(el), 0, 30000)
+        value: words(textContent(el), 0, 5000)

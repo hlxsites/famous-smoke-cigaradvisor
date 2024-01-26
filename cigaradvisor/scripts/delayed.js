@@ -6,6 +6,14 @@ sampleRUM('cwv');
 
 // add more delayed functionality here
 
+const GTM_SCRIPT = `
+  window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+  gtag('set', 'linker', {"domains":["www.famous-smoke.com"]} );
+  gtag("js", new Date());
+  gtag("set", "developer_id.dZTNiMT", true);
+  gtag("config", "GT-PHR6L87");
+`;
+
 const FOX_PUSH_SCRIPT = `
 var _foxpush = _foxpush || [];
 _foxpush.push(['_setDomain', 'cigaradvisorcom']);
@@ -74,12 +82,18 @@ const WISE_POPUP_SCRIPT = `
 `;
 
 function loadGTM() {
+  const tag = document.createElement('script');
+  tag.type = 'text/javascript';
+  tag.async = true;
+  tag.id = 'google-gtagjs-js';
+  tag.src = 'https://www.googletagmanager.com/gtag/js?id=GT-PHR6L87'
+  document.querySelector('head').append(tag);
   const script = document.createElement('script');
   script.type = 'text/javascript';
-  script.async = true;
-  script.id = 'google-gtagjs-js';
-  script.src = '  https://www.googletagmanager.com/gtag/js?id=GT-PHR6L87\n'
-  document.querySelector('head').append(script);
+  script.id = 'google_gtagjs-js-after';
+  script.innerHTML = GTM_SCRIPT;
+  tag.insertAdjacentElement('afterend', script);
+
 }
 
 function loadFoxPush() {

@@ -33,7 +33,6 @@
 
 .footer-legal ul > li {
   line-height: 18px;
-  color: inherit;
 }
 
 .footer-legal a {
@@ -55,9 +54,13 @@
   line-height: 33px;
 }
 
-.footer-nav nav > .nav-section.with-heading > h1 {
+.footer-nav nav > .nav-section > p {
+  margin: 0;
+}
+
+.footer-nav nav > .nav-section.with-heading > h3 {
   margin-bottom: 5px;
-  color: #673841;
+  color: var(--deep-reddish-brown);
   font-family: var(--ff-opensans);
   font-weight: 700;
   font-size: 16px;

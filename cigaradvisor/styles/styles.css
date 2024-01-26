@@ -142,7 +142,7 @@ h1 {
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
   margin: 2px auto;
 }
 
@@ -178,7 +178,7 @@ p {
   font-size: var(--body-font-size-m);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-l);
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
 }
 
 a:hover {
@@ -202,7 +202,7 @@ li {
   font-family: var(--ff-opensans);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-m);
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
   font-size: var(--body-font-size-m);
   cursor: default;
   list-style-position: inside;
@@ -216,16 +216,6 @@ li {
 .icon > img {
   width: var(--icon-size);
   height: var(--icon-size);
-}
-
-.bg-dark-gray {
-  --clr-text: var(--clr-white);
-
-  background-color: var(--clr-dark-gray);
-}
-
-.bg-pampas {
-  background-color: var(--clr-pampas);
 }
 
 main .section {
@@ -375,8 +365,18 @@ main .section.center .default-content-wrapper {
     margin-bottom: 40px;
   }
 
-  main > .section.background-grey {
+  .section.background-grey {
     background-color: var(--grey-background);
+  }
+
+  .section.background-dark-gray {
+    --clr-text: var(--clr-white);
+
+    background-color: var(--clr-dark-gray);
+  }
+
+  .section.background-pampas {
+    background-color: var(--clr-pampas);
   }
 
   main .section[data-layout] .layout-wrapper {

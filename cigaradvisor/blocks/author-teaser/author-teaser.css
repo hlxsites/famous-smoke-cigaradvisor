@@ -120,6 +120,8 @@
         padding: 0;
         margin-left: 60px;
         float: left;
+        min-height: 300px;
+        justify-content: center;
     }
 
     .author-teaser.block .author-details .author-heading {

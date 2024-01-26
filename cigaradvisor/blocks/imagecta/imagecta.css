@@ -23,6 +23,9 @@
 
 .section[data-layout="50/50"] .imagecta-wrapper{
   display: flex;
+}
+
+.section[data-layout="50/50"].article-teaser-container .imagecta-wrapper{
   flex-basis: 100%;
 }
 

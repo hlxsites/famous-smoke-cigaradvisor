@@ -322,6 +322,16 @@ main .section.center .default-content-wrapper {
   padding: 0;
 }
 
+.section.background-dark-gray {
+  --clr-text: var(--clr-white);
+
+  background-color: var(--clr-dark-gray);
+}
+
+.section.background-pampas {
+  background-color: var(--clr-pampas);
+}
+
 @media screen and (min-width: 600px) {
   h1 {
     font-size: 35px;
@@ -365,18 +375,8 @@ main .section.center .default-content-wrapper {
     margin-bottom: 40px;
   }
 
-  .section.background-grey {
+  main > .section.background-grey {
     background-color: var(--grey-background);
-  }
-
-  .section.background-dark-gray {
-    --clr-text: var(--clr-white);
-
-    background-color: var(--clr-dark-gray);
-  }
-
-  .section.background-pampas {
-    background-color: var(--clr-pampas);
   }
 
   main .section[data-layout] .layout-wrapper {

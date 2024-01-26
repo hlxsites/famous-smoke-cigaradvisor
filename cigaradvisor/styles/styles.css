@@ -248,6 +248,7 @@ main .section[data-layout] .layout-wrapper > div {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: space-between;
   gap: 20px;
 }
 

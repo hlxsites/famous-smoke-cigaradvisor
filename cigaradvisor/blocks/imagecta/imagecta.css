@@ -29,6 +29,10 @@
   flex-basis: 100%;
 }
 
+.section.imagecta-container.separator-container:not([class*=""]) .layout-wrapper > div {
+  justify-content: flex-start;
+}
+
 .section[data-layout="50/50"] .imagecta.block{
   display: flex;
   flex-basis: 100%;

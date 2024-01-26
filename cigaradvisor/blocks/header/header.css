@@ -326,6 +326,8 @@
   border-radius: 0;
   text-transform: capitalize;
   border: 1px solid var(--tan);
+  height: 2.85rem;
+  outline: none;
 }
 
 .header.block nav .secondary-nav-box.search-box form button {
@@ -342,6 +344,9 @@
   margin: 0;
   border: none;
   border-radius: 0;
+  font-family: var(--ff-montserrat);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
 }
 
 /* Mobile navigation */

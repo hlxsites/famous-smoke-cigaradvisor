@@ -1,0 +1,14 @@
+sitemaps:
+  cigaradvisor:
+    pages:
+      source: /cigaradvisor/pages-index.json
+      destination: /cigaradivsor/page-sitemap.xml
+    category:
+      source: /cigaradvisor/category/query-index.json
+      destination: /cigaradivsor/category-sitemap.xml
+    author:
+      source: /cigaradvisor/author/query-index.json
+      destination: /cigaradivsor/author-sitemap.xml
+    posts:
+      source: /cigaradvisor/posts/query-index.json
+      destination: /cigaradivsor/post-sitemap.xml

@@ -52,7 +52,7 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/author-teaser/author-teaser.css`);
   const configs = readBlockConfig(block);
   const { curatedauthors } = configs;
-  pageSize = Number.isNaN(parseInt(configs.limit, 10)) ? 2 : parseInt(configs.limit, 10);
+  pageSize = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
 
   const authorTeaserWrapper = document.createElement('div');
   authorTeaserWrapper.classList.add('author-teaser-wrapper');

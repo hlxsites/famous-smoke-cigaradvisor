@@ -227,6 +227,10 @@ export async function loadPosts() {
   return ret;
 }
 
+/**
+ * Retrieves search index data from the server.
+ * @returns {Promise<Object>} The search index data.
+ */
 export async function getSearchIndexData() {
   const resp = await fetch(SEARCH_INDEX_PATH);
   let jsonData = '';

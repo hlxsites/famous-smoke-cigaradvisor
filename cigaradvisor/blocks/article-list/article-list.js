@@ -7,11 +7,16 @@ import { generatePagination } from '../../scripts/util.js';
 
 let pageSize = 10;
 
-async function renderPage(wrapper, articles) {
+export async function renderPage(wrapper, articles, limit) {
   if (!articles || articles.length === 0) {
     return;
   }
-
+  if (limit) {
+    const limitPerPage = Number.isNaN(parseInt(limit, 10)) ? 10 : parseInt(limit, 10);
+    if (limit) {
+      pageSize = Math.round(limitPerPage - (limitPerPage % 2));
+    }
+  }
   const list = document.createElement('div');
   list.classList.add('article-teaser-list');
   let currentPage = 1;

@@ -25,9 +25,14 @@ export default async function decorate(block) {
       block.classList.add(s.toLowerCase());
     });
   }
+  const picture = block.querySelector('picture');
+  if (!picture) {
+    block.remove();
+    return;
+  }
   const image = document.createElement('div');
   image.classList.add('hero-image');
-  image.replaceChildren(block.querySelector('picture'));
+  image.replaceChildren(picture);
 
   const content = document.createElement('div');
   content.classList.add('hero-content');

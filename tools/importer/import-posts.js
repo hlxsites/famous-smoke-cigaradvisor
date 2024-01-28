@@ -10,18 +10,23 @@
  * governing permissions and limitations under the License.
  */
 
+import { blurbs } from './blurbs.js';
+
 const famousUrl = (a) => {
+  if (a.host !== 'www.famous-smoke.com') {
+    return a.href;
+  }
   const baseUri = a.pathname.startsWith('/cigaradvisor')
     ? 'https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page'
     : 'https://www.famous-smoke.com';
   return `${baseUri}${a.pathname}`;
 };
-const createMetadata = (main, document, url, params) => {
+const createMetadata = (document, params) => {
   const meta = {};
 
   const title = document.querySelector('title');
   if (title) {
-    meta.title = title.innerHTML.replace(/[\n\t]/gm, '');
+    meta.title = title.textContent;
   }
 
   const description = document.querySelector('[property="og:description"]');
@@ -29,18 +34,12 @@ const createMetadata = (main, document, url, params) => {
     meta.description = description.content;
   }
 
-  if (params.articleBlurb) {
-    meta.articleBlurb = params.articleBlurb;
-  }
+  meta.articleBlurb = blurbs[params.name] || '';
 
-  const publishedDate = document.querySelector('#articleNav > li:nth-child(2)');
+  const publishedDate = document.querySelector('meta[property="article:published_time"]');
   if (publishedDate) {
-    meta.publishedDate = publishedDate.textContent;
-  }
-
-  const publishedTime = document.querySelector('[property="article:published_time"]');
-  if (publishedTime) {
-    const date = new Date(publishedTime.content);
+    const date = new Date(publishedDate.getAttribute('content'));
+    meta.publishedDate = date.toLocaleDateString();
     params.bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
   } else {
     params.bucket = '';
@@ -56,7 +55,7 @@ const createMetadata = (main, document, url, params) => {
     meta.readingTime += ` ${readingTimeUnit.textContent}`;
   }
 
-  const category = document.querySelector('.tag');
+  const category = document.querySelector('main article .tag');
   if (category) {
     meta.category = famousUrl(category);
   }
@@ -65,38 +64,81 @@ const createMetadata = (main, document, url, params) => {
   if (authorLink) {
     meta.author = famousUrl(authorLink);
   }
-
-  const block = WebImporter.Blocks.getMetadataBlock(document, meta);
-  main.append(block);
-
   return meta;
 };
 
-const createHero = (main, document, url) => {
-  const image = document.querySelector('.newsArticle__image');
-  if (image) {
-    image.after(document.createElement('hr'));
-  }
+const processFigure = (figure, document) => {
+  const cells = [];
+  cells.push(['Captioned Image']);
+  const img = figure.querySelector('img');
+  const a = figure.querySelector('a');
+  const link = document.createElement('a');
+  link.innerHTML = a.href;
+  link.href = a.href;
+  link.title = img.alt;
+  cells.push([img, link]);
+
+  const caption = figure.querySelector('figcaption');
+  cells.push(['Caption', caption.innerHTML]);
+
+  return WebImporter.DOMUtils.createTable(cells, document);
 };
 
-const handleTextMediaBlock = (figure, document, url) => {
-  const caption = figure.querySelector('figure figcaption');
-  const emCaption = document.createElement('em');
-  emCaption.textContent = caption.textContent;
-  const div = document.createElement('div');
-  div.appendChild(emCaption);
-  figure.append(div);
-  caption.remove();
-};
+const createPostBody = (main, document) => {
+  const body = document.querySelector('article div.newsArticle__content');
+  body.querySelectorAll(':scope > h2, :scope > h3, :scope > p, :scope > figure').forEach((ele) => {
+    // Fix some bad formatting
+    ele.querySelectorAll('em > br, strong > br').forEach((br) => {
+      const parent = br.parentElement;
+      ele.insertBefore(br, parent);
+    });
+    main.append(ele);
+  });
+  main.querySelectorAll('figure').forEach((f) => {
+    f.replaceWith(processFigure(f, document));
+  })
+}
+
+const createAuthorTeaser = (main, document, meta) => {
+  const cells = [['Author-teaser']];
+  cells.push([meta.author]);
+  const author = WebImporter.DOMUtils.createTable(cells, document);
+  main.append(author);
+}
+
+const createRelatedArticles = (main, document) => {
+  const title = document.querySelector('main div.newsArticle__related h3').textContent;
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+  main.append(h3);
+
+  const wrapper = document.querySelector('article')?.nextElementSibling?.nextElementSibling?.nextElementSibling;
+  const articleList = [];
+  articleList.push(['Article List']);
+
+  let list = '';
+  wrapper.querySelectorAll('article').forEach((article) => {
+    const href = article.querySelector('.read_more').href;
+    const date = new Date(article.querySelector('.article__pubdate').getAttribute('datetime'));
+    const link = href.replace(/(.*)\/cigaradvisor\/(.*)/, `$1/cigaradvisor/${date.getFullYear()}/${date.getMonth()+1}/$2`);
+    const li = document.createElement('li');
+    li.innerHTML = link;
+    list += li.outerHTML;
+  })
+  articleList.push(['Articles', list]);
+  main.append(WebImporter.DOMUtils.createTable(articleList, document));
+}
+
 export default {
-
   preprocess: ({ document, url, html, params }) => {
+    // TODO: This isn't the right source for the blurb, gonna have to find the correct one.
     document.querySelectorAll('script[type="application/ld+json"]').forEach((script) => {
       const ld = JSON.parse(script.innerHTML);
       if (!Array.isArray(ld) && ld.description) {
         params.articleBlurb = ld.description;
       }
     });
+    params.name = url.substring(url.lastIndexOf('/') + 1);
   },
 
   /**
@@ -112,56 +154,38 @@ export default {
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
   }) => {
-    const main = document.body;
 
-    const article = main.querySelector('article');
+    const metadata = createMetadata(document, params);
+    const main = document.createElement('main');
+    const heroimg = document.querySelector('main article img');
+    main.append(heroimg);
+    const h1 = document.querySelector('main article h1');
+    main.append(h1);
 
-    // contributor block
-    const block = main.querySelector('.contributorBlock');
-    const link = block.querySelector('.intro > a');
-    const u = famousUrl(link);
-    link.href = u;
-    link.textContent = u;
-    const cells = [['Author-teaser']];
-    cells.push([link]);
-    const author = WebImporter.DOMUtils.createTable(cells, document);
-    article.append(author);
+    createPostBody(main, document);
 
-    // create the metadata block and append it to the article element
-    createMetadata(article, document, url, params);
-    createHero(article, document, url);
-    // Text-media autoblocks to image + <em> text
-    document.querySelectorAll('figure').forEach((figure) => {
-      handleTextMediaBlock(figure, document, url);
-    });
-    article.querySelectorAll('a').forEach((a) => {
+    main.append(document.createElement('hr'));
+    createAuthorTeaser(main, document, metadata);
+
+    main.append(document.createElement('hr'));
+    createRelatedArticles(main, document);
+
+    main.append(document.createElement('hr'));
+    const metaBlock = WebImporter.Blocks.getMetadataBlock(document, metadata);
+    main.append(metaBlock);
+
+    createMetadata(main, document, url, params);
+
+    // Fix URLs
+    main.querySelectorAll('a').forEach((a) => {
       a.href = famousUrl(a);
     });
-    // Fix image located inside a h3 tag
-    article.querySelectorAll('h3 a > img').forEach((img) => {
-      const a = img.closest('a');
-      const h3 = a.closest('h3');
-      const picture = document.createElement('picture');
-      picture.appendChild(a);
-      h3.after(picture);
-    });
-    // Create video block for vimeo
-    article.querySelectorAll('iframe[data-src^="https://player.vimeo.com/video"]').forEach((iframe) => {
-      const cells = [['video']];
-      cells.push([iframe.getAttribute('data-src')]);
-      const table = WebImporter.DOMUtils.createTable(cells, document);
-      iframe.replaceWith(table);
-    });
 
-    WebImporter.DOMUtils.remove(article, [
+    WebImporter.DOMUtils.remove(main, [
       'noscript',
-      '#comments',
-      '.rt-reading-time',
-      '#articleNav',
-      '.tag',
     ]);
 
-    return article;
+    return main;
   },
 
   /**

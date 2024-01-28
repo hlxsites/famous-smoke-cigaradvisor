@@ -1,5 +1,3 @@
-import { readBlockConfig } from '../../scripts/aem.js';
-
 export default async function decorate(block) {
   const wrapper = document.createElement('div');
   wrapper.classList.add('content-wrapper');
@@ -13,7 +11,7 @@ export default async function decorate(block) {
   picture.style.paddingBottom = `${ratio}%`;
   wrapper.style.maxWidth = `${img.width}px`;
 
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.classList.add('image');
   div.append(link);
 
@@ -22,8 +20,8 @@ export default async function decorate(block) {
   const caption = block.querySelector(':scope > div:nth-of-type(2) > div:nth-of-type(2)');
   let p = caption.querySelector('p');
   if (!p) {
-     p = document.createElement('p');
-     p.innerHTML = caption.innerHTML;
+    p = document.createElement('p');
+    p.innerHTML = caption.innerHTML;
   }
   p.classList.add('caption');
   wrapper.append(p);

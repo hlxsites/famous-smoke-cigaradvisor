@@ -23,7 +23,6 @@ try {
 }
 while (page) {
   console.log(page);
-  const blurbs = {};
   const resp = await fetch(page);
   if (!resp.ok) {
     break;

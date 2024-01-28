@@ -13,14 +13,16 @@
 import { blurbs } from './blurbs.js';
 
 const famousUrl = (a) => {
-  if (a.host !== 'www.famous-smoke.com') {
-    return a.href;
+  if (a.pathname.startsWith('/cigaradvisor')) {
+    return `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${a.pathname}`;
   }
-  const baseUri = a.pathname.startsWith('/cigaradvisor')
-    ? 'https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page'
-    : 'https://www.famous-smoke.com';
-  return `${baseUri}${a.pathname}`;
+
+  if (a.pathname.startsWith('/')) {
+    return `https://www.famous-smoke.com${a.pathname}`;
+  }
+  return a.href;
 };
+
 const createMetadata = (document, params) => {
   const meta = {};
 
@@ -79,7 +81,9 @@ const processFigure = (figure, document) => {
   cells.push([img, link]);
 
   const caption = figure.querySelector('figcaption');
-  cells.push(['Caption', caption.innerHTML]);
+  const p = document.createElement('p');
+  p.innerHTML = caption.innerHTML;
+  cells.push(['Caption', p]);
 
   return WebImporter.DOMUtils.createTable(cells, document);
 };
@@ -138,7 +142,8 @@ export default {
         params.articleBlurb = ld.description;
       }
     });
-    params.name = url.substring(url.lastIndexOf('/') + 1);
+    const path = new URL(url).pathname
+    params.name = path.substring(path.lastIndexOf('/') + 1);
   },
 
   /**
@@ -154,7 +159,7 @@ export default {
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
   }) => {
-
+    //
     const metadata = createMetadata(document, params);
     const main = document.createElement('main');
     const heroimg = document.querySelector('main article img');
@@ -173,8 +178,6 @@ export default {
     main.append(document.createElement('hr'));
     const metaBlock = WebImporter.Blocks.getMetadataBlock(document, metadata);
     main.append(metaBlock);
-
-    createMetadata(main, document, url, params);
 
     // Fix URLs
     main.querySelectorAll('a').forEach((a) => {

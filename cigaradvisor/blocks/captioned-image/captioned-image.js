@@ -1,11 +1,14 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+
 export default async function decorate(block) {
+  const config = readBlockConfig(block);
+
+
   const wrapper = document.createElement('div');
   wrapper.classList.add('content-wrapper');
 
+  // Get the picture ready
   const picture = block.querySelector('picture');
-  const link = block.querySelector(':scope > div:first-of-type a');
-  link.replaceChildren(picture);
-
   const img = picture.querySelector('img');
   const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
   picture.style.paddingBottom = `${ratio}%`;
@@ -13,11 +16,22 @@ export default async function decorate(block) {
 
   const div = document.createElement('div');
   div.classList.add('image');
-  div.append(link);
 
+
+  // Does the image link?
+  const keys = Object.keys(config);
+  if (keys.link) {
+    const idx = keys.indexOf('link');
+    const a = block.querySelector(`:scope > div:nth-of-type(${idx+1}) > div:nth-of-type(2) a`);
+    a.append(picture);
+    div.append(a);
+  } else {
+    div.append(picture);
+  }
   wrapper.append(div);
 
-  const caption = block.querySelector(':scope > div:nth-of-type(2) > div:nth-of-type(2)');
+  const idx = keys.indexOf('caption')
+  const caption = block.querySelector(`:scope > div:nth-of-type(${idx +1 }) > div:nth-of-type(2)`);
   let p = caption.querySelector('p');
   if (!p) {
     p = document.createElement('p');

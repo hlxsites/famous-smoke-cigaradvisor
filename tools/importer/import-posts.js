@@ -12,15 +12,20 @@
 
 import { blurbs } from './blurbs.js';
 
-const famousUrl = (a) => {
-  if (a.pathname.startsWith('/cigaradvisor')) {
-    return `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${a.pathname}`;
-  }
+const fixUrl = (a) => {
+  let href = a.getAttribute('href');
+  let text = a.textContent;
 
-  if (a.pathname.startsWith('/')) {
-    return `https://www.famous-smoke.com${a.pathname}`;
+  if (href.startsWith('/cigaradvisor')) {
+    href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${href}`;
+  } else if (href.startsWith('/')) {
+    href = `https://www.famous-smoke.com${href}`;
   }
-  return a.href;
+  if (a.href === text) {
+    a.textContent = href;
+  }
+  a.href = href;
+  return a;
 };
 
 const createMetadata = (document, params) => {
@@ -59,12 +64,12 @@ const createMetadata = (document, params) => {
 
   const category = document.querySelector('main article .tag');
   if (category) {
-    meta.category = famousUrl(category);
+    meta.category = fixUrl(category);
   }
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    meta.author = famousUrl(authorLink);
+    meta.author = fixUrl(authorLink);
   }
   return meta;
 };
@@ -88,6 +93,17 @@ const processFigure = (figure, document) => {
   return WebImporter.DOMUtils.createTable(cells, document);
 };
 
+
+const createImageCta = (p, document) => {
+  const a = p.querySelector('a').cloneNode();
+  a.textContent = a.href;
+  const img = p.querySelector('img')
+  const cells = [];
+  cells.push(['imagecta']);
+  cells.push([img, a])
+  return WebImporter.DOMUtils.createTable(cells, document);
+}
+
 const createPostBody = (main, document) => {
   const body = document.querySelector('article div.newsArticle__content');
   body.querySelectorAll(':scope > h2, :scope > h3, :scope > p, :scope > figure').forEach((ele) => {
@@ -96,6 +112,13 @@ const createPostBody = (main, document) => {
       const parent = br.parentElement;
       ele.insertBefore(br, parent);
     });
+
+    if (ele.nodeName === 'P') {
+      const anchorImage = ele.querySelector('a img');
+      if (anchorImage) {
+        main.append(createImageCta(ele, document));
+      }
+    }
     main.append(ele);
   });
   main.querySelectorAll('figure').forEach((f) => {
@@ -104,7 +127,7 @@ const createPostBody = (main, document) => {
 }
 
 const createAuthorTeaser = (main, document, meta) => {
-  const cells = [['Author-teaser']];
+  const cells = [['Author Teaser']];
   cells.push([meta.author]);
   const author = WebImporter.DOMUtils.createTable(cells, document);
   main.append(author);
@@ -159,7 +182,11 @@ export default {
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
   }) => {
-    //
+
+    WebImporter.DOMUtils.remove(document, [
+      'noscript',
+    ]);
+
     const metadata = createMetadata(document, params);
     const main = document.createElement('main');
     const heroimg = document.querySelector('main article img');
@@ -180,13 +207,8 @@ export default {
     main.append(metaBlock);
 
     // Fix URLs
-    main.querySelectorAll('a').forEach((a) => {
-      a.href = famousUrl(a);
-    });
+    main.querySelectorAll('a').forEach(fixUrl);
 
-    WebImporter.DOMUtils.remove(main, [
-      'noscript',
-    ]);
 
     return main;
   },

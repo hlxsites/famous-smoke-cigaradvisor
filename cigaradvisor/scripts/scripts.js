@@ -17,7 +17,7 @@ import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
-const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
 const SEARCH_INDEX_PATH = '/cigaradvisor/posts/search-index.json';
 
@@ -26,6 +26,9 @@ const SEARCH_INDEX_PATH = '/cigaradvisor/posts/search-index.json';
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (getMetadata('template')) {
+    return;
+  }
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -321,7 +324,7 @@ let categoryIndexData;
 export async function fetchCategoryInfo(categoryLink) {
   const filter = getRelativePath(categoryLink);
   if (!categoryIndexData) {
-    const resp = await fetch(DEFAULT_INDEX_PATH);
+    const resp = await fetch(CATEGORY_INDEX_PATH);
     let jsonData = '';
     if (resp.ok) {
       jsonData = await resp.json();

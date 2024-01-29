@@ -94,13 +94,13 @@ const processFigure = (figure, document) => {
   const p = document.createElement('p');
   p.innerHTML = caption.innerHTML;
   cells.push(['Caption', p]);
-
   return WebImporter.DOMUtils.createTable(cells, document);
 };
 
 const createImageCta = (p, document) => {
   const img = p.querySelector('a img');
   const anchor = img.closest('a');
+
   anchor.textContent = anchor.href;
   fixUrl(anchor);
   const cells = [];
@@ -108,6 +108,17 @@ const createImageCta = (p, document) => {
   cells.push([img, anchor])
   return WebImporter.DOMUtils.createTable(cells, document);
 }
+
+const createVideo = (iframe, document) => {
+  const a = document.createElement('a');
+  a.href = iframe.getAttribute('data-src');
+  a.textContent = a.href;
+  const cells = [];
+  cells.push(['video']);
+  cells.push([a])
+  iframe.replaceWith(WebImporter.DOMUtils.createTable(cells, document));
+}
+
 
 const createPostBody = (main, document) => {
   const body = document.querySelector('article div.newsArticle__content');
@@ -127,9 +138,26 @@ const createPostBody = (main, document) => {
       ele.insertBefore(br, parent);
     });
 
-    if (ele.querySelector('a img')) {
+    if (ele.querySelector('iframe')) {
+      createVideo(ele.querySelector('iframe'), document);
+    }
+
+    const img = ele.querySelector('a img');
+    if (img) {
+      const anchor = img.closest('a');
+      const idx = [...ele.childNodes].indexOf(anchor);
+
       const table = createImageCta(ele, document);
-      main.append(table);
+      if (ele.textContent.trim()) {
+        main.append(ele);
+        if (idx === 0) {
+          ele.insertAdjacentElement('beforebegin', table);
+        } else {
+          ele.insertAdjacentElement('afterend', table);
+        }
+      } else {
+        main.append(table);
+      }
     } else if (ele.textContent.trim()) {
       main.append(ele);
     }

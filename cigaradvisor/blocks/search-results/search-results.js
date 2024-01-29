@@ -96,7 +96,7 @@ export default async function decorate(block) {
     if (heroSearch) {
       heroSearch.querySelector('input').value = searchValue;
     }
-    handleSearch(searchValue, articleTeaserWrapper, limit);
+    await handleSearch(searchValue, articleTeaserWrapper, limit);
   }
 
   articleList.append(articleTeaserWrapper);
@@ -112,7 +112,7 @@ export default async function decorate(block) {
       if (heroSearch) {
         heroSearch.querySelector('input').value = searchValue;
       }
-      handleSearch(searchValue, articleTeaserWrapper, limit);
+      await handleSearch(searchValue, articleTeaserWrapper, limit);
     }
   });
 }

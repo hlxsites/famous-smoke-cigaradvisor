@@ -3,32 +3,6 @@ import { buildBlock, getMetadata } from '../aem.js';
 
 export default async function decorate(main) {
   decorateExternalLink(main);
-  const paragraphs = main.querySelectorAll('p');
-  paragraphs.forEach((paragraph) => {
-    if (paragraph.querySelector('picture') !== null) {
-      const imageWrapper = document.createElement('div');
-      imageWrapper.classList.add('article-image-wrapper');
-      if (paragraph.querySelector('a') !== null) {
-        const a = paragraph.querySelector('a');
-        a.replaceChildren(paragraph.querySelector('picture'));
-        imageWrapper.append(a);
-      } else {
-        imageWrapper.append(paragraph.querySelector('picture'));
-      }
-      const nextSibling = paragraph.nextElementSibling;
-      if (nextSibling && nextSibling.tagName === 'P' && nextSibling.querySelector('em')) {
-        nextSibling.classList.add('article-image-caption');
-        imageWrapper.append(nextSibling);
-      }
-      paragraph.replaceChildren(imageWrapper);
-    }
-  });
-  const h3 = main.querySelectorAll('h3');
-  h3.forEach((heading) => {
-    const p = document.createElement('p');
-    p.innerHTML = '&nbsp;';
-    heading.prepend(p);
-  });
   const div = document.createElement('div');
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');

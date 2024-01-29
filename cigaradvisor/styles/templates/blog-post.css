@@ -41,10 +41,6 @@ body.blog-post-template main .default-content-wrapper .article-image-wrapper {
   clear: both;
 }
 
-body.blog-post-template main .default-content-wrapper picture img {
-  padding: 20px 20px 20px 0;
-}
-
 body.blog-post-template main .default-content-wrapper .article-image-caption {
   font-family: var(--ff-opensans);
   font-size: 16px;

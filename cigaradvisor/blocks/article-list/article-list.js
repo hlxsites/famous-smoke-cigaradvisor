@@ -47,6 +47,7 @@ export async function renderPage(wrapper, articles, limit) {
       list.append(teaser);
     });
   });
+  list.querySelector('.article-teaser.block .article-image img')?.setAttribute('loading', 'eager');
   wrapper.replaceChildren(list);
 
   if (totalPages > 1) {

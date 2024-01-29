@@ -11,7 +11,7 @@ export async function renderPage(wrapper, articles, limit) {
     return;
   }
   const limitPerPage = Number.isNaN(parseInt(limit, 10)) ? 10 : parseInt(limit, 10);
-  if (limit) {
+  if (limitPerPage) {
     pageSize = Math.round(limitPerPage - (limitPerPage % 2));
   }
   const list = document.createElement('div');

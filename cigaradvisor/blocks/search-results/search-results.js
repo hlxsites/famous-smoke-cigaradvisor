@@ -17,7 +17,8 @@ function filterData(searchTerms, data) {
     let minIdx = -1;
 
     searchTerms.forEach((term) => {
-      const idx = (result.header || result.title).toLowerCase().indexOf(term);
+      // eslint-disable-next-line max-len
+      const idx = (result.heading || result.title || result.description).toLowerCase().indexOf(term);
       if (idx < 0) return;
       if (minIdx < idx) minIdx = idx;
     });
@@ -27,9 +28,9 @@ function filterData(searchTerms, data) {
       return;
     }
 
-    const metaContents = `${result.title} ${result.description} ${result.path.split('/').pop()} ${result.text}`.toLowerCase();
+    const fullText = result.text.toLowerCase();
     searchTerms.forEach((term) => {
-      const idx = metaContents.indexOf(term);
+      const idx = fullText.indexOf(term);
       if (idx < 0) return;
       if (minIdx < idx) minIdx = idx;
     });

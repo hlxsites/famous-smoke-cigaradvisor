@@ -17,7 +17,6 @@ function formatDate(originalDateString) {
 
 // eslint-disable-next-line max-len
 export function buildArticleTeaser(parentElement, article) {
-  const [formattedDate, datetimeAttr] = formatDate(article.published).split('|');
   const category = (article.category && article.category.heading) ? article.category.heading : '';
   parentElement.innerHTML += `
         <article class="article article-thumbnail">
@@ -32,7 +31,6 @@ export function buildArticleTeaser(parentElement, article) {
                 </h2>
                 <div class="article-meta">
                   <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
-                  <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
                 </div>
             </articleheader>
             <div class="article-preview">

@@ -156,7 +156,7 @@ export default async function decorate(block) {
   searchBox.className = 'secondary-nav-box search-box';
   searchBox.innerHTML = `<form action="/cigaradvisor/search" class="search search--header lg-andUp">
   <label class="sr-only" for="header-search-term">Search</label>
-  <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off" minlength="3" value="" required>
+  <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off" pattern=".{3,}" title="Please enter at least three (3) characters to search." required>
   <button type="submit" class="search__submit" value="Submit" title="Submit">Submit</button>
   </form>`;
   nav.append(searchBox);

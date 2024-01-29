@@ -7,7 +7,7 @@ function buildSearch() {
   search.innerHTML = `
     <form action="/cigaradvisor/search" method="get">
       <label class="sr-only" for="main-search-term">Search</label>
-      <input type="text" maxlength="255" placeholder="SEARCH" name="s" autocomplete="off" minlength="3" value="" required>
+      <input type="text" maxlength="255" placeholder="SEARCH" name="s" autocomplete="off" pattern=".{3,}" title="Please enter at least three (3) characters to search." required>
       <button type="submit" value="Submit" title="Submit">
         <span class="icon icon-magnifying-glass">
           <img data-icon-name="magnifying-glass" src="/cigaradvisor/icons/magnifying-glass.svg" loading="lazy">

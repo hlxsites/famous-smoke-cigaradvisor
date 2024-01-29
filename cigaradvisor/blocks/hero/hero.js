@@ -27,7 +27,7 @@ export default async function decorate(block) {
   }
   const image = document.createElement('div');
   image.classList.add('hero-image');
-  image.replaceChildren(picture);
+  image.replaceChildren(block.querySelector('picture'));
 
   const content = document.createElement('div');
   content.classList.add('hero-content');

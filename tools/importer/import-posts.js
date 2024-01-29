@@ -64,12 +64,14 @@ const createMetadata = (document, params) => {
 
   const category = document.querySelector('main article .tag');
   if (category) {
-    meta.category = fixUrl(category);
+    const a = fixUrl(category);
+    meta.category = a.href;
   }
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    meta.author = fixUrl(authorLink);
+    const a = fixUrl(authorLink);
+    meta.author = a.href;
   }
   return meta;
 };
@@ -158,13 +160,6 @@ const createRelatedArticles = (main, document) => {
 
 export default {
   preprocess: ({ document, url, html, params }) => {
-    // TODO: This isn't the right source for the blurb, gonna have to find the correct one.
-    document.querySelectorAll('script[type="application/ld+json"]').forEach((script) => {
-      const ld = JSON.parse(script.innerHTML);
-      if (!Array.isArray(ld) && ld.description) {
-        params.articleBlurb = ld.description;
-      }
-    });
     const path = new URL(url).pathname
     params.name = path.substring(path.lastIndexOf('/') + 1);
   },

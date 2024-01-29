@@ -81,11 +81,14 @@ const processFigure = (figure, document) => {
   cells.push(['Captioned Image']);
   const img = figure.querySelector('img');
   const a = figure.querySelector('a');
-  const link = document.createElement('a');
-  link.innerHTML = a.href;
-  link.href = a.href;
-  link.title = img.alt;
-  cells.push([img, link]);
+  cells.push(['image', img]);
+  if (a) {
+    const link = document.createElement('a');
+    link.innerHTML = a.href;
+    link.href = a.href;
+    link.title = img.alt;
+    cells.push(['link', link]);
+  }
 
   const caption = figure.querySelector('figcaption');
   const p = document.createElement('p');
@@ -95,14 +98,13 @@ const processFigure = (figure, document) => {
   return WebImporter.DOMUtils.createTable(cells, document);
 };
 
-
 const createImageCta = (p, document) => {
-  const a = p.querySelector('a').cloneNode();
-  a.textContent = a.href;
-  const img = p.querySelector('img')
+  const img = p.querySelector('a img');
+  const anchor = img.closest('a').cloneNode();
+  anchor.textContent = anchor.href;
   const cells = [];
   cells.push(['imagecta']);
-  cells.push([img, a])
+  cells.push([img, anchor])
   return WebImporter.DOMUtils.createTable(cells, document);
 }
 

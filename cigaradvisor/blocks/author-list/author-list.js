@@ -3,21 +3,20 @@ import { buildAuthorTeaser } from '../author-teaser/author-teaser.js';
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { generatePagination } from '../../scripts/util.js';
 
-export default async function decorate(block) {
-  await loadCSS(`${window.hlx.codeBasePath}/blocks/author-teaser/author-teaser.css`);
-  const configs = readBlockConfig(block);
-  const { curatedauthors, limit = 10 } = configs;
+let pageSize;
+
+async function renderList(wrapper, curatedAuthors) {
   let currentPage = 1;
-  block.innerHTML = '';
+  const match = window.location.hash.match(/page=(\d+)/);
+  if (match) {
+    currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
+  }
 
-  const urlParams = new URLSearchParams(window.location.search);
-  currentPage = urlParams.get('page') ? parseInt(urlParams.get('page'), 10) : 1;
-
-  let allAuthors = await getAllAuthors(true);
+  let allAuthors = [...(await getAllAuthors(true))];
 
   const curatedAuthorsInfo = [];
   [...allAuthors].forEach((author) => {
-    if (curatedauthors.some((curatedAuthor) => curatedAuthor.includes(author.path))) {
+    if (curatedAuthors.some((curatedAuthor) => curatedAuthor.includes(author.path))) {
       curatedAuthorsInfo.push(author);
       allAuthors.splice(allAuthors.indexOf(author), 1);
     }
@@ -25,22 +24,42 @@ export default async function decorate(block) {
 
   allAuthors = [...curatedAuthorsInfo, ...allAuthors];
   const totalAuthors = allAuthors.length;
-  const totalPages = Math.ceil(totalAuthors / limit);
-  [...allAuthors].slice((currentPage - 1) * limit, currentPage * limit).map(async (author) => {
-    const authorTeaserWrapper = document.createElement('div');
-    authorTeaserWrapper.classList.add('author-teaser-wrapper');
-    const authorTeaser = document.createElement('div');
-    authorTeaser.classList.add('author-teaser');
-    authorTeaser.classList.add('block');
-    authorTeaserWrapper.append(authorTeaser);
-    buildAuthorTeaser(authorTeaser, author, true);
-    block.append(authorTeaserWrapper);
-  });
+  const totalPages = Math.ceil(totalAuthors / pageSize);
+
+  const list = document.createElement('div');
+  list.classList.add('author-teaser-list');
+
+  [...allAuthors].slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    .map(async (author) => {
+      const authorTeaser = document.createElement('div');
+      authorTeaser.classList.add('author-teaser');
+      authorTeaser.classList.add('block');
+      buildAuthorTeaser(authorTeaser, author, true);
+      list.append(authorTeaser);
+    });
+
+  wrapper.replaceChildren(list);
 
   if (totalPages > 1) {
-    const pageinationContainer = document.createElement('div');
-    pageinationContainer.classList.add('pagination-container');
-    pageinationContainer.appendChild(generatePagination(currentPage, totalPages));
-    block.append(pageinationContainer);
+    const paginationContainer = document.createElement('div');
+    paginationContainer.classList.add('pagination-container');
+    paginationContainer.appendChild(generatePagination(currentPage, totalPages));
+    wrapper.append(paginationContainer);
   }
+}
+
+export default async function decorate(block) {
+  await loadCSS(`${window.hlx.codeBasePath}/blocks/author-teaser/author-teaser.css`);
+  const configs = readBlockConfig(block);
+  const { curatedauthors } = configs;
+  pageSize = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
+
+  const authorTeaserWrapper = document.createElement('div');
+  authorTeaserWrapper.classList.add('author-teaser-wrapper');
+  block.replaceChildren(authorTeaserWrapper);
+  await renderList(authorTeaserWrapper, curatedauthors);
+
+  window.addEventListener('hashchange', async () => {
+    await renderList(authorTeaserWrapper, curatedauthors);
+  });
 }

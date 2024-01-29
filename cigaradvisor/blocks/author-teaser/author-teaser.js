@@ -52,7 +52,7 @@ export function buildAuthorTeaser(parentElement, author, isAuthorList = false) {
   }
   if (author.name) {
     const link = document.createElement('a');
-    link.dataset.href = author.path;
+    link.href = author.path;
     link.textContent = `Show all ${author.name}'s Articles`;
     authorDetails.append(link);
   }
@@ -64,6 +64,7 @@ export default async function decorate(block) {
   const link = block.querySelector('a');
   const path = link ? link.getAttribute('href') : block.textContent.trim();
   const author = await fetchAuthorInfo(path);
+  block.innerHTML = '';
   if (author) {
     buildAuthorTeaser(block, author);
   }

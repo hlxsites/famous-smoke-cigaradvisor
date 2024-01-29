@@ -24,47 +24,56 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
-      heading:
-        select: main h1:first-of-type
-        value: textContent(el)
-  articles:
+  pages:
     include:
-      - /cigaradvisor/posts/**
-    target: /cigaradvisor/posts/query-index.json
+      - /**
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
+      - '/**/footer'
+      - '/**/nav'
+      - '/**/404'
+      - '**/author/**/*'
+      - '**/category/**/*'
+      - '**/articles/**/*'
+    target: /cigaradvisor/pages-index.json
     properties:
       title:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
-      heading:
-        select: main h1:first-of-type
-        value: textContent(el)
-      author:
-        select: head > meta[name="author"]
-        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
-      published:
-        select: head > meta[name="publisheddate"]
-        value: parseTimestamp(attribute(el, "content"), "ddd, DD MMM YYYY hh:mm:ss GMT")
-      readingTime:
-        select: head > meta[name="readingtime"]
-        value: attribute(el, "content")
       image:
         select: head > meta[property="og:image"]
-        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+        value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+  category:
+    include:
+      - /cigaradvisor/category/**/*
+    target: /cigaradvisor/category/query-index.json
+    properties:
+      title:
+        select: head > title
+        value: textContent(el)
       description:
         select: head > meta[property="og:description"]
         value: attribute(el, "content")
-      articleBlurb:
-        select: head > meta[name="articleblurb"]
+      image:
+        select: head > meta[property="og:image"]
         value: attribute(el, "content")
-      category:
-        select: head > meta[name="category"]
-        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
-      seo_path:
+      lastModified:
         select: none
-        value: replace(path, match(path, "(/posts\/[^/]+\/[^/]+)\/"), '/posts')
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
   authors:
     include:
-      - /cigaradvisor/author/**
+      - /cigaradvisor/author/**/*
     target: /cigaradvisor/author/query-index.json
     properties:
       title:
@@ -73,6 +82,9 @@ indices:
       description:
         select: head > meta[property="og:description"]
         value: attribute(el, "content")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
       image:
         select: head > meta[property="og:image"]
         value: attribute(el, "content")
@@ -97,3 +109,58 @@ indices:
       youtube:
         select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?youtube\.com\/.*)$')
+  articles:
+    include:
+      - /cigaradvisor/articles/**/*
+    target: /cigaradvisor/posts/query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
+      author:
+        select: head > meta[name="author"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      published:
+        select: head > meta[name="publisheddate"]
+        value: parseTimestamp(attribute(el, "content"), "ddd, DD MMM YYYY hh:mm:ss GMT")
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
+      readingTime:
+        select: head > meta[name="readingtime"]
+        value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      description:
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
+      articleBlurb:
+        select: head > meta[name="articleblurb"]
+        value: attribute(el, "content")
+      category:
+        select: head > meta[name="category"]
+        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
+      seo_path:
+        select: none
+        value: replace(path, match(path, "(/articles\/[^/]+\/[^/]+)\/"), '/posts')
+  article-search:
+    include:
+      - /cigaradvisor/articles/**/*
+    target: /cigaradvisor/posts/search-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[property="og:description"]
+        value: attribute(el, "content")
+      heading:
+        select: main h1:first-of-type
+        value: textContent(el)
+      text:
+        select: main > div p
+        value: words(textContent(el), 0, 5000)

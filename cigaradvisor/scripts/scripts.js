@@ -19,6 +19,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
@@ -77,6 +78,15 @@ async function decorateTemplate(main) {
     // eslint-disable-next-line no-console
     console.log(`failed to load template ${name}`, error);
   }
+}
+
+function decoratePictures(main) {
+  main.querySelectorAll('.default-content-wrapper picture').forEach((picture) => {
+    const img = picture.querySelector('img');
+    const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
+    picture.style.paddingBottom = `${ratio}%`;
+    picture.style.maxWidth = `${img.width}px`; // Prevent pixelation
+  });
 }
 
 /**
@@ -143,6 +153,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decoratePictures(main);
   buildLayoutContainer(main);
 }
 
@@ -192,7 +203,13 @@ export function getRelativePath(path) {
 }
 
 let articleIndexData;
-async function loadPosts() {
+
+/**
+ * Returns all the posts in the posts index.
+ *
+ * @return {Promise<Array[Object]>}
+ */
+export async function loadPosts() {
   if (!articleIndexData) {
     const resp = await fetch(ARTICLE_INDEX_PATH);
     let jsonData = '';
@@ -201,6 +218,12 @@ async function loadPosts() {
     }
     articleIndexData = jsonData.data;
   }
+  // Protected against callers modifying the objects
+  const ret = [];
+  articleIndexData.forEach((a) => {
+    ret.push({ ...a });
+  });
+  return ret;
 }
 
 /**
@@ -212,24 +235,25 @@ async function loadPosts() {
 export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   let filter = filterValue;
   filter = getRelativePath(filterValue);
-  await loadPosts();
-  return articleIndexData.find((obj) => obj[filterParam] === filter);
+  const articles = await loadPosts();
+  return articles.filter((obj) => obj[filterParam] === filter);
 }
 
 /**
  * Fetches a post by a given index, starting at 1.
  * @param idx the index
- * @return {Promise<void>}
+ * @return {Promise<Object>}
  */
 export async function getPostByIdx(idx) {
-  await loadPosts();
-  if (articleIndexData.length >= idx) {
-    return articleIndexData[idx - 1];
+  const articles = await loadPosts();
+  if (articles.length >= idx) {
+    return articles[idx - 1];
   }
   return undefined;
 }
 
 let authorIndexData;
+
 /**
  * Retrieves all authors from the server.
  * @returns {Promise<Array>} A promise that resolves to an array of author data.
@@ -251,7 +275,13 @@ export async function getAllAuthors(sort = false) {
       return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
     });
   }
-  return authorIndexData;
+
+  // Protected against callers modifying the objects
+  const ret = [];
+  authorIndexData.forEach((a) => {
+    ret.push({ ...a });
+  });
+  return ret;
 }
 
 /**
@@ -267,6 +297,7 @@ export async function fetchAuthorInfo(authorLink) {
 }
 
 let categoryIndexData;
+
 /**
  * Fetches category information based on the provided category link.
  * @param {string} categoryLink - The link to the category.
@@ -283,7 +314,9 @@ export async function fetchCategoryInfo(categoryLink) {
     }
     categoryIndexData = jsonData.data;
   }
-  return categoryIndexData.find((obj) => obj.path === filter);
+  // Protect against caller modifying object;
+  const found = categoryIndexData.find((obj) => obj.path === filter);
+  return { ...found };
 }
 
 /**

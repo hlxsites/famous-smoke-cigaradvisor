@@ -21,6 +21,7 @@
   --clr-dark-gray: #141414;
   --clr-white: #fff;
   --tan: #8e7b5c;
+  --transparent-tan: #8E7B5C33;
   --subdued-gold: #b19b5e;
   --silver: #ccc;
   --very-light-grey: #ddd;
@@ -141,7 +142,7 @@ h1 {
   font-style: normal;
   font-weight: 400;
   text-transform: uppercase;
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
   margin: 2px auto;
 }
 
@@ -177,7 +178,7 @@ p {
   font-size: var(--body-font-size-m);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-l);
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
 }
 
 a:hover {
@@ -201,7 +202,7 @@ li {
   font-family: var(--ff-opensans);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-m);
-  color: var(--clr-dark-gray);
+  color: var(--clr-text);
   font-size: var(--body-font-size-m);
   cursor: default;
   list-style-position: inside;
@@ -211,23 +212,10 @@ li {
   display: none;
 }
 
-.default-content-wrapper {
-  color: var(--clr-text);
-}
 
 .icon > img {
   width: var(--icon-size);
   height: var(--icon-size);
-}
-
-.bg-dark-gray {
-  --clr-text: var(--clr-white);
-
-  background-color: var(--clr-dark-gray);
-}
-
-.bg-pampas {
-  background-color: var(--clr-pampas);
 }
 
 main .section {
@@ -262,6 +250,10 @@ main .section.stylized-header > .default-content-wrapper > h2 {
   color: var(--tan);
   padding: 38px 15px;
   font-size: var(--heading-font-size-m);
+}
+
+main .default-content-wrapper {
+  color: var(--clr-text);
 }
 
 main .button-container {
@@ -300,6 +292,44 @@ main .button-container .button:hover {
   background-color: var(--subdued-gold);
   border-color: var(--subdued-gold);
   text-decoration: none;
+}
+
+main .default-content-wrapper picture {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+main .default-content-wrapper picture > img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+main .section.center {
+  margin: 0 auto;
+}
+
+main .section.center .default-content-wrapper {
+  text-align: center;
+  padding: 0;
+}
+
+.section.background-dark-gray {
+  --clr-text: var(--clr-white);
+
+  background-color: var(--clr-dark-gray);
+}
+
+.section.background-pampas {
+  background-color: var(--clr-pampas);
 }
 
 @media screen and (min-width: 600px) {

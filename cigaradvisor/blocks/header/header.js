@@ -55,13 +55,13 @@ export default async function decorate(block) {
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
-  mobileLogo.setAttribute('href', '/cigaradvisor/');
+  mobileLogo.setAttribute('href', '/cigaradvisor');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
   mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
-  search.setAttribute('href', '/cigaradvisor/?s=');
+  search.setAttribute('href', '/cigaradvisor?s=');
   search.setAttribute('title', 'Search');
   search.innerHTML = '<span class="icon icon-magnifying-glass"></span>';
   mobilePrimaryNav.append(search);
@@ -71,7 +71,7 @@ export default async function decorate(block) {
   topNavLeft.classList.add('top-nav-left');
   topNavContent.append(topNavLeft);
   const brand = document.createElement('div');
-  brand.innerHTML = `<a href="/cigaradvisor/" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
+  brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
   <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
   </a>`;
   brand.className = 'brand-logo';
@@ -154,7 +154,7 @@ export default async function decorate(block) {
   searchButton.setAttribute('aria-expanded', 'false');
   const searchBox = document.createElement('div');
   searchBox.className = 'secondary-nav-box search-box';
-  searchBox.innerHTML = `<form action="/cigaradvisor/" class="search search--header lg-andUp">
+  searchBox.innerHTML = `<form action="/cigaradvisor/search-results" class="search search--header lg-andUp">
   <label class="sr-only" for="header-search-term">Search</label>
   <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off">
   <button type="submit" class="search__submit" value="Submit" title="Submit">Submit</button>

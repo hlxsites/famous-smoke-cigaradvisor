@@ -55,7 +55,7 @@ async function handleSearch(searchValue, wrapper, limit) {
   const articles = [];
   const promises = [];
   filteredData.forEach((post) => {
-    promises.push(fetchPostsInfo(post.path, 'raw_path'));
+    promises.push(fetchPostsInfo(post.path));
   });
   await Promise.all(promises).then((result) => {
     result.forEach((detail) => {

@@ -5,7 +5,7 @@ function buildSearch() {
   search.classList.add('hero-search');
   // noinspection HtmlRequiredAltAttribute
   search.innerHTML = `
-    <form action="/cigaradvisor/search-results" method="get">
+    <form action="/cigaradvisor/search" method="get">
       <label class="sr-only" for="main-search-term">Search</label>
       <input type="text" maxlength="255" placeholder="SEARCH" name="s" autocomplete="off" value="">
       <button type="submit" value="Submit" title="Submit">

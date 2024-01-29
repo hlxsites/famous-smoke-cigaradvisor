@@ -19,6 +19,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/posts/search-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -227,6 +228,19 @@ export async function loadPosts() {
     ret.push({ ...a });
   });
   return ret;
+}
+
+/**
+ * Retrieves search index data from the server.
+ * @returns {Promise<Object>} The search index data.
+ */
+export async function getSearchIndexData() {
+  const resp = await fetch(SEARCH_INDEX_PATH);
+  let jsonData = '';
+  if (resp.ok) {
+    jsonData = await resp.json();
+  }
+  return jsonData.data;
 }
 
 /**

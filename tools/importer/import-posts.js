@@ -142,6 +142,12 @@ const createPostBody = (main, document) => {
       createVideo(ele.querySelector('iframe'), document);
     }
 
+    if (ele.nodeName === 'FIGURE') {
+      const f = processFigure(ele, document);
+      main.append(f);
+      return;
+    }
+
     const img = ele.querySelector('a img');
     if (img) {
       const anchor = img.closest('a');
@@ -162,9 +168,7 @@ const createPostBody = (main, document) => {
       main.append(ele);
     }
   });
-  main.querySelectorAll('figure').forEach((f) => {
-    f.replaceWith(processFigure(f, document));
-  })
+
 }
 
 const createAuthorTeaser = (main, document, meta) => {

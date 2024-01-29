@@ -25,6 +25,9 @@ const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (getMetadata('template')) {
+    return;
+  }
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise

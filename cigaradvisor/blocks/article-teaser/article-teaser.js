@@ -3,21 +3,8 @@ import {
   fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo, getPostByIdx,
 } from '../../scripts/scripts.js';
 
-function formatDate(originalDateString) {
-  const utcDateString = new Date(originalDateString * 1000);
-  const utcDate = new Date(utcDateString);
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const day = utcDate.getUTCDate();
-  const month = months[utcDate.getUTCMonth()];
-  const year = utcDate.getUTCFullYear().toString().slice(-2); // Get last two digits of the year
-  const formattedDate = `${day} ${month} ${year}`;
-  const dateTimeAttribute = `${utcDate.getUTCFullYear()}-${String(utcDate.getUTCMonth() + 1).padStart(2, '0')}-${String(utcDate.getUTCDate()).padStart(2, '0')}`;
-  return `${formattedDate}|${dateTimeAttribute}`;
-}
-
 // eslint-disable-next-line max-len
 export function buildArticleTeaser(parentElement, article) {
-  const [formattedDate, datetimeAttr] = formatDate(article.published).split('|');
   const category = (article.category && article.category.heading) ? article.category.heading : '';
   parentElement.innerHTML += `
         <article class="article article-thumbnail">
@@ -32,7 +19,6 @@ export function buildArticleTeaser(parentElement, article) {
                 </h2>
                 <div class="article-meta">
                   <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
-                  <time class="article-pubdate" datetime="${datetimeAttr}">${formattedDate}</time>
                 </div>
             </articleheader>
             <div class="article-preview">

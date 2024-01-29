@@ -49,6 +49,11 @@ function filterData(searchTerms, data) {
 async function handleSearch(searchValue, wrapper, limit) {
   const searchSummary = document.createElement('p');
   searchSummary.classList.add('search-summary');
+  if (searchValue.length < 3 || !searchValue.match(/[a-z]/i)) {
+    searchSummary.innerHTML = 'Please enter at least three (3) characters to search.';
+    wrapper.prepend(searchSummary);
+    return;
+  }
   const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => !!term);
   const data = await getSearchIndexData();
   const filteredData = filterData(searchTerms, data);

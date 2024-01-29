@@ -100,8 +100,9 @@ const processFigure = (figure, document) => {
 
 const createImageCta = (p, document) => {
   const img = p.querySelector('a img');
-  const anchor = img.closest('a').cloneNode();
+  const anchor = img.closest('a');
   anchor.textContent = anchor.href;
+  fixUrl(anchor);
   const cells = [];
   cells.push(['imagecta']);
   cells.push([img, anchor])
@@ -110,6 +111,15 @@ const createImageCta = (p, document) => {
 
 const createPostBody = (main, document) => {
   const body = document.querySelector('article div.newsArticle__content');
+  // Fix bad formatting
+  body.querySelectorAll(':scope h2 a img, :scope h3 a img, :scope h4 a img, :scope h5 a img').forEach((img) => {
+    const heading = img.closest('h2, h3, h4, h5');
+    const a = img.closest('a');
+    const p = document.createElement('p');
+    p.append(a);
+    heading.insertAdjacentElement('afterend', p);
+  })
+
   body.querySelectorAll(':scope > h2, :scope > h3, :scope > p, :scope > figure').forEach((ele) => {
     // Fix some bad formatting
     ele.querySelectorAll('em > br, strong > br').forEach((br) => {
@@ -117,13 +127,12 @@ const createPostBody = (main, document) => {
       ele.insertBefore(br, parent);
     });
 
-    if (ele.nodeName === 'P') {
-      const anchorImage = ele.querySelector('a img');
-      if (anchorImage) {
-        main.append(createImageCta(ele, document));
-      }
+    if (ele.querySelector('a img')) {
+      const table = createImageCta(ele, document);
+      main.append(table);
+    } else if (ele.textContent.trim()) {
+      main.append(ele);
     }
-    main.append(ele);
   });
   main.querySelectorAll('figure').forEach((f) => {
     f.replaceWith(processFigure(f, document));
@@ -147,14 +156,17 @@ const createRelatedArticles = (main, document) => {
   const articleList = [];
   articleList.push(['Article List']);
 
-  let list = '';
+  const list = document.createElement('ul');
   wrapper.querySelectorAll('article').forEach((article) => {
-    const href = article.querySelector('.read_more').href;
+    let link = document.createElement('a');
+    link.href = article.querySelector('.read_more').href;
     const date = new Date(article.querySelector('.article__pubdate').getAttribute('datetime'));
-    const link = href.replace(/(.*)\/cigaradvisor\/(.*)/, `$1/cigaradvisor/${date.getFullYear()}/${date.getMonth()+1}/$2`);
+    link.href = link.href.replace(/^.*\/cigaradvisor\/(.*)$/, `/cigaradvisor/${date.getFullYear()}/${date.getMonth()+1}/$1`);
     const li = document.createElement('li');
-    li.innerHTML = link;
-    list += li.outerHTML;
+    link = fixUrl(link)
+    link.textContent = link.href;
+    li.append(link);
+    list.append(li);
   })
   articleList.push(['Articles', list]);
   main.append(WebImporter.DOMUtils.createTable(articleList, document));

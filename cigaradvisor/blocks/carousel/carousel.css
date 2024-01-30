@@ -42,7 +42,7 @@ main .section .carousel-wrapper {
 
 .carousel.block>button {
   position: absolute;
-  top: 40%;
+  top: 50%;
   background: unset;
   padding: 0;
   margin: 0;

@@ -57,7 +57,7 @@ export default async function decorate(block) {
   mobileLogo.className = 'mobile-logo';
   mobileLogo.setAttribute('href', '/cigaradvisor');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
-  mobileLogo.innerHTML = '<img src="/cigaradvisor/images/header/mobile-logo.png" alt="Cigar Advisor Logo">';
+  mobileLogo.innerHTML = '<img src="/cigaradvisor/styles/images/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
@@ -72,7 +72,7 @@ export default async function decorate(block) {
   topNavContent.append(topNavLeft);
   const brand = document.createElement('div');
   brand.innerHTML = `<a href="/cigaradvisor" rel="home" class="layout__logo lg-andUp" title="Cigar Advisor Homepage">
-  <img src="/cigaradvisor/images/header/desktop-logo.png" alt="Cigar Advisor Logo">
+  <img src="/cigaradvisor/styles/images/desktop-logo.png" alt="Cigar Advisor Logo">
   </a>`;
   brand.className = 'brand-logo';
   topNavContent.append(brand);

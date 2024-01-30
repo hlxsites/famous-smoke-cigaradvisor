@@ -1,7 +1,8 @@
 import { isExternal } from '../../scripts/scripts.js';
 
+let interval;
+
 function setAutoScroll(moveSlides, block) {
-  let interval;
   setTimeout(() => {
     if (interval === undefined) {
       interval = setInterval(() => {
@@ -30,11 +31,11 @@ function createButtons(moveSlides) {
     const button = document.createElement('button');
     button.ariaLabel = `show ${direction} slide`;
     button.classList.add(direction);
+    if (direction === 'prev') {
+      button.classList.add('disabled');
+    }
     const iconDiv = document.createElement('div');
     iconDiv.classList.add(`arrow-${direction}`);
-    if (direction === 'prev') {
-      iconDiv.classList.add('disabled');
-    }
     iconDiv.classList.add('carousel-arrow');
     const iconSpan = document.createElement('span');
     iconSpan.classList.add(`${direction}-icon`);
@@ -89,17 +90,24 @@ export default async function decorate(block) {
       if (currentIndex < (items.length - itemsToShow)) {
         currentIndex += 1;
         slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-        block.querySelector('.arrow-prev').classList.remove('disabled');
+        block.querySelector('button.prev').classList.remove('disabled');
         if (currentIndex === (items.length - itemsToShow)) {
-          block.querySelector('.arrow-next').classList.add('disabled');
+          block.querySelector('button.next').classList.add('disabled');
         }
+      } else {
+        // End the rotation
+        clearInterval(interval);
+        currentIndex = 0;
+        slidesWrapper.style.transform = 'translate3d(0, 0, 0)';
+        block.querySelector('button.prev').classList.add('disabled');
+        block.querySelector('button.next').classList.remove('disabled');
       }
     } else if (currentIndex >= 1) {
       currentIndex -= 1;
       slidesWrapper.style.transform = `translate3d(-${currentIndex * offset}%, 0, 0)`;
-      block.querySelector('.arrow-next').classList.remove('disabled');
+      block.querySelector('button.next').classList.remove('disabled');
       if (currentIndex < 1) {
-        block.querySelector('.arrow-prev').classList.add('disabled');
+        block.querySelector('button.prev').classList.add('disabled');
       }
     }
   }

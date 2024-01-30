@@ -17,7 +17,7 @@
   color: var(--tan);
   text-transform: uppercase;
   margin: 0 auto;
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
 .header.block nav .default-content-wrapper {
@@ -520,7 +520,7 @@
   font-family: var(--ff-opensans);
   font-weight: 600;
   color: var(--clr-dark-gray);
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
   cursor: default;
 }
 
@@ -532,7 +532,7 @@
   font-family: var(--ff-opensans);
   font-weight: 600;
   color: var(--clr-dark-gray);
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
 .header.block .mobile-nav .mobile-primary-nav-content ul li a {
@@ -588,7 +588,7 @@
   border: none;
   padding: 0.65em 0;
   color: rgb(20 20 20);
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
 .header.block .mobile-nav .secondary-nav-box ul li span {

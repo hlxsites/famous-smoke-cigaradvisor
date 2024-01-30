@@ -48,7 +48,7 @@
 .author-teaser.block .author-details .author-heading h2 {
     font-size: var(--body-font-size-xxl);
     text-align: center;
-    font-family: montserrat, sans-serif;
+    font-family: var(--ff-montserrat);
     font-weight: var(--font-weight-heavy);
     color: var(--clr-dark-gray);
 }

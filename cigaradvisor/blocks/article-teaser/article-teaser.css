@@ -42,10 +42,10 @@
   justify-content: center;
   align-items: center;
   color: #fff;
-  font-family: montserrat, sans-serif;
-  font-weight: 600;
+  font-family: var(--ff-montserrat);
+  font-weight: var(--font-weight-normal);
   background-color: #3c3a3b;
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
   z-index: 999;
   text-decoration: none;
 }
@@ -139,20 +139,15 @@
 
 .article-teaser.block .article.article-thumbnail .article-title {
   margin: 0 14px 16px;
-  font-size: 18px;
+  font-size: var(--body-font-size-l);
   font-weight: 800;
 }
 
 .article-teaser.block .article.article-thumbnail .article-title-link {
   display: block;
-  font-size: 1em;
+  font-size: inherit;
   font-weight: inherit;
   color: inherit;
-}
-
-.article-teaser.block .article-thumbnail .article-meta {
-  font-size: 0;
-  color: var(--clr-dark-gray);
 }
 
 .article-teaser.block .article-thumbnail .article-meta a {
@@ -164,9 +159,8 @@
 
 .article-teaser.block .article-thumbnail .article-meta>* {
   display: inline-block;
-  font-family: montserrat, sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  font-family: var(--ff-montserrat);
+  font-weight: var(--font-weight-normal);
 }
 
 .article-teaser.block .article.article-thumbnail .article-pubdate:not(:only-child)::before {
@@ -183,7 +177,7 @@
   justify-content: flex-start;
   overflow: hidden;
   padding: 0 30px;
-  font-family: "Open Sans", sans-serif;
+  font-family: var(--ff-opensans);
   background-color: #eaeaea;
   transition: flex-grow .55s ease-in-out;
 }
@@ -208,7 +202,7 @@
   flex: 0 0 auto;
   overflow: hidden;
   padding-bottom: 20px;
-  font-weight: 600;
+  font-weight: var(--font-weight-normal);
   opacity: 0;
   transition: flex-shrink .55s ease-in-out, opacity .55s ease-in-out;
 }
@@ -216,14 +210,6 @@
 .article-teaser.block .article.article-thumbnail:hover .article-excerpt {
   flex-shrink: 1;
   opacity: 1;
-}
-
-.article-teaser.block .article-thumbnail .article-excerpt p {
-  font-size: 1em;
-  font-family: inherit;
-  font-weight: inherit;
-  color: inherit;
-  cursor: default;
 }
 
 .article-teaser.block .article.article-thumbnail .article-excerpt p:last-child,
@@ -254,8 +240,7 @@
   position: relative;
   z-index: 2;
   margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   opacity: 1;
   transition: opacity .55s ease-in-out;
@@ -268,12 +253,12 @@
 
 .article-teaser.block .read-more {
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-align: center;
   display: flex;
   justify-content: center;
   color: var(--clr-black);
-  font-size: 18px;
+  font-size: var(--body-font-size-l);
 }
 
 @media screen and (min-width: 600px) {

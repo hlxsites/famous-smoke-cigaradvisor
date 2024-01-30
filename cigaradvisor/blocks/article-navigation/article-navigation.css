@@ -26,14 +26,14 @@
     line-height: 35px;
     font-size: var(--body-font-size-l);
     font-weight: var(--font-weight-bold);
-    font-family: montserrat, sans-serif;
+    font-family: var(--ff-montserrat);
 }
 
 .article-navigation.block span {
     line-height: 35px;
     font-size: var(--body-font-size-l);
     font-weight: var(--font-weight-bold);
-    font-family: montserrat, sans-serif;
+    font-family: var(--ff-montserrat);
     display: inline-block;
     color: var(--tan);
 }

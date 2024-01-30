@@ -124,11 +124,11 @@ export default async function decorate(block) {
   block.replaceChildren(articleTeaserWrapper);
 
   if (category) {
-    await renderByCategory(articleTeaserWrapper, category);
+    await renderByCategory(articleTeaserWrapper, category, limit);
   } else if (author) {
-    await renderByAuthor(articleTeaserWrapper, author);
+    await renderByAuthor(articleTeaserWrapper, author, limit);
   } else {
-    await renderByList(configs, articleTeaserWrapper, articles);
+    await renderByList(configs, articleTeaserWrapper, articles, limit);
   }
 
   window.addEventListener('hashchange', async () => {

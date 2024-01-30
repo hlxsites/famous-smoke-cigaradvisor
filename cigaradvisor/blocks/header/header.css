@@ -59,6 +59,10 @@
   align-items: center;
 }
 
+.header.block nav .top-nav-left .icon {
+  filter: var(--clr-filter-tan);
+}
+
 .header.block nav .top-nav-left .default-content-wrapper > p {
   font-weight: var(--font-weight-semibold);
 }
@@ -406,6 +410,10 @@
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.header.block .mobile-nav .mobile-top-nav .default-content-wrapper .icon {
+  filter: var(--clr-filter-tan);
 }
 
 .header.block .mobile-nav .mobile-top-nav .default-content-wrapper p {

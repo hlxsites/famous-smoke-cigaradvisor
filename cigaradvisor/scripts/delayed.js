@@ -81,6 +81,18 @@ const WISE_POPUP_SCRIPT = `
   ('wisepops', '//wisepops.net/loader.js?v=2&h=cxkWCQVAxq');
 `;
 
+function loadConsentManager() {
+  const script = document.createElement('script');
+  script.src = 'https://polaris.truevaultcdn.com/static/polaris.js';
+  script.onload = () => {
+    // DOMContentLoaded event is required to initialise polaris
+    window.document.dispatchEvent(new Event('DOMContentLoaded'));
+  };
+  document.head.appendChild(script);
+}
+
+loadConsentManager();
+
 function loadGTM() {
   const tag = document.createElement('script');
   tag.type = 'text/javascript';
@@ -122,3 +134,4 @@ window.setTimeout(() => {
     loadWisePopup();
   }
 }, 3000);
+

@@ -14,17 +14,22 @@ import {
   getMetadata,
 } from './aem.js';
 import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
+import addLinkingData from './linking-data.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
-const DEFAULT_INDEX_PATH = '/cigaradvisor/query-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts/query-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/posts/search-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (getMetadata('template')) {
+    return;
+  }
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -227,6 +232,19 @@ export async function loadPosts() {
 }
 
 /**
+ * Retrieves search index data from the server.
+ * @returns {Promise<Object>} The search index data.
+ */
+export async function getSearchIndexData() {
+  const resp = await fetch(SEARCH_INDEX_PATH);
+  let jsonData = '';
+  if (resp.ok) {
+    jsonData = await resp.json();
+  }
+  return jsonData.data;
+}
+
+/**
  * Fetches posts information based on the provided filter value and filter parameter.
  * @param {string} filterValue - The value to filter the posts by.
  * @param {string} [filterParam='path'] - The parameter to filter the posts by (default is 'path').
@@ -307,7 +325,7 @@ let categoryIndexData;
 export async function fetchCategoryInfo(categoryLink) {
   const filter = getRelativePath(categoryLink);
   if (!categoryIndexData) {
-    const resp = await fetch(DEFAULT_INDEX_PATH);
+    const resp = await fetch(CATEGORY_INDEX_PATH);
     let jsonData = '';
     if (resp.ok) {
       jsonData = await resp.json();
@@ -374,6 +392,7 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
   loadReturnToTop(main);
+  addLinkingData(doc);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

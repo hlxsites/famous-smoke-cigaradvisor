@@ -5,13 +5,15 @@ import {
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination } from '../../scripts/util.js';
 
-let pageSize = 10;
-
-async function renderPage(wrapper, articles) {
+export async function renderPage(wrapper, articles, limit) {
+  let pageSize = 10;
   if (!articles || articles.length === 0) {
     return;
   }
-
+  const limitPerPage = Number.isNaN(parseInt(limit, 10)) ? 10 : parseInt(limit, 10);
+  if (limitPerPage) {
+    pageSize = Math.round(limitPerPage - (limitPerPage % 2));
+  }
   const list = document.createElement('div');
   list.classList.add('article-teaser-list');
   let currentPage = 1;
@@ -42,6 +44,7 @@ async function renderPage(wrapper, articles) {
       list.append(teaser);
     });
   });
+  list.querySelector('.article-teaser.block .article-image img')?.setAttribute('loading', 'eager');
   wrapper.replaceChildren(list);
 
   if (totalPages > 1) {
@@ -52,19 +55,19 @@ async function renderPage(wrapper, articles) {
   }
 }
 
-async function renderByCategory(wrapper, category) {
+async function renderByCategory(wrapper, category, limit) {
   const articles = await fetchPostsInfo(category, 'category');
-  await renderPage(wrapper, articles);
+  await renderPage(wrapper, articles, limit);
 }
 
-async function renderByAuthor(wrapper, author) {
+async function renderByAuthor(wrapper, author, limit) {
   const articles = await fetchPostsInfo(author, 'author');
-  await renderPage(wrapper, articles);
+  await renderPage(wrapper, articles, limit);
 }
 
 // eslint-disable-next-line no-param-reassign
-async function renderByList(configs, wrapper, pinnedArticles) {
-// eslint-disable-next-line no-param-reassign
+async function renderByList(configs, wrapper, pinnedArticles, limit) {
+  // eslint-disable-next-line no-param-reassign
   pinnedArticles = Array.isArray(pinnedArticles) ? pinnedArticles : [pinnedArticles];
   let extra = [];
   if (configs.next && configs.next.toLowerCase() === 'all') {
@@ -99,7 +102,7 @@ async function renderByList(configs, wrapper, pinnedArticles) {
   const articles = [];
   articles.push(...tmp);
   articles.push(...extra);
-  return renderPage(wrapper, articles);
+  return renderPage(wrapper, articles, limit);
 }
 
 export default async function decorate(block) {
@@ -109,9 +112,6 @@ export default async function decorate(block) {
   const { articles } = configs;
 
   const limit = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
-  if (limit) {
-    pageSize = Math.round(limit - (limit % 2));
-  }
 
   if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
     category = window.location.toString();
@@ -133,11 +133,11 @@ export default async function decorate(block) {
 
   window.addEventListener('hashchange', async () => {
     if (category) {
-      await renderByCategory(articleTeaserWrapper, category);
+      await renderByCategory(articleTeaserWrapper, category, limit);
     } else if (author) {
-      await renderByAuthor(articleTeaserWrapper, author);
+      await renderByAuthor(articleTeaserWrapper, author, limit);
     } else {
-      await renderByList(configs, articleTeaserWrapper, articles);
+      await renderByList(configs, articleTeaserWrapper, articles, limit);
     }
   });
 }

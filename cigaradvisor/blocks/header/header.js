@@ -61,7 +61,7 @@ export default async function decorate(block) {
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
-  search.setAttribute('href', '/cigaradvisor?s=');
+  search.setAttribute('href', '/cigaradvisor/search?s=');
   search.setAttribute('title', 'Search');
   search.innerHTML = '<span class="icon icon-magnifying-glass"></span>';
   mobilePrimaryNav.append(search);
@@ -154,9 +154,9 @@ export default async function decorate(block) {
   searchButton.setAttribute('aria-expanded', 'false');
   const searchBox = document.createElement('div');
   searchBox.className = 'secondary-nav-box search-box';
-  searchBox.innerHTML = `<form action="/cigaradvisor/search-results" class="search search--header lg-andUp">
-  <label class="sr-only" for="header-search-term">Search</label>
-  <input type="search" class="search__input predictiveSearch" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off">
+  searchBox.innerHTML = `<form action="/cigaradvisor/search" class="search search--header">
+  <label for="header-search-term">Search</label>
+  <input type="search" id="header-search-term" maxlength="255" placeholder="Search here" name="s" autocomplete="off">
   <button type="submit" class="search__submit" value="Submit" title="Submit">Submit</button>
   </form>`;
   nav.append(searchBox);

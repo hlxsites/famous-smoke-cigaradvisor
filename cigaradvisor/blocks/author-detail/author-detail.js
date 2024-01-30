@@ -1,4 +1,5 @@
 import { readBlockConfig, decorateIcons, createOptimizedPicture } from '../../scripts/aem.js';
+import { addLdJsonScript } from '../../scripts/linking-data.js';
 
 export default async function decorate(block) {
   const config = readBlockConfig(block);
@@ -65,4 +66,13 @@ export default async function decorate(block) {
   bg.classList.add('bg-image');
   block.append(bg);
   decorateIcons(block);
+
+  const ldjson = {
+    '@context': 'http://schema.org',
+    '@type': 'Person',
+    name: config.name,
+    url: window.location.href,
+    description: config.intro,
+  };
+  addLdJsonScript(document.querySelector('head'), ldjson);
 }

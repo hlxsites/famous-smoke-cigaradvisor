@@ -62,7 +62,7 @@ export default async function decorate(block) {
       </div>
     </div>
   `;
-  const bg = createOptimizedPicture('https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/images/backgrounds/author.jpg', '', true);
+  const bg = createOptimizedPicture('/cigaradvisor/images/backgrounds/author.jpg', '', true);
   bg.classList.add('bg-image');
   block.append(bg);
   decorateIcons(block);

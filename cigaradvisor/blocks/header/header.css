@@ -59,7 +59,7 @@
   align-items: center;
 }
 
-.header.block nav .top-nav-left .icon {
+.header.block nav .top-nav-left .icon{
   filter: var(--clr-filter-tan);
 }
 
@@ -259,7 +259,6 @@
   font-weight: 600;
 }
 
-/* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned */
 .header.block nav .secondary-nav-box ul li span img,
 .header.block nav .secondary-nav-box.shop-cigars ul li a {
   display: block;
@@ -274,11 +273,11 @@
   padding: 16px;
 }
 
-/* make above img centered */
 .header.block nav .secondary-nav-box ul li span img {
   margin: 0 auto;
-  width: auto;
-  height: auto;
+  filter: var(--clr-filter-tan);
+  height: 60px;
+  width: 76px;
 }
 
 .header.block nav .secondary-nav-box.search-box {

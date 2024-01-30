@@ -141,4 +141,3 @@ window.setTimeout(() => {
     loadWisePopup();
   }
 }, 3000);
-

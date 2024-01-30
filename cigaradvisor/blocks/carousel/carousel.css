@@ -1,15 +1,9 @@
-.carousel-wrapper {
+.carousel.block {
   position: relative;
-  padding: 10px 0;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1080px;
   overflow: hidden;
-  margin-bottom: 25px;
 }
 
-.carousel.block>div {
+.carousel.block > div {
   scroll-margin: 0;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -22,12 +16,12 @@
   display: flex;
 }
 
-.carousel.block a picture > img{
+.carousel.block a picture > img {
   display: block;
   flex-grow: 1;
 }
 
-.carousel.block>div::-webkit-scrollbar {
+.carousel.block > div::-webkit-scrollbar {
   display: none;
 }
 
@@ -39,35 +33,24 @@
   padding: 0 2px;
 }
 
-
-.carousel.block>button {
+.carousel.block > button {
   position: absolute;
-  top: 40%;
-  background: unset;
-  padding: 0;
-  margin: 0;
-  border: none;
-  width: 0;
-  line-height: none;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.carousel.block>button.prev {
+.carousel.block > button.prev {
   left: 0;
 }
 
-.carousel.block>button.next {
+.carousel.block > button.next {
   right: 0;
-  padding: 0 30px 0 0;
 }
-
 
 .carousel.block .carousel-arrow {
   display: flex;
   cursor: pointer;
-  position: absolute;
   z-index: 9;
-  padding: 0;
-  margin: 0;
   background-color: #000000B3;
   text-align: center;
   width: 30px;
@@ -78,7 +61,6 @@
 .carousel.block .carousel-arrow .prev-icon,
 .carousel.block .carousel-arrow .next-icon {
   display: flex;
-  font-size: 45px;
   color: #fff;
 }
 
@@ -96,7 +78,7 @@
   font-size: var(--body-font-size-xxxl);
 }
 
-.carousel.block .carousel-arrow.arrow-prev.disabled, .carousel.block .carousel-arrow.arrow-next.disabled {
+.carousel.block button.next.disabled, .carousel.block button.prev.disabled {
   display: none;
 }
 

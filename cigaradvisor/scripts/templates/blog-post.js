@@ -80,5 +80,9 @@ export default async function decorate(main) {
   ]);
   div.append(articleHeaderBlockEl);
   main.prepend(div);
+
+  const section = document.createElement('div');
+  section.append(buildBlock('article-navigation', []));
+  main.append(section);
   addLdJson();
 }

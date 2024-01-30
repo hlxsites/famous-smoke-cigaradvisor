@@ -83,6 +83,7 @@ const processFigure = (figure, document) => {
   const a = figure.querySelector('a');
   cells.push(['image', img]);
   if (a) {
+    fixUrl(a);
     const link = document.createElement('a');
     link.innerHTML = a.href;
     link.href = a.href;

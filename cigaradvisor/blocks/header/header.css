@@ -239,7 +239,7 @@
   color: var(--tan);
   font-size: 16px;
   text-transform: uppercase;
-  font-family: montserrat, sans-serif;
+  font-family: var(--ff-montserrat);
   font-weight: var(--font-weight-semibold);
 }
 

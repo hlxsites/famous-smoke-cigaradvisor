@@ -107,7 +107,7 @@ export default async function decorate(block) {
       const a = document.createElement('a');
       const secondaryNavBox = document.createElement('div');
       const text = li.childNodes[0].textContent;
-      a.innerHTML = `<span> ${text} </span>`;
+      a.innerHTML = text;
       li.childNodes[0].textContent = '';
       const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
       secondaryNavBox.className = `secondary-nav-box ${textToClass}`;

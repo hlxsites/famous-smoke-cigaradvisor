@@ -105,7 +105,8 @@ body.appear {
 
 header {
   height: var(--nav-height);
-  position: relative;
+  position: sticky;
+  top: 0;
   background-color: var(--clr-white);
   z-index: 1000;
 }

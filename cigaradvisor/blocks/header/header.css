@@ -17,7 +17,7 @@
   color: var(--tan);
   text-transform: uppercase;
   margin: 0 auto;
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
 .header.block nav .default-content-wrapper {
@@ -150,7 +150,7 @@
   justify-content: center;
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 5px 0 0;
   max-width: 1080px;
   align-items: center;
   width: 100%;
@@ -163,7 +163,7 @@
   margin: 0;
   font-size: 14px;
   font-family: var(--ff-opensans);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-dark-gray);
   cursor: default;
 }
@@ -178,16 +178,17 @@
 }
 
 .header.block nav .primary-nav ul li a {
-  font-family: montserrat, sans-serif;
-  font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-family: var(--ff-montserrat);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--body-font-size-s);
   text-transform: uppercase;
   background-color: transparent;
   border: 2px solid transparent;
   color: var(--clr-dark-gray);
-  margin: 0;
-  font-size: 14px;
-  position: relative;
-  z-index: 111;
+  gap: 10px;
 }
 
 .header.block nav .primary-nav .icon-magnifying-glass {
@@ -199,26 +200,10 @@
   border-color: var(--tan);
 }
 
-.header.block nav .primary-nav ul li a::after {
-  display: none;
-  content: "";
-  position: absolute;
-  visibility: hidden;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--clr-white);
-}
-
-.header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-  display: inline-block;
+.header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) > a::after {
+  padding-top: 6px;
   width: 16px;
-  height: 16px;
   content: url('/cigaradvisor/icons/angle-down.svg');
-  margin-left: 10px;
-  vertical-align: top;
-  margin-top: 1px
 }
 
 /* Secondary navigation */
@@ -232,7 +217,6 @@
   max-width: 1080px;
   margin-left: auto;
   margin-right: auto;
-  z-index: 110;
 }
 
 .header.block nav .secondary-nav-box > ul {
@@ -244,9 +228,9 @@
 
 .header.block nav .secondary-nav-box.browse-categories ul li {
   line-height: 2;
-  font-size: 14px;
+  font-size: var(--body-font-size-s);
   font-family: var(--ff-opensans);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-dark-gray);
   cursor: default;
 }
@@ -256,7 +240,7 @@
   font-size: 16px;
   text-transform: uppercase;
   font-family: montserrat, sans-serif;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 /* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned */
@@ -376,7 +360,6 @@
   height: calc(100vh - 100px);
   margin-left: auto;
   margin-right: auto;
-  z-index: 110;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -464,6 +447,7 @@
   height: 70px;
   background-color: var(--clr-white);
   padding: 0 10px;
+  border-bottom: 1px solid var(--light-grey);
 
   --icon-size: 32px;
 }
@@ -500,95 +484,81 @@
   list-style-type: none;
   margin: 0;
   width: 100%;
-  padding-top: 15px;
-  z-index: 100;
 }
 
 .header.block .mobile-nav .mobile-primary-nav-content ul {
   list-style: none;
-  margin: 5px auto;
+  margin: 0;
   width: 100%;
-  background-color: rgb(255 255 255);
+  background-color: var(--clr-white);
   padding: 0 15px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul li {
-  display: block;
-  align-items: center;
+.header.block .mobile-nav .mobile-primary-nav-content > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
   border-bottom: 1px solid var(--light-grey);
-  min-height: 3.5rem;
-  font-family: var(--ff-opensans);
-  font-weight: 600;
+}
+
+.header.block .mobile-nav .mobile-primary-nav-content > ul > li > a {
+  position: relative;
+  display: flex;
+  height: 3.5rem;
+  width: 100%;
+  align-items: center;
+  font-family: var(--ff-montserrat);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
   color: var(--clr-dark-gray);
-  font-size: 12px;
+  font-size: var(--body-font-size-l);
   cursor: default;
+  line-height: var(--line-height-xl);
 }
 
 .header.block .mobile-nav .mobile-primary-nav-content ul li div {
   display: none;
   flex-direction: column;
   align-items: start;
-  min-height: 3.5rem;
   font-family: var(--ff-opensans);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-dark-gray);
-  font-size: 12px;
+  font-size: var(--body-font-size-xs);
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content ul li a {
-  background-color: transparent;
-  align-items: center;
-  border: none;
-  text-transform: uppercase;
-  position: relative;
-  color: var(--clr-dark-gray);
-  line-height: 2.5em;
-  padding: 0 .3em 0 0;
-  text-align: left;
-  font-weight: 700;
-  cursor: pointer;
-  margin: 0 auto;
-  top: 10px;
-  font-size: 16px;
+.header.block .mobile-nav .mobile-primary-nav-content .nav-drop:not([data-secondarynav='search-box']) > a::after {
+  position: absolute;
+  display: block;
+  width: 16px;
+  content: url('/cigaradvisor/icons/angle-down.svg');
+  right: 0;
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content .nav-drop:not([data-secondarynav='search-box']) span::after {
-  float: right;
-}
-
-.header.block .mobile-nav .mobile-primary-nav-content > ul > li:last-child {
-  display: none;
-}
 
 .header.block .mobile-nav .mobile-primary-nav-wrapper .mobile-social-nav ul {
   display: flex;
+  list-style-type: none;
 }
 
 .header.block .mobile-nav .secondary-nav-box ul {
-  padding: 12px 0;
+  padding: 0;
   margin: 0;
   border: none;
 }
 
-.header.block .mobile-nav .nav-drop:not([data-secondarynav='search-box']) span::after {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  content: url('/cigaradvisor/icons/angle-down.svg');
-  margin-left: 10px;
-  vertical-align: top;
-  margin-top: 1px;
-}
-
 .header.block .mobile-nav .secondary-nav-box ul li {
-  border: none;
+  margin: 0;
 }
 
 .header.block .mobile-nav .secondary-nav-box ul li a {
-  border: none;
-  padding: 0.65em 0;
-  color: rgb(20 20 20);
-  font-size: 12px;
+  font-family: var(--ff-montserrat);
+  display: block;
+  padding: 8px 0;
+  color: var(--clr-dark-gray);
+  font-size: var(--body-font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
 }
 
 .header.block .mobile-nav .secondary-nav-box ul li span {

@@ -97,7 +97,7 @@ export default async function decorate(block) {
       } else {
         // End the rotation
         clearInterval(interval);
-        slidesWrapper.style.transform = `translate3d(0, 0, 0)`;
+        slidesWrapper.style.transform = 'translate3d(0, 0, 0)';
         block.querySelector('button.prev').classList.add('disabled');
         block.querySelector('button.next').classList.remove('disabled');
       }

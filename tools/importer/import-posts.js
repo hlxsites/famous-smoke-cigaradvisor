@@ -12,7 +12,7 @@
 
 const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
-import { metadata } from './metadata.js';
+import { metadata } from './metadata.mjs';
 
 const fixUrl = (a) => {
   let href = a.getAttribute('href');

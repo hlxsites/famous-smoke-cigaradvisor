@@ -105,7 +105,8 @@ body.appear {
 
 header {
   height: var(--nav-height);
-  position: relative;
+  position: sticky;
+  top: 0;
   background-color: var(--clr-white);
   z-index: 1000;
 }
@@ -276,9 +277,6 @@ main .button-container .button {
   display: inline-block;
   line-height: 26px;
   height: 50px;
-  width: 250px;
-  max-height: 50px;
-  max-width: 250px;
   min-height: 2.85rem;
   padding: 0.8em 1em;
   cursor: pointer;

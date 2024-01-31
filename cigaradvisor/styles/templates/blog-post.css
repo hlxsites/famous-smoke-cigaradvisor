@@ -43,10 +43,9 @@ body.blog-post-template main .default-content-wrapper .article-image-wrapper {
 
 body.blog-post-template main .default-content-wrapper .article-image-caption {
   font-family: var(--ff-opensans);
-  font-size: 16px;
   text-align: center;
   font-style: italic;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--medium-grey);
   margin: 0;
 }
@@ -67,6 +66,13 @@ body.blog-post-template main .default-content-wrapper blockquote p {
   background: transparent url('/cigaradvisor/images/blog-post/pattern-1.png') repeat;
 }
 
+body.blog-post-template main .default-content-wrapper h3 {
+  font-family: var(--ff-opensans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--heading-font-size-xs);
+  line-height: var(--line-height-m);
+  margin: 2rem 0 1rem;
+}
 
 @media screen and (min-width: 1200px) {
   .blog-post-template main .default-content-wrapper {

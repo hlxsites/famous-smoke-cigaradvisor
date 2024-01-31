@@ -141,7 +141,7 @@ h1 {
   font-size: var(--heading-font-size-m);
   font-family: var(--ff-alfaslabone);
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   text-transform: uppercase;
   color: var(--clr-text);
   margin: 2px auto;
@@ -149,7 +149,7 @@ h1 {
 
 h2 {
   font-family: var(--ff-montserrat);
-  font-weight: 900;
+  font-weight: var(--font-weight-heavy);
   text-transform: uppercase;
   color: var(--clr-text);
   margin: 0 auto;
@@ -266,7 +266,7 @@ main .button-container {
 main .button-container .button {
   font-style: normal;
   font-family: var(--ff-montserrat);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--clr-white);
   text-transform: uppercase;
   background-color: var(--clr-black);

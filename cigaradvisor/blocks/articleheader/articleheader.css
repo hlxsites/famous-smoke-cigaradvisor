@@ -42,10 +42,10 @@
     display: flex;
     justify-content: center;
     color: #fff;
-    font-family: montserrat, sans-serif;
-    font-weight: 600;
+    font-family: var(--ff-montserrat);
+    font-weight: var(--font-weight-normal);
     background-color: #3c3a3b;
-    font-size: 12px;
+    font-size: var(--body-font-size-xs);
 }
 
 .articleheader.block .article-info h1 {
@@ -72,14 +72,14 @@
 
 .articleheader.block .article-info .article-author .article-published-date {
     font-family: var(--ff-opensans);
-    font-weight: 600;
+    font-weight: var(--font-weight-normal);
     color: var(--clr-dark-gray);
-    font-size: 14px;
+    font-size: var(--body-font-size-s);
 }
 
 .articleheader.block .article-read-time {
     text-align: justify;
-    font-size: 18px;
+    font-size: var(--body-font-size-l);
     line-height: 30px;
     color: var(--grey);
     padding-left: 0;

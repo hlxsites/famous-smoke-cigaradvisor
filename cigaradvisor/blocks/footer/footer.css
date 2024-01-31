@@ -154,6 +154,6 @@
 
 @media screen and (min-width: 1200px) {
   .footer-legal {
-    font-size: 14px;
+    font-size: var(--body-font-size-s);
   }
 }

@@ -1,8 +1,7 @@
+/* eslint-disable no-param-reassign */
 import { isInternal } from '../../scripts/scripts.js';
 
-let interval;
-
-function setAutoScroll(moveSlides, block) {
+function setAutoScroll(moveSlides, block, interval) {
   setTimeout(() => {
     if (interval === undefined) {
       interval = setInterval(() => {
@@ -54,6 +53,7 @@ function createButtons(moveSlides) {
  * @param block
  */
 export default async function decorate(block) {
+  let interval;
   const mobile = (window.screen.width < 600);
   const offset = mobile ? 100 : 50;
   const itemsToShow = mobile ? 1 : 2;
@@ -113,5 +113,5 @@ export default async function decorate(block) {
   }
 
   block.append(...createButtons(moveSlides));
-  setAutoScroll(moveSlides, block);
+  setAutoScroll(moveSlides, block, interval);
 }

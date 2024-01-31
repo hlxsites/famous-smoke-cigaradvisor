@@ -47,7 +47,7 @@ export function buildArticleTeaser(parentElement, article) {
         </articleheader>
         <div class="article-preview">
           <div class="article-excerpt">
-            <p><span class="rt-reading-time" style="display: block;"><span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${article.readingTime}</span></span> ${article.articleBlurb}</p>
+            <p>${article.articleBlurb}</p>
           </div>
           <a class="article-read-more read-more" href="${article.path}" title="Read More">Read More</a>
         </div>

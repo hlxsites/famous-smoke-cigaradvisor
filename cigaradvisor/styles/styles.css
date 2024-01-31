@@ -156,6 +156,10 @@ h2 {
   font-size: var(--heading-font-size-s);
 }
 
+b, strong {
+  font-weight: var(--font-weight-bold);
+}
+
 i, em {
   font-style: italic;
 }
@@ -203,10 +207,6 @@ li {
   font-size: var(--body-font-size-m);
   cursor: default;
   list-style-position: inside;
-}
-
-b, strong > *{
-  font-weight: var(--font-weight-bold);
 }
 
 .sr-only {

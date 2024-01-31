@@ -36,7 +36,6 @@ indices:
       - '/**/404'
       - '**/author/**/*'
       - '**/category/**/*'
-      - '**/articles/**/*'
     target: /cigaradvisor/pages-index.json
     properties:
       title:

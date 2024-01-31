@@ -156,10 +156,6 @@ h2 {
   font-size: var(--heading-font-size-s);
 }
 
-b, strong {
-  font-weight: var(--font-weight-bold);
-}
-
 i, em {
   font-style: italic;
 }
@@ -207,6 +203,11 @@ li {
   font-size: var(--body-font-size-m);
   cursor: default;
   list-style-position: inside;
+}
+
+b, strong,
+b > *, strong > *{
+  font-weight: var(--font-weight-bold);
 }
 
 .sr-only {
@@ -257,13 +258,13 @@ main .default-content-wrapper {
   color: var(--clr-text);
 }
 
-main .button-container {
+main .section:not(.nobutton) .button-container {
   padding: 10px 10px 40px;
   text-align: center;
   text-transform: uppercase;
 }
 
-main .button-container .button {
+main .section:not(.nobutton) .button-container .button {
   font-style: normal;
   font-family: var(--ff-montserrat);
   font-weight: var(--font-weight-bold);
@@ -285,7 +286,7 @@ main .button-container .button {
   margin: 2px 0;
 }
 
-main .button-container .button:hover {
+main .section:not(.nobutton) .button-container .button:hover {
   transition: .5s;
   background-color: var(--subdued-gold);
   border-color: var(--subdued-gold);

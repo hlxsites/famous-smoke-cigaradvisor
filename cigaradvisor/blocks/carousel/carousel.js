@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { isExternal } from '../../scripts/scripts.js';
+import { isInternal } from '../../scripts/scripts.js';
 
 function setAutoScroll(moveSlides, block, interval) {
   setTimeout(() => {
@@ -74,7 +74,7 @@ export default async function decorate(block) {
     });
     const img = pic.querySelector('img');
     const link = anchor.getAttribute('href');
-    anchor.setAttribute('target', isExternal(link) ? '_blank' : '_self');
+    anchor.setAttribute('target', !isInternal(link) ? '_blank' : '_self');
     anchor.setAttribute('title', img.alt);
     anchor.replaceChildren(pic);
     slide.append(anchor);

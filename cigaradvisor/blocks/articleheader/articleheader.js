@@ -31,11 +31,6 @@ export default async function decorate(block) {
   publishedDateEl.innerText = publishedDate;
   authorLinkEl.append(publishedDateEl);
   articleInfo.append(authorLinkEl);
-  const readTime = block.querySelector('p.read-time') ? block.querySelector('p.read-time').innerText : '';
-  const readTimeEl = document.createElement('span');
-  readTimeEl.classList.add('article-read-time');
-  readTimeEl.innerHTML = `<span class="rt-label rt-prefix">Reading Time: </span> <span class="rt-time">${readTime}</span>`;
-  articleInfo.append(readTimeEl);
   section.append(imageWrapper);
   section.append(articleInfo);
   block.replaceChildren(section);

@@ -1,5 +1,5 @@
 import { readBlockConfig, createOptimizedPicture } from '../../scripts/aem.js';
-import { isExternal, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { isInternal, fetchAuthorInfo } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
@@ -20,7 +20,7 @@ export default async function decorate(block) {
   const buttonAnchor = document.createElement('a');
   buttonAnchor.innerHTML = buttonLabel;
   buttonAnchor.setAttribute('href', buttonLink);
-  buttonAnchor.setAttribute('target', isExternal(buttonLink) ? '_blank' : '_self');
+  buttonAnchor.setAttribute('target', !isInternal(buttonLink) ? '_blank' : '_self');
   buttonAnchor.setAttribute('title', buttonLabel);
   buttonAnchor.classList.add('button');
   anchorWrapper.append(buttonAnchor);

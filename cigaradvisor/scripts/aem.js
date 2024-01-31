@@ -361,6 +361,7 @@ function decorateTemplateAndTheme() {
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
+    if (a.closest('.nobutton')) return;
     a.title = a.title || a.textContent;
     if (a.href !== a.textContent) {
       const up = a.parentElement;

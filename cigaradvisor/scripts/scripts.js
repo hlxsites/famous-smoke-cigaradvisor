@@ -153,13 +153,13 @@ async function buildAutoBlocks(main) {
 // eslint-disable-next-line import/prefer-default-export
 export async function decorateMain(main) {
   // hopefully forward compatible button decoration
-  decorateButtons(main);
   decorateIcons(main);
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
   decoratePictures(main);
   buildLayoutContainer(main);
+  decorateButtons(main);
 }
 
 /**

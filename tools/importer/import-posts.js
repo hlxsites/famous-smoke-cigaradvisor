@@ -12,14 +12,19 @@
 
 const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
-import { blurbs } from './blurbs.js';
+import { metadata } from './metadata.js';
 
 const fixUrl = (a) => {
   let href = a.getAttribute('href');
   let text = a.textContent;
 
   if (href.startsWith('/cigaradvisor')) {
-    href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${href}`;
+    const page = href.substring(href.lastIndexOf('/') + 1);
+    if (metadata[page]) {
+      href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/${metadata[page].category}/${page}`;
+    } else {
+      href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${href}`;
+    }
   } else if (href.startsWith('/')) {
     href = `https://www.famous-smoke.com${href}`;
   }
@@ -32,6 +37,7 @@ const fixUrl = (a) => {
 
 const createMetadata = (document, params) => {
   const meta = {};
+  params.bucket = metadata[params.name].category;
 
   const title = document.querySelector('title');
   if (title) {
@@ -43,37 +49,18 @@ const createMetadata = (document, params) => {
     meta.description = description.content;
   }
 
-  meta.articleBlurb = blurbs[params.name] || '';
+  meta.articleBlurb =  metadata[params.name].blurb || '';
 
   const publishedDate = document.querySelector('meta[property="article:published_time"]');
-  if (publishedDate) {
-    const date = new Date(publishedDate.getAttribute('content'));
-    meta.publishedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-    params.bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
-  } else {
-    params.bucket = '';
-  }
-
-  const readingTime = document.querySelector('.rt-time');
-  if (readingTime) {
-    meta.readingTime = readingTime.textContent;
-  }
-
-  const readingTimeUnit = document.querySelector('.rt-label.rt-postfix');
-  if (readingTimeUnit) {
-    meta.readingTime += ` ${readingTimeUnit.textContent}`;
-  }
-
-  const category = document.querySelector('main article .tag');
-  if (category) {
-    const a = fixUrl(category);
-    meta.category = a.href;
-  }
+  const date = new Date(publishedDate.getAttribute('content'));
+  meta.publishedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 
   const authorLink = document.querySelector('#articleNav > li:nth-child(1) > a');
   if (authorLink) {
-    const a = fixUrl(authorLink);
-    meta.author = a.href;
+    const a = document.createElement('a');
+    a.href = authorLink.getAttribute('href');
+    a.textContent = authorLink.href;
+    meta.author = a;
   }
   return meta;
 };
@@ -85,7 +72,6 @@ const processFigure = (figure, document) => {
   const a = figure.querySelector('a');
   cells.push(['image', img]);
   if (a) {
-    fixUrl(a);
     const link = document.createElement('a');
     link.innerHTML = a.href;
     link.href = a.href;
@@ -105,7 +91,6 @@ const createImageCta = (p, document) => {
   const anchor = img.closest('a');
 
   anchor.textContent = anchor.href;
-  fixUrl(anchor);
   const cells = [];
   cells.push(['imagecta']);
   cells.push([img, anchor])
@@ -167,7 +152,7 @@ const createPostBody = (main, document) => {
       } else {
         main.append(table);
       }
-    } else if (ele.textContent.trim()) {
+    } else if (ele.childNodes.length > 0 || ele.textContent.trim()) {
       main.append(ele);
     }
   });
@@ -176,7 +161,7 @@ const createPostBody = (main, document) => {
 
 const createAuthorTeaser = (main, document, meta) => {
   const cells = [['Author Teaser']];
-  cells.push([meta.author]);
+  cells.push([meta.author.cloneNode(true)]);
   const author = WebImporter.DOMUtils.createTable(cells, document);
   main.append(author);
 }
@@ -198,7 +183,6 @@ const createRelatedArticles = (main, document) => {
     const date = new Date(article.querySelector('.article__pubdate').getAttribute('datetime'));
     link.href = link.href.replace(/^.*\/cigaradvisor\/(.*)$/, `/cigaradvisor/${date.getFullYear()}/${date.getMonth()+1}/$1`);
     const li = document.createElement('li');
-    link = fixUrl(link)
     link.textContent = link.href;
     li.append(link);
     list.append(li);

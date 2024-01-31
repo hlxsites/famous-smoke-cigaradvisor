@@ -53,7 +53,7 @@ indices:
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
   category:
     include:
-      - /cigaradvisor/category/**/*
+      - /cigaradvisor/category/*
     target: /cigaradvisor/category/query-index.json
     properties:
       title:
@@ -73,7 +73,7 @@ indices:
         value: textContent(el)
   authors:
     include:
-      - /cigaradvisor/author/**/*
+      - /cigaradvisor/author/*
     target: /cigaradvisor/author/query-index.json
     properties:
       title:
@@ -109,10 +109,10 @@ indices:
       youtube:
         select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?youtube\.com\/.*)$')
-  articles:
+  posts:
     include:
-      - /cigaradvisor/articles/**/*
-    target: /cigaradvisor/posts/query-index.json
+      - /cigaradvisor/category/*/**/*
+    target: /cigaradvisor/posts-index.json
     properties:
       title:
         select: head > meta[property="og:title"]
@@ -139,15 +139,12 @@ indices:
         select: head > meta[name="articleblurb"]
         value: attribute(el, "content")
       category:
-        select: head > meta[name="category"]
-        value: match(attribute(el, "content"), "(?:https:\/\/[^/]+)?(.+)")
-      seo_path:
         select: none
-        value: replace(path, match(path, "(/articles\/[^/]+\/[^/]+)\/"), '/posts')
-  article-search:
+        value: match(path, '(/cigaradvisor/category\/[^/]+)\/')
+  post-search:
     include:
-      - /cigaradvisor/articles/**/*
-    target: /cigaradvisor/posts/search-index.json
+      - /cigaradvisor/category/*/**/*
+    target: /cigaradvisor/search-index.json
     properties:
       title:
         select: head > meta[property="og:title"]

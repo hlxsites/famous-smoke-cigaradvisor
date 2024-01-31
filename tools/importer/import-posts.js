@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
 import { blurbs } from './blurbs.js';
 
 const fixUrl = (a) => {
@@ -46,7 +48,7 @@ const createMetadata = (document, params) => {
   const publishedDate = document.querySelector('meta[property="article:published_time"]');
   if (publishedDate) {
     const date = new Date(publishedDate.getAttribute('content'));
-    meta.publishedDate = date.toLocaleDateString();
+    meta.publishedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
     params.bucket = `${date.getFullYear()}/${date.getMonth()+1}`;
   } else {
     params.bucket = '';

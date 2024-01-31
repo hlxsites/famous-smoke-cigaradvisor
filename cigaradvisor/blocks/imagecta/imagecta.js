@@ -1,4 +1,4 @@
-import { isExternal } from '../../scripts/scripts.js';
+import { isInternal } from '../../scripts/scripts.js';
 
 function createRandom(availableRows) {
   const randomRow = availableRows[Math.floor(Math.random() * availableRows.length)];
@@ -22,7 +22,7 @@ function createRandom(availableRows) {
   // populate anchor
   const href = oldAnchor.getAttribute('href');
   anchor.setAttribute('href', href);
-  anchor.setAttribute('target', isExternal(href) ? '_blank' : '_self');
+  anchor.setAttribute('target', !isInternal(href) ? '_blank' : '_self');
   anchor.setAttribute('title', img.alt);
 
   return anchor;

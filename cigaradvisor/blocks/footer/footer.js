@@ -1,6 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { isExternal } from '../../scripts/scripts.js';
+import { isInternal } from '../../scripts/scripts.js';
 
 /**
  * loads and decorates the footer
@@ -45,7 +45,7 @@ export default async function decorate(block) {
   // Open external links in new tab
   footerContent.querySelectorAll('a').forEach((a) => {
     const href = a.getAttribute('href');
-    if (isExternal(href)) {
+    if (!isInternal(href)) {
       a.setAttribute('target', '_blank');
     }
   });

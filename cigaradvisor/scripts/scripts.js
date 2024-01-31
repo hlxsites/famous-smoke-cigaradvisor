@@ -167,12 +167,12 @@ export async function decorateMain(main) {
  * @param {string} path - The path to be checked.
  * @returns {boolean} - Returns true if the path is an external URL, false otherwise.
  */
-export function isExternal(path) {
+export function isInternal(path) {
   try {
     const url = new URL(path);
-    return window.location.hostname !== url.hostname;
+    return (window.location.hostname === url.hostname && url.pathname.startsWith('/cigaradvisor'));
   } catch (error) {
-    return false;
+    return true;
   }
 }
 
@@ -183,7 +183,7 @@ export function isExternal(path) {
 export function decorateExternalLink(element) {
   const anchors = element.querySelectorAll('a');
   anchors.forEach((a) => {
-    if (isExternal(a.getAttribute('href'))) {
+    if (!isInternal(a.getAttribute('href'))) {
       a.setAttribute('target', '_blank');
       a.setAttribute('rel', 'noopener');
     }

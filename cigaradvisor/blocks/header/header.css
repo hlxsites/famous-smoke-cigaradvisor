@@ -257,11 +257,14 @@
   padding: 16px;
 }
 
-.header.block nav .secondary-nav-box ul li span img {
-  margin: 0 auto;
+.header.block nav .secondary-nav-box.shop-cigars .icon {
   filter: var(--clr-filter-tan);
-  height: 60px;
-  width: 76px;
+
+  --icon-size: 60px;
+}
+
+.header.block nav .secondary-nav-box.shop-cigars .icon > img {
+  margin: 0 auto;
 }
 
 .header.block nav .secondary-nav-box.search-box {

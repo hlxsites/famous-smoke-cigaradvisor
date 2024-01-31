@@ -94,7 +94,7 @@
   filter: var(--clr-filter-gray);
 }
 
-@media print, screen and (min-width: 720px) {
+@media print, screen and (min-width: 900px) {
   .footer {
     text-align: unset;
   }
@@ -136,9 +136,9 @@
   }
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 1200px) {
   .footer-nav nav {
-    grid-template-columns: 8% 18% 18% 18% auto;
+    grid-template-columns: 8% auto auto auto auto;
   }
 
   .footer-nav nav > .nav-section:last-child {

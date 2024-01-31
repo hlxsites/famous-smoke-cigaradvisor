@@ -243,7 +243,6 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* when li has a 'span with img' and 'a' as children, arrange them vertically left aligned */
 .header.block nav .secondary-nav-box ul li span img,
 .header.block nav .secondary-nav-box.shop-cigars ul li a {
   display: block;
@@ -258,11 +257,14 @@
   padding: 16px;
 }
 
-/* make above img centered */
-.header.block nav .secondary-nav-box ul li span img {
+.header.block nav .secondary-nav-box.shop-cigars .icon {
+  filter: var(--clr-filter-tan);
+
+  --icon-size: 60px;
+}
+
+.header.block nav .secondary-nav-box.shop-cigars .icon > img {
   margin: 0 auto;
-  width: auto;
-  height: auto;
 }
 
 .header.block nav .secondary-nav-box.search-box {

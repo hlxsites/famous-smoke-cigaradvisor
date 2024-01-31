@@ -20,7 +20,7 @@ export default function decorate(block) {
   link.id = 'return-to-top';
   link.classList.add('hidden');
   link.onclick = scrollTop;
-  block.appendChild(link);
+  block.replaceChildren(link);
 
   // Desktop
   const picture = createOptimizedPicture('/cigaradvisor/blocks/return-to-top/return-to-top.webp');

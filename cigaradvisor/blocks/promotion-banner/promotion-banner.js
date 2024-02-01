@@ -57,15 +57,13 @@ async function getActivePromotions(group) {
   });
 }
 
-function getImageDimensions(url) {
+function getImageDimensions(img) {
   return new Promise((resolve, reject) => {
-    const img = new Image();
     img.onload = () => resolve({
       width: img.width,
       height: img.height,
     });
     img.onerror = (error) => reject(error);
-    img.src = url;
   });
 }
 
@@ -84,20 +82,18 @@ export default async function decorate(block) {
 
   // create anchor
   const anchor = document.createElement('a');
-
-  // add image and CLS placeholder
-  const picture = createOptimizedPicture(promotion.image, promotion.alt || '');
-  const img = await getImageDimensions(promotion.image);
-  const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
-  // noinspection JSUnresolvedVariable
-  picture.style.paddingBottom = `${ratio}%`;
-  anchor.style.maxWidth = `${img.width}px`;
-  anchor.append(picture);
-
-  // populate anchor
+  block.appendChild(anchor);
   anchor.setAttribute('href', promotion.url);
   anchor.setAttribute('target', !isInternal(promotion.url) ? '_blank' : '_self');
   anchor.setAttribute('title', promotion.alt);
 
-  block.appendChild(anchor);
+  // add image and CLS placeholder
+  const picture = createOptimizedPicture(promotion.image, promotion.alt || '');
+  anchor.appendChild(picture);
+  getImageDimensions(picture.querySelector('img')).then((img) => {
+    const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
+    // noinspection JSUnresolvedVariable
+    picture.style.paddingBottom = `${ratio}%`;
+    anchor.style.maxWidth = `${img.width}px`;
+  });
 }

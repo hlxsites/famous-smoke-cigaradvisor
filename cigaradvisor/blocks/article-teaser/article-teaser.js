@@ -30,7 +30,7 @@ export function buildArticleTeaser(parentElement, article) {
   };
 
   const picture = createOptimizedPicture(article.image);
-  decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') +1 ));
+  decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') + 1));
 
   const category = (article.category && article.category.heading) ? article.category.heading : '';
   parentElement.innerHTML += `

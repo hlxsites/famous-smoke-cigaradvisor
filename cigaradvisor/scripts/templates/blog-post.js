@@ -63,10 +63,20 @@ export default async function decorate(main) {
   const div = document.createElement('div');
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
-  const category = getMetadata('category');
+  let category = getMetadata('category');
   const authorLink = getMetadata('author');
   const publishedDate = getMetadata('publisheddate');
   const articleBlurb = getMetadata('articleblurb');
+
+  if (!category) {
+    const url = window.location.href;
+    const regex = /\/cigaradvisor\/category\/([^/]+)/;
+    const match = url.match(regex);
+    if (match && match[0]) {
+      // eslint-disable-next-line prefer-destructuring
+      category = match[0];
+    }
+  }
 
   const articleHeaderBlockEl = buildBlock('articleheader', [
     [picture],

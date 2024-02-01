@@ -72,9 +72,8 @@ export default async function decorate(main) {
     const url = window.location.href;
     const regex = /\/cigaradvisor\/category\/([^/]+)/;
     const match = url.match(regex);
-    if (match && match[0]) {
-      // eslint-disable-next-line prefer-destructuring
-      category = match[0];
+    if (match) {
+      [category] = match;
     }
   }
 

@@ -141,6 +141,9 @@
 }
 
 .header.block nav .primary-nav .default-content-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
   max-width: 1080px;
 }
 
@@ -149,10 +152,10 @@
   flex-direction: row;
   justify-content: center;
   list-style-type: none;
-  padding: 0;
-  margin: 5px 0 0;
+  padding: 0 0 10px;
+  margin: 0;
   max-width: 1080px;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
   text-align: center;
 }
@@ -164,6 +167,7 @@
   font-size: 14px;
   font-family: var(--ff-opensans);
   font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-s);
   color: var(--clr-dark-gray);
   cursor: default;
 }
@@ -173,7 +177,8 @@
 }
 
 .header.block nav .primary-nav ul li > * {
-  padding: 10px 20px;
+  padding: 7px 15px;
+  line-height: var(--line-height-s);
   cursor: pointer;
 }
 
@@ -201,8 +206,8 @@
 }
 
 .header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) > a::after {
-  padding-top: 6px;
   width: 16px;
+  height: var(--line-height-s);
   content: url('/cigaradvisor/icons/angle-down.svg');
 }
 

@@ -1,11 +1,14 @@
-import { fetchAuthorInfo } from '../../scripts/scripts.js';
+import { decorateSeoPicture, fetchAuthorInfo } from '../../scripts/scripts.js';
 import { decorateIcons, createOptimizedPicture } from '../../scripts/aem.js';
 
 export function buildAuthorTeaser(parentElement, author, isAuthorList = false) {
   // add updated link to all author articles
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('image-wrapper');
-  imageWrapper.append(createOptimizedPicture(author.image));
+  const picture = createOptimizedPicture(author.image);
+  decorateSeoPicture(picture, author.name);
+  imageWrapper.append(picture);
+
   const authorDetails = document.createElement('div');
   authorDetails.classList.add('author-details');
   const authorHeadingWrapper = document.createElement('div');

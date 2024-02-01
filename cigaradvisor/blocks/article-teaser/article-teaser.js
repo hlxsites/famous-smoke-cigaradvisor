@@ -1,6 +1,6 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import {
-  fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo, getPostByIdx,
+  fetchPostsInfo, fetchAuthorInfo, fetchCategoryInfo, getPostByIdx, decorateSeoPicture,
 } from '../../scripts/scripts.js';
 
 // eslint-disable-next-line max-len
@@ -29,12 +29,15 @@ export function buildArticleTeaser(parentElement, article) {
     image: `https://www.famous-smoke.com${article.image}`,
   };
 
+  const picture = createOptimizedPicture(article.image);
+  decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') +1 ));
+
   const category = (article.category && article.category.heading) ? article.category.heading : '';
   parentElement.innerHTML += `
     <article class="article article-thumbnail">
       <a class="article-category ${category.toLowerCase().replaceAll(/\s+/g, '-')}" href="${article.category ? article.category.path : ''}" data-category="${category}" title="${category}">${category}</a>
       <div class="article-image">
-        ${createOptimizedPicture(article.image).outerHTML}
+        ${picture.outerHTML}
       </div>
       <div class="article-content">
         <articleheader class="article-header">

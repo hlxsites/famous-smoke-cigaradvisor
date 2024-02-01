@@ -94,6 +94,52 @@ function decoratePictures(main) {
   });
 }
 
+
+
+/**
+ * Updates an image to use a friendly file name. Either one provided (override existing) or derived from the alt text.
+ * @param {HTMLPictureElement} picture image to process
+ * @param {string} name desired filename
+ */
+export function decorateSeoPicture(picture, name = undefined) {
+
+  const img = picture.querySelector('img');
+  //./media_1ed9abdffb4e78fc81ba6f7398d71035a5031d569.jpeg?width=750&format=jpeg&optimize=medium
+  const update = (relUrl, name) => {
+    const url = new URL(relUrl, window.location.href);
+    const { pathname, search } = url;
+    const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+    const match = pathname.match(/^(.*\/media_[a-z0-9]+)[.\/]/);
+    if (match) {
+      return `${match[1]}/${name}.${ext}${search}`;
+    }
+    return relUrl;
+  }
+
+  if (!name) {
+    name = img.alt;
+  }
+
+  if (name) {
+    name = name
+      .substring(0, 40)
+      .toLowerCase()
+      .replace(/[^0-9a-z]/gi, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+
+    picture.querySelectorAll('source').forEach((s) => {
+      s.srcset = update(s.srcset, name);
+    })
+    img.src = update(img.getAttribute('src'), name);
+  }
+}
+
+function decorateSeoPictures(main) {
+  main.querySelectorAll('picture').forEach((picture) => decorateSeoPicture(picture));
+}
+
 /**
  * Builds two column grid.
  * @param {Element} main The container element
@@ -155,6 +201,7 @@ export async function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
+  decorateSeoPictures(main);
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

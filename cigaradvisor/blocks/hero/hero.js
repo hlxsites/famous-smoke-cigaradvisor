@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { decorateSeoPicture } from '../../scripts/scripts.js';
 
 function buildSearch() {
   const search = document.createElement('div');
@@ -25,9 +26,14 @@ export default async function decorate(block) {
       block.classList.add(s.toLowerCase());
     });
   }
+  const picture = block.querySelector('picture');
+
+  // Make Image SEO friendly.
+  decorateSeoPicture(picture, window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
+
   const image = document.createElement('div');
   image.classList.add('hero-image');
-  image.replaceChildren(block.querySelector('picture'));
+  image.replaceChildren(picture);
 
   const content = document.createElement('div');
   content.classList.add('hero-content');

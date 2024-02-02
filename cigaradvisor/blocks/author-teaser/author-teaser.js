@@ -8,6 +8,8 @@ export function buildAuthorTeaser(parentElement, author, isAuthorList = false) {
   const picture = createOptimizedPicture(author.image);
   decorateSeoPicture(picture, author.name);
   imageWrapper.append(picture);
+  const img = imageWrapper.querySelector('img');
+  img.setAttribute('alt', author.name);
 
   const authorDetails = document.createElement('div');
   authorDetails.classList.add('author-details');

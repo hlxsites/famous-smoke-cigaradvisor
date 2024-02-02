@@ -1,5 +1,5 @@
 import { readBlockConfig, createOptimizedPicture } from '../../scripts/aem.js';
-import { isInternal, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { isInternal, fetchAuthorInfo, decorateSeoPicture } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const configs = readBlockConfig(block);
@@ -36,9 +36,11 @@ export default async function decorate(block) {
   const authorPromises = [...authors].map(async (authorPage) => {
     const authorInfo = await fetchAuthorInfo(authorPage);
     if (authorInfo) {
+      const picture = createOptimizedPicture(authorInfo.image);
+      decorateSeoPicture(picture, authorInfo.name);
       return `<div class="author-content">
         <div class="overlay-image">
-          ${createOptimizedPicture(authorInfo.image).outerHTML}
+          ${picture.outerHTML}
           <div class="overlay-content">
             <p class="align-center"><a href="${authorInfo.path}">${authorInfo.name}</a></p>
           </div>

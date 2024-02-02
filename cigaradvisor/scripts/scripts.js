@@ -95,6 +95,46 @@ function decoratePictures(main) {
 }
 
 /**
+ * Updates an image to use a friendly file name; e
+ * either one provided (override existing) or derived from the alt text.
+ * @param {HTMLPictureElement} picture image to process
+ * @param {string} override desired filename
+ */
+export function decorateSeoPicture(picture, override = undefined) {
+  const update = (relUrl, name) => {
+    const url = new URL(relUrl, window.location.href);
+    const { pathname, search } = url;
+    const ext = pathname.substring(pathname.lastIndexOf('.') + 1);
+
+    const match = pathname.match(/^(.*\/media_[a-z0-9]+)[./]/);
+    if (match) {
+      return `${match[1]}/${name}.${ext}${search}`;
+    }
+    return relUrl;
+  };
+
+  const img = picture.querySelector('img');
+  let name = override || img.alt;
+  if (name) {
+    name = name
+      .substring(0, 40)
+      .toLowerCase()
+      .replace(/[^0-9a-z]/gi, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    picture.querySelectorAll('source').forEach((s) => {
+      s.srcset = update(s.srcset, name);
+    });
+    img.src = update(img.getAttribute('src'), name);
+  }
+}
+
+function decorateSeoPictures(main) {
+  main.querySelectorAll('picture').forEach((picture) => decorateSeoPicture(picture));
+}
+
+/**
  * Builds two column grid.
  * @param {Element} main The container element
  */
@@ -155,6 +195,7 @@ export async function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
+  decorateSeoPictures(main);
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

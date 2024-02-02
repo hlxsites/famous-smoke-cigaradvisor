@@ -1,10 +1,11 @@
-import { fetchCategoryInfo, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { fetchCategoryInfo, fetchAuthorInfo, decorateSeoPicture } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const section = document.createElement('section');
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('image-wrapper');
   const picture = block.querySelector('picture');
+  decorateSeoPicture(picture, window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
   imageWrapper.append(picture);
   const articleInfo = document.createElement('div');
   articleInfo.classList.add('article-info');

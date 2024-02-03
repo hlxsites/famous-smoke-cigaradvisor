@@ -37,6 +37,7 @@ export default async function decorate(block) {
     const authorInfo = await fetchAuthorInfo(authorPage);
     if (authorInfo) {
       const picture = createOptimizedPicture(authorInfo.image);
+      picture.querySelector('img').setAttribute('alt', authorInfo.name);
       decorateSeoPicture(picture, authorInfo.name);
       return `<div class="author-content">
         <div class="overlay-image">

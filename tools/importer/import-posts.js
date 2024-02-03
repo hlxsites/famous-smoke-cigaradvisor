@@ -123,7 +123,7 @@ const createPostBody = (main, document) => {
     // Fix some bad formatting
     ele.querySelectorAll('em > br, strong > br').forEach((br) => {
       const parent = br.parentElement;
-      ele.insertBefore(br, parent);
+      parent.parentElement.insertBefore(br, parent);
     });
 
     if (ele.querySelector('iframe')) {

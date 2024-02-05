@@ -23,6 +23,7 @@ export async function renderPage(wrapper, articles, limit) {
   }
   const totalPages = Math.ceil(articles.length / pageSize);
 
+  let counter = 0;// counter for images to be loaded eagerly
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len
   const articlePromises = articles.slice((currentPage - 1) * pageSize, currentPage * pageSize).map(async (article) => {
@@ -36,6 +37,11 @@ export async function renderPage(wrapper, articles, limit) {
       article.category = await fetchCategoryInfo(article.category);
     }
     buildArticleTeaser(articleTeaser, article);
+    if (counter < 2) {
+      const articleTeaserImage = articleTeaser.querySelector('.article-image img');
+      articleTeaserImage.setAttribute('loading', 'eager');
+      counter += 1;
+    }
     return articleTeaser;
   });
 

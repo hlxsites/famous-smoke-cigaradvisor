@@ -39,15 +39,9 @@ export async function renderPage(wrapper, articles, limit) {
     return articleTeaser;
   });
 
-  let counter = 0;// counter for images to be loaded eagerly
   await Promise.all(articlePromises).then((results) => {
     results.forEach((teaser) => {
       list.append(teaser);
-      if (counter < 2) {
-        const articleTeaserImage = teaser.querySelector('.article-image img');
-        articleTeaserImage.setAttribute('loading', 'eager');
-        counter += 1;
-      }
     });
   });
   list.querySelector('.article-teaser.block .article-image img')?.setAttribute('loading', 'eager');
@@ -146,4 +140,10 @@ export default async function decorate(block) {
       await renderByList(configs, articleTeaserWrapper, articles, limit);
     }
   });
+
+  // setting eager loading for first 2 images under the block
+  const articleTeaserImage = block.querySelector('.article-teaser.block .article-image img');
+  articleTeaserImage?.setAttribute('loading', 'eager');
+  const articleTeaserImage2 = block.querySelector('.article-teaser.block:nth-child(2) .article-image img');
+  articleTeaserImage2?.setAttribute('loading', 'eager');
 }

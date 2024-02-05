@@ -31,6 +31,7 @@ export function buildArticleTeaser(parentElement, article) {
 
   const picture = createOptimizedPicture(article.image);
   picture.querySelector('img').setAttribute('alt', article.heading.replace(/[^\w\s]/gi, ''));
+  picture.querySelector('img').setAttribute('loading', 'eager');
   decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') + 1));
 
   const category = (article.category && article.category.heading) ? article.category.heading : '';

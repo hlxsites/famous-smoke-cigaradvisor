@@ -40,7 +40,6 @@ export async function renderPage(wrapper, articles, limit) {
     if (counter < 2) {
       const articleTeaserImage = articleTeaser.querySelector('.article-image img');
       articleTeaserImage.setAttribute('loading', 'eager');
-      console.log(articleTeaserImage);
       counter += 1;
     }
     return articleTeaser;

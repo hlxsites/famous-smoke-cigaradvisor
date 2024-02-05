@@ -20,7 +20,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
 const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/posts-index.json';
-const SEARCH_INDEX_PATH = '/cigaradvisor/posts-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/search-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.

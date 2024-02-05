@@ -7,6 +7,7 @@ export default async function decorate(block) {
   const picture = block.querySelector('picture');
   const img = picture.querySelector('img');
   const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
+  img.setAttribute('loading', 'lazy');
   picture.style.paddingBottom = `${ratio}%`;
 
   if (social) {
@@ -65,6 +66,8 @@ export default async function decorate(block) {
   const bg = createOptimizedPicture('/cigaradvisor/images/backgrounds/author.jpg', '', true);
   bg.classList.add('bg-image');
   block.append(bg);
+  const bgImg = bg.querySelector('img');
+  bgImg.setAttribute('loading', 'eager');
   decorateIcons(block);
 
   const ldjson = {

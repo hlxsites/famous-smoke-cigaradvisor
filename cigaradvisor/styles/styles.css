@@ -227,7 +227,7 @@ main .section {
 main .section > div {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 15px;
 }
 
 main .section[data-layout] .layout-wrapper {

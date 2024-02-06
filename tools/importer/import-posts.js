@@ -21,7 +21,7 @@ const fixUrl = (a) => {
   if (href.startsWith('/cigaradvisor')) {
     const page = href.substring(href.lastIndexOf('/') + 1);
     if (metadata[page]) {
-      href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/${metadata[page].category}/${page}`;
+      href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/category/${metadata[page].category}/${page}`;
     } else {
       href = `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page${href}`;
     }

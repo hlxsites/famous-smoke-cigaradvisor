@@ -409,7 +409,7 @@ main .section.center .default-content-wrapper {
 
   a, p {
     font-size: var(--body-font-size-m);
-    /* line-height: var(--line-height-m); */
+    vertical-align: baseline; 
   }
 
   .default-content-wrapper {

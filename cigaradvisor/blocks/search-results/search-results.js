@@ -11,7 +11,7 @@ function compareFound(hit1, hit2) {
 
 function filterData(searchTerms, data) {
   const foundInHeader = [];
-  const foundInMeta = [];
+  const foundInText = [];
 
   data.forEach((result) => {
     let minIdx = -1;
@@ -28,7 +28,7 @@ function filterData(searchTerms, data) {
       return;
     }
 
-    const fullText = result.text.toLowerCase();
+    const fullText = result.text ? result.text.toLowerCase() : '';
     searchTerms.forEach((term) => {
       const idx = fullText.indexOf(term);
       if (idx < 0) return;
@@ -36,13 +36,13 @@ function filterData(searchTerms, data) {
     });
 
     if (minIdx >= 0) {
-      foundInMeta.push({ minIdx, result });
+      foundInText.push({ minIdx, result });
     }
   });
 
   return [
     ...foundInHeader.sort(compareFound),
-    ...foundInMeta.sort(compareFound),
+    ...foundInText.sort(compareFound),
   ].map((item) => item.result);
 }
 

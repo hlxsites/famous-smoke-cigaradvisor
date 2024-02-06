@@ -140,4 +140,10 @@ export default async function decorate(block) {
       await renderByList(configs, articleTeaserWrapper, articles, limit);
     }
   });
+
+  // setting eager loading for first 2 images under the block
+  const articleTeaserImage = block.querySelector('.article-teaser.block .article-image img');
+  articleTeaserImage?.setAttribute('loading', 'eager');
+  const articleTeaserImage2 = block.querySelector('.article-teaser.block:nth-child(2) .article-image img');
+  articleTeaserImage2?.setAttribute('loading', 'eager');
 }

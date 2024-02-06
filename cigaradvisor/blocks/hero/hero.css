@@ -123,6 +123,7 @@ main .section.hero-container > div {
 
   body.under-nav .hero.block:not(.search) .hero-content {
     padding: 0;
+    max-width: 1080px;
   }
 
   .hero.block .hero-search form {

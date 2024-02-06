@@ -207,7 +207,7 @@ li {
 
 b, strong,
 b > *, strong > *{
-  font-weight: var(--font-weight-bold);
+  font-weight: bold;
 }
 
 .sr-only {

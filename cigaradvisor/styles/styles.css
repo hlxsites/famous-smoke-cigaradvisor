@@ -171,7 +171,7 @@ a {
 
 p {
   margin: 16px 0;
-  font-family: var(--ff-opensans);
+  font-family: var(--ff-arial);
   font-size: var(--body-font-size-m);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-l);

@@ -208,6 +208,7 @@ li {
 b, strong,
 b > *, strong > *{
   font-weight: bold;
+  font-size: var(--body-font-size-m);
 }
 
 .sr-only {

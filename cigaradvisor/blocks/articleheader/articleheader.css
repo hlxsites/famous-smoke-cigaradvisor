@@ -100,7 +100,7 @@
         display: inline-block;
         width: 1px;
         height: 12px;
-        background-color: #3c3a3b;
+        background-color: var(--dark-grey);
         margin: 0 10px;
     }
   }

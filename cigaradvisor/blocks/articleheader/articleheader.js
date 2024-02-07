@@ -1,5 +1,14 @@
 import { fetchCategoryInfo, fetchAuthorInfo, decorateSeoPicture } from '../../scripts/scripts.js';
 
+function getFormattedPublishedDate(publishedDate) {
+  const [day, month, year] = publishedDate.split(' ');
+  const monthIndex = new Date(Date.parse(`${month} 1, 2020`)).getMonth();
+  const formattedDate = new Date(year, monthIndex, day);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedPublishedDate = formattedDate.toLocaleDateString('en-US', options);
+  return formattedPublishedDate;
+}
+
 export default async function decorate(block) {
   const section = document.createElement('section');
   const imageWrapper = document.createElement('div');
@@ -27,9 +36,10 @@ export default async function decorate(block) {
     articleInfo.append(authorLinkEl);
   }
   const publishedDate = block.querySelector('p.published-date').innerText;
+  const formattedPublishedDate = publishedDate ? getFormattedPublishedDate(publishedDate) : '';
   const publishedDateEl = document.createElement('span');
   publishedDateEl.classList.add('article-published-date');
-  publishedDateEl.innerText = publishedDate;
+  publishedDateEl.innerText = formattedPublishedDate;
   authorLinkEl.append(publishedDateEl);
   articleInfo.append(authorLinkEl);
   section.append(imageWrapper);

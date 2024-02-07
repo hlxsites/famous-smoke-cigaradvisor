@@ -54,6 +54,7 @@
   --ff-fontawesome: 'Font Awesome';
 
   /* heading sizes */
+  --heading-font-size-xxxs: 16px;
   --heading-font-size-xxs: 18px;
   --heading-font-size-xs: 20px;
   --heading-font-size-s: 24px;

@@ -95,7 +95,7 @@
         flex-direction: row;
     }
 
-    .articleheader.block .article-info .article-author>a::after {
+    .articleheader.block .article-info .article-author > a::after {
         content: "";
         display: inline-block;
         width: 1px;

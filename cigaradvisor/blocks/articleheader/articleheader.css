@@ -87,7 +87,7 @@
 }
 
 @media screen and (min-width: 600px) {
-    .articleheader.block .article-info .article-author > *{
+    .articleheader.block .article-info .article-author > * {
         margin: 0;
     }
 

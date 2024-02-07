@@ -55,26 +55,16 @@
 .articleheader.block .article-info .article-author {
     padding-left: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 40px auto;
-}
-
-/* separate children of .article-author with a pipe */
-.articleheader.block .article-info .article-author>a::after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 12px;
-    background-color: #3c3a3b;
-    margin: 0 10px;
+    font-weight: var(--font-weight-semibold);
 }
 
 .articleheader.block .article-info .article-author .article-published-date {
     font-family: var(--ff-opensans);
-    font-weight: var(--font-weight-normal);
     color: var(--clr-dark-gray);
-    font-size: var(--body-font-size-s);
 }
 
 .articleheader.block .article-read-time {
@@ -90,3 +80,33 @@
     max-width: 1080px;
 }
 
+.articleheader.block .article-info .article-author > * {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--body-font-size-xs);
+    margin: 5px 0;
+}
+
+@media screen and (min-width: 600px) {
+    .articleheader.block .article-info .article-author > * {
+        margin: 0;
+    }
+
+    .articleheader.block .article-info .article-author {
+        flex-direction: row;
+    }
+
+    .articleheader.block .article-info .article-author > a::after {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 12px;
+        background-color: var(--dark-grey);
+        margin: 0 10px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .articleheader.block .article-info .article-author > * {
+        font-size: var(--body-font-size-s);
+    }
+  }

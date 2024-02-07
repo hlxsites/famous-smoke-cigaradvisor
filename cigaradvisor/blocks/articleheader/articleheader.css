@@ -80,7 +80,7 @@
     max-width: 1080px;
 }
 
-.articleheader.block .article-info .article-author > *{
+.articleheader.block .article-info .article-author > * {
     font-weight: var(--font-weight-semibold);
     font-size: var(--body-font-size-xs);
     margin: 5px 0;

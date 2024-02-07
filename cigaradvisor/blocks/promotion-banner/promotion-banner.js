@@ -66,7 +66,7 @@ async function loadPromotionContent(url) {
     path = new URL(url).pathname;
   }
   const fragment = await loadFragment(path);
-  return fragment ? fragment.querySelector('main > .section > *') : null;
+  return fragment ? fragment.querySelector('main > .section > div:first-of-type > div:first-of-type') : null;
 }
 
 export default async function decorate(block) {
@@ -82,5 +82,7 @@ export default async function decorate(block) {
   }
   const promotion = activePromotions[Math.floor(Math.random() * activePromotions.length)];
 
-  loadPromotionContent(promotion.content).then((content) => block.appendChild(content));
+  await loadPromotionContent(promotion.content).then((content) => {
+    if (content) block.parentElement.replaceWith(content);
+  });
 }

@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/aem.js';
-import { isInternal } from '../../scripts/scripts.js';
+import { readBlockConfig } from '../../scripts/aem.js';
+import { loadFragment } from '../fragment/fragment.js';
 
 const sheetURL = '/cigaradvisor/promotions.json?sheet=promotions';
 
@@ -57,14 +57,16 @@ async function getActivePromotions(group) {
   });
 }
 
-function getImageDimensions(img) {
-  return new Promise((resolve, reject) => {
-    img.onload = () => resolve({
-      width: img.width,
-      height: img.height,
-    });
-    img.onerror = (error) => reject(error);
-  });
+async function loadPromotionContent(url) {
+  if (!url) {
+    return null;
+  }
+  let path = url;
+  if (!(path.charAt(0) === '/')) {
+    path = new URL(url).pathname;
+  }
+  const fragment = await loadFragment(path);
+  return fragment ? fragment.querySelector('main > .section > *') : null;
 }
 
 export default async function decorate(block) {
@@ -80,20 +82,5 @@ export default async function decorate(block) {
   }
   const promotion = activePromotions[Math.floor(Math.random() * activePromotions.length)];
 
-  // create anchor
-  const anchor = document.createElement('a');
-  block.appendChild(anchor);
-  anchor.setAttribute('href', promotion.url);
-  anchor.setAttribute('target', !isInternal(promotion.url) ? '_blank' : '_self');
-  anchor.setAttribute('title', promotion.alt);
-
-  // add image and CLS placeholder
-  const picture = createOptimizedPicture(promotion.image, promotion.alt || '');
-  anchor.appendChild(picture);
-  getImageDimensions(picture.querySelector('img')).then((img) => {
-    const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
-    // noinspection JSUnresolvedVariable
-    picture.style.paddingBottom = `${ratio}%`;
-    anchor.style.maxWidth = `${img.width}px`;
-  });
+  loadPromotionContent(promotion.content).then((content) => block.appendChild(content));
 }

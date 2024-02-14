@@ -2,20 +2,20 @@ sitemaps:
   pages:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/pages-index.json
-    destination: /cigaradivsor/page-sitemap.xml
+    destination: /cigaradvisor/page-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   category:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/category/query-index.json
-    destination: /cigaradivsor/category-sitemap.xml
+    destination: /cigaradvisor/category-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   author:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/author/query-index.json
-    destination: /cigaradivsor/author-sitemap.xml
+    destination: /cigaradvisor/author-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   posts:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/posts/query-index.json
-    destination: /cigaradivsor/post-sitemap.xml
+    destination: /cigaradvisor/post-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss

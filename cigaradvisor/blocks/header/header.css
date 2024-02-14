@@ -231,6 +231,15 @@
   list-style-type: none;
 }
 
+.header.block nav .secondary-nav-box > ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
 .header.block nav .secondary-nav-box.browse-categories ul li {
   line-height: 2;
   font-size: var(--body-font-size-s);

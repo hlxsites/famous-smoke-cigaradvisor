@@ -66,7 +66,7 @@ async function loadPromotionContent(url) {
     path = new URL(url).pathname;
   }
   const fragment = await loadFragment(path);
-  return fragment ? fragment.querySelector('main > .section > div:first-of-type > div:first-of-type') : null;
+  return fragment ? fragment.querySelector('main > .section .block') : null;
 }
 
 export default async function decorate(block) {

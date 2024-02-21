@@ -88,6 +88,10 @@ export default async function decorate(main) {
   div.append(articleHeaderBlockEl);
   main.prepend(div);
 
+  const articleSuggestions = document.createElement('div');
+  articleSuggestions.append(buildBlock('article-recommendations', [[`<p class="category">${category}</p>`]]));
+  main.append(articleSuggestions);
+
   const section = document.createElement('div');
   section.append(buildBlock('article-navigation', []));
   main.append(section);

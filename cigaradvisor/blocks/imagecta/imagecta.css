@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 
-.imagecta.block > a picture {
+.imagecta.block > a > picture {
   display: block;
   position: relative;
   width: 100%;
@@ -11,7 +11,7 @@
   margin: 0 auto;
 }
 
-.imagecta.block > a picture > img {
+.imagecta.block > a > picture > img {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -21,11 +21,11 @@
   object-position: center;
 }
 
-.section[data-layout="50/50"] .imagecta-wrapper{
+.section[data-layout="50/50"] .imagecta-wrapper {
   display: flex;
 }
 
-.section[data-layout="50/50"].article-teaser-container .imagecta-wrapper{
+.section[data-layout="50/50"].article-teaser-container .imagecta-wrapper {
   flex-basis: 100%;
 }
 
@@ -33,22 +33,22 @@
   justify-content: flex-start;
 }
 
-.section[data-layout="50/50"] .imagecta.block{
+.section[data-layout="50/50"] .imagecta.block {
   display: flex;
   flex-basis: 100%;
 }
 
-.section[data-layout="50/50"]  .imagecta.block > a{
+.section[data-layout="50/50"] .imagecta.block > a {
   flex-basis: 100%;
 }
 
 @media screen and (min-width: 1200px) {
-  .section[data-layout="50/50"] .imagecta.block>a img {
+  .section[data-layout="50/50"] .imagecta.block > a > picture > img {
     border: 1px solid #000;
   }
 
   /* removing border for 2 column videos section */
-  .two-column-section[data-layout="50/50"] .imagecta.block>a img {
+  .two-column-section[data-layout="50/50"] .imagecta.block > a > picture > img {
     border: none;
   }
 }

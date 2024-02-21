@@ -7,6 +7,10 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-list/article-list.css`);
 
+  const recommendationsHeading = document.createElement('h3');
+  recommendationsHeading.classList.add('recommendations-heading');
+  recommendationsHeading.innerHTML = 'You Might Also Like...';
+
   const articleListWrapper = document.createElement('div');
   articleListWrapper.classList.add('article-list-wrapper');
 
@@ -40,5 +44,6 @@ export default async function decorate(block) {
 
   articleListWrapper.append(articleList);
 
-  block.replaceChildren(articleListWrapper);
+  block.replaceChildren(recommendationsHeading);
+  block.append(articleListWrapper);
 }

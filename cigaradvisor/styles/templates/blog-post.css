@@ -78,10 +78,6 @@ body.blog-post-template main .default-content-wrapper h3 {
   margin: 2rem 0 1rem;
 }
 
-body.blog-post-template main .default-content-wrapper h3.recommendations-heading {
-  margin: 0;
-}
-
 @media screen and (min-width: 1200px) {
   .blog-post-template main .default-content-wrapper {
     padding: 0;

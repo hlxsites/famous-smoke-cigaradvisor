@@ -89,23 +89,14 @@ export default async function decorate(main) {
   div.append(articleHeaderBlockEl);
   main.prepend(div);
 
-  const articleListBlockEl = document.createElement('div');
-  articleListBlockEl.classList.add('article-list', 'block');
-  articleListBlockEl.dataset.blockName = 'article-list';
-  const row = document.createElement('div');
-  const col1 = document.createElement('div');
-  col1.innerHTML = 'Articles';
-  row.append(col1);
-  const col2 = document.createElement('div');
+  const articleList = document.createElement('div');
   const ul = document.createElement('ul');
   const posts = await loadPosts();
   // 2 posts from the same author “most recent by published date”
   const authorPosts = posts.filter((post) => authorLink.includes(post.author) && post.path !== window.location.pathname);
-  if (authorPosts && authorPosts[0]) {
-    ul.innerHTML = `<li><a href="${authorPosts[0].path}">${authorPosts[0].path}</a></li>`;
-  }
-  if (authorPosts && authorPosts[1]) {
-    ul.innerHTML += `<li><a href="${authorPosts[1].path}">${authorPosts[1].path}</a></li>`;
+  if (authorPosts) {
+    if (authorPosts[0]) ul.innerHTML = `<li><a href="${authorPosts[0].path}">${authorPosts[0].path}</a></li>`;
+    if (authorPosts[1]) ul.innerHTML += `<li><a href="${authorPosts[1].path}">${authorPosts[1].path}</a></li>`;
   }
   // 1 post from the same category “most recent by published date”
   const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post) && post.path !== window.location.pathname);
@@ -117,19 +108,17 @@ export default async function decorate(main) {
   if (randomPost && randomPost[0]) {
     ul.innerHTML += `<li><a href="${randomPost[0].path}">${randomPost[0].path}</a></li>`;
   }
-  col2.append(ul);
-  row.append(col2);
-  articleListBlockEl.append(row);
-
-  const articleListBlock = buildBlock('article-list', [[articleListBlockEl]]);
+  articleList.append(ul);
+  const articleListBlock = buildBlock('article-list', [['Articles', articleList]]);
   const recommendationsHeading = document.createElement('h3');
-  recommendationsHeading.classList.add('recommendations-heading');
   recommendationsHeading.innerHTML = 'You Might Also Like...';
-  articleListBlock.prepend(recommendationsHeading);
-  main.append(articleListBlock);
 
-  const section = document.createElement('div');
-  section.append(buildBlock('article-navigation', []));
-  main.append(section);
+  const articleListSection = document.createElement('div');
+  articleListSection.append(recommendationsHeading, articleListBlock);
+  main.append(articleListSection);
+
+  const navSection = document.createElement('div');
+  navSection.append(buildBlock('article-navigation', []));
+  main.append(navSection);
   addLdJson();
 }

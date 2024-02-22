@@ -166,31 +166,6 @@ const createAuthorTeaser = (main, document, meta) => {
   main.append(author);
 }
 
-const createRelatedArticles = (main, document) => {
-  const title = document.querySelector('main div.newsArticle__related h3').textContent;
-  const h3 = document.createElement('h3');
-  h3.textContent = title;
-  main.append(h3);
-
-  const wrapper = document.querySelector('article')?.nextElementSibling?.nextElementSibling?.nextElementSibling;
-  const articleList = [];
-  articleList.push(['Article List']);
-
-  const list = document.createElement('ul');
-  wrapper.querySelectorAll('article').forEach((article) => {
-    let link = document.createElement('a');
-    link.href = article.querySelector('.read_more').href;
-    const date = new Date(article.querySelector('.article__pubdate').getAttribute('datetime'));
-    link.href = link.href.replace(/^.*\/cigaradvisor\/(.*)$/, `/cigaradvisor/${date.getFullYear()}/${date.getMonth()+1}/$1`);
-    const li = document.createElement('li');
-    link.textContent = link.href;
-    li.append(link);
-    list.append(li);
-  })
-  articleList.push(['Articles', list]);
-  main.append(WebImporter.DOMUtils.createTable(articleList, document));
-}
-
 export default {
   preprocess: ({ document, url, html, params }) => {
     const path = new URL(url).pathname
@@ -226,9 +201,6 @@ export default {
 
     main.append(document.createElement('hr'));
     createAuthorTeaser(main, document, metadata);
-
-    main.append(document.createElement('hr'));
-    createRelatedArticles(main, document);
 
     main.append(document.createElement('hr'));
     const metaBlock = WebImporter.Blocks.getMetadataBlock(document, metadata);

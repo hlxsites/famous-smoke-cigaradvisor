@@ -13,10 +13,16 @@
 const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
 import { metadata } from './metadata.mjs';
+import { redirects } from './redirects.js';
 
 const fixUrl = (a) => {
   let href = a.getAttribute('href');
   let text = a.textContent;
+
+  const redirHref = redirects.get(href);
+  if (redirHref) {
+    href = redirHref;
+  }
 
   if (href.startsWith('/cigaradvisor')) {
     const page = href.substring(href.lastIndexOf('/') + 1);

@@ -4,7 +4,6 @@ import {
 } from '../scripts.js';
 import { buildBlock, getMetadata } from '../aem.js';
 import { addLdJsonScript } from '../linking-data.js';
-import { loadFragment } from '../../blocks/fragment/fragment.js';
 
 async function addLdJson() {
   const promises = [];

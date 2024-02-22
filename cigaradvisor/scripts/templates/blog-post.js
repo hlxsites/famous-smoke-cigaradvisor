@@ -89,10 +89,6 @@ export default async function decorate(main) {
   div.append(articleHeaderBlockEl);
   main.prepend(div);
 
-  const recommendationsHeading = document.createElement('h3');
-  recommendationsHeading.classList.add('recommendations-heading');
-  recommendationsHeading.innerHTML = 'You Might Also Like...';
-
   const posts = await loadPosts();
   const articles = [];
   // 2 posts from the same author “most recent by published date”
@@ -123,6 +119,9 @@ export default async function decorate(main) {
     </div>
   </div>
 </div>`]]);
+  const recommendationsHeading = document.createElement('h3');
+  recommendationsHeading.classList.add('recommendations-heading');
+  recommendationsHeading.innerHTML = 'You Might Also Like...';
   articleListBlock.prepend(recommendationsHeading);
   main.append(articleListBlock);
 

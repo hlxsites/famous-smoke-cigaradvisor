@@ -4,6 +4,7 @@ import {
 } from '../scripts.js';
 import { buildBlock, getMetadata } from '../aem.js';
 import { addLdJsonScript } from '../linking-data.js';
+import { loadFragment } from '../../blocks/fragment/fragment.js';
 
 async function addLdJson() {
   const promises = [];
@@ -103,11 +104,18 @@ export default async function decorate(main) {
   if (categoryPosts && categoryPosts[0]) {
     ul.innerHTML += `<li><a href="${categoryPosts[0].path}">${categoryPosts[0].path}</a></li>`;
   }
-  // 1 random post
-  const randomPost = posts.filter((post) => !authorPosts.includes(post) && !categoryPosts.includes(post) && post.path !== window.location.pathname);
-  if (randomPost && randomPost[0]) {
-    ul.innerHTML += `<li><a href="${randomPost[0].path}">${randomPost[0].path}</a></li>`;
+  // 1 random post from must reads page
+  const resp = await fetch('/cigaradvisor/must-reads.plain.html');
+  if (resp.ok) {
+    const dom = document.createElement('main');
+    dom.innerHTML = await resp.text();
+    const mustReadArticleList = dom.querySelectorAll('.article-list li a');
+    const mustReadArticles = Array.from(mustReadArticleList).map((a) => a.getAttribute('href'));
+    const randomMustReadArticles = mustReadArticles.filter((post) => !authorPosts.includes(post) && !categoryPosts.includes(post) && post.path !== window.location.pathname);
+    const randomIndex = Math.floor(Math.random() * randomMustReadArticles.length);
+    if (randomIndex && randomMustReadArticles[randomIndex]) ul.innerHTML += `<li><a href="${randomMustReadArticles[randomIndex]}">${randomMustReadArticles[randomIndex]}</a></li>`;
   }
+
   articleList.append(ul);
   const articleListBlock = buildBlock('article-list', [['Articles', articleList]]);
   const recommendationsHeading = document.createElement('h3');

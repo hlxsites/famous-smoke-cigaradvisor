@@ -89,36 +89,39 @@ export default async function decorate(main) {
   div.append(articleHeaderBlockEl);
   main.prepend(div);
 
+  const articleListBlockEl = document.createElement('div');
+  articleListBlockEl.classList.add('article-list', 'block');
+  articleListBlockEl.dataset.blockName = 'article-list';
+  const row = document.createElement('div');
+  const col1 = document.createElement('div');
+  col1.innerHTML = 'Articles';
+  row.append(col1);
+  const col2 = document.createElement('div');
+  const ul = document.createElement('ul');
   const posts = await loadPosts();
-  const articles = [];
   // 2 posts from the same author “most recent by published date”
   const authorPosts = posts.filter((post) => authorLink.includes(post.author) && post.path !== window.location.pathname);
-  articles.push(...authorPosts.slice(0, 2));
+  if (authorPosts && authorPosts[0]) {
+    ul.innerHTML = `<li><a href="${authorPosts[0].path}">${authorPosts[0].path}</a></li>`;
+  }
+  if (authorPosts && authorPosts[1]) {
+    ul.innerHTML += `<li><a href="${authorPosts[1].path}">${authorPosts[1].path}</a></li>`;
+  }
   // 1 post from the same category “most recent by published date”
   const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post) && post.path !== window.location.pathname);
-  if (categoryPosts.length > 0) {
-    articles.push(categoryPosts[0]);
+  if (categoryPosts && categoryPosts[0]) {
+    ul.innerHTML += `<li><a href="${categoryPosts[0].path}">${categoryPosts[0].path}</a></li>`;
   }
   // 1 random post
   const randomPost = posts.filter((post) => !authorPosts.includes(post) && !categoryPosts.includes(post) && post.path !== window.location.pathname);
-  if (randomPost.length > 0) {
-    articles.push(randomPost[0]);
+  if (randomPost && randomPost[0]) {
+    ul.innerHTML += `<li><a href="${randomPost[0].path}">${randomPost[0].path}</a></li>`;
   }
+  col2.append(ul);
+  row.append(col2);
+  articleListBlockEl.append(row);
 
-  const articleListBlock = buildBlock('article-list', [[`
-  <div class="article-list block" data-block-name="article-list">
-  <div>
-    <div>Articles</div>
-    <div>
-      <ul>
-        <li><a href="${articles[0].path}">${articles[0].path}</a></li>
-        <li><a href="${articles[1].path}">${articles[1].path}</a></li>
-        <li><a href="${articles[2].path}">${articles[2].path}</a></li>
-        <li><a href="${articles[3].path}">${articles[3].path}</a></li>
-      </ul>
-    </div>
-  </div>
-</div>`]]);
+  const articleListBlock = buildBlock('article-list', [[articleListBlockEl]]);
   const recommendationsHeading = document.createElement('h3');
   recommendationsHeading.classList.add('recommendations-heading');
   recommendationsHeading.innerHTML = 'You Might Also Like...';

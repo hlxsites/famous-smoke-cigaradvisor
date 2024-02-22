@@ -111,7 +111,8 @@ export default async function decorate(main) {
     const mustReadArticleList = dom.querySelectorAll('.article-list li a');
     const mustReadArticles = Array.from(mustReadArticleList).map((a) => a.getAttribute('href'));
     const randomMustReadArticles = mustReadArticles.filter((post) => !authorPosts.includes(post) && !categoryPosts.includes(post) && post.path !== window.location.pathname);
-    if (randomMustReadArticles[0]) ul.innerHTML += `<li><a href="${randomMustReadArticles[0]}">${randomMustReadArticles[0]}</a></li>`;
+    const randomIndex = Math.floor(Math.random() * randomMustReadArticles.length);
+    if (randomIndex && randomMustReadArticles[randomIndex]) ul.innerHTML += `<li><a href="${randomMustReadArticles[randomIndex]}">${randomMustReadArticles[randomIndex]}</a></li>`;
   }
 
   articleList.append(ul);

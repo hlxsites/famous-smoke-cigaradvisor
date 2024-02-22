@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import {
-  decorateExternalLink, fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo,
+  decorateExternalLink, fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts,
 } from '../scripts.js';
 import { buildBlock, getMetadata } from '../aem.js';
 import { addLdJsonScript } from '../linking-data.js';
@@ -88,9 +89,42 @@ export default async function decorate(main) {
   div.append(articleHeaderBlockEl);
   main.prepend(div);
 
-  const articleSuggestions = document.createElement('div');
-  articleSuggestions.append(buildBlock('article-recommendations', [[`<p class="category">${category}</p>`]]));
-  main.append(articleSuggestions);
+  const recommendationsHeading = document.createElement('h3');
+  recommendationsHeading.classList.add('recommendations-heading');
+  recommendationsHeading.innerHTML = 'You Might Also Like...';
+
+  const posts = await loadPosts();
+  const articles = [];
+  // 2 posts from the same author “most recent by published date”
+  const authorPosts = posts.filter((post) => authorLink.includes(post.author) && post.path !== window.location.pathname);
+  articles.push(...authorPosts.slice(0, 2));
+  // 1 post from the same category “most recent by published date”
+  const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post) && post.path !== window.location.pathname);
+  if (categoryPosts.length > 0) {
+    articles.push(categoryPosts[0]);
+  }
+  // 1 random post
+  const randomPost = posts.filter((post) => !authorPosts.includes(post) && !categoryPosts.includes(post) && post.path !== window.location.pathname);
+  if (randomPost.length > 0) {
+    articles.push(randomPost[0]);
+  }
+
+  const articleListBlock = buildBlock('article-list', [[`
+  <div class="article-list block" data-block-name="article-list">
+  <div>
+    <div>Articles</div>
+    <div>
+      <ul>
+        <li><a href="${articles[0].path}">${articles[0].path}</a></li>
+        <li><a href="${articles[1].path}">${articles[1].path}</a></li>
+        <li><a href="${articles[2].path}">${articles[2].path}</a></li>
+        <li><a href="${articles[3].path}">${articles[3].path}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>`]]);
+  articleListBlock.prepend(recommendationsHeading);
+  main.append(articleListBlock);
 
   const section = document.createElement('div');
   section.append(buildBlock('article-navigation', []));

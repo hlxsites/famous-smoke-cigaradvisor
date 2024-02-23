@@ -16,6 +16,6 @@ sitemaps:
     lastmod: YYYY-MM-DD hh:mm:ss
   posts:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/posts/query-index.json
+    source: /cigaradvisor/posts-index.json
     destination: /cigaradvisor/post-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss

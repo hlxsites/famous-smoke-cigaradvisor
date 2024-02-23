@@ -71,7 +71,7 @@ export default async function decorate(main) {
 
   if (!category) {
     const url = window.location.href;
-    const regex = /\/cigaradvisor\/category\/([^/]+)/;
+    const regex = /\/cigaradvisor\/([^/]+)/;
     const match = url.match(regex);
     if (match) {
       [category] = match;

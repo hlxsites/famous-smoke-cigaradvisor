@@ -113,7 +113,7 @@ export default async function decorate(block) {
 
   const limit = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
 
-  if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
+  if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/')) {
     category = window.location.toString();
   } else if (!author && Object.hasOwn(configs, 'author') && window.location.pathname.includes('/cigaradvisor/author/')) {
     author = window.location.toString();

@@ -86,7 +86,7 @@ export default function addLinkingData() {
   addOrg(document.querySelector('head'));
   if (window.location.pathname === '/cigaradvisor') {
     addBlogPosts();
-  } else if (window.location.pathname.match(/\/cigaradvisor\/category\/[^/]+$/)) {
+  } else if (window.location.pathname.match(/\/cigaradvisor\/[^/]+$/)) {
     addOrUpdateCollection();
     window.addEventListener('hashchange', addOrUpdateCollection);
   }

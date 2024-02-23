@@ -1,3 +1,15 @@
+const categories = [
+  'buying-guides',
+  'cigar-humidification',
+  'cigar-lifestyle',
+  'cigar-makers',
+  'industry-news',
+  'cigar-reviews',
+  'cigars-101',
+  'cocktail',
+  'cuban-cigar-guides',
+];
+
 // Function to create ellipsis
 function createEllipsis() {
   const listItem = document.createElement('li');
@@ -69,4 +81,10 @@ export function generatePagination(currentPage, totalPages) {
     paginationList.appendChild(createPageLink(currentPage + 1, '»', 'next'));
   }
   return paginationList;
+}
+
+export function getCategory(path) {
+  const regex = /\/cigaradvisor\/([^/]+)/;
+  const match = path.match(regex);
+  return (match && categories.includes(match)) ? `/cigaradvisor/${match}` : undefined;
 }

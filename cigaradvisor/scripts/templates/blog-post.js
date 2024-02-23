@@ -4,6 +4,7 @@ import {
 } from '../scripts.js';
 import { buildBlock, getMetadata } from '../aem.js';
 import { addLdJsonScript } from '../linking-data.js';
+import { getCategory } from '../util.js';
 
 async function addLdJson() {
   const promises = [];
@@ -70,9 +71,7 @@ export default async function decorate(main) {
   const articleBlurb = getMetadata('articleblurb');
 
   if (!category) {
-    const url = window.location.href;
-    const regex = /\/cigaradvisor\/([^/]+)/;
-    const match = url.match(regex);
+    const match = getCategory(window.location.href);
     if (match) {
       [category] = match;
     }

@@ -87,5 +87,11 @@ export function generatePagination(currentPage, totalPages) {
 export function getCategory(path) {
   const regex = /\/cigaradvisor\/([^/]+)/;
   const match = path.match(regex);
-  return (match && categories.includes(match)) ? `/cigaradvisor/${match}` : undefined;
+  if (match) {
+    const category = match[1];
+    if (categories.includes(category)) {
+      return `/cigaradvisor/${category}`;
+    }
+  }
+  return undefined;
 }

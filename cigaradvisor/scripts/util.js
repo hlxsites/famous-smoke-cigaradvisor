@@ -8,6 +8,7 @@ const categories = [
   'cigars-101',
   'cocktail',
   'cuban-cigar-guides',
+  'uncategorized',
 ];
 
 // Function to create ellipsis
@@ -86,5 +87,5 @@ export function generatePagination(currentPage, totalPages) {
 export function getCategory(path) {
   const regex = /\/cigaradvisor\/([^/]+)/;
   const match = path.match(regex);
-  return (match && categories.includes(match)) ? `/cigaradvisor/${match}` : 'uncategorized';
+  return (match && categories.includes(match)) ? `/cigaradvisor/${match}` : undefined;
 }

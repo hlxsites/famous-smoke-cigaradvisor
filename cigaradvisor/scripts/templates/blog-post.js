@@ -73,7 +73,7 @@ export default async function decorate(main) {
   if (!category) {
     const match = getCategory(window.location.href);
     if (match) {
-      [category] = match;
+      category = match;
     }
   }
 

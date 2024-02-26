@@ -3,7 +3,7 @@ import {
   fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
-import { generatePagination } from '../../scripts/util.js';
+import { generatePagination, getCategory } from '../../scripts/util.js';
 
 export async function renderPage(wrapper, articles, limit) {
   let pageSize = 10;
@@ -113,7 +113,7 @@ export default async function decorate(block) {
 
   const limit = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
 
-  if (!category && Object.hasOwn(configs, 'category') && window.location.pathname.includes('/cigaradvisor/category/')) {
+  if (!category && Object.hasOwn(configs, 'category') && getCategory(window.location.pathname)) {
     category = window.location.toString();
   } else if (!author && Object.hasOwn(configs, 'author') && window.location.pathname.includes('/cigaradvisor/author/')) {
     author = window.location.toString();

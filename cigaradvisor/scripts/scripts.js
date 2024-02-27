@@ -17,10 +17,10 @@ import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 import addLinkingData from './linking-data.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-const AUTHOR_INDEX_PATH = '/cigaradvisor/author-index.json';
-const CATEGORY_INDEX_PATH = '/cigaradvisor/category-index.json';
-const ARTICLE_INDEX_PATH = '/cigaradvisor/article-index.json';
-const SEARCH_INDEX_PATH = '/cigaradvisor/search-index.json';
+const AUTHOR_INDEX_PATH = '/cigaradvisor/index/author-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/index/category-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/index/article-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/index/search-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.

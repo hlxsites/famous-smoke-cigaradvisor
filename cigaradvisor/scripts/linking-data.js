@@ -1,4 +1,5 @@
 import { getMetadata } from './aem.js';
+import { getCategory } from './util.js';
 
 /**
  * Writes a script element with the LD JSON struct to the page
@@ -86,7 +87,7 @@ export default function addLinkingData() {
   addOrg(document.querySelector('head'));
   if (window.location.pathname === '/cigaradvisor') {
     addBlogPosts();
-  } else if (window.location.pathname.match(/\/cigaradvisor\/category\/[^/]+$/)) {
+  } else if (window.location.pathname === getCategory(window.location.pathname)) {
     addOrUpdateCollection();
     window.addEventListener('hashchange', addOrUpdateCollection);
   }

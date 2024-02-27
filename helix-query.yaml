@@ -35,7 +35,16 @@ indices:
       - '/**/nav'
       - '/**/404'
       - '**/author/**/*'
-      - '**/category/**/*'
+      - '**/buying-guides/**'
+      - '**/cigar-humidification/**'
+      - '**/cigar-lifestyle/**'
+      - '**/cigar-makers/**'
+      - '**/industry-news/**'
+      - '**/cigar-reviews/**'
+      - '**/cigars-101/**'
+      - '**/cocktail/**'
+      - '**/cuban-cigar-guides/**'
+      - '**/uncategorized/**'
     target: /cigaradvisor/pages-index.json
     properties:
       title:
@@ -52,7 +61,16 @@ indices:
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
   category:
     include:
-      - /cigaradvisor/category/*
+      - /cigaradvisor/buying-guides
+      - /cigaradvisor/cigar-humidification
+      - /cigaradvisor/cigar-lifestyle
+      - /cigaradvisor/cigar-makers
+      - /cigaradvisor/industry-news
+      - /cigaradvisor/cigar-reviews
+      - /cigaradvisor/cigars-101
+      - /cigaradvisor/cocktail
+      - /cigaradvisor/cuban-cigar-guides
+      - /cigaradvisor/uncategorized
     target: /cigaradvisor/category/query-index.json
     properties:
       title:
@@ -110,7 +128,16 @@ indices:
         value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?youtube\.com\/.*)$')
   posts:
     include:
-      - /cigaradvisor/category/*/**/*
+      - /cigaradvisor/buying-guides/*
+      - /cigaradvisor/cigar-humidification/*
+      - /cigaradvisor/cigar-lifestyle/*
+      - /cigaradvisor/cigar-makers/*
+      - /cigaradvisor/industry-news/*
+      - /cigaradvisor/cigar-reviews/*
+      - /cigaradvisor/cigars-101/*
+      - /cigaradvisor/cocktail/*
+      - /cigaradvisor/cuban-cigar-guides/*
+      - /cigaradvisor/uncategorized/*
     target: /cigaradvisor/posts-index.json
     properties:
       title:
@@ -139,10 +166,19 @@ indices:
         value: attribute(el, "content")
       category:
         select: none
-        value: match(path, '(/cigaradvisor/category\/[^/]+)\/')
+        value: match(path, '(/cigaradvisor\/[^/]+)\/')
   post-search:
     include:
-      - /cigaradvisor/category/*/**/*
+      - /cigaradvisor/buying-guides/*
+      - /cigaradvisor/cigar-humidification/*
+      - /cigaradvisor/cigar-lifestyle/*
+      - /cigaradvisor/cigar-makers/*
+      - /cigaradvisor/industry-news/*
+      - /cigaradvisor/cigar-reviews/*
+      - /cigaradvisor/cigars-101/*
+      - /cigaradvisor/cocktail/*
+      - /cigaradvisor/cuban-cigar-guides/*
+      - /cigaradvisor/uncategorized/*
     target: /cigaradvisor/search-index.json
     properties:
       title:

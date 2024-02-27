@@ -17,9 +17,9 @@ import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 import addLinkingData from './linking-data.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-const AUTHOR_INDEX_PATH = '/cigaradvisor/author/query-index.json';
-const CATEGORY_INDEX_PATH = '/cigaradvisor/category/query-index.json';
-const ARTICLE_INDEX_PATH = '/cigaradvisor/posts-index.json';
+const AUTHOR_INDEX_PATH = '/cigaradvisor/author-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/category-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/article-index.json';
 const SEARCH_INDEX_PATH = '/cigaradvisor/search-index.json';
 
 /**

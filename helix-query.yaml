@@ -45,7 +45,7 @@ indices:
       - '**/cocktail/**'
       - '**/cuban-cigar-guides/**'
       - '**/uncategorized/**'
-    target: /cigaradvisor/pages-index.json
+    target: /cigaradvisor/page-index.json
     properties:
       title:
         select: head > meta[property="og:title"]
@@ -59,7 +59,7 @@ indices:
       lastModified:
         select: none
         value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
-  category:
+  categories:
     include:
       - /cigaradvisor/buying-guides
       - /cigaradvisor/cigar-humidification
@@ -71,7 +71,7 @@ indices:
       - /cigaradvisor/cocktail
       - /cigaradvisor/cuban-cigar-guides
       - /cigaradvisor/uncategorized
-    target: /cigaradvisor/category/query-index.json
+    target: /cigaradvisor/category-index.json
     properties:
       title:
         select: head > title
@@ -91,7 +91,7 @@ indices:
   authors:
     include:
       - /cigaradvisor/author/*
-    target: /cigaradvisor/author/query-index.json
+    target: /cigaradvisor/author-index.json
     properties:
       title:
         select: head > title
@@ -126,7 +126,7 @@ indices:
       youtube:
         select: div.author-detail ul > li > a
         value: match(attribute(el, 'href'), '^(https?:\/\/(?:www\.)?youtube\.com\/.*)$')
-  posts:
+  articles:
     include:
       - /cigaradvisor/buying-guides/*
       - /cigaradvisor/cigar-humidification/*
@@ -138,7 +138,7 @@ indices:
       - /cigaradvisor/cocktail/*
       - /cigaradvisor/cuban-cigar-guides/*
       - /cigaradvisor/uncategorized/*
-    target: /cigaradvisor/posts-index.json
+    target: /cigaradvisor/article-index.json
     properties:
       title:
         select: head > meta[property="og:title"]
@@ -167,7 +167,7 @@ indices:
       category:
         select: none
         value: match(path, '(/cigaradvisor\/[^/]+)\/')
-  post-search:
+  article-search:
     include:
       - /cigaradvisor/buying-guides/*
       - /cigaradvisor/cigar-humidification/*

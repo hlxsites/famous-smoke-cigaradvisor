@@ -1,21 +1,21 @@
 sitemaps:
   pages:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/pages-index.json
+    source: /cigaradvisor/page-index.json
     destination: /cigaradvisor/page-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   category:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/category/query-index.json
+    source: /cigaradvisor/category-index.json
     destination: /cigaradvisor/category-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   author:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/author/query-index.json
+    source: /cigaradvisor/author-index.json
     destination: /cigaradvisor/author-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss
-  posts:
+  articles:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/posts/query-index.json
+    source: /cigaradvisor/article-index.json
     destination: /cigaradvisor/post-sitemap.xml
     lastmod: YYYY-MM-DD hh:mm:ss

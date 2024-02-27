@@ -11,7 +11,7 @@ try {
 
 Object.keys(metadata).forEach((k) => {
   try {
-    fs.appendFileSync(file, `/cigaradvisor/${k},/cigaradvisor/category/${metadata[k].category}/${k}\n`);
+    fs.appendFileSync(file, `/cigaradvisor/${k},/cigaradvisor/${metadata[k].category}/${k}\n`);
   } catch (err) {
     console.log(err);
   }

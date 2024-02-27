@@ -40,7 +40,7 @@ while (page) {
     const blurb = extractBlurb(article.querySelector('div.article__excerpt'));
     const category = extractCategory(article.querySelector('a.article__category'));
     try {
-      fs.appendFileSync(file, `  "${name}": { category: "${category}", blurb: ${JSON.stringify(blurb)} },\n`);
+      fs.appendFileSync(file, `  "${name}": { "category": "${category}", "blurb": ${JSON.stringify(blurb)} },\n`);
     } catch (err) {
       console.log(err);
     }

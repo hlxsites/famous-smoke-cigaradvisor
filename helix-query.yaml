@@ -7,9 +7,9 @@ indices:
       - '**/drafts/**'
       - '**/images/**'
       - '**/icons/**'
-      - '/**/footer'
-      - '/**/nav'
-      - '/**/404'
+      - /cigaradvisor/footer
+      - /cigaradvisor/nav
+      - /cigaradvisor/404
     target: /cigaradvisor/query-index.json
     properties:
       title:
@@ -31,20 +31,20 @@ indices:
       - '**/drafts/**'
       - '**/images/**'
       - '**/icons/**'
-      - '/**/footer'
-      - '/**/nav'
-      - '/**/404'
-      - '**/author/**/*'
-      - '**/buying-guides/**'
-      - '**/cigar-humidification/**'
-      - '**/cigar-lifestyle/**'
-      - '**/cigar-makers/**'
-      - '**/industry-news/**'
-      - '**/cigar-reviews/**'
-      - '**/cigars-101/**'
-      - '**/cocktail/**'
-      - '**/cuban-cigar-guides/**'
-      - '**/uncategorized/**'
+      - /cigaradvisor/footer
+      - /cigaradvisor/nav
+      - /cigaradvisor/404
+      - /cigaradvisor/author/**
+      - /cigaradvisor/buying-guides/**
+      - /cigaradvisor/cigar-humidification/**
+      - /cigaradvisor/cigar-lifestyle/**
+      - /cigaradvisor/cigar-makers/**
+      - /cigaradvisor/industry-news/**
+      - /cigaradvisor/cigar-reviews/**
+      - /cigaradvisor/cigars-101/**
+      - /cigaradvisor/cocktail/**
+      - /cigaradvisor/cuban-cigar-guides/**
+      - /cigaradvisor/uncategorized/**
     target: /cigaradvisor/page-index.json
     properties:
       title:
@@ -71,6 +71,10 @@ indices:
       - /cigaradvisor/cocktail
       - /cigaradvisor/cuban-cigar-guides
       - /cigaradvisor/uncategorized
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
     target: /cigaradvisor/category-index.json
     properties:
       title:
@@ -91,6 +95,10 @@ indices:
   authors:
     include:
       - /cigaradvisor/author/*
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
     target: /cigaradvisor/author-index.json
     properties:
       title:
@@ -138,6 +146,10 @@ indices:
       - /cigaradvisor/cocktail/*
       - /cigaradvisor/cuban-cigar-guides/*
       - /cigaradvisor/uncategorized/*
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
     target: /cigaradvisor/article-index.json
     properties:
       title:
@@ -179,6 +191,10 @@ indices:
       - /cigaradvisor/cocktail/*
       - /cigaradvisor/cuban-cigar-guides/*
       - /cigaradvisor/uncategorized/*
+    exclude:
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
     target: /cigaradvisor/search-index.json
     properties:
       title:

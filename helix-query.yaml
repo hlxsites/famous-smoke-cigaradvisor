@@ -2,6 +2,7 @@
   - '**/drafts/**'
   - '**/images/**'
   - '**/icons/**'
+  - '**/fragments/**'
 
 version: 1
 indices:
@@ -12,6 +13,7 @@ indices:
       - '**/drafts/**'
       - '**/images/**'
       - '**/icons/**'
+      - '**/fragments/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404
@@ -36,6 +38,7 @@ indices:
       - '**/drafts/**'
       - '**/images/**'
       - '**/icons/**'
+      - '**/fragments/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404

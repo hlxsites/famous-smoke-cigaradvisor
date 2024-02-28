@@ -9,7 +9,9 @@ indices:
     include:
       - /**
     exclude:
-      - *excludes
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404
@@ -31,7 +33,9 @@ indices:
     include:
       - /**
     exclude:
-      - *excludes
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404

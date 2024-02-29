@@ -16,51 +16,51 @@ sitemaps:
     lastmod: YYYY-MM-DD hh:mm:ss
   buying-guides:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--buying-guide.json
-    destination: /cigaradvisor/article-sitemap--buying-guides.xml
+    source: /cigaradvisor/index/article-index-buying-guide.json
+    destination: /cigaradvisor/article-sitemap-buying-guides.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigar-humidification:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cigar-humidification.json
-    destination: /cigaradvisor/article-sitemap--cigar-humidification.xml
+    source: /cigaradvisor/index/article-index-cigar-humidification.json
+    destination: /cigaradvisor/article-sitemap-cigar-humidification.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigar-lifestyle:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cigar-lifestyle.json
-    destination: /cigaradvisor/article-sitemap--cigar-lifestyle.xml
+    source: /cigaradvisor/index/article-index-cigar-lifestyle.json
+    destination: /cigaradvisor/article-sitemap-cigar-lifestyle.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigar-makers:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cigar-makers.json
-    destination: /cigaradvisor/article-sitemap--cigar-makers.xml
+    source: /cigaradvisor/index/article-index-cigar-makers.json
+    destination: /cigaradvisor/article-sitemap-cigar-makers.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   industry-news:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--industry-news.json
-    destination: /cigaradvisor/article-sitemap--industry-news.xml
+    source: /cigaradvisor/index/article-index-industry-news.json
+    destination: /cigaradvisor/article-sitemap-industry-news.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigar-reviews:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cigar-reviews.json
-    destination: /cigaradvisor/article-sitemap--cigar-reviews.xml
+    source: /cigaradvisor/index/article-index-cigar-reviews.json
+    destination: /cigaradvisor/article-sitemap-cigar-reviews.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigars-101:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cigars-101.json
-    destination: /cigaradvisor/article-sitemap--cigars-101.xml
+    source: /cigaradvisor/index/article-index-cigars-101.json
+    destination: /cigaradvisor/article-sitemap-cigars-101.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cocktail:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cocktail.json
-    destination: /cigaradvisor/article-sitemap--cocktail.xml
+    source: /cigaradvisor/index/article-index-cocktail.json
+    destination: /cigaradvisor/article-sitemap-cocktail.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cuban-cigar-guides:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--cuban-cigar-guides.json
-    destination: /cigaradvisor/article-sitemap--cuban-cigar-guides.xml
+    source: /cigaradvisor/index/article-index-cuban-cigar-guides.json
+    destination: /cigaradvisor/article-sitemap-cuban-cigar-guides.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   uncategorized:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index--uncategorized.json
-    destination: /cigaradvisor/article-sitemap--uncategorized.xml
+    source: /cigaradvisor/index/article-index-uncategorized.json
+    destination: /cigaradvisor/article-sitemap-uncategorized.xml
     lastmod: YYYY-MM-DD hh:mm:ss

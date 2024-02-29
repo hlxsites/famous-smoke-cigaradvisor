@@ -1,4 +1,9 @@
 sitemaps:
+  test:
+    origin: https://www.famous-smoke.com
+    source: /cigaradvisor/index/page-index.json
+    destination: /cigaradvisor/test-sitemap.xml
+    lastmod: YYYY-MM-DD hh:mm:ss
   pages:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/index/page-index.json

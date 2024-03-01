@@ -93,7 +93,7 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
   const allArticles = await loadPosts();
   pinnedArticles.forEach((post) => {
     const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post));
-    tmp.push(filteredArticles[0]);
+    if (filteredArticles[0]) tmp.push(filteredArticles[0]);
   });
 
   const articles = [];

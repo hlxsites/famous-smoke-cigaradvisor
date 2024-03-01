@@ -29,10 +29,10 @@ export async function renderPage(wrapper, articles, limit) {
     const articleTeaser = document.createElement('div');
     articleTeaser.classList.add('article-teaser');
     articleTeaser.classList.add('block');
-    if (article.author) {
-      article.author = typeof article.author === 'string' ? await fetchAuthorInfo(article.author) : '';
+    if (typeof article.author === 'string') {
+      article.author = await fetchAuthorInfo(article.author);
     }
-    if (article.category && typeof article.category === 'string') {
+    if (typeof article.category === 'string') {
       article.category = await fetchCategoryInfo(article.category);
     }
     buildArticleTeaser(articleTeaser, article);

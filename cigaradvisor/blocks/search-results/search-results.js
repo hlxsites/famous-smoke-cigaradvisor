@@ -1,6 +1,6 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 
-import { getSearchIndexData, fetchPostsInfo } from '../../scripts/scripts.js';
+import { getSearchIndexData, loadPosts, getRelativePath } from '../../scripts/scripts.js';
 import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -59,14 +59,10 @@ async function handleSearch(searchValue, wrapper, limit) {
   const filteredData = filterData(searchTerms, data);
 
   const articles = [];
-  const promises = [];
+  const allArticles = await loadPosts();
   filteredData.forEach((post) => {
-    promises.push(fetchPostsInfo(post.path));
-  });
-  await Promise.all(promises).then((result) => {
-    result.forEach((detail) => {
-      if (detail && detail.length > 0) articles.push(detail[0]);
-    });
+    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
+    articles.push(filteredArticles[0]);
   });
   searchSummary.innerHTML = `Your search for "<i>${searchValue}</i>" resulted in ${articles.length} <b>articles</b>`;
   if (articles.length === 0) {

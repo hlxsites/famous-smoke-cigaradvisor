@@ -18,13 +18,13 @@ export function buildArticleTeaser(parentElement, article) {
       name: 'Cigar Advisor',
       logo: 'https://www.famous-smoke.com/cigaradvisor/styles/images/CALogo_512x512.png',
     },
-    headline: article.heading,
-    datePublished: new Date(article.published * 1000).toISOString(),
-    dateModified: new Date(article.lastModified * 1000).toISOString(),
+    headline: article.heading ? article.heading : '',
+    datePublished: article.published ? new Date(article.published * 1000).toISOString() : '',
+    dateModified: article.lastModified ? new Date(article.lastModified * 1000).toISOString() : '',
     author: {
       '@type': 'Person',
-      name: article.author.name,
-      url: `https://www.famous-smoke.com${article.author.path}`,
+      name: (article.author && article.author.name) ? article.author.name : '',
+      url: (article.author && article.author.path) ? `https://www.famous-smoke.com${article.author.path}` : '',
     },
     image: `https://www.famous-smoke.com${article.image}`,
   };

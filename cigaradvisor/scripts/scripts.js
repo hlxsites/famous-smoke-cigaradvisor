@@ -249,7 +249,6 @@ export function getRelativePath(path) {
 }
 
 const articleIndexData = [];
-
 /**
  * Returns all the posts in the posts index.
  *
@@ -281,17 +280,35 @@ export async function loadPosts(path = ARTICLE_INDEX_PATH, flag = false) {
   return ret;
 }
 
+const searchIndexData = [];
 /**
  * Retrieves search index data from the server.
  * @returns {Promise<Object>} The search index data.
  */
-export async function getSearchIndexData() {
-  const resp = await fetch(SEARCH_INDEX_PATH);
-  let jsonData = '';
-  if (resp.ok) {
-    jsonData = await resp.json();
+export async function getSearchIndexData(path = SEARCH_INDEX_PATH, flag = false) {
+  if (searchIndexData.length === 0 || flag) {
+    const resp = await fetch(path);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    jsonData.data.forEach((a) => {
+      searchIndexData.push({ ...a });
+    });
+    // If there are more items to load, load them
+    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
+      const indexPath = `${SEARCH_INDEX_PATH}?offset=${jsonData.offset + jsonData.limit}&limit=${jsonData.limit}`;
+      await getSearchIndexData(indexPath, true);
+    }
   }
-  return jsonData.data;
+  // Protected against callers modifying the objects
+  const ret = [];
+  if (searchIndexData) {
+    searchIndexData.forEach((a) => {
+      ret.push({ ...a });
+    });
+  }
+  return ret;
 }
 
 /**

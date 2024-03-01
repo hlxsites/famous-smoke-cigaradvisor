@@ -29,8 +29,8 @@ async function addLdJson() {
     },
     url: window.location.href,
     headline: article.heading,
-    datePublished: new Date(article.published * 1000).toISOString(),
-    dateModified: new Date(article.lastModified * 1000).toISOString(),
+    datePublished: article.published ? new Date(article.published * 1000).toISOString() : '',
+    dateModified: article.lastModified ? new Date(article.lastModified * 1000).toISOString() : '',
     publisher: {
       '@type': 'Organization',
       '@id': 'https://www.famous-smoke.com/cigaradvisor#organization',
@@ -44,16 +44,16 @@ async function addLdJson() {
       '@type': 'ImageObject',
       url: 'https://www.famous-smoke.com/cigaradvisor/wp-content/uploads/2019/10/cigar-advisor-asylum-essential-review-guide-cover.jpeg',
     },
-    articleSection: category.heading,
+    articleSection: (category && category.heading) ? category.heading : '',
     description: article.description,
     author: {
       '@type': 'Person',
-      name: author.name,
+      name: (author && author.name) ? author.name : '',
       url: `https://www.famous-smoke.com${author.path}`,
-      description: author.intro,
+      description: (author && author.intro) ? author.intro : '',
       image: {
         '@type': 'ImageObject',
-        url: author.image,
+        url: (author && author.image) ? author.image : '',
       },
     },
   };

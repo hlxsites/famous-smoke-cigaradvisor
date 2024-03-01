@@ -1,6 +1,6 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import {
-  fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts,
+  fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts, getRelativePath,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
@@ -29,10 +29,10 @@ export async function renderPage(wrapper, articles, limit) {
     const articleTeaser = document.createElement('div');
     articleTeaser.classList.add('article-teaser');
     articleTeaser.classList.add('block');
-    if (typeof article.author === 'string') {
-      article.author = await fetchAuthorInfo(article.author);
+    if (article.author) {
+      article.author = typeof article.author === 'string' ? await fetchAuthorInfo(article.author) : '';
     }
-    if (typeof article.category === 'string') {
+    if (article.category && typeof article.category === 'string') {
       article.category = await fetchCategoryInfo(article.category);
     }
     buildArticleTeaser(articleTeaser, article);
@@ -90,15 +90,12 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
   }
 
   const tmp = [];
-  const promises = [];
+  const allArticles = await loadPosts();
   pinnedArticles.forEach((post) => {
-    promises.push(fetchPostsInfo(post));
+    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post));
+    tmp.push(filteredArticles[0]);
   });
-  await Promise.all(promises).then((result) => {
-    result.forEach((detail) => {
-      if (detail && detail.length > 0) tmp.push(detail[0]);
-    });
-  });
+
   const articles = [];
   articles.push(...tmp);
   articles.push(...extra);

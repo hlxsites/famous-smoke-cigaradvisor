@@ -2,6 +2,7 @@
   - '**/drafts/**'
   - '**/images/**'
   - '**/icons/**'
+  - '**/fragments/**'
 
 version: 1
 indices:
@@ -9,7 +10,10 @@ indices:
     include:
       - /**
     exclude:
-      - *excludes
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
+      - '**/fragments/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404
@@ -31,7 +35,10 @@ indices:
     include:
       - /**
     exclude:
-      - *excludes
+      - '**/drafts/**'
+      - '**/images/**'
+      - '**/icons/**'
+      - '**/fragments/**'
       - /cigaradvisor/footer
       - /cigaradvisor/nav
       - /cigaradvisor/404
@@ -202,59 +209,59 @@ indices:
     include:
       - /cigaradvisor/buying-guides/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--buying-guides.json
+    target: /cigaradvisor/index/article-index-buying-guides.json
     properties: *articles_properties
   cigar-humidification:
     include:
       - /cigaradvisor/cigar-humidification/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cigar-humidification.json
+    target: /cigaradvisor/index/article-index-cigar-humidification.json
     properties: *articles_properties
   cigar-lifestyle:
     include:
       - /cigaradvisor/cigar-lifestyle/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cigar-lifestyle.json
+    target: /cigaradvisor/index/article-index-cigar-lifestyle.json
     properties: *articles_properties
   cigar-makers:
     include:
       - /cigaradvisor/cigar-makers/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cigar-makers.json
+    target: /cigaradvisor/index/article-index-cigar-makers.json
     properties: *articles_properties
   industry-news:
     include:
       - /cigaradvisor/industry-news/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--industry-news.json
+    target: /cigaradvisor/index/article-index-industry-news.json
     properties: *articles_properties
   cigar-reviews:
     include:
       - /cigaradvisor/cigar-reviews/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cigar-reviews.json
+    target: /cigaradvisor/index/article-index-cigar-reviews.json
     properties: *articles_properties
   cigar-101:
     include:
       - /cigaradvisor/cigars-101/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cigars-101.json
+    target: /cigaradvisor/index/article-index-cigars-101.json
     properties: *articles_properties
   cocktail:
     include:
       - /cigaradvisor/cocktail/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cocktail.json
+    target: /cigaradvisor/index/article-index-cocktail.json
     properties: *articles_properties
   cuban-cigar-guides:
     include:
       - /cigaradvisor/cuban-cigar-guides/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--cuban-cigar-guides.json
+    target: /cigaradvisor/index/article-index-cuban-cigar-guides.json
     properties: *articles_properties
   uncategorized:
     include:
       - /cigaradvisor/uncategorized/*
     exclude: *excludes
-    target: /cigaradvisor/index/article-index--uncategorized.json
+    target: /cigaradvisor/index/article-index-uncategorized.json
     properties: *articles_properties

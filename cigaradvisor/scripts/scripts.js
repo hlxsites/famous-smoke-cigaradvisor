@@ -17,10 +17,10 @@ import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
 import addLinkingData from './linking-data.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-const AUTHOR_INDEX_PATH = '/cigaradvisor/author-index.json';
-const CATEGORY_INDEX_PATH = '/cigaradvisor/category-index.json';
-const ARTICLE_INDEX_PATH = '/cigaradvisor/article-index.json';
-const SEARCH_INDEX_PATH = '/cigaradvisor/search-index.json';
+const AUTHOR_INDEX_PATH = '/cigaradvisor/index/author-index.json';
+const CATEGORY_INDEX_PATH = '/cigaradvisor/index/category-index.json';
+const ARTICLE_INDEX_PATH = '/cigaradvisor/index/article-index.json';
+const SEARCH_INDEX_PATH = '/cigaradvisor/index/search-index.json';
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -266,9 +266,11 @@ export async function loadPosts() {
   }
   // Protected against callers modifying the objects
   const ret = [];
-  articleIndexData.forEach((a) => {
-    ret.push({ ...a });
-  });
+  if (articleIndexData) {
+    articleIndexData.forEach((a) => {
+      ret.push({ ...a });
+    });
+  }
   return ret;
 }
 
@@ -337,9 +339,11 @@ export async function getAllAuthors(sort = false) {
 
   // Protected against callers modifying the objects
   const ret = [];
-  authorIndexData.forEach((a) => {
-    ret.push({ ...a });
-  });
+  if (authorIndexData) {
+    authorIndexData.forEach((a) => {
+      ret.push({ ...a });
+    });
+  }
   return ret;
 }
 
@@ -352,6 +356,9 @@ export async function getAllAuthors(sort = false) {
 export async function fetchAuthorInfo(authorLink) {
   const filter = getRelativePath(authorLink);
   await getAllAuthors();
+  if (!authorIndexData) {
+    return undefined;
+  }
   return authorIndexData.find((obj) => obj.path === filter);
 }
 
@@ -374,6 +381,9 @@ export async function fetchCategoryInfo(categoryLink) {
     categoryIndexData = jsonData.data;
   }
   // Protect against caller modifying object;
+  if (!categoryIndexData) {
+    return undefined;
+  }
   const found = categoryIndexData.find((obj) => obj.path === filter);
   return { ...found };
 }

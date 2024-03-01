@@ -248,21 +248,28 @@ export function getRelativePath(path) {
   return relPath;
 }
 
-let articleIndexData;
+const articleIndexData = [];
 
 /**
  * Returns all the posts in the posts index.
  *
  * @return {Promise<Array[Object]>}
  */
-export async function loadPosts() {
-  if (!articleIndexData) {
-    const resp = await fetch(ARTICLE_INDEX_PATH);
+export async function loadPosts(path = ARTICLE_INDEX_PATH, flag = false) {
+  if (articleIndexData.length === 0 || flag) {
+    const resp = await fetch(path);
     let jsonData = '';
     if (resp.ok) {
       jsonData = await resp.json();
     }
-    articleIndexData = jsonData.data;
+    jsonData.data.forEach((a) => {
+      articleIndexData.push({ ...a });
+    });
+    // If there are more articles to load, load them
+    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
+      const indexPath = `${ARTICLE_INDEX_PATH}?offset=${jsonData.offset + jsonData.limit}&limit=${jsonData.limit}`;
+      await loadPosts(indexPath, true);
+    }
   }
   // Protected against callers modifying the objects
   const ret = [];

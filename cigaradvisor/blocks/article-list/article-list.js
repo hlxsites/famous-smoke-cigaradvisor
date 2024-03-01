@@ -70,13 +70,14 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
   // eslint-disable-next-line no-param-reassign
   pinnedArticles = Array.isArray(pinnedArticles) ? pinnedArticles : [pinnedArticles];
   let extra = [];
+  const allArticles = await loadPosts();
   if (configs.next && configs.next.toLowerCase() === 'all') {
-    extra = [...(await loadPosts())];
+    extra = [...allArticles];
   } else if (configs.next && !Number.isNaN(parseInt(configs.next, 10))) {
     const total = parseInt(configs.next, 10);
     let count = 0; // count of items added to extra
     let i = 0; // Counter for how many we've looked at
-    const posts = [...(await loadPosts())];
+    const posts = [...allArticles];
     do {
       if (i >= posts.length) break; // We've run out of posts to look at (shouldn't happen
       const next = posts[i];
@@ -90,7 +91,6 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
   }
 
   const tmp = [];
-  const allArticles = await loadPosts();
   pinnedArticles.forEach((post) => {
     const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post));
     if (filteredArticles[0]) tmp.push(filteredArticles[0]);

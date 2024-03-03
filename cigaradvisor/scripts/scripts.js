@@ -324,6 +324,13 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   return articles.filter((obj) => obj[filterParam] === filter);
 }
 
+export async function fetchPostsByCategory(category) {
+  const categoryType = category.split('/').pop();
+  const indexPath = `/cigaradvisor/index/article-index-${categoryType}.json`;
+  const articles = await loadPosts(indexPath);
+  return articles;
+}
+
 /**
  * Fetches a post by a given index, starting at 1.
  * @param idx the index

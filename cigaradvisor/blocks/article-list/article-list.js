@@ -1,6 +1,7 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import {
   fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts, getRelativePath,
+  fetchPostsByCategory,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
@@ -56,7 +57,7 @@ export async function renderPage(wrapper, articles, limit) {
 }
 
 async function renderByCategory(wrapper, category, limit) {
-  const articles = await fetchPostsInfo(category, 'category');
+  const articles = await fetchPostsByCategory(category);
   await renderPage(wrapper, articles, limit);
 }
 

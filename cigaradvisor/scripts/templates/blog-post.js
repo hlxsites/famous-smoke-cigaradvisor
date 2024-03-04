@@ -102,7 +102,7 @@ export default async function decorate(main) {
   const posts = await loadPosts();
   // 3 posts from the same author and category “most recent by published date”
   const authorPosts = posts.filter((post) => authorLink.includes(post.author) && post.path !== window.location.pathname).slice(0, 2).map((post) => post.path);
-  const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post) && post.path !== window.location.pathname).slice(0, 3 - authorPosts.length).map((post) => post.path);
+  const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post.path) && post.path !== window.location.pathname).slice(0, 3 - authorPosts.length).map((post) => post.path);
 
   // 1 random post from must-reads page
   const mustReadPosts = (await loadMustReadPosts()).filter((path) => !authorPosts.includes(path) && !categoryPosts.includes(path) && path !== window.location.pathname);

@@ -250,12 +250,13 @@ export function getRelativePath(path) {
 
 const articleIndexData = [];
 /**
- * Returns all the posts in the posts index.
- *
- * @return {Promise<Array[Object]>}
+ * Loads posts from the specified path asynchronously.
+ * @param {string} path - The path to fetch the posts from.
+ * @param {boolean} recurse - Indicates whether to recursively load more articles.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of post objects.
  */
-export async function loadPosts(path = ARTICLE_INDEX_PATH, flag = false) {
-  if (articleIndexData.length === 0 || flag) {
+export async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
+  if (articleIndexData.length === 0 || recurse) {
     const resp = await fetch(path);
     let jsonData = '';
     if (resp.ok) {

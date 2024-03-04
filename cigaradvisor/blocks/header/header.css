@@ -240,6 +240,10 @@
   height: 100%;
 }
 
+.header.block nav .secondary-nav-box.shop-cigars > ul > li {
+  justify-content: center;
+}
+
 .header.block nav .secondary-nav-box.browse-categories ul li {
   font-size: var(--body-font-size-s);
   font-family: var(--ff-opensans);

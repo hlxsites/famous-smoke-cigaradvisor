@@ -105,9 +105,10 @@ export default async function decorate(main) {
   const categoryPosts = posts.filter((post) => category.includes(post.category) && !authorPosts.includes(post.path) && post.path !== window.location.pathname).slice(0, 3 - authorPosts.length).map((post) => post.path);
 
   // 1 random post from must-reads page
-  const mustReadPosts = (await loadMustReadPosts()).filter((path) => !authorPosts.includes(path) && !categoryPosts.includes(path) && path !== window.location.pathname);
-  const randomIndex = Math.floor(Math.random() * mustReadPosts.length);
-  const randomMustReadPost = mustReadPosts.slice(randomIndex, randomIndex + 1);
+  const mustReadPosts = await loadMustReadPosts();
+  const mustReadCandidatePosts = posts.filter((post) => mustReadPosts.includes(post.path) && !authorPosts.includes(post.path) && !categoryPosts.includes(post.path) && post.path !== window.location.pathname).map((post) => post.path);
+  const randomIndex = Math.floor(Math.random() * mustReadCandidatePosts.length);
+  const randomMustReadPost = mustReadCandidatePosts.slice(randomIndex, randomIndex + 1);
 
   const articleList = document.createElement('div');
   const ul = document.createElement('ul');

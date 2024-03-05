@@ -248,21 +248,28 @@ export function getRelativePath(path) {
   return relPath;
 }
 
-let articleIndexData;
-
+const articleIndexData = [];
 /**
- * Returns all the posts in the posts index.
- *
- * @return {Promise<Array[Object]>}
+ * Loads posts from the specified path asynchronously.
+ * @param {string} path - The path to fetch the posts from.
+ * @param {boolean} recurse - Indicates whether to recursively load more articles.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of post objects.
  */
-export async function loadPosts() {
-  if (!articleIndexData) {
-    const resp = await fetch(ARTICLE_INDEX_PATH);
+export async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
+  if (articleIndexData.length === 0 || recurse) {
+    const resp = await fetch(path);
     let jsonData = '';
     if (resp.ok) {
       jsonData = await resp.json();
     }
-    articleIndexData = jsonData.data;
+    jsonData.data.forEach((a) => {
+      articleIndexData.push({ ...a });
+    });
+    // If there are more articles to load, load them
+    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
+      const indexPath = `${ARTICLE_INDEX_PATH}?offset=${jsonData.offset + jsonData.limit}&limit=${jsonData.limit}`;
+      await loadPosts(indexPath, true);
+    }
   }
   // Protected against callers modifying the objects
   const ret = [];
@@ -274,17 +281,35 @@ export async function loadPosts() {
   return ret;
 }
 
+const searchIndexData = [];
 /**
  * Retrieves search index data from the server.
  * @returns {Promise<Object>} The search index data.
  */
-export async function getSearchIndexData() {
-  const resp = await fetch(SEARCH_INDEX_PATH);
-  let jsonData = '';
-  if (resp.ok) {
-    jsonData = await resp.json();
+export async function getSearchIndexData(path = SEARCH_INDEX_PATH, flag = false) {
+  if (searchIndexData.length === 0 || flag) {
+    const resp = await fetch(path);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+    }
+    jsonData.data.forEach((a) => {
+      searchIndexData.push({ ...a });
+    });
+    // If there are more items to load, load them
+    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
+      const indexPath = `${SEARCH_INDEX_PATH}?offset=${jsonData.offset + jsonData.limit}&limit=${jsonData.limit}`;
+      await getSearchIndexData(indexPath, true);
+    }
   }
-  return jsonData.data;
+  // Protected against callers modifying the objects
+  const ret = [];
+  if (searchIndexData) {
+    searchIndexData.forEach((a) => {
+      ret.push({ ...a });
+    });
+  }
+  return ret;
 }
 
 /**
@@ -298,6 +323,13 @@ export async function fetchPostsInfo(filterValue, filterParam = 'path') {
   filter = getRelativePath(filterValue);
   const articles = await loadPosts();
   return articles.filter((obj) => obj[filterParam] === filter);
+}
+
+export async function fetchPostsByCategory(category) {
+  const categoryType = category.split('/').pop();
+  const indexPath = `/cigaradvisor/index/article-index-${categoryType}.json`;
+  const articles = await loadPosts(indexPath);
+  return articles;
 }
 
 /**

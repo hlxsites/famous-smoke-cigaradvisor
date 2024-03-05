@@ -64,11 +64,11 @@ async function handleSearch(searchValue, wrapper, limit) {
     const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
     articles.push(filteredArticles[0]);
   });
-  searchSummary.innerHTML = `Your search for "<i>${searchValue}</i>" resulted in ${articles.length} <b>articles</b>`;
+  searchSummary.textContent = `Your search for "${searchValue}" resulted in ${articles.length} articles`;
   if (articles.length === 0) {
     const noResults = document.createElement('p');
     noResults.classList.add('no-results');
-    noResults.innerHTML = 'Sorry, we couldn\'t find the information you requested!';
+    noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
     wrapper.append(noResults);
   } else {
     await renderPage(wrapper, articles, limit);

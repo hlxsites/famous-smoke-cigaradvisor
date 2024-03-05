@@ -16,7 +16,7 @@ sitemaps:
     lastmod: YYYY-MM-DD hh:mm:ss
   buying-guides:
     origin: https://www.famous-smoke.com
-    source: /cigaradvisor/index/article-index-buying-guide.json
+    source: /cigaradvisor/index/article-index-buying-guides.json
     destination: /cigaradvisor/article-sitemap-buying-guides.xml
     lastmod: YYYY-MM-DD hh:mm:ss
   cigar-humidification:

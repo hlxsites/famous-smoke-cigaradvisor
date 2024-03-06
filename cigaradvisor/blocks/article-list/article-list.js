@@ -24,6 +24,8 @@ export async function renderPage(wrapper, articles, limit) {
     currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
   const totalPages = Math.ceil(articles.length / pageSize);
+
+  // populating authors and categories info cache
   await getAllAuthors();
   await fetchCategoryInfo();
 

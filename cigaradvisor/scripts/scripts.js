@@ -299,7 +299,8 @@ export async function getSearchIndexData(path = SEARCH_INDEX_PATH, flag = false)
     });
     // If there are more items to load, load them
     if ((jsonData.total - jsonData.offset) > jsonData.limit) {
-      const indexPath = `${SEARCH_INDEX_PATH}?offset=${jsonData.offset + jsonData.limit}&limit=${jsonData.limit}`;
+      const offset = jsonData.offset + jsonData.limit;
+      const indexPath = `${SEARCH_INDEX_PATH}?offset=${offset}&limit=${jsonData.total - offset}`;
       await getSearchIndexData(indexPath, true);
     }
   }

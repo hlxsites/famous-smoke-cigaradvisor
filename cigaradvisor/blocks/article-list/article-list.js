@@ -141,12 +141,14 @@ export default async function decorate(block) {
 
   // on change
   window.addEventListener('hashchange', async () => {
+    await renderDummyList(articleTeaserWrapper, limit);
+    // initial load
     if (category) {
-      await renderByCategory(articleTeaserWrapper, category, limit);
+      renderByCategory(articleTeaserWrapper, category, limit).then();
     } else if (author) {
-      await renderByAuthor(articleTeaserWrapper, author, limit);
+      renderByAuthor(articleTeaserWrapper, author, limit).then();
     } else {
-      await renderByList(configs, articleTeaserWrapper, articles, limit);
+      renderByList(configs, articleTeaserWrapper, articles, limit).then();
     }
   });
 

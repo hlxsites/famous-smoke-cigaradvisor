@@ -2,6 +2,7 @@ import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import {
   fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts, getRelativePath,
   fetchPostsByCategory,
+  getAllAuthors,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
@@ -23,6 +24,8 @@ export async function renderPage(wrapper, articles, limit) {
     currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
   const totalPages = Math.ceil(articles.length / pageSize);
+  await getAllAuthors();
+  await fetchCategoryInfo();
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len

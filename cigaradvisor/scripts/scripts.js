@@ -409,8 +409,6 @@ export async function fetchAuthorInfo(authorLink) {
   return authorIndexData.find((obj) => obj.path === filter);
 }
 
-
-
 /**
  * Fetches category information based on the provided category link.
  * @param {string} categoryLink - The link to the category.

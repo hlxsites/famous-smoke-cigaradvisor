@@ -74,6 +74,8 @@ async function renderByAuthor(wrapper, author, limit) {
 // eslint-disable-next-line no-param-reassign
 async function renderByList(configs, wrapper, pinnedArticles, limit) {
   // eslint-disable-next-line no-param-reassign
+  pinnedArticles = pinnedArticles || [];
+  // eslint-disable-next-line no-param-reassign
   pinnedArticles = Array.isArray(pinnedArticles) ? pinnedArticles : [pinnedArticles];
   let extra = [];
   const allArticles = await loadPosts();
@@ -96,11 +98,12 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
     } while (count < total);
   }
 
-  const pinnedPaths = pinnedArticles.map((article) => getRelativePath(article));
-  const tmp = allArticles.filter((article) => pinnedPaths.includes(article.path));
-
   const articles = [];
-  articles.push(...tmp);
+  if (pinnedArticles.length) {
+    const pinnedPaths = pinnedArticles.map((article) => getRelativePath(article));
+    const tmp = allArticles.filter((article) => pinnedPaths.includes(article.path));
+    articles.push(...tmp);
+  }
   articles.push(...extra);
   return renderPage(wrapper, articles, limit);
 }

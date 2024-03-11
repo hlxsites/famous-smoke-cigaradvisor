@@ -1,8 +1,7 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import {
   fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts, getRelativePath,
-  fetchPostsByCategory,
-  getAllAuthors, fetchAllCategories,
+  fetchPostsByCategory, getAllAuthors, fetchAllCategories,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
@@ -24,9 +23,6 @@ export async function renderPage(wrapper, articles, limit) {
     currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
   const totalPages = Math.ceil(articles.length / pageSize);
-
-  // populating authors and categories info cache
-  await Promise.all([getAllAuthors(), fetchAllCategories()]).then();
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len
@@ -61,17 +57,23 @@ export async function renderPage(wrapper, articles, limit) {
 }
 
 async function renderByCategory(wrapper, category, limit) {
+  // populate caches in parallel
+  await Promise.all([getAllAuthors(), fetchAllCategories(), loadPosts()]).then();
   const articles = await fetchPostsByCategory(category);
   await renderPage(wrapper, articles, limit);
 }
 
 async function renderByAuthor(wrapper, author, limit) {
+  // populate caches in parallel
+  await Promise.all([getAllAuthors(), fetchAllCategories(), loadPosts()]).then();
   const articles = await fetchPostsInfo(author, 'author');
   await renderPage(wrapper, articles, limit);
 }
 
 // eslint-disable-next-line no-param-reassign
 async function renderByList(configs, wrapper, pinnedArticles, limit) {
+  // populate caches in parallel
+  await Promise.all([getAllAuthors(), fetchAllCategories(), loadPosts()]).then();
   // eslint-disable-next-line no-param-reassign
   pinnedArticles = pinnedArticles || [];
   // eslint-disable-next-line no-param-reassign

@@ -15,6 +15,21 @@ export default async function decorate(block) {
   const currentYear = new Date().getFullYear();
   footerContent.innerHTML = footerContent.innerHTML.replaceAll('{year}', currentYear.toString());
 
+  // add California Privacy Notice
+  const cpn = document.createElement('a');
+  cpn.classList.add('truevault-polaris-privacy-notice');
+  cpn.setAttribute('href', 'https://privacy.famous-smoke.com/privacy-policy#california-privacy-notice');
+  cpn.setAttribute('noreferrer', true);
+  cpn.setAttribute('noopener', true);
+  cpn.setAttribute('hidden', true);
+  cpn.innerText = 'California Privacy Notice';
+  const cpnItem = document.createElement('li');
+  cpnItem.appendChild(cpn);
+  const privacyLink = footerContent.querySelector('div.section.footer-legal a[href*=privacy-policy]');
+  if (privacyLink) {
+    privacyLink.parentElement.append(cpnItem);
+  }
+
   // decorate footer sections
   const footerNavContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
   const footerNav = document.createElement('nav');

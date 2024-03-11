@@ -381,6 +381,19 @@ export async function getAllAuthors(sort = false) {
   return ret;
 }
 
+let categoryIndexData;
+
+export async function fetchAllCategories() {
+  if (!categoryIndexData) {
+    const resp = await fetch(CATEGORY_INDEX_PATH);
+    let jsonData = '';
+    if (resp.ok) {
+      jsonData = await resp.json();
+      categoryIndexData = jsonData.data;
+    }
+  }
+}
+
 /**
  * Fetches author information based on the provided author link.
  * @param {string} authorLink - The link to the author's page.
@@ -396,7 +409,7 @@ export async function fetchAuthorInfo(authorLink) {
   return authorIndexData.find((obj) => obj.path === filter);
 }
 
-let categoryIndexData;
+
 
 /**
  * Fetches category information based on the provided category link.

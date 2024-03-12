@@ -30,6 +30,19 @@ export default async function decorate(block) {
     privacyLink.parentElement.append(cpnItem);
   }
 
+  // add accessibility link
+  const footerLegalItems = footerContent.querySelectorAll('div.section.footer-legal li');
+  const accessibilityItem = Array.from(footerLegalItems).find((item) => item.innerText.toLowerCase().includes('accessibility'));
+  const accessibilityLink = document.createElement('a');
+  if (accessibilityItem) {
+    accessibilityLink.setAttribute('href', '#');
+    accessibilityLink.setAttribute('data-acsb-custom-trigger', 'true');
+    accessibilityLink.setAttribute('tabindex', '0');
+    accessibilityLink.setAttribute('role', 'button');
+    accessibilityLink.innerText = 'Accessibility';
+    accessibilityItem.replaceChildren(accessibilityLink);
+  }
+
   // decorate footer sections
   const footerNavContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
   const footerNav = document.createElement('nav');

@@ -2,32 +2,6 @@ import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { decorateExternalLink } from '../../scripts/scripts.js';
 
-const ICON_ALTS = new Map([
-  ['magnifying-glass', 'Search'],
-  ['bars', 'Toggle navigation'],
-  ['x-twitter', 'X'],
-  ['facebook-f', 'Facebook'],
-  ['instagram', 'Instagram'],
-  ['youtube', 'YouTube'],
-  ['pinterest-p', 'Pinterest'],
-  ['monster', 'Cigar Monster'],
-  ['auctioneer', 'Cigar Auctioneer'],
-  ['famous', 'Famous Smoke'],
-]);
-
-/**
- * Decorates the header block icons with metadata.
- * @param {HTMLElement} block - The header block element.
- */
-function decorateIconMetadata(block) {
-  block.querySelectorAll('span.icon > img[data-icon-name]').forEach((icon) => {
-    const iconName = icon.getAttribute('data-icon-name');
-    if (ICON_ALTS.has(iconName)) {
-      icon.setAttribute('alt', ICON_ALTS.get(iconName));
-    }
-  });
-}
-
 /**
  * Decorates the header block with navigation elements.
  * @param {HTMLElement} block - The header block element.
@@ -240,6 +214,4 @@ export default async function decorate(block) {
       }
     });
   });
-
-  decorateIconMetadata(block);
 }

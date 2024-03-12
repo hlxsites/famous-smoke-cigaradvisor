@@ -14,7 +14,7 @@ const GTM_SCRIPT = `
   gtag("config", "GT-PHR6L87");
 `;
 
-const FOX_PUSH_SCRIPT = `
+/* const FOX_PUSH_SCRIPT = `
 var _foxpush = _foxpush || [];
 _foxpush.push(['_setDomain', 'cigaradvisorcom']);
 (function () {
@@ -25,7 +25,7 @@ _foxpush.push(['_setDomain', 'cigaradvisorcom']);
     var fox_s = document.getElementsByTagName('script')[0];
     fox_s.parentNode.insertBefore(foxscript, fox_s);
 })();
-`;
+`; */
 
 const ACCESSIBILITY_PLUGIN_SCRIPT = `
   (function(document, tag) {
@@ -81,6 +81,8 @@ const WISE_POPUP_SCRIPT = `
   ('wisepops', '//wisepops.net/loader.js?v=2&h=cxkWCQVAxq');
 `;
 
+const IZOOTO_SCRIPT = 'window._izq = window._izq || []; window._izq.push(["init"]);';
+
 function loadConsentManager() {
   window.polarisOptions = {
     kingId: 'G-XVRFM32Q28',
@@ -114,11 +116,23 @@ function loadGTM() {
   tag.insertAdjacentElement('afterend', script);
 }
 
+/*
 function loadFoxPush() {
   const script = document.createElement('script');
   script.setAttribute('data-cfasync', false);
   script.innerHTML = FOX_PUSH_SCRIPT;
   document.querySelector('head').append(script);
+}
+*/
+
+function loadiZooto() {
+  const script = document.createElement('script');
+  script.innerHTML = IZOOTO_SCRIPT;
+  document.querySelector('head').append(script);
+  const izootoLib = document.createElement('script');
+  izootoLib.setAttribute('src', 'https://cdn.izooto.com/scripts/cea9e5a4539423a917b8cc1f6090b064fc3c2ba5.js');
+  document.querySelector('head').append(script);
+  document.querySelector('head').append(izootoLib);
 }
 
 function loadAccessibility() {
@@ -136,7 +150,8 @@ function loadWisePopup() {
 window.setTimeout(() => {
   if (window.location.hostname !== 'localhost') {
     loadGTM();
-    loadFoxPush();
+    // loadFoxPush();
+    loadiZooto();
     loadAccessibility();
     loadWisePopup();
   }

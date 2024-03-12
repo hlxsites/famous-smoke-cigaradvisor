@@ -48,7 +48,7 @@ export default async function decorate(block) {
 
   const mobilePrimaryNav = document.createElement('div');
   mobilePrimaryNav.className = 'mobile-primary-nav';
-  const hamburger = document.createElement('a');
+  const hamburger = document.createElement('button');
   hamburger.classList.add('nav-hamburger');
   hamburger.setAttribute('title', 'Toggle navigation');
   hamburger.innerHTML = '<span class="icon icon-bars"></span>';

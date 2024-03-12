@@ -393,17 +393,6 @@ function decorateButtons(element) {
   });
 }
 
-const ICON_ALTS = new Map([
-  ['x-twitter', 'X'],
-  ['facebook-f', 'Facebook'],
-  ['instagram', 'Instagram'],
-  ['youtube', 'YouTube'],
-  ['pinterest-p', 'Pinterest'],
-  ['monster', 'Cigar Monster'],
-  ['auctioneer', 'Cigar Auctioneer'],
-  ['famous', 'Famous Smoke'],
-]);
-
 /**
  * Add <img> for icon, prefixed with codeBasePath and optional prefix.
  * @param {span} [element] span element with icon classes
@@ -416,9 +405,6 @@ function decorateIcon(span, prefix = '') {
   const img = document.createElement('img');
   img.dataset.iconName = iconName;
   img.src = `${window.hlx.codeBasePath}${prefix}/icons/${iconName}.svg`;
-  if (ICON_ALTS.has(iconName)) {
-    img.alt = ICON_ALTS.get(iconName);
-  }
   img.loading = 'lazy';
   span.append(img);
 }

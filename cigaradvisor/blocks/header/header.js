@@ -2,6 +2,32 @@ import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 import { decorateExternalLink } from '../../scripts/scripts.js';
 
+const ICON_ALTS = new Map([
+  ['magnifying-glass', 'Search'],
+  ['bars', 'Toggle navigation'],
+  ['x-twitter', 'X'],
+  ['facebook-f', 'Facebook'],
+  ['instagram', 'Instagram'],
+  ['youtube', 'YouTube'],
+  ['pinterest-p', 'Pinterest'],
+  ['monster', 'Cigar Monster'],
+  ['auctioneer', 'Cigar Auctioneer'],
+  ['famous', 'Famous Smoke'],
+]);
+
+/**
+ * Decorates the header block icons with metadata.
+ * @param {HTMLElement} block - The header block element.
+ */
+function decorateIconMetadata(block) {
+  block.querySelectorAll('span.icon > img[data-icon-name]').forEach((icon) => {
+    const iconName = icon.getAttribute('data-icon-name');
+    if (ICON_ALTS.has(iconName)) {
+      icon.setAttribute('alt', ICON_ALTS.get(iconName));
+    }
+  });
+}
+
 /**
  * Decorates the header block with navigation elements.
  * @param {HTMLElement} block - The header block element.
@@ -51,21 +77,18 @@ export default async function decorate(block) {
   const hamburger = document.createElement('a');
   hamburger.classList.add('nav-hamburger');
   hamburger.setAttribute('title', 'Toggle navigation');
-  hamburger.setAttribute('alt', 'Toggle navigation');
   hamburger.innerHTML = '<span class="icon icon-bars"></span>';
   mobilePrimaryNav.append(hamburger);
   const mobileLogo = document.createElement('a');
   mobileLogo.className = 'mobile-logo';
   mobileLogo.setAttribute('href', '/cigaradvisor');
   mobileLogo.setAttribute('title', 'Cigar Advisor Homepage');
-  mobileLogo.setAttribute('alt', 'Cigar Advisor Homepage');
   mobileLogo.innerHTML = '<img src="/cigaradvisor/styles/images/mobile-logo.png" alt="Cigar Advisor Logo">';
   mobilePrimaryNav.append(mobileLogo);
   const search = document.createElement('a');
   search.className = 'search';
   search.setAttribute('href', '/cigaradvisor/search?s=');
   search.setAttribute('title', 'Search');
-  search.setAttribute('alt', 'Search');
   search.innerHTML = '<span class="icon icon-magnifying-glass"></span>';
   mobilePrimaryNav.append(search);
   mobileNav.append(mobilePrimaryNav);
@@ -217,4 +240,6 @@ export default async function decorate(block) {
       }
     });
   });
+
+  decorateIconMetadata(block);
 }

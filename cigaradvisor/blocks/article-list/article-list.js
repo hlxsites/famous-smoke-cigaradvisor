@@ -2,6 +2,7 @@ import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import {
   fetchAuthorInfo, fetchCategoryInfo, fetchPostsInfo, loadPosts, getRelativePath,
   fetchPostsByCategory,
+  getAllAuthors, fetchAllCategories,
 } from '../../scripts/scripts.js';
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
@@ -23,6 +24,9 @@ export async function renderPage(wrapper, articles, limit) {
     currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
   const totalPages = Math.ceil(articles.length / pageSize);
+
+  // populating authors and categories info cache
+  await Promise.all([getAllAuthors(), fetchAllCategories()]).then();
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len
@@ -69,6 +73,8 @@ async function renderByAuthor(wrapper, author, limit) {
 // eslint-disable-next-line no-param-reassign
 async function renderByList(configs, wrapper, pinnedArticles, limit) {
   // eslint-disable-next-line no-param-reassign
+  pinnedArticles = pinnedArticles || [];
+  // eslint-disable-next-line no-param-reassign
   pinnedArticles = Array.isArray(pinnedArticles) ? pinnedArticles : [pinnedArticles];
   let extra = [];
   const allArticles = await loadPosts();
@@ -91,14 +97,12 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
     } while (count < total);
   }
 
-  const tmp = [];
-  pinnedArticles.forEach((post) => {
-    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post));
-    if (filteredArticles[0]) tmp.push(filteredArticles[0]);
-  });
-
   const articles = [];
-  articles.push(...tmp);
+  if (pinnedArticles.length) {
+    const pinnedPaths = pinnedArticles.map((article) => getRelativePath(article));
+    const tmp = allArticles.filter((article) => pinnedPaths.includes(article.path));
+    articles.push(...tmp);
+  }
   articles.push(...extra);
   return renderPage(wrapper, articles, limit);
 }

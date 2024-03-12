@@ -130,7 +130,7 @@
     line-height: 24px;
   }
 
-  .footer-legal ul > li:not(:last-child)::after {
+  .footer-legal ul > li:not(:last-child) > a::after {
     content: " | ";
     margin: 10px;
   }

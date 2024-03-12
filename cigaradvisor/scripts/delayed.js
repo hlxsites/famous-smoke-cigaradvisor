@@ -41,7 +41,7 @@ const ACCESSIBILITY_PLUGIN_SCRIPT = `
         feedbackLink: '',
         footerHtml: '',
         hideMobile: false,
-        hideTrigger: false,
+        hideTrigger: true,
         language: 'en',
         position: 'right',
         leadColor: '#146FF8',

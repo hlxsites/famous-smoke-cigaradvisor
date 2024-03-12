@@ -104,10 +104,10 @@ export default async function decorate(block) {
   primaryNav.querySelectorAll('.default-content-wrapper > ul > li').forEach((li) => {
     let mobileLi;
     if (li.querySelector('ul')) {
-      const a = document.createElement('a');
+      const button = document.createElement('button');
       const secondaryNavBox = document.createElement('div');
       const text = li.childNodes[0].textContent;
-      a.innerHTML = text;
+      button.innerHTML = text;
       li.childNodes[0].textContent = '';
       const textToClass = text.trim().toLowerCase().replace(/\s/g, '-');
       secondaryNavBox.className = `secondary-nav-box ${textToClass}`;
@@ -116,7 +116,7 @@ export default async function decorate(block) {
       li.setAttribute('aria-expanded', 'false');
       li.setAttribute('data-secondarynav', textToClass);
       nav.append(secondaryNavBox);
-      li.append(a);
+      li.append(button);
       mobileLi = li.cloneNode(true);
       mobileLi.append(secondaryNavBox.cloneNode(true));
       ul.append(mobileLi);

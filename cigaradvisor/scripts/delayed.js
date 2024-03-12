@@ -14,7 +14,7 @@ const GTM_SCRIPT = `
   gtag("config", "GT-PHR6L87");
 `;
 
-const FOX_PUSH_SCRIPT = `
+/* const FOX_PUSH_SCRIPT = `
 var _foxpush = _foxpush || [];
 _foxpush.push(['_setDomain', 'cigaradvisorcom']);
 (function () {
@@ -25,7 +25,7 @@ _foxpush.push(['_setDomain', 'cigaradvisorcom']);
     var fox_s = document.getElementsByTagName('script')[0];
     fox_s.parentNode.insertBefore(foxscript, fox_s);
 })();
-`;
+`; */
 
 const ACCESSIBILITY_PLUGIN_SCRIPT = `
   (function(document, tag) {
@@ -116,12 +116,14 @@ function loadGTM() {
   tag.insertAdjacentElement('afterend', script);
 }
 
+/*
 function loadFoxPush() {
   const script = document.createElement('script');
   script.setAttribute('data-cfasync', false);
   script.innerHTML = FOX_PUSH_SCRIPT;
   document.querySelector('head').append(script);
 }
+*/
 
 function loadiZooto() {
   const script = document.createElement('script');
@@ -148,7 +150,7 @@ function loadWisePopup() {
 window.setTimeout(() => {
   if (window.location.hostname !== 'localhost') {
     loadGTM();
-    //loadFoxPush();
+    // loadFoxPush();
     loadiZooto();
     loadAccessibility();
     loadWisePopup();

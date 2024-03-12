@@ -1,6 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { isInternal } from '../../scripts/scripts.js';
+import { decorateIconMetadata, isInternal } from '../../scripts/scripts.js';
 
 /**
  * loads and decorates the footer
@@ -54,4 +54,6 @@ export default async function decorate(block) {
   const footerHeading = document.createElement('H2');
   footerHeading.innerText = 'Footer';
   block.prepend(footerHeading);
+
+  decorateIconMetadata(block);
 }

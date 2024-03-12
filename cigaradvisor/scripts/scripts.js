@@ -151,7 +151,7 @@ const ICON_ALTS = new Map([
  * Decorates the block icons with metadata.
  * @param {HTMLElement} block - The block element.
  */
-function decorateIconMetadata(block) {
+export function decorateIconMetadata(block) {
   block.querySelectorAll('span.icon > img[data-icon-name]').forEach((icon) => {
     const iconName = icon.getAttribute('data-icon-name');
     if (ICON_ALTS.has(iconName)) {
@@ -226,7 +226,6 @@ export async function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decoratePictures(main);
-  decorateIconMetadata(main);
   buildLayoutContainer(main);
 }
 
@@ -496,6 +495,7 @@ async function loadEager(doc) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
+  decorateIconMetadata(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

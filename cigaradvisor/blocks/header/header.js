@@ -1,6 +1,6 @@
 import { decorateIcons, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { decorateExternalLink } from '../../scripts/scripts.js';
+import { decorateExternalLink, decorateIconMetadata } from '../../scripts/scripts.js';
 
 /**
  * Decorates the header block with navigation elements.
@@ -214,4 +214,6 @@ export default async function decorate(block) {
       }
     });
   });
+
+  decorateIconMetadata(block);
 }

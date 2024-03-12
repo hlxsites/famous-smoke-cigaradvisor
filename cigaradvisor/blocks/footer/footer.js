@@ -15,6 +15,34 @@ export default async function decorate(block) {
   const currentYear = new Date().getFullYear();
   footerContent.innerHTML = footerContent.innerHTML.replaceAll('{year}', currentYear.toString());
 
+  // add California Privacy Notice
+  const cpn = document.createElement('a');
+  cpn.classList.add('truevault-polaris-privacy-notice');
+  cpn.setAttribute('href', 'https://privacy.famous-smoke.com/privacy-policy#california-privacy-notice');
+  cpn.setAttribute('noreferrer', true);
+  cpn.setAttribute('noopener', true);
+  cpn.setAttribute('hidden', true);
+  cpn.innerText = 'California Privacy Notice';
+  const cpnItem = document.createElement('li');
+  cpnItem.appendChild(cpn);
+  const privacyLink = footerContent.querySelector('div.section.footer-legal a[href*=privacy-policy]');
+  if (privacyLink) {
+    privacyLink.parentElement.append(cpnItem);
+  }
+
+  // add accessibility link
+  const footerLegalItems = footerContent.querySelectorAll('div.section.footer-legal li');
+  const accessibilityItem = Array.from(footerLegalItems).find((item) => item.innerText.toLowerCase().includes('accessibility'));
+  const accessibilityLink = document.createElement('a');
+  if (accessibilityItem) {
+    accessibilityLink.setAttribute('href', '#');
+    accessibilityLink.setAttribute('data-acsb-custom-trigger', 'true');
+    accessibilityLink.setAttribute('tabindex', '0');
+    accessibilityLink.setAttribute('role', 'button');
+    accessibilityLink.innerText = 'Accessibility';
+    accessibilityItem.replaceChildren(accessibilityLink);
+  }
+
   // decorate footer sections
   const footerNavContainer = footerContent.querySelector('div.footer-nav > .default-content-wrapper');
   const footerNav = document.createElement('nav');

@@ -81,6 +81,8 @@ const WISE_POPUP_SCRIPT = `
   ('wisepops', '//wisepops.net/loader.js?v=2&h=cxkWCQVAxq');
 `;
 
+const IZOOTO_SCRIPT = 'window._izq = window._izq || []; window._izq.push(["init"]);';
+
 function loadConsentManager() {
   window.polarisOptions = {
     kingId: 'G-XVRFM32Q28',
@@ -121,6 +123,16 @@ function loadFoxPush() {
   document.querySelector('head').append(script);
 }
 
+function loadiZooto() {
+  const script = document.createElement('script');
+  script.innerHTML = IZOOTO_SCRIPT;
+  document.querySelector('head').append(script);
+  const izootoLib = document.createElement('script');
+  izootoLib.setAttribute('src', 'https://cdn.izooto.com/scripts/cea9e5a4539423a917b8cc1f6090b064fc3c2ba5.js');
+  document.querySelector('head').append(script);
+  document.querySelector('head').append(izootoLib);
+}
+
 function loadAccessibility() {
   const script = document.createElement('script');
   script.innerHTML = ACCESSIBILITY_PLUGIN_SCRIPT;
@@ -136,7 +148,8 @@ function loadWisePopup() {
 window.setTimeout(() => {
   if (window.location.hostname !== 'localhost') {
     loadGTM();
-    loadFoxPush();
+    //loadFoxPush();
+    loadiZooto();
     loadAccessibility();
     loadWisePopup();
   }

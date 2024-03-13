@@ -134,6 +134,32 @@ function decorateSeoPictures(main) {
   main.querySelectorAll('picture').forEach((picture) => decorateSeoPicture(picture));
 }
 
+const ICON_ALTS = new Map([
+  ['magnifying-glass', 'Search'],
+  ['bars', 'Toggle navigation'],
+  ['x-twitter', 'X'],
+  ['facebook-f', 'Facebook'],
+  ['instagram', 'Instagram'],
+  ['youtube', 'YouTube'],
+  ['pinterest-p', 'Pinterest'],
+  ['monster', 'Cigar Monster'],
+  ['auctioneer', 'Cigar Auctioneer'],
+  ['famous', 'Famous Smoke'],
+]);
+
+/**
+ * Decorates the block icons with metadata.
+ * @param {HTMLElement} block - The block element.
+ */
+export function decorateIconMetadata(block) {
+  block.querySelectorAll('span.icon > img[data-icon-name]').forEach((icon) => {
+    const iconName = icon.getAttribute('data-icon-name');
+    if (ICON_ALTS.has(iconName)) {
+      icon.setAttribute('alt', ICON_ALTS.get(iconName));
+    }
+  });
+}
+
 /**
  * Builds two column grid.
  * @param {Element} main The container element
@@ -480,6 +506,7 @@ async function loadEager(doc) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
+  decorateIconMetadata(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

@@ -182,7 +182,7 @@
   cursor: pointer;
 }
 
-.header.block nav .primary-nav ul li a {
+.header.block nav .primary-nav ul li a, .header.block nav .primary-nav ul li button {
   position: relative;
   display: flex;
   align-items: center;
@@ -205,7 +205,7 @@
   border-color: var(--tan);
 }
 
-.header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) > a::after {
+.header.block nav .primary-nav .nav-drop:not([data-secondarynav='search-box']) > button::after {
   width: 16px;
   height: var(--line-height-s);
   content: url('/cigaradvisor/icons/angle-down.svg');
@@ -252,7 +252,7 @@
   cursor: default;
 }
 
-.header.block nav .secondary-nav-box.browse-categories ul li a {
+.header.block nav .secondary-nav-box.browse-categories ul li a, .header.block nav .secondary-nav-box.browse-categories ul li button {
   line-height: var(--line-height-xl);
   color: var(--tan);
   font-size: 16px;
@@ -262,12 +262,12 @@
 }
 
 .header.block nav .secondary-nav-box ul li span img,
-.header.block nav .secondary-nav-box.shop-cigars ul li a {
+.header.block nav .secondary-nav-box.shop-cigars ul li a, .header.block nav .secondary-nav-box.shop-cigars ul li button {
   display: block;
   text-align: center;
 }
 
-.header.block nav .secondary-nav-box.shop-cigars ul li a {
+.header.block nav .secondary-nav-box.shop-cigars ul li a, .header.block nav .secondary-nav-box.shop-cigars ul li button {
   margin: 14px 0;
 }
 
@@ -472,7 +472,7 @@
   --icon-size: 32px;
 }
 
-.header.block .mobile-nav .mobile-primary-nav > a {
+.header.block .mobile-nav .mobile-primary-nav > a, .header.block .mobile-nav .mobile-primary-nav > button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -522,7 +522,7 @@
   border-bottom: 1px solid var(--light-grey);
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content > ul > li > a {
+.header.block .mobile-nav .mobile-primary-nav-content > ul > li > a, .header.block .mobile-nav .mobile-primary-nav-content > ul > li > button {
   position: relative;
   display: flex;
   height: 3.5rem;
@@ -547,7 +547,7 @@
   font-size: var(--body-font-size-xs);
 }
 
-.header.block .mobile-nav .mobile-primary-nav-content .nav-drop:not([data-secondarynav='search-box']) > a::after {
+.header.block .mobile-nav .mobile-primary-nav-content .nav-drop:not([data-secondarynav='search-box']) > button::after {
   position: absolute;
   display: block;
   width: 16px;
@@ -571,7 +571,7 @@
   margin: 0;
 }
 
-.header.block .mobile-nav .secondary-nav-box ul li a {
+.header.block .mobile-nav .secondary-nav-box ul li a, .header.block .mobile-nav .secondary-nav-box ul li button {
   font-family: var(--ff-montserrat);
   display: block;
   padding: 8px 0;

@@ -1,5 +1,9 @@
 # Creating a new category
 
+In order to create a new category both code changes and content changes are needed. The following document will elaborate these in more detail.
+
+All the necessary code changes are also captured in [this example PR](https://github.com/hlxsites/famous-smoke-cigaradvisor/pull/288). 
+
 ## Step 1: Create index configuration
 
 The configurations for the indices are located in [helix-query.yaml](../../helix-query.yaml).
@@ -54,7 +58,7 @@ Within Sharepoint you need to create a new directory with the same name as the c
 
 In the same parent folder you also need to create a new file for the category page. The easiest way to do so is duplicating one of the existing category pages and modifying the name and content to fit the new category. Furthermore, remember to also preview and publish this file.
 
-## Step 5: Publish your blogposts
+## Step 5: Publish new articles
 
 Now you should be all set to create and publish new pages in your previously created category directory.
 

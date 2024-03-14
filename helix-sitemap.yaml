@@ -59,6 +59,11 @@ sitemaps:
     source: /cigaradvisor/index/article-index-cuban-cigar-guides.json
     destination: /cigaradvisor/article-sitemap-cuban-cigar-guides.xml
     lastmod: YYYY-MM-DD hh:mm:ss
+  example-category:
+    origin: https://www.famous-smoke.com
+    source: /cigaradvisor/index/article-index-example-category.json
+    destination: /cigaradvisor/article-sitemap-example-category.xml
+    lastmod: YYYY-MM-DD hh:mm:ss
   uncategorized:
     origin: https://www.famous-smoke.com
     source: /cigaradvisor/index/article-index-uncategorized.json

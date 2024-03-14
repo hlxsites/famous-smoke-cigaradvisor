@@ -79,8 +79,8 @@ const processFigure = (figure, document) => {
   cells.push(['image', img]);
   if (a) {
     const link = document.createElement('a');
-    link.innerHTML = a.href;
-    link.href = a.href;
+    link.innerHTML = a.getAttribute('href');
+    link.href = a.getAttribute('href');
     link.title = img.alt;
     cells.push(['link', link]);
   }

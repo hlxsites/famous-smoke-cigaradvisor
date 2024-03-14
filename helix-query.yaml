@@ -52,6 +52,7 @@ indices:
       - /cigaradvisor/cigars-101/**
       - /cigaradvisor/cocktail/**
       - /cigaradvisor/cuban-cigar-guides/**
+      - /cigaradvisor/example-category/**
       - /cigaradvisor/uncategorized/**
     target: /cigaradvisor/index/page-index.json
     properties:
@@ -78,6 +79,7 @@ indices:
       - /cigaradvisor/cigars-101
       - /cigaradvisor/cocktail
       - /cigaradvisor/cuban-cigar-guides
+      - /cigaradvisor/example-category
       - /cigaradvisor/uncategorized
     exclude: *excludes
     target: /cigaradvisor/index/category-index.json
@@ -147,6 +149,7 @@ indices:
       - /cigaradvisor/cigars-101/*
       - /cigaradvisor/cocktail/*
       - /cigaradvisor/cuban-cigar-guides/*
+      - /cigaradvisor/example-category/*
       - /cigaradvisor/uncategorized/*
     exclude: *excludes
     target: /cigaradvisor/index/article-index.json
@@ -189,6 +192,7 @@ indices:
       - /cigaradvisor/cigars-101/*
       - /cigaradvisor/cocktail/*
       - /cigaradvisor/cuban-cigar-guides/*
+      - /cigaradvisor/example-category/*
       - /cigaradvisor/uncategorized/*
     exclude: *excludes
     target: /cigaradvisor/index/search-index.json
@@ -258,6 +262,11 @@ indices:
       - /cigaradvisor/cuban-cigar-guides/*
     exclude: *excludes
     target: /cigaradvisor/index/article-index-cuban-cigar-guides.json
+  example-category:
+    include:
+      - /cigaradvisor/example-category/*
+    exclude: *excludes
+    target: /cigaradvisor/index/article-index-example-category.json
     properties: *articles_properties
   uncategorized:
     include:

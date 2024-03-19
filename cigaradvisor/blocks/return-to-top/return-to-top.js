@@ -33,6 +33,7 @@ export default function decorate(block) {
   icon.classList.add('icon', 'icon-angle-up');
   iconContainer.appendChild(icon);
   decorateIcons(iconContainer);
+  iconContainer.querySelector('span.icon > img[data-icon-name="angle-up"]').alt = 'Return to the top of the page';
   link.appendChild(iconContainer);
 
   window.onscroll = onScroll;

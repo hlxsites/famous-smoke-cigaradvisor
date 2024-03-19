@@ -7,8 +7,8 @@
     align-items: stretch;
 }
 
-.article-navigation.block>div {
-    padding: 10px;
+.article-navigation.block > div {
+    padding: 10px 0;
     width: 100%;
 }
 
@@ -63,9 +63,16 @@
 
 
 @media screen and (min-width: 600px) {
-    .article-navigation.block>div {
+    .article-navigation.block > div {
         width: 50%;
+    }
+
+    .article-navigation.block .previous-article-nav {
         padding: 10px 10px 10px 0;
+    }
+
+    .article-navigation.block .next-article-nav {
+        padding: 10px 0 10px 10px;
     }
 
     .article-navigation.block .previous-article-nav a {

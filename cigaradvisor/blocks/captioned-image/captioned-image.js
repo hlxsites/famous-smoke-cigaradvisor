@@ -18,9 +18,10 @@ export default async function decorate(block) {
 
   // Does the image link?
   const keys = Object.keys(config);
-  if (keys.link) {
+  if (config.link) {
     const idx = keys.indexOf('link');
     const a = block.querySelector(`:scope > div:nth-of-type(${idx + 1}) > div:nth-of-type(2) a`);
+    a.textContent = '';
     a.append(picture);
     div.append(a);
   } else {

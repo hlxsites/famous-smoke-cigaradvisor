@@ -1,6 +1,6 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { isInternal } from '../../scripts/scripts.js';
+import { decorateIconMetadata, isInternal } from '../../scripts/scripts.js';
 
 /**
  * loads and decorates the footer
@@ -28,6 +28,19 @@ export default async function decorate(block) {
   const privacyLink = footerContent.querySelector('div.section.footer-legal a[href*=privacy-policy]');
   if (privacyLink) {
     privacyLink.parentElement.append(cpnItem);
+  }
+
+  // add accessibility link
+  const footerLegalItems = footerContent.querySelectorAll('div.section.footer-legal li');
+  const accessibilityItem = Array.from(footerLegalItems).find((item) => item.innerText.toLowerCase().includes('accessibility'));
+  const accessibilityLink = document.createElement('a');
+  if (accessibilityItem) {
+    accessibilityLink.setAttribute('href', '#');
+    accessibilityLink.setAttribute('data-acsb-custom-trigger', 'true');
+    accessibilityLink.setAttribute('tabindex', '0');
+    accessibilityLink.setAttribute('role', 'button');
+    accessibilityLink.innerText = 'Accessibility';
+    accessibilityItem.replaceChildren(accessibilityLink);
   }
 
   // decorate footer sections
@@ -69,4 +82,6 @@ export default async function decorate(block) {
   const footerHeading = document.createElement('H2');
   footerHeading.innerText = 'Footer';
   block.prepend(footerHeading);
+
+  decorateIconMetadata(block);
 }

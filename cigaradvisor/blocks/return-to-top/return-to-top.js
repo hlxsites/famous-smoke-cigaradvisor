@@ -1,6 +1,7 @@
 import {
   buildBlock, createOptimizedPicture, decorateBlock, decorateIcons, loadBlock,
 } from '../../scripts/aem.js';
+import { scrollTop } from '../../scripts/util.js';
 
 function onScroll() {
   const link = document.getElementById('return-to-top');
@@ -9,10 +10,6 @@ function onScroll() {
   } else {
     link.classList.add('hidden');
   }
-}
-
-function scrollTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 export default function decorate(block) {

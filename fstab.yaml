@@ -1,5 +1,2 @@
 mountpoints:
   /: https://famoussmokeshop.sharepoint.com/:f:/r/sites/AEM/webroot/www/cigaradvisor
-
-folders:
-  /cigaradvisor/posts/: /cigaradvisor/posts

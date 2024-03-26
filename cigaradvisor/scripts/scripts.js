@@ -133,7 +133,7 @@ export function decorateSeoPicture(picture, override = undefined) {
     picture.querySelectorAll('source').forEach((s) => {
       s.srcset = s.srcset.replace(/^(\.)?\/media/, '/cigaradvisor/media');
     });
-    img.src = img.getAttribute('src').replace(/^(\.)?\/media/, '/cigaradvisor/media')
+    img.src = img.getAttribute('src').replace(/^(\.)?\/media/, '/cigaradvisor/media');
   }
 }
 

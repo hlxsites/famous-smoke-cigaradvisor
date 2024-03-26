@@ -20,9 +20,6 @@ In here you just need to copy one of the existing category indices and replace a
 +    exclude: *excludes
 +    target: /cigaradvisor/index/article-index-cuban-cigar-guides.json
 +    properties: *articles_properties
-   uncategorized:
-     include:
-       - /cigaradvisor/uncategorized/*
 ```
 
 The `pages`, `categories`, `authors` and `article` indices also contain a list of all the category paths in either their `includes` or `excludes`. Add the path of the new category (matching the structure of the other categories) to all of these lists.
@@ -42,10 +39,6 @@ In here you just need to copy one of the existing category indices and replace a
 +    source: /cigaradvisor/index/article-index-<new-category>.json
 +    destination: /cigaradvisor/article-sitemap-<new-category>.xml
 +    lastmod: YYYY-MM-DD hh:mm:ss
-   uncategorized:
-     origin: https://www.famous-smoke.com
-     source: /cigaradvisor/index/article-index-uncategorized.json
-
 ```
 
 ## Step 3: Apply the configuration changes

@@ -128,6 +128,13 @@ export function decorateSeoPicture(picture, override = undefined) {
     });
     img.src = update(img.getAttribute('src'), name);
   }
+
+  if (window.location.pathname === '/cigaradvisor') {
+    picture.querySelectorAll('source').forEach((s) => {
+      s.srcset = s.srcset.replace(/^(\.)?\/media/, '/cigaradvisor/media');
+    });
+    img.src = img.getAttribute('src').replace(/^(\.)?\/media/, '/cigaradvisor/media');
+  }
 }
 
 function decorateSeoPictures(main) {

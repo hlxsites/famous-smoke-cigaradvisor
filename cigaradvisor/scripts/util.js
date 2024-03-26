@@ -8,7 +8,6 @@ const categories = [
   'cigars-101',
   'cocktail',
   'cuban-cigar-guides',
-  'uncategorized',
 ];
 
 // Function to create ellipsis
@@ -23,6 +22,10 @@ function createEllipsis() {
   return listItem;
 }
 
+export function scrollTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Function to create a page link
 function createPageLink(pageNumber, text, className) {
   const listItem = document.createElement('li');
@@ -30,6 +33,7 @@ function createPageLink(pageNumber, text, className) {
   const currentPagePath = window.location.pathname;
   const currentPageQuery = window.location.search;
   link.href = `${currentPagePath}${currentPageQuery}#page=${pageNumber}`;
+  link.onclick = scrollTop;
   link.textContent = text;
 
   if (className) {

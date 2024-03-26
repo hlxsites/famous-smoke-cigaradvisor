@@ -8,7 +8,6 @@ const categories = [
   'cigars-101',
   'cocktail',
   'cuban-cigar-guides',
-  'uncategorized',
 ];
 
 // Function to create ellipsis

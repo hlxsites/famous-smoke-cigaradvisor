@@ -259,9 +259,3 @@ indices:
     exclude: *excludes
     target: /cigaradvisor/index/article-index-cuban-cigar-guides.json
     properties: *articles_properties
-  uncategorized:
-    include:
-      - /cigaradvisor/uncategorized/*
-    exclude: *excludes
-    target: /cigaradvisor/index/article-index-uncategorized.json
-    properties: *articles_properties

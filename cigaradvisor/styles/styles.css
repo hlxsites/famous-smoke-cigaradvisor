@@ -93,10 +93,6 @@
   --icon-size: var(--body-font-size-xxl);
 }
 
-html {
-  scrollbar-gutter: stable;
-}
-
 body {
   display: none;
   margin: 0;
@@ -127,6 +123,7 @@ footer {
 html {
   font-size: 100%;
   line-height: 1.5;
+  scrollbar-gutter: stable;
 }
 
 *,

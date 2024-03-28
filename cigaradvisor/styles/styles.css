@@ -93,6 +93,10 @@
   --icon-size: var(--body-font-size-xxl);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   display: none;
   margin: 0;

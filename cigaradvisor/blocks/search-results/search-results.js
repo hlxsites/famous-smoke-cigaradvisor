@@ -54,7 +54,7 @@ async function handleSearch(searchValue, wrapper, limit) {
     wrapper.prepend(searchSummary);
     return;
   }
-  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => !!term);
+  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => (!!term && term.length > 2));
   const data = await getSearchIndexData();
   const filteredData = filterData(searchTerms, data);
 

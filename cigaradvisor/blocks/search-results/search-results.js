@@ -18,7 +18,7 @@ function filterData(searchTerms, data) {
 
     searchTerms.forEach((term) => {
       // eslint-disable-next-line max-len
-      const idx = (result.heading || result.title || result.description).toLowerCase().indexOf(term);
+      const idx = (result.heading || result.title || result.path.split('/').pop() || result.description).toLowerCase().indexOf(term);
       if (idx < 0) return;
       if (minIdx < idx) minIdx = idx;
     });
@@ -54,7 +54,14 @@ async function handleSearch(searchValue, wrapper, limit) {
     wrapper.prepend(searchSummary);
     return;
   }
-  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => (!!term && term.length > 2));
+  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => (!!term));
+  for (let i = 0; i < searchTerms.length; i += 1) {
+    if (searchTerms[i].length < 3) {
+      if (i + 1 < searchTerms.length) {
+        searchTerms[i] = `${searchTerms[i]} ${searchTerms[i + 1]}`;
+      }
+    }
+  }
   const data = await getSearchIndexData();
   const filteredData = filterData(searchTerms, data);
 

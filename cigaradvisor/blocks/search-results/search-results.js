@@ -46,6 +46,32 @@ function filterData(searchTerms, data) {
   ].map((item) => item.result);
 }
 
+/**
+ * Get details of each search result from the artile-index.
+ *
+ * @param {Array} results - The search results.
+ * @param {Array} allArticles - All the articles.
+ * @param {HTMLElement} wrapper - The wrapper element to append the results.
+ * @param {number} limit - The maximum number of articles to display.
+ * @param {number} articlesCount - The total count of articles. This is needed for pagination.
+ * @returns {Promise<void>} - A promise that resolves when the page is rendered.
+ */
+async function processSearchResults(results, allArticles, wrapper, limit, articlesCount) {
+  const articles = [];
+  results.forEach((post) => {
+    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
+    articles.push(filteredArticles[0]);
+  });
+  if (articles.length === 0) {
+    const noResults = document.createElement('p');
+    noResults.classList.add('no-results');
+    noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
+    wrapper.append(noResults);
+  } else {
+    await renderPage(wrapper, articles, limit, articlesCount);
+  }
+}
+
 async function handleSearch(searchValue, wrapper, limit) {
   const searchSummary = document.createElement('p');
   searchSummary.classList.add('search-summary');
@@ -64,23 +90,37 @@ async function handleSearch(searchValue, wrapper, limit) {
   }
   const data = await getSearchIndexData();
   const filteredData = filterData(searchTerms, data);
+  const articlesCount = filteredData.length;
 
-  const articles = [];
   const allArticles = await loadPosts();
-  filteredData.forEach((post) => {
-    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
-    articles.push(filteredArticles[0]);
-  });
-  searchSummary.textContent = `Your search for "${searchValue}" resulted in ${articles.length} articles`;
-  if (articles.length === 0) {
-    const noResults = document.createElement('p');
-    noResults.classList.add('no-results');
-    noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
-    wrapper.append(noResults);
-  } else {
-    await renderPage(wrapper, articles, limit);
-  }
+
+  searchSummary.textContent = `Your search for "${searchValue}" resulted in ${filteredData.length} articles`;
+  let filteredDataCopy = [...filteredData];
+
+  // load the first page of results
+  let resultsToShow = filteredDataCopy.slice(0, limit);
+
+  // eslint-disable-next-line max-len
+  await processSearchResults(resultsToShow, allArticles, wrapper, limit, articlesCount);
+
   wrapper.prepend(searchSummary);
+
+  // handle pagination. Render each page of results when the hash changes
+  window.addEventListener('hashchange', async () => {
+    const heroSearch = document.querySelector('.hero-search');
+    if (heroSearch) {
+      heroSearch.querySelector('input').value = searchValue;
+    }
+    const url = new URL(window.location.href);
+    const hashParams = new URLSearchParams(url.hash.substring(1));
+    const page = hashParams.get('page');
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    filteredDataCopy = [...filteredData];
+    resultsToShow = filteredDataCopy.slice(start, end);
+    await processSearchResults(resultsToShow, allArticles, wrapper, limit, articlesCount);
+    wrapper.prepend(searchSummary);
+  });
 }
 
 export default async function decorate(block) {
@@ -113,15 +153,4 @@ export default async function decorate(block) {
   articleListWrapper.append(articleList);
 
   block.replaceChildren(articleListWrapper);
-
-  window.addEventListener('hashchange', async () => {
-    if (searchParams.get('s')) {
-      const searchValue = searchParams.get('s');
-      const heroSearch = document.querySelector('.hero-search');
-      if (heroSearch) {
-        heroSearch.querySelector('input').value = searchValue;
-      }
-      await handleSearch(searchValue, articleTeaserWrapper, limit);
-    }
-  });
 }

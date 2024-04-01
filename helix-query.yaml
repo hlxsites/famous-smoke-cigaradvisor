@@ -195,6 +195,9 @@ indices:
       description:
         select: head > meta[property="og:description"]
         value: attribute(el, "content")
+      blurb:
+        select: head > meta[property="articleblurb"]
+        value: attribute(el, "content")
       heading:
         select: main h1:first-of-type
         value: textContent(el)

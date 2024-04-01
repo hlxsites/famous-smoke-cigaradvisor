@@ -18,7 +18,7 @@ function filterData(searchTerms, data) {
 
     searchTerms.forEach((term) => {
       // eslint-disable-next-line max-len
-      const idx = (result.heading || result.title || result.path.split('/').pop() || result.description).toLowerCase().indexOf(term);
+      const idx = (result.heading || result.title || result.description || result.blurb || result.path.split('/').pop()).toLowerCase().indexOf(term);
       if (idx < 0) return;
       if (minIdx < idx) minIdx = idx;
     });

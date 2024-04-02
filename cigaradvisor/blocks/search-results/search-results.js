@@ -10,40 +10,81 @@ function compareFound(hit1, hit2) {
 }
 
 function filterData(searchTerms, data) {
-  const foundInHeader = [];
-  const foundInText = [];
 
+  // Object
+  // {
+  //    priority: Number
+  //    article:  article
+  //    count: Number
+  // }
+  const results = [];
+
+  // Create 10 promises and divide all blogs into those ten.
   data.forEach((result) => {
     let minIdx = -1;
 
+    // Title
+    // heading
+    // description
+    // blurb
+    // full text
+    let rank;
+    let count = 0;
+
     searchTerms.forEach((term) => {
-      // eslint-disable-next-line max-len
-      const idx = (result.heading || result.title || result.description || result.blurb || result.path.split('/').pop()).toLowerCase().indexOf(term);
-      if (idx < 0) return;
-      if (minIdx < idx) minIdx = idx;
+      const regex = new RegExp(term, 'gi');
+      // Search in rank order
+      let found = result.title ? [...result.title.matchAll(regex)] : [];
+      if (found.length) {
+        rank = 1;
+        count += found.length;
+      }
+
+      found = result.heading ? [...result.heading?.matchAll(regex)] : [];
+      if (found.length) {
+        rank ||= 2;
+        count += found.length;
+      }
+
+      found = result.description ? [...result.description.matchAll(regex)] : [];
+      if (found.length) {
+        rank ||= 3;
+        count += found.length;
+      }
+
+      found = result.blurb ? [...result.blurb.matchAll(regex)] : [];
+      if (found.length) {
+        rank ||= 4;
+        count += found.length;
+      }
+
+      found = result.text ? [...result.text.matchAll(regex)] : [];
+      if (found.length) {
+        rank ||= 5;
+        count += found.length;
+      }
     });
 
-    if (minIdx >= 0) {
-      foundInHeader.push({ minIdx, result });
-      return;
-    }
-
-    const fullText = result.text ? result.text.toLowerCase() : '';
-    searchTerms.forEach((term) => {
-      const idx = fullText.indexOf(term);
-      if (idx < 0) return;
-      if (minIdx < idx) minIdx = idx;
-    });
-
-    if (minIdx >= 0) {
-      foundInText.push({ minIdx, result });
+    if (rank) {
+      results.push({ rank, article: result, count });
     }
   });
 
-  return [
-    ...foundInHeader.sort(compareFound),
-    ...foundInText.sort(compareFound),
-  ].map((item) => item.result);
+  return results.sort((l, r) => {
+    if (l.rank < r.rank) {
+      return -1;
+    }
+    if (l.rank === r.rank) {
+      if (l.count > r.count) {
+        return -1;
+      } else if (l.count < r.count) {
+        return 1;
+      }
+      return 0;
+    }
+    return 1; // Left rank is greater than right rank - move it down the list.
+  }).map((r) => r.article);
+
 }
 
 /**
@@ -80,14 +121,8 @@ async function handleSearch(searchValue, wrapper, limit) {
     wrapper.prepend(searchSummary);
     return;
   }
-  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => (!!term));
-  for (let i = 0; i < searchTerms.length; i += 1) {
-    if (searchTerms[i].length < 3) {
-      if (i + 1 < searchTerms.length) {
-        searchTerms[i] = `${searchTerms[i]} ${searchTerms[i + 1]}`;
-      }
-    }
-  }
+  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => term && term.length > 2);
+
   const data = await getSearchIndexData();
   const filteredData = filterData(searchTerms, data);
   const articlesCount = filteredData.length;
@@ -140,7 +175,7 @@ export default async function decorate(block) {
   articleTeaserWrapper.classList.add('article-teaser-wrapper');
 
   if (searchParams.get('s')) {
-    const searchValue = searchParams.get('s');
+    const searchValue = searchParams.get('s').trim();
     const heroSearch = document.querySelector('.hero-search');
     if (heroSearch) {
       heroSearch.querySelector('input').value = searchValue;

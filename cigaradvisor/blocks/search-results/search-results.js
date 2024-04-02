@@ -26,25 +26,26 @@ function filterData(searchTerms, data) {
       let found = result.title ? [...result.title.matchAll(regex)] : [];
       if (found.length || titleParts.length > 1) {
         rank = 1;
-        count += found.length + titleParts.length;
+        count += 1;
+        count += titleParts.length - 1;
       }
 
       found = result.heading ? [...result.heading.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 2;
-        count += found.length;
+        count += 1;
       }
 
       found = result.description ? [...result.description.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 3;
-        count += found.length;
+        count += 1;
       }
 
       found = result.blurb ? [...result.blurb.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 4;
-        count += found.length;
+        count += 1;
       }
 
       found = result.text ? [...result.text.matchAll(regex)] : [];

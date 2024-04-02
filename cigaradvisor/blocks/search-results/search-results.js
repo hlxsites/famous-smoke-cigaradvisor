@@ -14,7 +14,6 @@ function filterData(searchTerms, data) {
   // }
   const results = [];
 
-  // Create 10 promises and divide all blogs into those ten.
   data.forEach((result) => {
     let rank;
     let count = 0;

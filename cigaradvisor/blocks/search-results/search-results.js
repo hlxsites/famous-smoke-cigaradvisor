@@ -22,10 +22,11 @@ function filterData(searchTerms, data) {
     searchTerms.forEach((term) => {
       const regex = new RegExp(term, 'gi');
       // Search in rank order
+      const titleParts = result.title ? result.title.split(regex) : [];
       let found = result.title ? [...result.title.matchAll(regex)] : [];
-      if (found.length) {
+      if (found.length || titleParts.length > 1) {
         rank = 1;
-        count += found.length;
+        count += found.length + titleParts.length;
       }
 
       found = result.heading ? [...result.heading.matchAll(regex)] : [];
@@ -49,7 +50,6 @@ function filterData(searchTerms, data) {
       found = result.text ? [...result.text.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 5;
-        count += found.length;
       }
     });
 

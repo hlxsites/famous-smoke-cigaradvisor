@@ -5,12 +5,7 @@ import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
 
-function compareFound(hit1, hit2) {
-  return hit1.minIdx - hit2.minIdx;
-}
-
 function filterData(searchTerms, data) {
-
   // Object
   // {
   //    priority: Number
@@ -21,13 +16,6 @@ function filterData(searchTerms, data) {
 
   // Create 10 promises and divide all blogs into those ten.
   data.forEach((result) => {
-    let minIdx = -1;
-
-    // Title
-    // heading
-    // description
-    // blurb
-    // full text
     let rank;
     let count = 0;
 
@@ -40,7 +28,7 @@ function filterData(searchTerms, data) {
         count += found.length;
       }
 
-      found = result.heading ? [...result.heading?.matchAll(regex)] : [];
+      found = result.heading ? [...result.heading.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 2;
         count += found.length;
@@ -77,14 +65,13 @@ function filterData(searchTerms, data) {
     if (l.rank === r.rank) {
       if (l.count > r.count) {
         return -1;
-      } else if (l.count < r.count) {
+      } if (l.count < r.count) {
         return 1;
       }
       return 0;
     }
     return 1; // Left rank is greater than right rank - move it down the list.
   }).map((r) => r.article);
-
 }
 
 /**

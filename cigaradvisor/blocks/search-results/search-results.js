@@ -51,6 +51,7 @@ function filterData(searchTerms, data) {
       found = result.text ? [...result.text.matchAll(regex)] : [];
       if (found.length) {
         rank ||= 5;
+        count += 1;
       }
     });
 

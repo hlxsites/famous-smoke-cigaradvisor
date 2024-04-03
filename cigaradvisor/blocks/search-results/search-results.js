@@ -5,7 +5,24 @@ import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
 
-function filterData(searchTerms, data) {
+const IGNORED_TERMS = [
+  'cigar',
+];
+
+const doMatch = (property, term) => {
+  const regex = new RegExp(term, 'gi');
+  if (property) {
+    return property.match(regex);
+  }
+  return false;
+};
+
+function filterData(fullTerm, data) {
+  const searchTokens = [];
+  searchTokens.push(fullTerm);
+
+  searchTokens.push(...fullTerm.toLowerCase().split(/\s+/).filter((term) => term && term.length > 2 && term !== fullTerm.toLowerCase()));
+
   // Object
   // {
   //    priority: Number
@@ -13,49 +30,41 @@ function filterData(searchTerms, data) {
   //    count: Number
   // }
   const results = [];
-
   data.forEach((result) => {
-    let rank;
-    let count = 0;
+    const found = {
+      article: result,
+      count: 0,
+    };
 
-    searchTerms.forEach((term) => {
-      const regex = new RegExp(term, 'gi');
-      // Search in rank order
-      const titleParts = result.title ? result.title.split(regex) : [];
-      let found = result.title ? [...result.title.matchAll(regex)] : [];
-      if (found.length || titleParts.length > 1) {
-        rank = 1;
-        count += 1;
-        count += titleParts.length - 1;
+    searchTokens.forEach((token) => {
+      if (IGNORED_TERMS.includes(token.toLowerCase().trim())) return;
+      // eslint-disable-next-line no-param-reassign
+      if (token.endsWith('s')) token = token.substring(0, token.length - 1); // Handle potential pluralization of token.
+
+      if (doMatch(result.title, token)) {
+        found.rank ||= 1;
+        found.count += 1;
       }
-
-      found = result.heading ? [...result.heading.matchAll(regex)] : [];
-      if (found.length) {
-        rank ||= 2;
-        count += 1;
+      if (doMatch(result.heading, token)) {
+        found.rank ||= 2;
+        found.count += 1;
       }
-
-      found = result.description ? [...result.description.matchAll(regex)] : [];
-      if (found.length) {
-        rank ||= 3;
-        count += 1;
+      if (doMatch(result.description, token)) {
+        found.rank ||= 3;
+        found.count += 1;
       }
-
-      found = result.blurb ? [...result.blurb.matchAll(regex)] : [];
-      if (found.length) {
-        rank ||= 4;
-        count += 1;
+      if (doMatch(result.blurb, token)) {
+        found.rank ||= 4;
+        found.count += 1;
       }
-
-      found = result.text ? [...result.text.matchAll(regex)] : [];
-      if (found.length) {
-        rank ||= 5;
-        count += 1;
+      if (doMatch(result.text, token)) {
+        found.rank ||= 5;
+        found.count += 1;
       }
     });
 
-    if (rank) {
-      results.push({ rank, article: result, count });
+    if (found.count > 0) {
+      results.push(found);
     }
   });
 
@@ -66,7 +75,8 @@ function filterData(searchTerms, data) {
     if (l.rank === r.rank) {
       if (l.count > r.count) {
         return -1;
-      } if (l.count < r.count) {
+      }
+      if (l.count < r.count) {
         return 1;
       }
       return 0;
@@ -76,7 +86,7 @@ function filterData(searchTerms, data) {
 }
 
 /**
- * Get details of each search result from the artile-index.
+ * Get details of each search result from the article-index.
  *
  * @param {Array} results - The search results.
  * @param {Array} allArticles - All the articles.
@@ -109,10 +119,9 @@ async function handleSearch(searchValue, wrapper, limit) {
     wrapper.prepend(searchSummary);
     return;
   }
-  const searchTerms = searchValue.toLowerCase().split(/\s+/).filter((term) => term && term.length > 2);
 
   const data = await getSearchIndexData();
-  const filteredData = filterData(searchTerms, data);
+  const filteredData = filterData(searchValue, data);
   const articlesCount = filteredData.length;
 
   const allArticles = await loadPosts();

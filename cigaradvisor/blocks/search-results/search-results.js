@@ -1,4 +1,4 @@
-import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS, createOptimizedPicture } from '../../scripts/aem.js';
 
 import { getSearchIndexData, loadPosts, getRelativePath } from '../../scripts/scripts.js';
 import { renderPage } from '../article-list/article-list.js';
@@ -168,6 +168,14 @@ export default async function decorate(block) {
 
   const articleTeaserWrapper = document.createElement('div');
   articleTeaserWrapper.classList.add('article-teaser-wrapper');
+  const loadingImage = createOptimizedPicture('/cigaradvisor/images/search/ca-search-results-loading.svg');
+  articleTeaserWrapper.append(loadingImage);
+
+  articleList.append(articleTeaserWrapper);
+
+  articleListWrapper.append(articleList);
+
+  block.replaceChildren(articleListWrapper);
 
   if (searchParams.get('s')) {
     const searchValue = searchParams.get('s').trim();
@@ -177,10 +185,4 @@ export default async function decorate(block) {
     }
     await handleSearch(searchValue, articleTeaserWrapper, limit);
   }
-
-  articleList.append(articleTeaserWrapper);
-
-  articleListWrapper.append(articleList);
-
-  block.replaceChildren(articleListWrapper);
 }

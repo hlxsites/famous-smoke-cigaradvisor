@@ -184,6 +184,6 @@ export default async function decorate(block) {
     if (heroSearch) {
       heroSearch.querySelector('input').value = searchValue;
     }
-    await handleSearch(searchValue, articleTeaserWrapper, limit);
+    handleSearch(searchValue, articleTeaserWrapper, limit);
   }
 }

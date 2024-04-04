@@ -1,4 +1,4 @@
-import { readBlockConfig, loadCSS, createOptimizedPicture } from '../../scripts/aem.js';
+import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 
 import { getSearchIndexData, loadPosts, getRelativePath } from '../../scripts/scripts.js';
 import { renderPage } from '../article-list/article-list.js';
@@ -119,18 +119,19 @@ async function handleSearch(searchValue, wrapper, limit) {
 
   searchSummary.textContent = `Your search for "${searchValue}" resulted in ${filteredData.length} articles`;
   if (filteredData.length === 0) {
+    const loadingImageContainer = document.querySelector('.loading-image-container');
     const noResults = document.createElement('p');
     noResults.classList.add('no-results');
     noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
     wrapper.replaceChildren(searchSummary);
     wrapper.append(noResults);
+    loadingImageContainer.style.display = 'none';
     return;
   }
   let filteredDataCopy = [...filteredData];
 
   // load the first page of results
   let resultsToShow = filteredDataCopy.slice(0, limit);
-
   // eslint-disable-next-line max-len
   await processSearchResults(resultsToShow, allArticles, wrapper, limit, articlesCount);
 
@@ -158,6 +159,17 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-list/article-list.css`);
 
+  const loadingImageContainer = document.createElement('div');
+  loadingImageContainer.classList.add('loading-image-container');
+  const loadingImage = document.createElement('img');
+  loadingImage.classList.add('loading-image');
+  loadingImage.src = '/cigaradvisor/images/search/ca-search-results-loading.svg';
+  loadingImageContainer.append(loadingImage);
+  const spinner = document.createElement('span');
+  spinner.classList.add('loader');
+  loadingImageContainer.append(spinner);
+  block.replaceChildren(loadingImageContainer);
+
   const configs = readBlockConfig(block);
   const limit = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
 
@@ -169,14 +181,12 @@ export default async function decorate(block) {
 
   const articleTeaserWrapper = document.createElement('div');
   articleTeaserWrapper.classList.add('article-teaser-wrapper');
-  const loadingImage = createOptimizedPicture('/cigaradvisor/images/search/ca-search-results-loading.svg');
-  articleTeaserWrapper.append(loadingImage);
 
   articleList.append(articleTeaserWrapper);
 
   articleListWrapper.append(articleList);
 
-  block.replaceChildren(articleListWrapper);
+  block.append(articleListWrapper);
 
   if (searchParams.get('s')) {
     const searchValue = searchParams.get('s').trim();

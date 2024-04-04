@@ -99,14 +99,7 @@ async function processSearchResults(results, allArticles, wrapper, limit, articl
     const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
     articles.push(filteredArticles[0]);
   });
-  if (articles.length === 0) {
-    const noResults = document.createElement('p');
-    noResults.classList.add('no-results');
-    noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
-    wrapper.append(noResults);
-  } else {
-    await renderPage(wrapper, articles, limit, articlesCount);
-  }
+  await renderPage(wrapper, articles, limit, articlesCount);
 }
 
 async function handleSearch(searchValue, wrapper, limit) {
@@ -114,7 +107,7 @@ async function handleSearch(searchValue, wrapper, limit) {
   searchSummary.classList.add('search-summary');
   if (searchValue.length < 3 || !searchValue.match(/[a-z]/i)) {
     searchSummary.innerHTML = 'Please enter at least three (3) characters to search.';
-    wrapper.prepend(searchSummary);
+    wrapper.replaceChildren(searchSummary);
     return;
   }
 
@@ -125,6 +118,14 @@ async function handleSearch(searchValue, wrapper, limit) {
   const allArticles = await loadPosts();
 
   searchSummary.textContent = `Your search for "${searchValue}" resulted in ${filteredData.length} articles`;
+  if (filteredData.length === 0) {
+    const noResults = document.createElement('p');
+    noResults.classList.add('no-results');
+    noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
+    wrapper.replaceChildren(searchSummary);
+    wrapper.append(noResults);
+    return;
+  }
   let filteredDataCopy = [...filteredData];
 
   // load the first page of results

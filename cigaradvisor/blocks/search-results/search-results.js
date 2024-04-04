@@ -5,9 +5,7 @@ import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
 
-const IGNORED_TERMS = [
-  'cigar',
-];
+const IGNORED_TERMS = [];
 
 const doMatch = (property, term) => {
   const regex = new RegExp(term, 'gi');

@@ -100,6 +100,14 @@ async function processSearchResults(results, allArticles, wrapper, limit, articl
     articles.push(filteredArticles[0]);
   });
   await renderPage(wrapper, articles, limit, articlesCount);
+  const loadingImageContainer = document.querySelector('.loading-image-container');
+  loadingImageContainer.style.transition = 'opacity 2s';
+  loadingImageContainer.style.opacity = 0;
+  loadingImageContainer.style.display = 'none';
+  const articleListWrapper = document.querySelector('.article-list-wrapper');
+  articleListWrapper.style.transition = 'opacity 2s';
+  articleListWrapper.style.opacity = 1;
+  articleListWrapper.style.display = 'block';
 }
 
 async function handleSearch(searchValue, wrapper, limit) {

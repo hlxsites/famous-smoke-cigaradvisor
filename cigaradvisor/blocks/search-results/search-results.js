@@ -101,13 +101,13 @@ async function processSearchResults(results, allArticles, wrapper, limit, articl
   });
   await renderPage(wrapper, articles, limit, articlesCount);
   const loadingImageContainer = document.querySelector('.loading-image-container');
-  loadingImageContainer.style.transition = 'opacity 2s';
-  loadingImageContainer.style.opacity = 0;
-  loadingImageContainer.style.display = 'none';
   const articleListWrapper = document.querySelector('.article-list-wrapper');
   articleListWrapper.style.transition = 'opacity 2s';
   articleListWrapper.style.opacity = 1;
   articleListWrapper.style.display = 'block';
+  loadingImageContainer.style.transition = 'opacity 2s';
+  loadingImageContainer.style.opacity = 0;
+  loadingImageContainer.style.display = 'none';
 }
 
 async function handleSearch(searchValue, wrapper, limit) {

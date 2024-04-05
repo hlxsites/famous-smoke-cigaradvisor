@@ -16,7 +16,6 @@ function buildSearch() {
       </button>
     </form>
   `;
-
   return search;
 }
 

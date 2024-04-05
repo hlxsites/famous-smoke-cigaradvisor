@@ -126,12 +126,26 @@ export default async function decorate(block) {
 
   block.replaceChildren(articleListWrapper);
 
+  const heroSearch = document.querySelector('.hero-search');
+
   if (searchParams.get('s')) {
     const searchValue = searchParams.get('s').trim();
-    const heroSearch = document.querySelector('.hero-search');
     if (heroSearch) {
       heroSearch.querySelector('input').value = searchValue;
     }
     handleSearch(searchValue, block, limit);
+  }
+
+  if (window.location.pathname === '/cigaradvisor/search') {
+    heroSearch.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const searchValue = heroSearch.querySelector('input').value;
+      if (searchValue) {
+        window.history.pushState({ search: searchValue }, '', `?s=${searchValue}`);
+        window.dispatchEvent(new Event('popstate'));
+        articleTeaserWrapper.replaceChildren();
+        handleSearch(searchValue, block, limit);
+      }
+    });
   }
 }

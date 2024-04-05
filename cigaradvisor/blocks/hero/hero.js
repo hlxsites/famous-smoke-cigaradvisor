@@ -16,20 +16,6 @@ function buildSearch() {
       </button>
     </form>
   `;
-  // on click of submit button, do window history push state
-  search.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const searchValue = search.querySelector('input').value;
-    if (searchValue) {
-      const response = await fetch(`/cigaradvisor/search?s=${searchValue}`);
-      const html = await response.text();
-      window.history.pushState({ search: searchValue }, '', `/cigaradvisor/search?s=${searchValue}`);
-      window.dispatchEvent(new Event('popstate'));
-      document.open();
-      document.write(html);
-      document.close();
-    }
-  });
 
   return search;
 }

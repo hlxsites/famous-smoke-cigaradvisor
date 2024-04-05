@@ -110,7 +110,8 @@ async function processSearchResults(results, allArticles, wrapper, limit, articl
   loadingImageContainer.style.display = 'none';
 }
 
-async function handleSearch(searchValue, wrapper, limit) {
+async function handleSearch(searchValue, block, limit) {
+  const wrapper = block.querySelector('.article-teaser-wrapper');
   const searchSummary = document.createElement('p');
   searchSummary.classList.add('search-summary');
   if (searchValue.length < 3 || !searchValue.match(/[a-z]/i)) {
@@ -118,6 +119,17 @@ async function handleSearch(searchValue, wrapper, limit) {
     wrapper.replaceChildren(searchSummary);
     return;
   }
+  // show loading spinner
+  const loadingImageContainer = document.createElement('div');
+  loadingImageContainer.classList.add('loading-image-container');
+  const loadingImage = document.createElement('img');
+  loadingImage.classList.add('loading-image');
+  loadingImage.src = '/cigaradvisor/images/search/ca-search-results-loading.svg';
+  loadingImageContainer.append(loadingImage);
+  const spinner = document.createElement('span');
+  spinner.classList.add('loader');
+  loadingImageContainer.append(spinner);
+  block.prepend(loadingImageContainer);
 
   const data = await getSearchIndexData();
   const filteredData = filterData(searchValue, data);
@@ -127,7 +139,6 @@ async function handleSearch(searchValue, wrapper, limit) {
 
   searchSummary.textContent = `Your search for "${searchValue}" resulted in ${filteredData.length} articles`;
   if (filteredData.length === 0) {
-    const loadingImageContainer = document.querySelector('.loading-image-container');
     const noResults = document.createElement('p');
     noResults.classList.add('no-results');
     noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
@@ -167,17 +178,6 @@ export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-list/article-list.css`);
 
-  const loadingImageContainer = document.createElement('div');
-  loadingImageContainer.classList.add('loading-image-container');
-  const loadingImage = document.createElement('img');
-  loadingImage.classList.add('loading-image');
-  loadingImage.src = '/cigaradvisor/images/search/ca-search-results-loading.svg';
-  loadingImageContainer.append(loadingImage);
-  const spinner = document.createElement('span');
-  spinner.classList.add('loader');
-  loadingImageContainer.append(spinner);
-  block.replaceChildren(loadingImageContainer);
-
   const configs = readBlockConfig(block);
   const limit = Number.isNaN(parseInt(configs.limit, 10)) ? 10 : parseInt(configs.limit, 10);
 
@@ -194,7 +194,7 @@ export default async function decorate(block) {
 
   articleListWrapper.append(articleList);
 
-  block.append(articleListWrapper);
+  block.replaceChildren(articleListWrapper);
 
   if (searchParams.get('s')) {
     const searchValue = searchParams.get('s').trim();
@@ -202,6 +202,6 @@ export default async function decorate(block) {
     if (heroSearch) {
       heroSearch.querySelector('input').value = searchValue;
     }
-    handleSearch(searchValue, articleTeaserWrapper, limit);
+    handleSearch(searchValue, block, limit);
   }
 }

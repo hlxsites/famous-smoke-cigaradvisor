@@ -56,7 +56,7 @@ async function handleSearch(searchValue, block, limit) {
 
   if (window.Worker) {
     const worker = new Worker(`${window.hlx.codeBasePath}/blocks/search-results/search-worker.js`);
-    worker.onmessage = async function (event) {
+    worker.onmessage = async function handleWorker(event) {
       const { results, articles } = event.data;
       const searchResults = JSON.parse(results);
       const allArticles = JSON.parse(articles);

@@ -147,8 +147,7 @@ function filterData(fullTerm, data) {
   }).map((r) => r.article);
 }
 
-self.onmessage = async function (event) {
-  console.log('search worker received message', event.data);
+self.onmessage = async function handleSearch(event) {
   const data = await getSearchIndexData();
   const allArticles = await loadPosts();
   const { searchValue } = event.data;

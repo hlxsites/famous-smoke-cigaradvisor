@@ -7,7 +7,17 @@ import {
 import { buildArticleTeaser } from '../article-teaser/article-teaser.js';
 import { generatePagination, getCategory } from '../../scripts/util.js';
 
-export async function renderPage(wrapper, articles, limit) {
+/**
+ * Renders the page with the given wrapper element, articles, limit, and articlesCount.
+ *
+ * @param {HTMLElement} wrapper - The wrapper element to render the page into.
+ * @param {Array} articles - The array of articles to render.
+ * @param {number} limit - The limit of articles per page.
+ * @param {number} articlesCount - The total count of articles. This is passed for pagination
+ *  when full list of articles are not passed.
+ * @returns {Promise<void>} - A promise that resolves when the page is rendered.
+ */
+export async function renderPage(wrapper, articles, limit, articlesCount) {
   let pageSize = 10;
   if (!articles || articles.length === 0) {
     return;
@@ -23,14 +33,25 @@ export async function renderPage(wrapper, articles, limit) {
   if (match) {
     currentPage = Number.isNaN(parseInt(match[1], 10)) ? currentPage : parseInt(match[1], 10);
   }
-  const totalPages = Math.ceil(articles.length / pageSize);
+  let totalPages;
+  let articleList;
+  /* articlesCount is passed when full list of articles are not passed.
+   * This is needed for pagination.
+   */
+  if (articlesCount) {
+    totalPages = Math.ceil(articlesCount / pageSize);
+    articleList = [...articles];
+  } else {
+    totalPages = Math.ceil(articles.length / pageSize);
+    articleList = articles.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  }
 
   // populating authors and categories info cache
   await Promise.all([getAllAuthors(), fetchAllCategories()]).then();
 
   // eslint-disable-next-line max-len
   // eslint-disable-next-line max-len
-  const articlePromises = articles.slice((currentPage - 1) * pageSize, currentPage * pageSize).map(async (article) => {
+  const articlePromises = articleList.map(async (article) => {
     const articleTeaser = document.createElement('div');
     articleTeaser.classList.add('article-teaser');
     articleTeaser.classList.add('block');

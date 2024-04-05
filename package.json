@@ -6,6 +6,7 @@
   "scripts": {
     "generate-meta": "node tools/importer/generate-metadata.mjs",
     "generate-redirects": "node tools/importer/generate-redirects.mjs",
+    "publish-articles" : "node tools/importer/publish-articles.mjs",
     "lint:js": "eslint .",
     "lint:css": "stylelint cigaradvisor/blocks/**/*.css cigaradvisor/styles/*.css",
     "lint": "npm run lint:js && npm run lint:css",

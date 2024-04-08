@@ -48,52 +48,50 @@ async function handleSearch(searchValue, block, limit) {
   loadingImageContainer.append(spinner);
   block.prepend(loadingImageContainer);
 
-  if (window.Worker) {
-    const worker = new Worker(`${window.hlx.codeBasePath}/blocks/search-results/search-worker.js`);
-    worker.onmessage = async function handleWorker(event) {
-      const { results } = event.data;
-      const articlesCount = results.length;
+  const worker = new Worker(`${window.hlx.codeBasePath}/blocks/search-results/search-worker.js`);
+  worker.onmessage = async function handleWorker(event) {
+    const { results } = event.data;
+    const articlesCount = results.length;
 
-      searchSummary.textContent = `Your search for "${searchValue}" resulted in ${results.length} articles`;
-      if (results.length === 0) {
-        const noResults = document.createElement('p');
-        noResults.classList.add('no-results');
-        noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
-        wrapper.replaceChildren(searchSummary);
-        wrapper.append(noResults);
-        loadingImageContainer.style.display = 'none';
-        return;
+    searchSummary.textContent = `Your search for "${searchValue}" resulted in ${results.length} articles`;
+    if (results.length === 0) {
+      const noResults = document.createElement('p');
+      noResults.classList.add('no-results');
+      noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
+      wrapper.replaceChildren(searchSummary);
+      wrapper.append(noResults);
+      loadingImageContainer.style.display = 'none';
+      return;
+    }
+    let filteredDataCopy = [...results];
+
+    // load the first page of results
+    let resultsToShow = filteredDataCopy.slice(0, limit);
+    // eslint-disable-next-line max-len
+    await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
+
+    wrapper.prepend(searchSummary);
+
+    // handle pagination. Render each page of results when the hash changes
+    window.addEventListener('hashchange', async () => {
+      const heroSearch = document.querySelector('.hero-search');
+      if (heroSearch) {
+        heroSearch.querySelector('input').value = searchValue;
       }
-      let filteredDataCopy = [...results];
-
-      // load the first page of results
-      let resultsToShow = filteredDataCopy.slice(0, limit);
-      // eslint-disable-next-line max-len
+      const url = new URL(window.location.href);
+      const hashParams = new URLSearchParams(url.hash.substring(1));
+      const page = hashParams.get('page');
+      const start = (page - 1) * limit;
+      const end = start + limit;
+      filteredDataCopy = [...results];
+      resultsToShow = filteredDataCopy.slice(start, end);
       await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
-
       wrapper.prepend(searchSummary);
+    });
+  };
 
-      // handle pagination. Render each page of results when the hash changes
-      window.addEventListener('hashchange', async () => {
-        const heroSearch = document.querySelector('.hero-search');
-        if (heroSearch) {
-          heroSearch.querySelector('input').value = searchValue;
-        }
-        const url = new URL(window.location.href);
-        const hashParams = new URLSearchParams(url.hash.substring(1));
-        const page = hashParams.get('page');
-        const start = (page - 1) * limit;
-        const end = start + limit;
-        filteredDataCopy = [...results];
-        resultsToShow = filteredDataCopy.slice(start, end);
-        await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
-        wrapper.prepend(searchSummary);
-      });
-    };
-
-    // To perform a search
-    worker.postMessage({ searchValue });
-  }
+  // To perform a search
+  worker.postMessage({ searchValue });
 }
 
 export default async function decorate(block) {

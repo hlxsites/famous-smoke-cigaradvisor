@@ -165,9 +165,7 @@ self.onmessage = async function handleSearch(event) {
   const searchResults = filterData(searchValue, data);
   const searchedArticle = [];
 
-  searchResults.forEach((post) => {
-    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
-    searchedArticle.push(filteredArticles[0]);
-  });
-  self.postMessage({ results: searchedArticle });
+  const paths = searchResults.map((r) => r.path);
+  const filteredArticles = allArticles.filter((a) => paths.includes(a.path));
+  self.postMessage({ results: filteredArticles });
 };

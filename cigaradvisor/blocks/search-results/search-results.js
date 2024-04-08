@@ -19,7 +19,7 @@ async function processSearchResults(articles, wrapper, limit, articlesCount) {
   const loadingImageContainer = document.querySelector('.loading-image-container');
   const articleListWrapper = document.querySelector('.article-list-wrapper');
   loadingImageContainer.style.transition = 'opacity 2s';
-  loadingImageContainer.style.opacity = 0.5;
+  loadingImageContainer.style.opacity = 0.25;
   articleListWrapper.style.transition = 'opacity 2s';
   articleListWrapper.style.opacity = 0.5;
   articleListWrapper.style.display = 'block';

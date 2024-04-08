@@ -2,11 +2,22 @@
    text-align: center;
 }
 
-.loading-image-container {
+.search-results.block {
+   position: relative;
+   min-height: 200vh;
+}
+
+.search-results.block .loading-image-container {
+   position: absolute;
+   top: 40px;
+   left: 0;
+   z-index: 1000;
+   width: 100%;
    display: flex;
    justify-content: center;
    align-items: center;
    flex-direction: column;
+   margin: 0 auto;
 }
 
 .search-results.block .loading-image {
@@ -25,14 +36,14 @@
    display: inline-block;
    box-sizing: border-box;
    animation: rotation 1s linear infinite;
-   }
+}
 
-   @keyframes rotation {
+@keyframes rotation {
    0% {
-       transform: rotate(0deg);
+      transform: rotate(0deg);
    }
 
    100% {
-       transform: rotate(360deg);
+      transform: rotate(360deg);
    }
-   } 
+}

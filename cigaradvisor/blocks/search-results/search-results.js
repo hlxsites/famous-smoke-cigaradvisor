@@ -18,12 +18,19 @@ async function processSearchResults(articles, wrapper, limit, articlesCount) {
   await renderPage(wrapper, articles, limit, articlesCount);
   const loadingImageContainer = document.querySelector('.loading-image-container');
   const articleListWrapper = document.querySelector('.article-list-wrapper');
-  articleListWrapper.style.transition = 'opacity 2s';
-  articleListWrapper.style.opacity = 1;
-  articleListWrapper.style.display = 'block';
   loadingImageContainer.style.transition = 'opacity 2s';
-  loadingImageContainer.style.opacity = 0;
-  loadingImageContainer.style.display = 'none';
+  loadingImageContainer.style.opacity = 0.5;
+  articleListWrapper.style.transition = 'opacity 2s';
+  articleListWrapper.style.opacity = 0.5;
+  articleListWrapper.style.display = 'block';
+
+  setTimeout(
+    () => {
+      loadingImageContainer.style.display = 'none';
+      articleListWrapper.style.opacity = 1;
+    },
+    1000,
+  );
 }
 
 async function handleSearch(searchValue, block, limit) {

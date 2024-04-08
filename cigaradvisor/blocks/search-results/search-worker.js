@@ -147,23 +147,11 @@ function filterData(fullTerm, data) {
   }).map((r) => r.article);
 }
 
-function getRelativePath(path) {
-  let relPath = path;
-  try {
-    const url = new URL(path);
-    relPath = url.pathname;
-  } catch (error) {
-    // do nothing
-  }
-  return relPath;
-}
-
 self.onmessage = async function handleSearch(event) {
   const data = await getSearchIndexData();
   const allArticles = await loadPosts();
   const { searchValue } = event.data;
   const searchResults = filterData(searchValue, data);
-  const searchedArticle = [];
 
   const paths = searchResults.map((r) => r.path);
   const filteredArticles = allArticles.filter((a) => paths.includes(a.path));

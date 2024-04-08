@@ -154,6 +154,10 @@ self.onmessage = async function handleSearch(event) {
   const searchResults = filterData(searchValue, data);
 
   const paths = searchResults.map((r) => r.path);
-  const filteredArticles = allArticles.filter((a) => paths.includes(a.path));
+  const filteredArticles = allArticles.filter((a) => paths.includes(a.path)).sort((a, b) => {
+    const indexA = paths.indexOf(a.path);
+    const indexB = paths.indexOf(b.path);
+    return indexA - indexB;
+  });
   self.postMessage({ results: filteredArticles });
 };

@@ -1,6 +1,5 @@
 import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 
-import { getRelativePath } from '../../scripts/scripts.js';
 import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -15,12 +14,7 @@ const searchParams = new URLSearchParams(window.location.search);
  * @param {number} articlesCount - The total count of articles. This is needed for pagination.
  * @returns {Promise<void>} - A promise that resolves when the page is rendered.
  */
-async function processSearchResults(results, allArticles, wrapper, limit, articlesCount) {
-  const articles = [];
-  results.forEach((post) => {
-    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
-    articles.push(filteredArticles[0]);
-  });
+async function processSearchResults(articles, wrapper, limit, articlesCount) {
   await renderPage(wrapper, articles, limit, articlesCount);
   const loadingImageContainer = document.querySelector('.loading-image-container');
   const articleListWrapper = document.querySelector('.article-list-wrapper');
@@ -57,13 +51,11 @@ async function handleSearch(searchValue, block, limit) {
   if (window.Worker) {
     const worker = new Worker(`${window.hlx.codeBasePath}/blocks/search-results/search-worker.js`);
     worker.onmessage = async function handleWorker(event) {
-      const { results, articles } = event.data;
-      const searchResults = JSON.parse(results);
-      const allArticles = JSON.parse(articles);
-      const articlesCount = searchResults.length;
+      const { results } = event.data;
+      const articlesCount = results.length;
 
-      searchSummary.textContent = `Your search for "${searchValue}" resulted in ${searchResults.length} articles`;
-      if (searchResults.length === 0) {
+      searchSummary.textContent = `Your search for "${searchValue}" resulted in ${results.length} articles`;
+      if (results.length === 0) {
         const noResults = document.createElement('p');
         noResults.classList.add('no-results');
         noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
@@ -72,12 +64,12 @@ async function handleSearch(searchValue, block, limit) {
         loadingImageContainer.style.display = 'none';
         return;
       }
-      let filteredDataCopy = [...searchResults];
+      let filteredDataCopy = [...results];
 
       // load the first page of results
       let resultsToShow = filteredDataCopy.slice(0, limit);
       // eslint-disable-next-line max-len
-      await processSearchResults(resultsToShow, allArticles, wrapper, limit, articlesCount);
+      await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
 
       wrapper.prepend(searchSummary);
 
@@ -92,9 +84,9 @@ async function handleSearch(searchValue, block, limit) {
         const page = hashParams.get('page');
         const start = (page - 1) * limit;
         const end = start + limit;
-        filteredDataCopy = [...searchResults];
+        filteredDataCopy = [...results];
         resultsToShow = filteredDataCopy.slice(start, end);
-        await processSearchResults(resultsToShow, allArticles, wrapper, limit, articlesCount);
+        await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
         wrapper.prepend(searchSummary);
       });
     };

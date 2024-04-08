@@ -147,10 +147,27 @@ function filterData(fullTerm, data) {
   }).map((r) => r.article);
 }
 
+function getRelativePath(path) {
+  let relPath = path;
+  try {
+    const url = new URL(path);
+    relPath = url.pathname;
+  } catch (error) {
+    // do nothing
+  }
+  return relPath;
+}
+
 self.onmessage = async function handleSearch(event) {
   const data = await getSearchIndexData();
   const allArticles = await loadPosts();
   const { searchValue } = event.data;
   const searchResults = filterData(searchValue, data);
-  self.postMessage({ results: JSON.stringify(searchResults), articles: JSON.stringify(allArticles) });
+  const searchedArticle = [];
+
+  searchResults.forEach((post) => {
+    const filteredArticles = allArticles.filter((obj) => obj.path === getRelativePath(post.path));
+    searchedArticle.push(filteredArticles[0]);
+  });
+  self.postMessage({ results: searchedArticle });
 };

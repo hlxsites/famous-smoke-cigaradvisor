@@ -20,6 +20,10 @@
    margin: 0 auto;
 }
 
+.search-results.block .article-list-wrapper {
+   display: none;
+}
+
 .search-results.block .loading-image {
    display: block;
    margin: 0 auto;

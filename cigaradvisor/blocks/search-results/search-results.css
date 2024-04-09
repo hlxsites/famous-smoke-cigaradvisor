@@ -1,75 +1,72 @@
 .search-results.block p {
-   text-align: center;
+  text-align: center;
 }
 
 .search-results.block {
-   position: relative;
-   min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
 }
 
 .search-results.block .loading-image-container {
-   position: absolute;
-   top: 40px;
-   left: 0;
-   z-index: 1000;
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   margin: 0 auto;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 
-.search-results.block .loading-image-container.fade-out {
-   display: none;
- }
+.search-results.block .loading-image-container {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s linear;
+}
 
- .search-results.block .loading-image-container.partial-fade-out {
-   opacity: 0.5;
-   transition: opacity 2s;
+.search-results.block.loading .loading-image-container {
+  opacity: 1;
+  visibility: visible;
 }
 
 .search-results.block .article-list-wrapper {
-   display: none;
+  opacity: 1;
+  visibility: visible;
+  transition: all 1s linear;
 }
 
-.search-results.block .article-list-wrapper.fade-in {
-   display: block;
-   opacity: 1;
-   transition: opacity 2s;
-}
-
-.search-results.block .article-list-wrapper.partial-fade-in {
-   display: block;
-   opacity: 0.25s;
-   transition: opacity 2s;
+.search-results.block.loading .article-list-wrapper {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .search-results.block .loading-image {
-   display: block;
-   margin: 0 auto;
-   width: 100vw;
-   height: 300px;
+  display: block;
+  margin: 0 auto;
+  width: 100vw;
+  height: 300px;
 }
 
 .search-results.block .loader {
-   width: 48px;
-   height: 48px;
-   border: 5px solid var(--medium-grey);
-   border-bottom-color: transparent;
-   border-radius: 50%;
-   display: inline-block;
-   box-sizing: border-box;
-   animation: rotation 1s linear infinite;
+  width: 48px;
+  height: 48px;
+  border: 5px solid var(--medium-grey);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {
-   0% {
-      transform: rotate(0deg);
-   }
+  0% {
+    transform: rotate(0deg);
+  }
 
-   100% {
-      transform: rotate(360deg);
-   }
+  100% {
+    transform: rotate(360deg);
+  }
 }

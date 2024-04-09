@@ -4,35 +4,6 @@ import { renderPage } from '../article-list/article-list.js';
 
 const searchParams = new URLSearchParams(window.location.search);
 
-/**
- * Get details of each search result from the article-index.
- *
- * @param {Array} results - The search results.
- * @param {Array} allArticles - All the articles.
- * @param {HTMLElement} wrapper - The wrapper element to append the results.
- * @param {number} limit - The maximum number of articles to display.
- * @param {number} articlesCount - The total count of articles. This is needed for pagination.
- * @returns {Promise<void>} - A promise that resolves when the page is rendered.
- */
-async function processSearchResults(articles, wrapper, limit, articlesCount) {
-  await renderPage(wrapper, articles, limit, articlesCount);
-  const loadingImageContainer = document.querySelector('.loading-image-container');
-  const articleListWrapper = document.querySelector('.article-list-wrapper');
-  loadingImageContainer.style.transition = 'opacity 2s';
-  loadingImageContainer.style.opacity = 0.25;
-  articleListWrapper.style.transition = 'opacity 2s';
-  articleListWrapper.style.opacity = 0.5;
-  articleListWrapper.style.display = 'block';
-
-  setTimeout(
-    () => {
-      loadingImageContainer.style.display = 'none';
-      articleListWrapper.style.opacity = 1;
-    },
-    1000,
-  );
-}
-
 async function handleSearch(searchValue, block, limit) {
   const wrapper = block.querySelector('.article-teaser-wrapper');
   const searchSummary = document.createElement('p');
@@ -75,7 +46,14 @@ async function handleSearch(searchValue, block, limit) {
     // load the first page of results
     let resultsToShow = filteredDataCopy.slice(0, limit);
     // eslint-disable-next-line max-len
-    await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
+    const articleListWrapper = block.querySelector('.article-list-wrapper');
+    loadingImageContainer.classList.add('partial-fade-out');
+    articleListWrapper.classList.add('partial-fade-in');
+    await renderPage(wrapper, resultsToShow, limit, articlesCount);
+    articleListWrapper.classList.remove('partial-fade-in');
+    articleListWrapper.classList.add('fade-in');
+    loadingImageContainer.classList.remove('partial-fade-out');
+    loadingImageContainer.classList.add('fade-out');
 
     wrapper.prepend(searchSummary);
 
@@ -92,7 +70,7 @@ async function handleSearch(searchValue, block, limit) {
       const end = start + limit;
       filteredDataCopy = [...results];
       resultsToShow = filteredDataCopy.slice(start, end);
-      await processSearchResults(resultsToShow, wrapper, limit, articlesCount);
+      await renderPage(wrapper, resultsToShow, limit, articlesCount);
       wrapper.prepend(searchSummary);
     });
   };

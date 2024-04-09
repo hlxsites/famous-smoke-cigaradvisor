@@ -93,8 +93,6 @@ export default async function decorate(block) {
 
   block.replaceChildren(loadingImageContainer, articleListWrapper);
 
-
-
   const heroSearch = document.querySelector('.hero-search');
 
   if (searchParams.get('s')) {

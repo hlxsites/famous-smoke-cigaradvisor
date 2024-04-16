@@ -7,9 +7,6 @@ export default async function decorate(block) {
   const picture = block.querySelector('picture');
   decorateSeoPicture(picture, window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
   imageWrapper.append(picture);
-  const img = picture.querySelector('img');
-  const ratio = (parseInt(img.height, 10) / parseInt(img.width, 10)) * 100;
-  picture.style.paddingBottom = `${ratio}%`;
   const articleInfo = document.createElement('div');
   articleInfo.classList.add('article-info');
   const categoryLink = block.querySelector('p.category').innerText;

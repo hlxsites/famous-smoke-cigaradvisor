@@ -146,9 +146,9 @@ function loadWisePopup() {
   document.querySelector('body').append(script);
 }
 
-loadConsentManager();
 
 if (window.location.hostname !== 'localhost') {
+  loadConsentManager();
   loadGTM();
   // loadFoxPush();
   loadiZooto();

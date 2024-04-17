@@ -1,3 +1,23 @@
+.loading {
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading-shimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #fafafa 8%, #f4f4f4 38%, #fafafa 54%);
+  background-size: 1000px 640px;
+}
+
+@keyframes loading-shimmer{
+  0%{
+    background-position: -468px 0
+  }
+
+  100%{
+    background-position: 468px 0
+  }
+}
 
 .article-teaser.block .article-thumbnail:hover::before {
   visibility: hidden;
@@ -93,7 +113,7 @@
   width: 100%;
 }
 
-.article-teaser.block .article.article-thumbnail .article-image>img {
+.article-teaser.block .article.article-thumbnail .article-image > img {
   display: block;
   width: 100%;
   max-height: 321px;
@@ -124,8 +144,6 @@
   justify-content: flex-end;
   text-align: center;
   overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .article-teaser.block .article.article-thumbnail .article-header {
@@ -137,30 +155,30 @@
   display: block;
 }
 
-.article-teaser.block .article.article-thumbnail .article-title {
-  margin: 0 14px 16px;
-  font-size: var(--body-font-size-l);
-  font-weight: 800;
-}
-
-.article-teaser.block .article.article-thumbnail .article-title-link {
-  display: block;
-  font-size: inherit;
-  font-weight: inherit;
-  color: inherit;
-}
-
-.article-teaser.block .article-thumbnail .article-meta a {
+.article-teaser.block .article-thumbnail .article-meta > a {
   position: relative;
   z-index: 2;
   text-decoration: none;
   color: var(--clr-dark-gray);
 }
 
-.article-teaser.block .article-thumbnail .article-meta>* {
+.article-teaser.block .article-thumbnail .article-meta > * {
   display: inline-block;
   font-family: var(--ff-montserrat);
   font-weight: var(--font-weight-normal);
+}
+
+.article-teaser.block .article.article-thumbnail .article-header > h2 {
+  margin: 0 14px 16px;
+  font-size: var(--body-font-size-l);
+  font-weight: 800;
+}
+
+.article-teaser.block .article.article-thumbnail .article-header > h2 > a {
+  display: block;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
 }
 
 .article-teaser.block .article.article-thumbnail .article-pubdate:not(:only-child)::before {

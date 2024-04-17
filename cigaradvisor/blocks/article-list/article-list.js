@@ -128,6 +128,14 @@ async function renderByList(configs, wrapper, pinnedArticles, limit) {
   return renderPage(wrapper, articles, limit);
 }
 
+async function renderDummyList(wrapper, limit) {
+  const articles = [];
+  for (let i = 0; i < 10; i += 1) {
+    articles.push({});
+  }
+  return renderPage(wrapper, articles, limit);
+}
+
 export default async function decorate(block) {
   await loadCSS(`${window.hlx.codeBasePath}/blocks/article-teaser/article-teaser.css`);
   const configs = readBlockConfig(block);
@@ -146,21 +154,26 @@ export default async function decorate(block) {
   articleTeaserWrapper.classList.add('article-teaser-wrapper');
   block.replaceChildren(articleTeaserWrapper);
 
+  await renderDummyList(articleTeaserWrapper, limit);
+  // initial load
   if (category) {
-    await renderByCategory(articleTeaserWrapper, category, limit);
+    renderByCategory(articleTeaserWrapper, category, limit).then();
   } else if (author) {
-    await renderByAuthor(articleTeaserWrapper, author, limit);
+    renderByAuthor(articleTeaserWrapper, author, limit).then();
   } else {
-    await renderByList(configs, articleTeaserWrapper, articles, limit);
+    renderByList(configs, articleTeaserWrapper, articles, limit).then();
   }
 
+  // on change
   window.addEventListener('hashchange', async () => {
+    await renderDummyList(articleTeaserWrapper, limit);
+    // initial load
     if (category) {
-      await renderByCategory(articleTeaserWrapper, category, limit);
+      renderByCategory(articleTeaserWrapper, category, limit).then();
     } else if (author) {
-      await renderByAuthor(articleTeaserWrapper, author, limit);
+      renderByAuthor(articleTeaserWrapper, author, limit).then();
     } else {
-      await renderByList(configs, articleTeaserWrapper, articles, limit);
+      renderByList(configs, articleTeaserWrapper, articles, limit).then();
     }
   });
 

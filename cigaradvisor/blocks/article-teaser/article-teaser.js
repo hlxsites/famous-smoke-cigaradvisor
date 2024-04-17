@@ -5,7 +5,82 @@ import {
 
 // eslint-disable-next-line max-len
 export function buildArticleTeaser(parentElement, article) {
-  const ldjson = {
+  const articleEl = document.createElement('article');
+  articleEl.classList.add('article', 'article-thumbnail');
+  parentElement.appendChild(articleEl);
+
+  if (Object.keys(article).length === 0) {
+    articleEl.classList.add('loading');
+    return;
+  }
+
+  if (article.category) {
+    const categoryAnchor = document.createElement('a');
+    categoryAnchor.classList.add('article-category');
+    categoryAnchor.href = article.category.path || '';
+    if (article.category.heading) {
+      categoryAnchor.classList.add(article.category.heading.toLowerCase().replaceAll(/\s+/g, '-'));
+      categoryAnchor.title = article.category.heading;
+      categoryAnchor.setAttribute('data-category', article.category.heading);
+      categoryAnchor.textContent = article.category.heading;
+    }
+    articleEl.appendChild(categoryAnchor);
+  }
+
+  const pictureEl = document.createElement('div');
+  pictureEl.classList.add('article-image');
+  articleEl.appendChild(pictureEl);
+  if (article.image) {
+    const picture = createOptimizedPicture(article.image);
+    picture.querySelector('img').setAttribute('alt', article.heading.replace(/[^\w\s]/gi, ''));
+    decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') + 1));
+    pictureEl.appendChild(picture);
+  }
+
+  const content = document.createElement('div');
+  content.classList.add('article-content');
+  articleEl.appendChild(content);
+
+  const header = document.createElement('articleheader');
+  header.classList.add('article-header');
+  content.appendChild(header);
+  const title = document.createElement('H2');
+  header.appendChild(title);
+  const titleAnchor = document.createElement('a');
+  titleAnchor.href = article.path || '';
+  if (article.heading) {
+    titleAnchor.title = article.heading;
+    titleAnchor.textContent = article.heading;
+  }
+  title.appendChild(titleAnchor);
+  const meta = document.createElement('div');
+  meta.classList.add('article-meta');
+  header.appendChild(meta);
+  const metaAnchor = document.createElement('a');
+  metaAnchor.href = article.author?.path;
+  if (article.author?.name) {
+    metaAnchor.title = `By ${article.author?.name}`;
+    metaAnchor.textContent = `By ${article.author?.name}`;
+  }
+  meta.appendChild(metaAnchor);
+
+  const preview = document.createElement('div');
+  preview.classList.add('article-preview');
+  content.appendChild(preview);
+  const excerpt = document.createElement('div');
+  excerpt.classList.add('article-excerpt');
+  preview.appendChild(excerpt);
+  const excerptParagraph = document.createElement('p');
+  excerptParagraph.textContent = article.articleBlurb || '';
+  excerpt.appendChild(excerptParagraph);
+  const readMoreAnchor = document.createElement('a');
+  readMoreAnchor.classList.add('article-read-more', 'read-more');
+  readMoreAnchor.href = article.path || '';
+  readMoreAnchor.title = 'Read More';
+  readMoreAnchor.textContent = 'Read More';
+  preview.appendChild(readMoreAnchor);
+
+  const ldJson = {
     '@context': 'http://schema.org',
     '@type': 'BlogPosting',
     name: article.heading,
@@ -28,37 +103,10 @@ export function buildArticleTeaser(parentElement, article) {
     },
     image: `https://www.famous-smoke.com${article.image}`,
   };
-
-  const picture = createOptimizedPicture(article.image);
-  picture.querySelector('img').setAttribute('alt', article.heading.replace(/[^\w\s]/gi, ''));
-  decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') + 1));
-
-  const category = (article.category && article.category.heading) ? article.category.heading : '';
-  parentElement.innerHTML += `
-    <article class="article article-thumbnail">
-      <a class="article-category ${category.toLowerCase().replaceAll(/\s+/g, '-')}" href="${article.category ? article.category.path : ''}" data-category="${category}" title="${category}">${category}</a>
-      <div class="article-image">
-        ${picture.outerHTML}
-      </div>
-      <div class="article-content">
-        <articleheader class="article-header">
-            <h2 class="article-title">
-              <a class="article-title-link" href="${article.path}" title="${article.heading}">${article.heading}</a>
-            </h2>
-            <div class="article-meta">
-              <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
-            </div>
-        </articleheader>
-        <div class="article-preview">
-          <div class="article-excerpt">
-            <p>${article.articleBlurb}</p>
-          </div>
-          <a class="article-read-more read-more" href="${article.path}" title="Read More">Read More</a>
-        </div>
-      </div>
-      <script type="application/ld+json">${JSON.stringify(ldjson)}</script>
-    </article>
-  `;
+  const ldJsonScript = document.createElement('script');
+  ldJsonScript.type = 'application/ld+json';
+  ldJsonScript.textContent = JSON.stringify(ldJson);
+  articleEl.appendChild(ldJsonScript);
 }
 
 export default async function decorate(block) {

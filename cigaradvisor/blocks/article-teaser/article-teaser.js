@@ -34,6 +34,7 @@ export function buildArticleTeaser(parentElement, article) {
   decorateSeoPicture(picture, article.path.substring(article.path.lastIndexOf('/') + 1));
 
   const category = (article.category && article.category.heading) ? article.category.heading : '';
+  /* eslint-disable max-len */
   parentElement.innerHTML += `
     <article class="article article-thumbnail">
       <a class="article-category ${category.toLowerCase().replaceAll(/\s+/g, '-')}" href="${article.category ? article.category.path : ''}" data-category="${category}" title="${category}">${category}</a>
@@ -59,6 +60,7 @@ export function buildArticleTeaser(parentElement, article) {
       <script type="application/ld+json">${JSON.stringify(ldjson)}</script>
     </article>
   `;
+  /* eslint-disable max-len */
 }
 
 export default async function decorate(block) {

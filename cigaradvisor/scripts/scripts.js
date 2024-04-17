@@ -12,15 +12,28 @@ import {
   loadBlocks,
   loadCSS,
   getMetadata,
+  createOptimizedPicture,
 } from './aem.js';
-import { loadReturnToTop } from '../blocks/return-to-top/return-to-top.js';
+import { a, div, span } from './dom-helpers.js';
 import addLinkingData from './linking-data.js';
 
 const LCP_BLOCKS = ['hero', 'articleheader'];
 const AUTHOR_INDEX_PATH = '/cigaradvisor/index/author-index.json';
 const CATEGORY_INDEX_PATH = '/cigaradvisor/index/category-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/index/article-index.json';
-const SEARCH_INDEX_PATH = '/cigaradvisor/index/search-index.json';
+
+const ICON_ALTS = new Map([
+  ['magnifying-glass', 'Search'],
+  ['bars', 'Toggle navigation'],
+  ['x-twitter', 'X'],
+  ['facebook-f', 'Facebook'],
+  ['instagram', 'Instagram'],
+  ['youtube', 'YouTube'],
+  ['pinterest-p', 'Pinterest'],
+  ['monster', 'Cigar Monster'],
+  ['auctioneer', 'Cigar Auctioneer'],
+  ['famous', 'Famous Smoke'],
+]);
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -52,11 +65,11 @@ function buildHeroBlock(main) {
  */
 async function decorateTemplate(main) {
   // Nothing to process
-  const template = getMetadata('template');
+  let template = getMetadata('template');
   if (!template) {
     return;
   }
-
+  template = template.toLowerCase();
   // Protect against recursion from fragment block
   if (!main.closest(`.${template}`)) {
     return;
@@ -141,19 +154,6 @@ function decorateSeoPictures(main) {
   main.querySelectorAll('picture').forEach((picture) => decorateSeoPicture(picture));
 }
 
-const ICON_ALTS = new Map([
-  ['magnifying-glass', 'Search'],
-  ['bars', 'Toggle navigation'],
-  ['x-twitter', 'X'],
-  ['facebook-f', 'Facebook'],
-  ['instagram', 'Instagram'],
-  ['youtube', 'YouTube'],
-  ['pinterest-p', 'Pinterest'],
-  ['monster', 'Cigar Monster'],
-  ['auctioneer', 'Cigar Auctioneer'],
-  ['famous', 'Famous Smoke'],
-]);
-
 /**
  * Decorates the block icons with metadata.
  * @param {HTMLElement} block - The block element.
@@ -203,6 +203,37 @@ async function loadFonts() {
   } catch (e) {
     // do nothing
   }
+}
+
+function addReturnToTop(main) {
+  const picture = createOptimizedPicture('/cigaradvisor/icons/return-to-top.webp');
+
+  const rtt = a(
+    { id: 'return-to-top', class: 'hidden' },
+    picture,
+    div(
+      { class: 'icon-container' },
+      span({ class: 'icon icon-angle-up', alt: 'Return to the top of the page.' }),
+    ),
+  );
+  decorateIcons(rtt);
+  main.append(rtt);
+  rtt.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      rtt.classList.add('hidden');
+    } else {
+      rtt.classList.remove('hidden');
+    }
+  }, {
+    threshold: 0.5,
+  });
+  observer.observe(main.querySelector('.section picture'));
 }
 
 /**
@@ -256,10 +287,10 @@ export function isInternal(path) {
  */
 export function decorateExternalLink(element) {
   const anchors = element.querySelectorAll('a');
-  anchors.forEach((a) => {
-    if (!isInternal(a.getAttribute('href'))) {
-      a.setAttribute('target', '_blank');
-      a.setAttribute('rel', 'noopener');
+  anchors.forEach((link) => {
+    if (!isInternal(link.getAttribute('href'))) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
     }
   });
 }
@@ -295,8 +326,8 @@ export async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
     if (resp.ok) {
       jsonData = await resp.json();
     }
-    jsonData.data.forEach((a) => {
-      articleIndexData.push({ ...a });
+    jsonData.data.forEach((article) => {
+      articleIndexData.push({ ...article });
     });
     // If there are more articles to load, load them
     if ((jsonData.total - jsonData.offset) > jsonData.limit) {
@@ -308,40 +339,8 @@ export async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
   // Protected against callers modifying the objects
   const ret = [];
   if (articleIndexData) {
-    articleIndexData.forEach((a) => {
-      ret.push({ ...a });
-    });
-  }
-  return ret;
-}
-
-const searchIndexData = [];
-/**
- * Retrieves search index data from the server.
- * @returns {Promise<Object>} The search index data.
- */
-export async function getSearchIndexData(path = SEARCH_INDEX_PATH, flag = false) {
-  if (searchIndexData.length === 0 || flag) {
-    const resp = await fetch(path);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
-    }
-    jsonData.data.forEach((a) => {
-      searchIndexData.push({ ...a });
-    });
-    // If there are more items to load, load them
-    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
-      const offset = jsonData.offset + jsonData.limit;
-      const indexPath = `${SEARCH_INDEX_PATH}?offset=${offset}&limit=${jsonData.total - offset}`;
-      await getSearchIndexData(indexPath, true);
-    }
-  }
-  // Protected against callers modifying the objects
-  const ret = [];
-  if (searchIndexData) {
-    searchIndexData.forEach((a) => {
-      ret.push({ ...a });
+    articleIndexData.forEach((article) => {
+      ret.push({ ...article });
     });
   }
   return ret;
@@ -396,9 +395,9 @@ export async function getAllAuthors(sort = false) {
     }
   }
   if (sort) {
-    authorIndexData.sort((a, b) => {
-      const nameA = a.name.toUpperCase();
-      const nameB = b.name.toUpperCase();
+    authorIndexData.sort((l, r) => {
+      const nameA = l.name.toUpperCase();
+      const nameB = r.name.toUpperCase();
       // eslint-disable-next-line no-nested-ternary
       return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
     });
@@ -407,8 +406,8 @@ export async function getAllAuthors(sort = false) {
   // Protected against callers modifying the objects
   const ret = [];
   if (authorIndexData) {
-    authorIndexData.forEach((a) => {
-      ret.push({ ...a });
+    authorIndexData.forEach((article) => {
+      ret.push({ ...article });
     });
   }
   return ret;
@@ -521,11 +520,11 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
-  loadReturnToTop(main);
   addLinkingData(doc);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  addReturnToTop(main);
 
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));

@@ -1,33 +1,25 @@
-import { fetchCategoryInfo, fetchAuthorInfo, decorateSeoPicture } from '../../scripts/scripts.js';
+import {
+  a, div, h1, section,
+} from '../../scripts/dom-helpers.js';
+import { fetchCategoryInfo, fetchAuthorInfo } from '../../scripts/scripts.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
-  const section = document.createElement('section');
-  const imageWrapper = document.createElement('div');
-  imageWrapper.classList.add('image-wrapper');
+  const config = readBlockConfig(block);
+
   const picture = block.querySelector('picture');
-  decorateSeoPicture(picture, window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1));
-  imageWrapper.append(picture);
-  const articleInfo = document.createElement('div');
-  articleInfo.classList.add('article-info');
-  const categoryLink = block.querySelector('p.category').innerText;
-  const category = await fetchCategoryInfo(categoryLink);
-  if (category) {
-    const categoryLinkEl = document.createElement('div');
-    categoryLinkEl.classList.add('article-category');
-    categoryLinkEl.innerHTML = `<a href="${categoryLink}">${category.heading}</a>`;
-    articleInfo.append(categoryLinkEl);
-  }
-  articleInfo.append(block.querySelector('h1'));
-  const authorLink = block.querySelector('p.author').innerText;
-  const author = await fetchAuthorInfo(authorLink);
-  const authorLinkEl = document.createElement('div');
-  authorLinkEl.classList.add('article-author');
-  if (author) {
-    authorLinkEl.innerHTML = `<a href="${authorLink}">By ${author.name}</a>`;
-    articleInfo.append(authorLinkEl);
-  }
-  articleInfo.append(authorLinkEl);
-  section.append(imageWrapper);
-  section.append(articleInfo);
-  block.replaceChildren(section);
+
+  const category = await fetchCategoryInfo(config.category);
+  const author = await fetchAuthorInfo(config.author);
+  const sect = section(
+    {},
+    div({ class: 'image-wrapper' }, picture),
+    div(
+      { class: 'article-info' },
+      div({ class: 'article-category' }, a({ href: config.category }, category.heading)),
+      h1(config.heading),
+      div({ class: 'article-author' }, a({ href: config.author }, author.name)),
+    ),
+  );
+  block.replaceChildren(sect);
 }

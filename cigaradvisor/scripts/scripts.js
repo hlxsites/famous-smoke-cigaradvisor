@@ -17,7 +17,7 @@ import {
 import { a, div, span } from './dom-helpers.js';
 import addLinkingData from './linking-data.js';
 
-const LCP_BLOCKS = ['hero'];
+const LCP_BLOCKS = ['hero', 'articleheader'];
 const AUTHOR_INDEX_PATH = '/cigaradvisor/index/author-index.json';
 const CATEGORY_INDEX_PATH = '/cigaradvisor/index/category-index.json';
 const ARTICLE_INDEX_PATH = '/cigaradvisor/index/article-index.json';

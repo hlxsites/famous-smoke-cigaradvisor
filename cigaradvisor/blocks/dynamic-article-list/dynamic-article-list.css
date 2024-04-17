@@ -1,0 +1,10 @@
+@import url('../article-list/article-list.css');
+@import url('../article-teaser/article-teaser.css');
+
+.dynamic-article-list h3 {
+  font-family: var(--ff-opensans);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--heading-font-size-xxs);
+  line-height: var(--line-height-m);
+  margin: 2rem 0 1rem;
+}

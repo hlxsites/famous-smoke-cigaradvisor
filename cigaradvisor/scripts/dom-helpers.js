@@ -98,3 +98,4 @@ export function strong(...items) { return domEl('strong', ...items); }
 export function select(...items) { return domEl('select', ...items); }
 export function option(...items) { return domEl('option', ...items); }
 export function hr(...items) { return domEl('hr', ...items); }
+export function section(...items) { return domEl('section', ...items); }

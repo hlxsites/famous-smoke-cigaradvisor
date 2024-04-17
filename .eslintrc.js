@@ -12,6 +12,7 @@ module.exports = {
   },
   rules: {
     // allow reassigning param
+    'max-len': ['error', { code: 220 }],
     'no-param-reassign': [2, { props: false }],
     'linebreak-style': ['error', 'unix'],
     'import/extensions': ['error', {

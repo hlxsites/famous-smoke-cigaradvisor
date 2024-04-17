@@ -12,12 +12,12 @@ import { generatePagination, getCategory } from '../../scripts/util.js';
  *
  * @param {HTMLElement} wrapper - The wrapper element to render the page into.
  * @param {Array} articles - The array of articles to render.
- * @param {number} limit - The limit of articles per page.
+ * @param {Number|String} limit - The limit of articles per page.
  * @param {number} articlesCount - The total count of articles. This is passed for pagination
  *  when full list of articles are not passed.
  * @returns {Promise<void>} - A promise that resolves when the page is rendered.
  */
-export async function renderPage(wrapper, articles, limit, articlesCount) {
+export async function renderPage(wrapper, articles, limit = 10, articlesCount = undefined) {
   let pageSize = 10;
   if (!articles || articles.length === 0) {
     return;

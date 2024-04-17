@@ -4,6 +4,8 @@ import { addLdJsonScript } from '../../scripts/linking-data.js';
 
 export default async function decorate(block) {
   block.parentElement.remove();
+  const img = document.querySelector('main img');
+
 
   const promises = [];
   promises.push(fetchPostsInfo(window.location.pathname));
@@ -43,7 +45,7 @@ export default async function decorate(block) {
     },
     image: {
       '@type': 'ImageObject',
-      url: 'https://www.famous-smoke.com/cigaradvisor/wp-content/uploads/2019/10/cigar-advisor-asylum-essential-review-guide-cover.jpeg',
+      url: img.src,
     },
     articleSection: category.heading,
     description: article.description,

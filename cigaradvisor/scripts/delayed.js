@@ -100,7 +100,6 @@ function loadConsentManager() {
   document.head.appendChild(script);
 }
 
-loadConsentManager();
 
 function loadGTM() {
   const tag = document.createElement('script');
@@ -147,12 +146,12 @@ function loadWisePopup() {
   document.querySelector('body').append(script);
 }
 
-window.setTimeout(() => {
-  if (window.location.hostname !== 'localhost') {
-    loadGTM();
-    // loadFoxPush();
-    loadiZooto();
-    loadAccessibility();
-    loadWisePopup();
-  }
-}, 3000);
+loadConsentManager();
+
+if (window.location.hostname !== 'localhost') {
+  loadGTM();
+  // loadFoxPush();
+  loadiZooto();
+  loadAccessibility();
+  loadWisePopup();
+}

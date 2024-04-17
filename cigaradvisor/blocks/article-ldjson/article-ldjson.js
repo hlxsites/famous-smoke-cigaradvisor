@@ -6,7 +6,6 @@ export default async function decorate(block) {
   block.parentElement.remove();
   const img = document.querySelector('main img');
 
-
   const promises = [];
   promises.push(fetchPostsInfo(window.location.pathname));
   promises.push(fetchAuthorInfo(getMetadata('author')));

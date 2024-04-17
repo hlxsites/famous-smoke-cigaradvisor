@@ -100,7 +100,6 @@ function loadConsentManager() {
   document.head.appendChild(script);
 }
 
-
 function loadGTM() {
   const tag = document.createElement('script');
   tag.type = 'text/javascript';
@@ -145,7 +144,6 @@ function loadWisePopup() {
   script.innerHTML = WISE_POPUP_SCRIPT;
   document.querySelector('body').append(script);
 }
-
 
 if (window.location.hostname !== 'localhost') {
   loadConsentManager();

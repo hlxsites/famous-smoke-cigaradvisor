@@ -10,7 +10,7 @@ export default async function decorate(block) {
   const picture = block.querySelector('picture');
 
   const category = await fetchCategoryInfo(config.category);
-  const author = await fetchAuthorInfo(config.author);
+  const author = await fetchAuthorInfo(config.author) || {};
   const sect = section(
     {},
     div({ class: 'image-wrapper' }, picture),
@@ -18,7 +18,7 @@ export default async function decorate(block) {
       { class: 'article-info' },
       div({ class: 'article-category' }, a({ href: config.category }, category.heading)),
       h1(config.heading),
-      div({ class: 'article-author' }, a({ href: config.author }, author.name)),
+      div({ class: 'article-author' }, a({ href: config.author }, author.name || 'Unknown')),
     ),
   );
   block.replaceChildren(sect);

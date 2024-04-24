@@ -5,6 +5,7 @@ import {
 
 // eslint-disable-next-line max-len
 export function buildArticleTeaser(parentElement, article) {
+  const author = article.author || {};
   const ldjson = {
     '@context': 'http://schema.org',
     '@type': 'BlogPosting',
@@ -23,8 +24,8 @@ export function buildArticleTeaser(parentElement, article) {
     dateModified: new Date(article.lastModified * 1000).toISOString(),
     author: {
       '@type': 'Person',
-      name: article.author.name,
-      url: `https://www.famous-smoke.com${article.author.path}`,
+      name: author.name || 'Unknown',
+      url: `https://www.famous-smoke.com${author.path || '/author'}`,
     },
     image: `https://www.famous-smoke.com${article.image}`,
   };
@@ -47,7 +48,7 @@ export function buildArticleTeaser(parentElement, article) {
               <a class="article-title-link" href="${article.path}" title="${article.heading}">${article.heading}</a>
             </h2>
             <div class="article-meta">
-              <a class="article-authorLink" href="${article.author ? article.author.path : ''}" title="By ${(article.author && article.author.name) ? article.author.name : ''}">By ${(article.author && article.author.name) ? article.author.name : ''}</a>
+              <a class="article-authorLink" href="${author.path || '/author'}" title="By ${author.name || 'Unknown'}">By ${author.name || 'Unknown'}</a>
             </div>
         </articleheader>
         <div class="article-preview">

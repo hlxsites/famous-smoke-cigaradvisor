@@ -1,75 +1,17 @@
-/* eslint-disable max-len */
-/* eslint-disable no-restricted-globals */
 const ARTICLE_INDEX_PATH = '/cigaradvisor/index/article-index.json';
 const SEARCH_INDEX_PATH = '/cigaradvisor/index/search-index.json';
-const articleIndexData = [];
 
-const searchIndexData = [];
-/**
- * Retrieves search index data from the server.
- * @returns {Promise<Object>} The search index data.
- */
-async function getSearchIndexData(path = SEARCH_INDEX_PATH, flag = false) {
-  if (searchIndexData.length === 0 || flag) {
-    const resp = await fetch(path);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
-    }
-    jsonData.data.forEach((a) => {
-      searchIndexData.push({ ...a });
-    });
-    // If there are more items to load, load them
-    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
-      const offset = jsonData.offset + jsonData.limit;
-      const indexPath = `${SEARCH_INDEX_PATH}?offset=${offset}&limit=${jsonData.total - offset}`;
-      await getSearchIndexData(indexPath, true);
-    }
-  }
-  // Protected against callers modifying the objects
-  const ret = [];
-  if (searchIndexData) {
-    searchIndexData.forEach((a) => {
-      ret.push({ ...a });
-    });
-  }
-  return ret;
-}
-
-/**
- * Loads posts from the specified path asynchronously.
- * @param {string} path - The path to fetch the posts from.
- * @param {boolean} recurse - Indicates whether to recursively load more articles.
- * @returns {Promise<Array<Object>>} - A promise that resolves to an array of post objects.
- */
-async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
-  if (articleIndexData.length === 0 || recurse) {
-    const resp = await fetch(path);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
-    }
-    jsonData.data.forEach((a) => {
-      articleIndexData.push({ ...a });
-    });
-    // If there are more articles to load, load them
-    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
-      const offset = jsonData.offset + jsonData.limit;
-      const indexPath = `${ARTICLE_INDEX_PATH}?offset=${offset}&limit=${jsonData.total - offset}`;
-      await loadPosts(indexPath, true);
-    }
-  }
-  // Protected against callers modifying the objects
-  const ret = [];
-  if (articleIndexData) {
-    articleIndexData.forEach((a) => {
-      ret.push({ ...a });
-    });
-  }
-  return ret;
-}
-
+const BUCKET_SIZE = 500;
 const IGNORED_TERMS = [];
+
+async function getTotal(index) {
+  const resp = await fetch(`${index}?limit=1`);
+  if (resp.ok) {
+    const json = await resp.json();
+    return json.total;
+  }
+  return 0;
+}
 
 const doMatch = (property, term) => {
   const regex = new RegExp(term, 'gi');
@@ -130,6 +72,10 @@ function filterData(fullTerm, data) {
     }
   });
 
+  return results;
+}
+
+function sortData(results) {
   return results.sort((l, r) => {
     if (l.rank < r.rank) {
       return -1;
@@ -147,17 +93,82 @@ function filterData(fullTerm, data) {
   }).map((r) => r.article);
 }
 
-self.onmessage = async function handleSearch(event) {
-  const data = await getSearchIndexData();
-  const allArticles = await loadPosts();
-  const { searchValue } = event.data;
-  const searchResults = filterData(searchValue, data);
+async function doSearch(value) {
+  const total = await getTotal(SEARCH_INDEX_PATH);
+  const promises = [];
+  const buckets = Math.ceil(total / BUCKET_SIZE);
 
-  const paths = searchResults.map((r) => r.path);
-  const filteredArticles = allArticles.filter((a) => paths.includes(a.path)).sort((a, b) => {
+  for (let i = 0; i < buckets; i += 1) {
+    promises.push(new Promise((resolve) => {
+      const offset = i * BUCKET_SIZE;
+      fetch(`${SEARCH_INDEX_PATH}?offset=${offset}&limit=${BUCKET_SIZE}`)
+        .then((resp) => {
+          if (resp.ok) {
+            return resp.json();
+          }
+          return {};
+        })
+        .then((json) => {
+          const { data } = json;
+          if (data) {
+            resolve(filterData(value, data));
+          }
+          resolve([]);
+        });
+    }));
+  }
+
+  return Promise.all(promises).then((results) => {
+    const matches = [];
+    results.forEach((r) => {
+      matches.push(...r);
+    });
+    return sortData(matches).map((m) => m.path);
+  });
+}
+
+async function getArticles(paths) {
+  const total = await getTotal(ARTICLE_INDEX_PATH);
+  const promises = [];
+  const buckets = Math.ceil(total / BUCKET_SIZE);
+
+  for (let i = 0; i < buckets; i += 1) {
+    promises.push(new Promise((resolve) => {
+      const offset = i * BUCKET_SIZE;
+      fetch(`${ARTICLE_INDEX_PATH}?offset=${offset}&limit=${BUCKET_SIZE}`)
+        .then((resp) => {
+          if (resp.ok) {
+            return resp.json();
+          }
+          return {};
+        })
+        .then((json) => {
+          const { data } = json;
+          if (data) {
+            resolve(data.filter((a) => paths.includes(a.path)));
+          }
+          resolve([]);
+        });
+    }));
+  }
+  return Promise.all(promises).then((results) => {
+    const matches = [];
+    results.forEach((a) => {
+      matches.push(...a);
+    });
+    return matches;
+  });
+}
+
+onmessage = async function handleSearch(event) {
+  const { searchValue } = event.data;
+  const paths = await doSearch(searchValue);
+  const found = await getArticles(paths);
+
+  found.sort((a, b) => {
     const indexA = paths.indexOf(a.path);
     const indexB = paths.indexOf(b.path);
     return indexA - indexB;
   });
-  self.postMessage({ results: filteredArticles });
+  postMessage({ results: found });
 };

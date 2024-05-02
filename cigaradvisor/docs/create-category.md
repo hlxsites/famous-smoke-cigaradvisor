@@ -57,5 +57,5 @@ Now you should be all set to create and publish new pages in your previously cre
 
 After publishing, they should appear in the corresponding index and sitemap (it may take a moment to generate these):
 
-- `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/index/article-index-<new-category>.json`
-- `https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/article-sitemap-<new-category>.xml`
+- `https://main--famous-smoke-cigaradvisor--hlxsites.aem.page/cigaradvisor/index/article-index-<new-category>.json`
+- `https://main--famous-smoke-cigaradvisor--hlxsites.aem.page/cigaradvisor/article-sitemap-<new-category>.xml`

@@ -3,8 +3,8 @@
 Edge Delivery Services implementing https://www.famous-smoke.com/cigaradvisor
 
 ## Environments
-- Preview: https://main--famous-smoke-cigaradvisor--hlxsites.hlx.page/cigaradvisor/
-- Live: https://main--famous-smoke-cigaradvisor--hlxsites.hlx.live/cigaradvisor/
+- Preview: https://main--famous-smoke-cigaradvisor--hlxsites.aem.page/cigaradvisor/
+- Live: https://main--famous-smoke-cigaradvisor--hlxsites.aem.live/cigaradvisor/
 
 ## Installation
 
@@ -16,7 +16,7 @@ npm i
 
 ```sh
 npm run lint
-```
+``` 
 
 ## Local development
 

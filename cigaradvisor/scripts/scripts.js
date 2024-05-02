@@ -320,10 +320,9 @@ const articleIndexData = [];
  * @returns {Promise<Array<Object>>} - A promise that resolves to an array of post objects.
  */
 export async function loadPosts(path = ARTICLE_INDEX_PATH) {
-
   if (!articleIndexData.length) {
     const limit = 500;
-    const json = await fetch(`${path}?limit=${limit}`)
+    const first = await fetch(`${path}?limit=${limit}`)
       .then((resp) => {
         if (resp.ok) {
           return resp.json();
@@ -331,36 +330,37 @@ export async function loadPosts(path = ARTICLE_INDEX_PATH) {
         return {};
       });
 
-    const { total } = json;
-    if (total)
-      articleIndexData.push(...json.data);
-    const promises = [];
-    const buckets = Math.ceil(total / limit);
-    for (let i = 1; i < buckets; i += 1) {
-      promises.push(new Promise((resolve) => {
-        const offset = i * limit;
-        fetch(`${path}?offset=${offset}&limit=${limit}`)
-          .then((resp) => {
-            if (resp.ok) {
-              return resp.json();
-            }
-            return {};
-          })
-          .then((json) => {
-            const { data } = json;
-            if (data) {
-              resolve(data);
-            }
-            resolve([]);
-          });
-      }));
-    }
+    const { total } = first;
+    if (total) {
+      articleIndexData.push(...first.data);
+      const promises = [];
+      const buckets = Math.ceil(total / limit);
+      for (let i = 1; i < buckets; i += 1) {
+        promises.push(new Promise((resolve) => {
+          const offset = i * limit;
+          fetch(`${path}?offset=${offset}&limit=${limit}`)
+            .then((resp) => {
+              if (resp.ok) {
+                return resp.json();
+              }
+              return {};
+            })
+            .then((json) => {
+              const { data } = json;
+              if (data) {
+                resolve(data);
+              }
+              resolve([]);
+            });
+        }));
+      }
 
-    await Promise.all(promises).then((values) => {
-      values.forEach((list) => {
-        articleIndexData.push(...list);
+      await Promise.all(promises).then((values) => {
+        values.forEach((list) => {
+          articleIndexData.push(...list);
+        });
       });
-    });
+    }
   }
 
   // Protected against callers modifying the objects

@@ -313,37 +313,58 @@ export function getRelativePath(path) {
 }
 
 const articleIndexData = [];
+
 /**
  * Loads posts from the specified path asynchronously.
  * @param {string} path - The path to fetch the posts from.
- * @param {boolean} recurse - Indicates whether to recursively load more articles.
  * @returns {Promise<Array<Object>>} - A promise that resolves to an array of post objects.
  */
-export async function loadPosts(path = ARTICLE_INDEX_PATH, recurse = false) {
-  if (articleIndexData.length === 0 || recurse) {
-    const resp = await fetch(path);
-    let jsonData = '';
-    if (resp.ok) {
-      jsonData = await resp.json();
+export async function loadPosts(path = ARTICLE_INDEX_PATH) {
+
+  if (!articleIndexData.length) {
+    const limit = 500;
+    const json = await fetch(`${path}?limit=${limit}`)
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        }
+        return {};
+      });
+
+    const { total } = json;
+    if (total)
+      articleIndexData.push(...json.data);
+    const promises = [];
+    const buckets = Math.ceil(total / limit);
+    for (let i = 1; i < buckets; i += 1) {
+      promises.push(new Promise((resolve) => {
+        const offset = i * limit;
+        fetch(`${path}?offset=${offset}&limit=${limit}`)
+          .then((resp) => {
+            if (resp.ok) {
+              return resp.json();
+            }
+            return {};
+          })
+          .then((json) => {
+            const { data } = json;
+            if (data) {
+              resolve(data);
+            }
+            resolve([]);
+          });
+      }));
     }
-    jsonData.data.forEach((article) => {
-      articleIndexData.push({ ...article });
+
+    await Promise.all(promises).then((values) => {
+      values.forEach((list) => {
+        articleIndexData.push(...list);
+      });
     });
-    // If there are more articles to load, load them
-    if ((jsonData.total - jsonData.offset) > jsonData.limit) {
-      const offset = jsonData.offset + jsonData.limit;
-      const indexPath = `${ARTICLE_INDEX_PATH}?offset=${offset}&limit=${jsonData.total - offset}`;
-      await loadPosts(indexPath, true);
-    }
   }
+
   // Protected against callers modifying the objects
-  const ret = [];
-  if (articleIndexData) {
-    articleIndexData.forEach((article) => {
-      ret.push({ ...article });
-    });
-  }
-  return ret;
+  return structuredClone(articleIndexData);
 }
 
 /**

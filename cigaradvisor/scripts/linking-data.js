@@ -83,6 +83,49 @@ function addBlogPosts() {
   addLdJsonScript(document.querySelector('head'), ldjson);
 }
 
+/**
+ * Determines if the page contains a FAQ section and writes the LD JSON to the head
+ */
+function addFAQLdJson() {
+  const contentDivs = document.querySelectorAll('.default-content-wrapper');
+  //find the content div that contains a FAQ
+  for (let i = 0; i < contentDivs.length; i++) {
+    let isFAQPage = false;
+    const h2Elements = contentDivs[i].getElementsByTagName('h2');
+    // Does the div contain a faq section?
+    for (let j = 0; j < h2Elements.length; j++) {
+      if (h2Elements[j].id.includes('frequently-asked-questions')) {
+        isFAQPage = true;
+      }
+    }
+    if (isFAQPage) {
+      const ldjson = {
+        '@context': 'http://schema.org/',
+        '@type': 'FAQPage',
+        mainEntity: [],
+      };
+      //questions should be in the h3 elements, with the answers in the following element
+      const h3Elements = contentDivs[i].getElementsByTagName('h3');
+      for (let k = 0; k < h3Elements.length; k++) {
+        let QAEntity = {
+          "@type": "Question",
+          name: h3Elements[k].textContent,
+          acceptedAnswer : {}
+        };
+        if (h3Elements[k].nextElementSibling) {
+          QAEntity.acceptedAnswer = {
+            "@type": "Answer",
+            text: h3Elements[k].nextElementSibling.textContent
+          }
+          //add question only if we found the answer
+          ldjson.mainEntity.push(QAEntity);
+        }
+      }
+      addLdJsonScript(document.querySelector('head'), ldjson);
+    }
+  }
+}
+
 export default function addLinkingData() {
   addOrg(document.querySelector('head'));
   if (window.location.pathname === '/cigaradvisor') {
@@ -91,4 +134,5 @@ export default function addLinkingData() {
     addOrUpdateCollection();
     window.addEventListener('hashchange', addOrUpdateCollection);
   }
+  addFAQLdJson();
 }

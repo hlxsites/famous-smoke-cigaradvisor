@@ -110,13 +110,13 @@ function addFAQLdJson() {
         const QAEntity = {
           '@type': 'Question',
           name: h3Elements[k].textContent,
-          acceptedAnswer : {}
+          acceptedAnswer: {},
         };
         if (h3Elements[k].nextElementSibling) {
           QAEntity.acceptedAnswer = {
             '@type': 'Answer',
             text: h3Elements[k].nextElementSibling.textContent,
-          }
+          };
           // add question only if we found the answer
           ldjson.mainEntity.push(QAEntity);
         }

@@ -133,6 +133,7 @@ export default function addLinkingData() {
   } else if (window.location.pathname === getCategory(window.location.pathname)) {
     addOrUpdateCollection();
     window.addEventListener('hashchange', addOrUpdateCollection);
+  } else if (getCategory(window.location.pathname)) {
+    addFAQLdJson();
   }
-  addFAQLdJson();
 }

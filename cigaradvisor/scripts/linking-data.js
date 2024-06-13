@@ -88,12 +88,12 @@ function addBlogPosts() {
  */
 function addFAQLdJson() {
   const contentDivs = document.querySelectorAll('.default-content-wrapper');
-  //find the content div that contains a FAQ
-  for (let i = 0; i < contentDivs.length; i++) {
+  // find the content div that contains a FAQ
+  for (let i = 0; i < contentDivs.length; i += 1) {
     let isFAQPage = false;
     const h2Elements = contentDivs[i].getElementsByTagName('h2');
     // Does the div contain a faq section?
-    for (let j = 0; j < h2Elements.length; j++) {
+    for (let j = 0; j < h2Elements.length; j += 1) {
       if (h2Elements[j].id.includes('frequently-asked-questions')) {
         isFAQPage = true;
       }
@@ -104,20 +104,20 @@ function addFAQLdJson() {
         '@type': 'FAQPage',
         mainEntity: [],
       };
-      //questions should be in the h3 elements, with the answers in the following element
+      // questions should be in the h3 elements, with the answers in the following element
       const h3Elements = contentDivs[i].getElementsByTagName('h3');
-      for (let k = 0; k < h3Elements.length; k++) {
-        let QAEntity = {
-          "@type": "Question",
+      for (let k = 0; k < h3Elements.length; k += 1) {
+        const QAEntity = {
+          '@type': 'Question',
           name: h3Elements[k].textContent,
           acceptedAnswer : {}
         };
         if (h3Elements[k].nextElementSibling) {
           QAEntity.acceptedAnswer = {
-            "@type": "Answer",
-            text: h3Elements[k].nextElementSibling.textContent
+            '@type': 'Answer',
+            text: h3Elements[k].nextElementSibling.textContent,
           }
-          //add question only if we found the answer
+          // add question only if we found the answer
           ldjson.mainEntity.push(QAEntity);
         }
       }

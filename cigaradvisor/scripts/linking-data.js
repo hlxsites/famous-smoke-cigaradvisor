@@ -127,13 +127,14 @@ function addFAQLdJson() {
 }
 
 export default function addLinkingData() {
+  const category = getCategory(window.location.pathname);
   addOrg(document.querySelector('head'));
   if (window.location.pathname === '/cigaradvisor') {
     addBlogPosts();
-  } else if (window.location.pathname === getCategory(window.location.pathname)) {
+  } else if (window.location.pathname === category) {
     addOrUpdateCollection();
     window.addEventListener('hashchange', addOrUpdateCollection);
-  } else if (getCategory(window.location.pathname)) {
+  } else if (category) {
     addFAQLdJson();
   }
 }

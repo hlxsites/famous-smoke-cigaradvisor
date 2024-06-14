@@ -127,14 +127,16 @@ function addFAQLdJson() {
 }
 
 export default function addLinkingData() {
-  const category = getCategory(window.location.pathname);
   addOrg(document.querySelector('head'));
   if (window.location.pathname === '/cigaradvisor') {
     addBlogPosts();
-  } else if (window.location.pathname === category) {
-    addOrUpdateCollection();
-    window.addEventListener('hashchange', addOrUpdateCollection);
-  } else if (category) {
-    addFAQLdJson();
+  } else {
+    const category = getCategory(window.location.pathname);
+    if (window.location.pathname === category) {
+      addOrUpdateCollection();
+      window.addEventListener('hashchange', addOrUpdateCollection);
+    } else if (category) {
+      addFAQLdJson();
+    }
   }
 }

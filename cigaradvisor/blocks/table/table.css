@@ -56,3 +56,9 @@
 .table.bordered table td {
   border: 1px solid;
 }
+
+/* new styles for anchors */
+.table a {
+  text-decoration: underline;
+  color: var(--subdued-gold);
+}

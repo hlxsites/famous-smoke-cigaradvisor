@@ -62,3 +62,14 @@
   text-decoration: underline;
   color: var(--subdued-gold);
 }
+
+/* content-sized table */
+.table.contentsized {
+  display: table;
+  width: auto;
+}
+
+.table.contentsized table {
+  width: auto;
+  max-width: none;
+}

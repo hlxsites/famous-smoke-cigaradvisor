@@ -8,7 +8,7 @@ async function handleSearch(searchValue, block, limit) {
   const wrapper = block.querySelector('.article-teaser-wrapper');
   const searchSummary = document.createElement('p');
   searchSummary.classList.add('search-summary');
-  if (searchValue.length < 3 || !searchValue.match(/[a-z]/i)) {
+  if (searchValue.length < 3 || !searchValue.match(/[a-z0-9]/i)) {
     searchSummary.innerHTML = 'Please enter at least three (3) characters to search.';
     wrapper.replaceChildren(searchSummary);
     return;
@@ -23,7 +23,7 @@ async function handleSearch(searchValue, block, limit) {
     if (results.length === 0) {
       const noResults = document.createElement('p');
       noResults.classList.add('no-results');
-      noResults.textContent = 'Sorry, we couldn\'t find the information you requested!';
+      noResults.textContent = "Sorry, we couldn't find the information you requested!";
       wrapper.replaceChildren(searchSummary);
       wrapper.append(noResults);
       block.classList.remove('loading');

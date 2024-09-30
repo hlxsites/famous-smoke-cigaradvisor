@@ -11,7 +11,7 @@ const GTM_SCRIPT = `
   gtag('set', 'linker', {"domains":["www.famous-smoke.com"]} );
   gtag("js", new Date());
   gtag("set", "developer_id.dZTNiMT", true);
-  gtag("config", "GT-PHR6L87");
+  gtag("config", "G-S1GMVHJEKZ");
 `;
 
 /* const FOX_PUSH_SCRIPT = `
@@ -105,7 +105,7 @@ function loadGTM() {
   tag.type = 'text/javascript';
   tag.async = true;
   tag.id = 'google-gtagjs-js';
-  tag.src = 'https://www.googletagmanager.com/gtag/js?id=GT-PHR6L87';
+  tag.src = 'https://www.googletagmanager.com/gtag/js?id=G-S1GMVHJEKZ';
   document.querySelector('head').append(tag);
   const script = document.createElement('script');
   script.type = 'text/javascript';
